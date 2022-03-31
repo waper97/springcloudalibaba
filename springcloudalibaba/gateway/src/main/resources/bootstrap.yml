@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: gateway
+  cloud:
+    nacos:
+      config:
+        server-addr: http://192.168.234.131:8848

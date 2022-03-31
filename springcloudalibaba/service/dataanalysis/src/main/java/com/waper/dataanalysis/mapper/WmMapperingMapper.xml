@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.waper.dataanalysis.mapper.WmMapperingMapper">
+
+    <select id="listVmCatelog" parameterType="string" resultType="map">
+        select * from wm_catelog
+        where 1 = 1
+        <if test="bookId != null">
+            and FK_BOOKID =#{bookId}
+        </if>
+    </select>
+
+    <select id="listXKCatelog" parameterType="string" resultType="map">
+        select * from catelog
+        where 1 = 1
+         <if test="bookId != null">
+             and FK_BOOKID =#{bookId}
+         </if>
+    </select>
+
+</mapper>

@@ -1,0 +1,25 @@
+server:
+  port: 8888
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.234.131:8848
+
+  application:
+    name: dataanalysis
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 123456
+    url: jdbc:mysql://192.168.234.131:3306/test
+#hero:
+#  json: https://pvp.qq.com/web201605/js/herolist.json
