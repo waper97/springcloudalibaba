@@ -9,6 +9,7 @@ import com.waper.dataanalysis.service.HeroService;
 import com.waper.dataanalysis.service.ItemService;
 import com.waper.dataanalysis.util.AnalysisJsonUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.util.StringUtil;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,11 +30,11 @@ import java.util.List;
  * @Date 2020/8/18 10:40
  */
 @RestController
-@RequestMapping("waper/api/hero")
+@RequestMapping("/waper/api/hero")
 @Slf4j
 public class HeroController extends BaseController {
     @Value("${hero}")
-    private String url;
+    private String hero;
     @Autowired
     private HeroService heroService;
     @Autowired
@@ -46,6 +47,11 @@ public class HeroController extends BaseController {
     private StringRedisTemplate stringRedisTemplate;
 
     final private String HERO_LIST_KEY = "hero:list";
+    @GetMapping("/index")
+    public String index () {
+        return "index";
+    }
+
     /**
      * 根绝json文件获取英雄数据，并保存再数据库里
      * @param filePath
@@ -53,7 +59,7 @@ public class HeroController extends BaseController {
      */
     @GetMapping("test")
     public  Object test(String filePath){
-        System.out.println(url);
+        System.out.println(hero);
         filePath = "C:\\Users\\Administrator\\Desktop\\herolist.json";
         String jsonStr = "";
         try {
@@ -73,7 +79,14 @@ public class HeroController extends BaseController {
             // json数组转数组
             JSONArray jsonArray =  JSONArray.parseArray(jsonStr);
             List<Hero> heroList = JSONArray.parseArray(jsonArray.toString(), Hero.class);
-            heroService.saveAll(heroList);
+            List<Hero> all = heroService.findAll();
+            if (all != null && all.size() > 0) {
+                return successData(all);
+            }else{
+                heroService.saveAll(heroList);
+                return successData(heroList);
+            }
+
 //            // 创建rabbit管理器
 //            RabbitAdmin rabbitAdmin = new RabbitAdmin(rabbitTemplate.getConnectionFactory());
 //            DirectExchange exchange = new DirectExchange("addhero");
@@ -85,8 +98,6 @@ public class HeroController extends BaseController {
 
 //            rabbitTemplate.convertAndSend("addhero","添加英雄成功!");
 
-            log.info("发送消息成功");
-            return successData(jsonStr);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -102,7 +113,7 @@ public class HeroController extends BaseController {
     public Object listHero(Hero hero){
 
        String redisHeroList  = String.valueOf(redisTemplate.opsForValue().get(HERO_LIST_KEY));
-       if (StringUtils.isEmpty(redisHeroList) || redisHeroList == "null") {
+       if (StringUtils.isEmpty(redisHeroList) || "null".equals(redisHeroList)) {
            Example<Hero> heroExample = Example.of(hero);
            List<Hero> heroList = heroService.findAll(heroExample);
            if (heroList !=null && heroList.size() > 0) {
@@ -110,7 +121,7 @@ public class HeroController extends BaseController {
            }
            return successData(heroList);
        }else{
-         return successData(JSONObject.parseArray(redisHeroList,Hero.class));
+         return successData(redisHeroList);
        }
 
     }

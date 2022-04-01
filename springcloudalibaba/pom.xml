@@ -24,6 +24,7 @@
 		<module>service</module>
 		<module>service-api</module>
 		<module>gateway</module>
+		<module>tool</module>
 	</modules>
 	<dependencies>
 		<dependency>

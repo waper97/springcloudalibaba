@@ -24,6 +24,9 @@ public class HeroService {
     public List<Hero> findAll(Example<Hero> hero){
         return heroRepository.findAll(hero);
     }
+    public List<Hero> findAll(){
+        return heroRepository.findAll();
+    }
 
     public Optional<Hero> findOne(Example<Hero> hero){
 
