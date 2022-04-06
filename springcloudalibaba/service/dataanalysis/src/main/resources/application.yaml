@@ -19,8 +19,11 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: 123456
-    url: jdbc:mysql://192.168.234.131:3306/test
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    username: root
+#    password: 123456
+#    url: jdbc:mysql://192.168.234.131:3306/test
+# data:
+#   mongodb:
+#     uri: mongodb://192.168.234.131:27017/test
