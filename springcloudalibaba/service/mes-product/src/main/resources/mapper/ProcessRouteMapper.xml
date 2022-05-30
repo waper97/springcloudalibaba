@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bpm.server.mapper.ProcessRouteMapper">
+    <sql id="Base_Column_List">
+        id, process_code, version_number, mineral_powder_code, mineral_powder_name, process_type, effective_date, invalid_date, status, create_id, create_name, create_time, update_id, update_name, update_time, is_deleted
+    </sql>
+
+    <resultMap type="com.bpm.common.vo.ProcessRouteVO" id="MesProductProcessRouteMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="processCode" column="process_code" jdbcType="VARCHAR"/>
+        <result property="versionNumber" column="version_number" jdbcType="VARCHAR"/>
+        <result property="mineralPowderCode" column="mineral_powder_code" jdbcType="VARCHAR"/>
+        <result property="mineralPowderName" column="mineral_powder_name" jdbcType="VARCHAR"/>
+        <result property="processType" column="process_type" jdbcType="VARCHAR"/>
+        <result property="effectiveDate" column="effective_date" jdbcType="TIMESTAMP"/>
+        <result property="invalidDate" column="invalid_date" jdbcType="TIMESTAMP"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="createId" column="create_id" jdbcType="VARCHAR"/>
+        <result property="createName" column="create_name" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateId" column="update_id" jdbcType="VARCHAR"/>
+        <result property="updateName" column="update_name" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+        <result property="processTypeName" column="process_type_name" jdbcType="INTEGER"/>
+    </resultMap>
+
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="MesProductProcessRouteMap">
+        select a.*,b.dict_value as process_type_name
+        from mes_product_process_route a
+        left join sys_dict_data b on b.dict_type = 'flow_card_type'
+            and b.dict_label = a.process_type
+            and b.status = 1
+        <where>
+            <if test="processCode != null and processCode != ''">
+                and a.process_code like concat('%',#{processCode},'%')
+            </if>
+            <if test="versionNumber != null and versionNumber != ''">
+                and a.version_number  like concat('%',#{versionNumber},'%')
+            </if>
+            <if test="mineralPowderCode != null and mineralPowderCode != ''">
+                and a.mineral_powder_code like concat('%', #{mineralPowderCode},'%')
+            </if>
+            <if test="mineralPowderName != null and mineralPowderName != ''">
+                and a.mineral_powder_name like concat('%', #{mineralPowderName},'%')
+            </if>
+            <if test="processType != null and processType != ''">
+                and a.process_type = #{processType}
+            </if>
+            <if test="effectiveDate != null">
+                and a.effective_date = #{effectiveDate}
+            </if>
+            <if test="invalidDate != null">
+                and a.invalid_date = #{invalidDate}
+            </if>
+            <if test="status != null">
+                and a.status = #{status}
+            </if>
+            <if test="createId != null and createId != ''">
+                and a.create_id = #{createId}
+            </if>
+            <if test="createName != null and createName != ''">
+                and a.create_name like concat('%', #{createName},'%')
+            </if>
+            <if test="createTime != null">
+                and to_char(a.create_time,'YYYY-MM-DD HH24:MI:SS') > = #{createTime}
+            </if>
+            <if test="createBeginTime != null">
+                and a.create_time &gt;=#{createBeginTime}
+            </if>
+            <if test="createEndTime != null">
+                and a.create_time &lt;=#{createEndTime}
+            </if>
+            <if test="updateId != null and updateId != ''">
+                and a.update_id = #{updateId}
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and a.update_name = #{updateName}
+            </if>
+            <if test="updateTime != null">
+                and a.update_time = #{updateTime}
+            </if>
+            <if test="isDeleted != null">
+                and a.is_deleted = #{isDeleted}
+            </if>
+        </where>
+        order by a.create_time desc
+    </select>
+
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="MesProductProcessRouteMap">
+        select id,
+               process_code,
+               version_number,
+               mineral_powder_code,
+               mineral_powder_name,
+               process_type,
+               effective_date,
+               invalid_date,
+               status,
+               create_id,
+               create_name,
+               create_time,
+               update_id,
+               update_name,
+               update_time,
+               is_deleted
+        from mes_product_process_route
+        where id = #{id}
+    </select>
+
+
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from mes_product_process_route
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="processCode != null and processCode != ''">
+                and process_code = #{processCode}
+            </if>
+            <if test="versionNumber != null and versionNumber != ''">
+                and version_number = #{versionNumber}
+            </if>
+            <if test="mineralPowderCode != null and mineralPowderCode != ''">
+                and mineral_powder_code = #{mineralPowderCode}
+            </if>
+            <if test="mineralPowderName != null and mineralPowderName != ''">
+                and mineral_powder_name = #{mineralPowderName}
+            </if>
+            <if test="processType != null and processType != ''">
+                and process_type = #{processType}
+            </if>
+            <if test="effectiveDate != null">
+                and effective_date = #{effectiveDate}
+            </if>
+            <if test="invalidDate != null">
+                and invalid_date = #{invalidDate}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="createId != null and createId != ''">
+                and create_id = #{createId}
+            </if>
+            <if test="createName != null and createName != ''">
+                and create_name = #{createName}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateId != null and updateId != ''">
+                and update_id = #{updateId}
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and update_name = #{updateName}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="isDeleted != null">
+                and is_deleted = #{isDeleted}
+            </if>
+        </where>
+        order by create_time desc
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_process_route(process_code, version_number, mineral_powder_code, mineral_powder_name,
+                                              process_type, effective_date, invalid_date, status, create_id,
+                                              create_name, create_time, update_id, update_name, update_time, is_deleted)
+        values (#{processCode}, #{versionNumber}, #{mineralPowderCode}, #{mineralPowderName}, #{processType},
+                #{effectiveDate}, #{invalidDate}, #{status}, #{createId}, #{createName}, now(), #{updateId},
+                #{updateName}, #{updateTime}, #{isDeleted})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_process_route(process_code, version_number, mineral_powder_code, mineral_powder_name,
+        process_type, effective_date, invalid_date, status, create_id, create_name, create_time, update_id, update_name,
+        update_time, is_deleted)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.processCode}, #{entity.versionNumber}, #{entity.mineralPowderCode}, #{entity.mineralPowderName},
+            #{entity.processType}, #{entity.effectiveDate}, #{entity.invalidDate}, #{entity.status}, #{entity.createId},
+            #{entity.createName}, #{entity.createTime}, #{entity.updateId}, #{entity.updateName}, #{entity.updateTime},
+            #{entity.isDeleted})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_process_route(process_code, version_number, mineral_powder_code, mineral_powder_name,
+        process_type, effective_date, invalid_date, status, create_id, create_name, create_time, update_id, update_name,
+        update_time, is_deleted)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.processCode}, #{entity.versionNumber}, #{entity.mineralPowderCode}, #{entity.mineralPowderName},
+            #{entity.processType}, #{entity.effectiveDate}, #{entity.invalidDate}, #{entity.status}, #{entity.createId},
+            #{entity.createName}, #{entity.createTime}, #{entity.updateId}, #{entity.updateName}, #{entity.updateTime},
+            #{entity.isDeleted})
+        </foreach>
+        on duplicate key update
+        process_code = values(process_code),
+        version_number = values(version_number),
+        mineral_powder_code = values(mineral_powder_code),
+        mineral_powder_name = values(mineral_powder_name),
+        process_type = values(process_type),
+        effective_date = values(effective_date),
+        invalid_date = values(invalid_date),
+        status = values(status),
+        create_id = values(create_id),
+        create_name = values(create_name),
+        create_time = values(create_time),
+        update_id = values(update_id),
+        update_name = values(update_name),
+        update_time = values(update_time),
+        is_deleted = values(is_deleted)
+    </insert>
+
+    <!--通过主键  选择性 修改数据-->
+    <update id="updateSelective">
+        update mes_product_process_route
+        <set>
+            <if test="processCode != null and processCode != ''">
+                process_code = #{processCode},
+            </if>
+            <if test="versionNumber != null">
+                version_number = #{versionNumber},
+            </if>
+            <if test="mineralPowderCode != null and mineralPowderCode != ''">
+                mineral_powder_code = #{mineralPowderCode},
+            </if>
+            <if test="mineralPowderName != null and mineralPowderName != ''">
+                mineral_powder_name = #{mineralPowderName},
+            </if>
+            <if test="processType != null and processType != ''">
+                process_type = #{processType},
+            </if>
+            <if test="effectiveDate != null">
+                effective_date = #{effectiveDate},
+            </if>
+            <if test="invalidDate != null">
+                invalid_date = #{invalidDate},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="updateId != null and updateId != ''">
+                update_id = #{updateId},
+            </if>
+            <if test="updateName != null and updateName != ''">
+                update_name = #{updateName},
+            </if>
+                update_time = now(),
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="update">
+        update mes_product_process_route
+        <set>
+            process_code = #{processCode},
+
+            version_number = #{versionNumber},
+
+            mineral_powder_code = #{mineralPowderCode},
+
+            mineral_powder_name = #{mineralPowderName},
+
+            process_type = #{processType},
+
+            effective_date = #{effectiveDate},
+
+            invalid_date = #{invalidDate},
+
+            status = #{status},
+            update_id = #{updateId},
+
+            update_name = #{updateName},
+
+            update_time = #{updateTime},
+
+            is_deleted = #{isDeleted},
+
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from mes_product_process_route
+        where id = #{id}
+    </delete>
+
+    <!--逻辑删除-->
+    <update id="removeById">
+        update mes_product_process_route
+        set status = 1
+        where id = #{id}
+    </update>
+
+    <select id="listProcessRouteDetailByProcessRouteId" resultMap="com.bpm.server.mapper.ProcessRouteDetailMapper.MesProductProcessRouteDetailMap">
+        select b.*
+        from mes_product_process_route a
+        inner join  mes_product_process_route_detail b on b.mes_product_process_route_id = a.id
+        where a.id = #{id}
+    </select>
+</mapper>
+

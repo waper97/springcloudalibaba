@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bpm.server.mapper.PlanSchemeMapper">
+
+      <sql id="Base_Column_List">
+         id, scheme_name, scheme_type, execution_cycle, calculation_range,
+         source_of_demand, is_consider_loss, is_consider_now_inventory,
+         is_consider_safe_inventory, is_filter_zero_materials, is_ratioscrap,
+         is_yield, is_minstock, is_estimat_put_in_quantity_and_already_allot_quantity,
+         is_policy_bat, material_summary_type, material_summary_way, order_validtime,
+         plan_property, status, create_id, create_name, update_id, update_name, update_time,
+         is_deleted, scheme_description, computational_formula, create_time, remark
+      </sql>
+      
+
+    <resultMap type="com.bpm.common.vo.PlanSchemeVO" id="PlanSchemeMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="schemeName" column="scheme_name" jdbcType="VARCHAR"/>
+        <result property="schemeType" column="scheme_type" jdbcType="VARCHAR"/>
+        <result property="executionCycle" column="execution_cycle" jdbcType="VARCHAR"/>
+        <result property="calculationRange" column="calculation_range" jdbcType="VARCHAR"/>
+        <result property="sourceOfDemand" column="source_of_demand" jdbcType="VARCHAR"/>
+        <result property="isConsiderLoss" column="is_consider_loss" jdbcType="INTEGER"/>
+        <result property="isConsiderNowInventory" column="is_consider_now_inventory" jdbcType="INTEGER"/>
+        <result property="isConsiderSafeInventory" column="is_consider_safe_inventory" jdbcType="INTEGER"/>
+        <result property="isFilterZeroMaterials" column="is_filter_zero_materials" jdbcType="INTEGER"/>
+        <result property="isRatioscrap" column="is_ratioscrap" jdbcType="INTEGER"/>
+        <result property="isYield" column="is_yield" jdbcType="INTEGER"/>
+        <result property="isMinstock" column="is_minstock" jdbcType="INTEGER"/>
+        <result property="isEstimatPutInQuantityAndAlreadyAllotQuantity" column="is_estimat_put_in_quantity_and_already_allot_quantity" jdbcType="INTEGER"/>
+        <result property="isPolicyBat" column="is_policy_bat" jdbcType="INTEGER"/>
+        <result property="materialSummaryType" column="material_summary_type" jdbcType="VARCHAR"/>
+        <result property="materialSummaryWay" column="material_summary_way" jdbcType="INTEGER"/>
+        <result property="orderValidtime" column="order_validtime" jdbcType="VARCHAR"/>
+        <result property="planProperty" column="plan_property" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="createId" column="create_id" jdbcType="INTEGER"/>
+        <result property="createName" column="create_name" jdbcType="VARCHAR"/>
+        <result property="updateId" column="update_id" jdbcType="INTEGER"/>
+        <result property="updateName" column="update_name" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+        <result property="schemeDescription" column="scheme_description" jdbcType="VARCHAR"/>
+        <result property="computationalFormula" column="computational_formula" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="executionCycleName" column="execution_cycle_name" jdbcType="VARCHAR"/>
+        <result property="calculationRangeName" column="calculation_range_name" jdbcType="VARCHAR"/>
+        <result property="sourceOfDemandName" column="source_of_demand_name" jdbcType="VARCHAR"/>
+        <result property="schemeTypeName" column="scheme_type_name" jdbcType="VARCHAR"/>
+
+    </resultMap>
+    
+    
+        <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="PlanSchemeMap">
+        select
+            a.*,
+            b.dict_value as execution_cycle_name ,
+            c.dict_value as calculation_range_name ,
+            d.dict_value  as source_of_demand_name  ,
+            f.dict_value as scheme_type_name
+        from mes_product_plan_scheme a
+        left join sys_dict_data b on b.dict_label = a.execution_cycle and b.dict_type = 'execution_cycle'
+        left join sys_dict_data c on c.dict_label = a.calculation_range and c.dict_type = 'calculation_range'
+        left join sys_dict_data d on d.dict_label = a.source_of_demand and d.dict_type = 'plan_scheme_source_of_demand'
+        left join sys_dict_data f on f.dict_label = a.source_of_demand and f.dict_type = 'plan_scheme_type'
+
+        <where>
+            <if test="id != null">
+                 and a.id = #{id}
+            </if>
+            <if test="schemeName != null and schemeName != ''">
+                 and a.scheme_name like concat('%',#{schemeName},'%')
+            </if>
+            <if test="schemeType != null and schemeType != ''">
+                 and a.scheme_type = #{schemeType}
+            </if>
+            <if test="executionCycle != null and executionCycle != ''">
+                 and a.execution_cycle = #{executionCycle}
+            </if>
+            <if test="calculationRange != null and calculationRange != ''">
+                 and a.calculation_range = #{calculationRange}
+            </if>
+            <if test="sourceOfDemand != null and sourceOfDemand != ''">
+                 and a.source_of_demand = #{sourceOfDemand}
+            </if>
+            <if test="isConsiderLoss != null">
+                 and a.is_consider_loss = #{isConsiderLoss}
+            </if>
+            <if test="isConsiderNowInventory != null">
+                 and a.is_consider_now_inventory = #{isConsiderNowInventory}
+            </if>
+            <if test="isConsiderSafeInventory != null">
+                 and a.is_consider_safe_inventory = #{isConsiderSafeInventory}
+            </if>
+            <if test="isFilterZeroMaterials != null">
+                 and a.is_filter_zero_materials = #{isFilterZeroMaterials}
+            </if>
+            <if test="isRatioscrap != null">
+                 and a.is_ratioscrap = #{isRatioscrap}
+            </if>
+            <if test="isYield != null">
+                 and a.is_yield = #{isYield}
+            </if>
+            <if test="isMinstock != null">
+                 and a.is_minstock = #{isMinstock}
+            </if>
+            <if test="isEstimatPutInQuantityAndAlreadyAllotQuantity != null">
+                 and a.is_estimat_put_in_quantity_and_already_allot_quantity = #{isEstimatPutInQuantityAndAlreadyAllotQuantity}
+            </if>
+            <if test="isPolicyBat != null">
+                 and a.is_policy_bat = #{isPolicyBat}
+            </if>
+            <if test="materialSummaryType != null and materialSummaryType != ''">
+                 and a.material_summary_type = #{materialSummaryType}
+            </if>
+            <if test="materialSummaryWay != null">
+                 and a.material_summary_way = #{materialSummaryWay}
+            </if>
+            <if test="orderValidtime != null and orderValidtime != ''">
+                 and a.order_validtime = #{orderValidtime}
+            </if>
+            <if test="planProperty != null and planProperty != ''">
+                 and a.plan_property = #{planProperty}
+            </if>
+            <if test="status != null">
+                 and a.status = #{status}
+            </if>
+            <if test="createId != null">
+                 and a.create_id = #{createId}
+            </if>
+            <if test="createName != null and createName != ''">
+                 and a.create_name like concat('%','#{createName}','%')
+
+            </if>
+            <if test="updateId != null">
+                 and a.update_id = #{updateId}
+            </if>
+            <if test="updateName != null and updateName != ''">
+                 and a.update_name like concat('%','#{updateName}','%')
+
+            </if>
+            <if test="updateTime != null">
+                 and a.update_time = #{updateTime}
+            </if>
+            <if test="isDeleted != null">
+                 and a.is_deleted = #{isDeleted}
+            </if>
+            <if test="schemeDescription != null and schemeDescription != ''">
+                 and a.scheme_description = #{schemeDescription}
+            </if>
+            <if test="computationalFormula != null and computationalFormula != ''">
+                 and a.computational_formula = #{computationalFormula}
+            </if>
+            <if test="createTime != null">
+                 and a.create_time = #{createTime}
+            </if>
+            <if test="remark != null and remark != ''">
+                 and a.remark = #{remark}
+            </if>
+        </where>
+        order by a.create_time desc
+    </select>
+    
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="PlanSchemeMap">
+        select
+          id, scheme_name, scheme_type, execution_cycle, calculation_range, source_of_demand, is_consider_loss, is_consider_now_inventory, is_consider_safe_inventory, is_filter_zero_materials, is_ratioscrap, is_yield, is_minstock, is_estimat_put_in_quantity_and_already_allot_quantity, is_policy_bat, material_summary_type, material_summary_way, order_validtime, plan_property, status, create_id, create_name, update_id, update_name, update_time, is_deleted, scheme_description, computational_formula, create_time, remark
+        from mes_product_plan_scheme
+        where id = #{id}
+    </select>
+
+   
+    
+
+ 
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_plan_scheme(scheme_name, scheme_type, execution_cycle, calculation_range, source_of_demand, is_consider_loss, is_consider_now_inventory, is_consider_safe_inventory, is_filter_zero_materials, is_ratioscrap, is_yield, is_minstock, is_estimat_put_in_quantity_and_already_allot_quantity, is_policy_bat, material_summary_type, material_summary_way, order_validtime, plan_property, status, create_id, create_name, update_id, update_name, update_time, is_deleted, scheme_description, computational_formula, create_time, remark)
+        values (#{schemeName}, #{schemeType}, #{executionCycle}, #{calculationRange}, #{sourceOfDemand}, #{isConsiderLoss}, #{isConsiderNowInventory}, #{isConsiderSafeInventory}, #{isFilterZeroMaterials}, #{isRatioscrap}, #{isYield}, #{isMinstock}, #{isEstimatPutInQuantityAndAlreadyAllotQuantity}, #{isPolicyBat}, #{materialSummaryType}, #{materialSummaryWay}, #{orderValidtime}, #{planProperty}, #{status}, #{createId}, #{createName}, #{updateId}, #{updateName}, #{updateTime}, #{isDeleted}, #{schemeDescription}, #{computationalFormula}, #{createTime}, #{remark})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_plan_scheme(scheme_name, scheme_type, execution_cycle, calculation_range, source_of_demand, is_consider_loss, is_consider_now_inventory, is_consider_safe_inventory, is_filter_zero_materials, is_ratioscrap, is_yield, is_minstock, is_estimat_put_in_quantity_and_already_allot_quantity, is_policy_bat, material_summary_type, material_summary_way, order_validtime, plan_property, status, create_id, create_name, update_id, update_name, update_time, is_deleted, scheme_description, computational_formula, create_time, remark)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.schemeName}, #{entity.schemeType}, #{entity.executionCycle}, #{entity.calculationRange}, #{entity.sourceOfDemand}, #{entity.isConsiderLoss}, #{entity.isConsiderNowInventory}, #{entity.isConsiderSafeInventory}, #{entity.isFilterZeroMaterials}, #{entity.isRatioscrap}, #{entity.isYield}, #{entity.isMinstock}, #{entity.isEstimatPutInQuantityAndAlreadyAllotQuantity}, #{entity.isPolicyBat}, #{entity.materialSummaryType}, #{entity.materialSummaryWay}, #{entity.orderValidtime}, #{entity.planProperty}, #{entity.status}, #{entity.createId}, #{entity.createName}, #{entity.updateId}, #{entity.updateName}, #{entity.updateTime}, #{entity.isDeleted}, #{entity.schemeDescription}, #{entity.computationalFormula}, #{entity.createTime}, #{entity.remark})
+        </foreach>
+    </insert>
+
+
+    <!--通过主键修改数据  选择性修改-->
+    <update id="updateSelective">
+        update mes_product_plan_scheme
+        <set>
+            <if test="schemeName != null and schemeName != ''">
+                scheme_name = #{schemeName},
+            </if>
+            <if test="schemeType != null and schemeType != ''">
+                scheme_type = #{schemeType},
+            </if>
+            <if test="executionCycle != null and executionCycle != ''">
+                execution_cycle = #{executionCycle},
+            </if>
+            <if test="calculationRange != null and calculationRange != ''">
+                calculation_range = #{calculationRange},
+            </if>
+            <if test="sourceOfDemand != null and sourceOfDemand != ''">
+                source_of_demand = #{sourceOfDemand},
+            </if>
+            <if test="isConsiderLoss != null">
+                is_consider_loss = #{isConsiderLoss},
+            </if>
+            <if test="isConsiderNowInventory != null">
+                is_consider_now_inventory = #{isConsiderNowInventory},
+            </if>
+            <if test="isConsiderSafeInventory != null">
+                is_consider_safe_inventory = #{isConsiderSafeInventory},
+            </if>
+            <if test="isFilterZeroMaterials != null">
+                is_filter_zero_materials = #{isFilterZeroMaterials},
+            </if>
+            <if test="isRatioscrap != null">
+                is_ratioscrap = #{isRatioscrap},
+            </if>
+            <if test="isYield != null">
+                is_yield = #{isYield},
+            </if>
+            <if test="isMinstock != null">
+                is_minstock = #{isMinstock},
+            </if>
+            <if test="isEstimatPutInQuantityAndAlreadyAllotQuantity != null">
+                is_estimat_put_in_quantity_and_already_allot_quantity = #{isEstimatPutInQuantityAndAlreadyAllotQuantity},
+            </if>
+            <if test="isPolicyBat != null">
+                is_policy_bat = #{isPolicyBat},
+            </if>
+            <if test="materialSummaryType != null and materialSummaryType != ''">
+                material_summary_type = #{materialSummaryType},
+            </if>
+            <if test="materialSummaryWay != null">
+                material_summary_way = #{materialSummaryWay},
+            </if>
+            <if test="orderValidtime != null and orderValidtime != ''">
+                order_validtime = #{orderValidtime},
+            </if>
+            <if test="planProperty != null and planProperty != ''">
+                plan_property = #{planProperty},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="createId != null">
+                create_id = #{createId},
+            </if>
+            <if test="createName != null and createName != ''">
+                create_name = #{createName},
+            </if>
+            <if test="updateId != null">
+                update_id = #{updateId},
+            </if>
+            <if test="updateName != null and updateName != ''">
+                update_name = #{updateName},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted},
+            </if>
+            <if test="schemeDescription != null and schemeDescription != ''">
+                scheme_description = #{schemeDescription},
+            </if>
+            <if test="computationalFormula != null and computationalFormula != ''">
+                computational_formula = #{computationalFormula},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    
+      <!--通过主键修改数据-->
+    <update id="update">
+        update mes_product_plan_scheme
+        set
+        scheme_name = #{schemeName},
+        scheme_type = #{schemeType},
+        execution_cycle = #{executionCycle},
+        calculation_range = #{calculationRange},
+        source_of_demand = #{sourceOfDemand},
+        is_consider_loss = #{isConsiderLoss},
+        is_consider_now_inventory = #{isConsiderNowInventory},
+        is_consider_safe_inventory = #{isConsiderSafeInventory},
+        is_filter_zero_materials = #{isFilterZeroMaterials},
+        is_ratioscrap = #{isRatioscrap},
+        is_yield = #{isYield},
+        is_minstock = #{isMinstock},
+        is_estimat_put_in_quantity_and_already_allot_quantity = #{isEstimatPutInQuantityAndAlreadyAllotQuantity},
+        is_policy_bat = #{isPolicyBat},
+        material_summary_type = #{materialSummaryType},
+        material_summary_way = #{materialSummaryWay},
+        order_validtime = #{orderValidtime},
+        plan_property = #{planProperty},
+        status = #{status},
+        update_id = #{updateId},
+        update_name = #{updateName},
+        update_time = #{updateTime},
+        is_deleted = #{isDeleted},
+        scheme_description = #{schemeDescription},
+        computational_formula = #{computationalFormula},
+        remark = #{remark}
+      
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from mes_product_plan_scheme where id = #{id}
+    </delete>
+    
+     <!--逻辑删除-->
+    <update id="removeById">
+        update mes_product_plan_scheme set status = 1  where id = #{id}
+    </update>
+
+</mapper>
+

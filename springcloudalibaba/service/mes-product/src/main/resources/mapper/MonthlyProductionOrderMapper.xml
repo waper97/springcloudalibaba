@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bpm.server.mapper.MonthlyProductionOrderMapper">
+
+      <sql id="Base_Column_List">
+         id, document_code, work_enter_id, bom_id, bom_version, material_id, material_code, group_number, document_date, status, remark, create_id, create_name, create_time, update_id, update_name, update_time, is_deleted, material_name
+      </sql>
+      
+
+    <resultMap type="com.bpm.common.vo.MonthlyProductionOrderVO" id="MonthlyProductionOrderMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="documentCode" column="document_code" jdbcType="VARCHAR"/>
+        <result property="workEnterId" column="work_enter_id" jdbcType="INTEGER"/>
+        <result property="bomId" column="bom_id" jdbcType="INTEGER"/>
+        <result property="bomVersion" column="bom_version" jdbcType="VARCHAR"/>
+        <result property="materialId" column="material_id" jdbcType="INTEGER"/>
+        <result property="materialCode" column="material_code" jdbcType="INTEGER"/>
+        <result property="groupNumber" column="group_number" jdbcType="INTEGER"/>
+        <result property="documentDate" column="document_date" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="createId" column="create_id" jdbcType="VARCHAR"/>
+        <result property="createName" column="create_name" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateId" column="update_id" jdbcType="VARCHAR"/>
+        <result property="updateName" column="update_name" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+        <result property="materialName" column="material_name" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+    
+        <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="MonthlyProductionOrderMap">
+        select
+          <include refid="Base_Column_List" />
+        from mes_product_monthly_production_order
+        <where>
+            <if test="id != null">
+                 and id = #{id}
+            </if>
+            <if test="documentCode != null and documentCode != ''">
+                 and document_code like concat('%',#{documentCode},'%')
+            </if>
+            <if test="workEnterId != null">
+                 and work_enter_id = #{workEnterId}
+            </if>
+            <if test="bomId != null">
+                 and bom_id = #{bomId}
+            </if>
+            <if test="bomVersion != null and bomVersion != ''">
+                 and bom_version = #{bomVersion}
+            </if>
+            <if test="materialId != null">
+                 and material_id = #{materialId}
+            </if>
+            <if test="materialCode != null">
+                 and material_code like concat('%',#{materialCode},'%')
+            </if>
+            <if test="groupNumber != null">
+                 and group_number = #{groupNumber}
+            </if>
+            <if test="documentDate != null">
+                 and document_date = #{documentDate}
+            </if>
+            <if test="status != null">
+                 and status = #{status}
+            </if>
+            <if test="remark != null and remark != ''">
+                 and remark = #{remark}
+            </if>
+            <if test="createId != null and createId != ''">
+                 and create_id = #{createId}
+            </if>
+            <if test="createName != null and createName != ''">
+                 and create_name like concat('%',#{createName},'%')
+            </if>
+            <if test="createTime != null">
+                 and create_time = #{createTime}
+            </if>
+            <if test="updateId != null and updateId != ''">
+                 and update_id = #{updateId}
+            </if>
+            <if test="updateName != null and updateName != ''">
+                 and update_name like concat('%',#{updateName},'%')
+            </if>
+            <if test="updateTime != null">
+                 and update_time = #{updateTime}
+            </if>
+            <if test="isDeleted != null">
+                 and is_deleted = #{isDeleted}
+            </if>
+            <if test="materialName != null and materialName != ''">
+                 and material_name like concat('%',#{materialName},'%')
+            </if>
+        </where>
+        order by create_time
+    </select>
+    
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="MonthlyProductionOrderMap">
+        select
+          id, document_code, work_enter_id, bom_id, bom_version, material_id, material_code, group_number, document_date, status, remark, create_id, create_name, create_time, update_id, update_name, update_time, is_deleted, material_name
+        from mes_product_monthly_production_order
+        where id = #{id}
+    </select>
+
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_monthly_production_order(document_code, work_enter_id, bom_id, bom_version, material_id, material_code, group_number, document_date, status, remark, create_id, create_name, create_time, update_id, update_name, update_time, is_deleted, material_name)
+        values (#{documentCode}, #{workEnterId}, #{bomId}, #{bomVersion}, #{materialId}, #{materialCode}, #{groupNumber}, #{documentDate}, #{status}, #{remark}, #{createId}, #{createName}, #{createTime}, #{updateId}, #{updateName}, #{updateTime}, #{isDeleted}, #{materialName})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_monthly_production_order(document_code, work_enter_id, bom_id, bom_version, material_id, material_code, group_number, document_date, status, remark, create_id, create_name, create_time, update_id, update_name, update_time, is_deleted, material_name)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.documentCode}, #{entity.workEnterId}, #{entity.bomId}, #{entity.bomVersion}, #{entity.materialId}, #{entity.materialCode}, #{entity.groupNumber}, #{entity.documentDate}, #{entity.status}, #{entity.remark}, #{entity.createId}, #{entity.createName}, #{entity.createTime}, #{entity.updateId}, #{entity.updateName}, #{entity.updateTime}, #{entity.isDeleted}, #{entity.materialName})
+        </foreach>
+    </insert>
+
+
+    <!--通过主键修改数据  选择性修改-->
+    <update id="updateSelective">
+        update mes_product_monthly_production_order
+        <set>
+            <if test="documentCode != null and documentCode != ''">
+                document_code = #{documentCode},
+            </if>
+            <if test="workEnterId != null">
+                work_enter_id = #{workEnterId},
+            </if>
+            <if test="bomId != null">
+                bom_id = #{bomId},
+            </if>
+            <if test="bomVersion != null and bomVersion != ''">
+                bom_version = #{bomVersion},
+            </if>
+            <if test="materialId != null">
+                material_id = #{materialId},
+            </if>
+            <if test="materialCode != null">
+                material_code = #{materialCode},
+            </if>
+            <if test="groupNumber != null">
+                group_number = #{groupNumber},
+            </if>
+            <if test="documentDate != null and documentDate != ''">
+                document_date = #{documentDate},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="createId != null and createId != ''">
+                create_id = #{createId},
+            </if>
+            <if test="createName != null and createName != ''">
+                create_name = #{createName},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateId != null and updateId != ''">
+                update_id = #{updateId},
+            </if>
+            <if test="updateName != null and updateName != ''">
+                update_name = #{updateName},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted},
+            </if>
+            <if test="materialName != null and materialName != ''">
+                material_name = #{materialName},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    
+      <!--通过主键修改数据-->
+    <update id="update">
+        update mes_product_monthly_production_order
+        set
+        document_code = #{documentCode},
+        work_enter_id = #{workEnterId},
+        bom_id = #{bomId},
+        bom_version = #{bomVersion},
+        material_id = #{materialId},
+        material_code = #{materialCode},
+        group_number = #{groupNumber},
+        document_date = #{documentDate},
+        status = #{status},
+        remark = #{remark},
+        create_id = #{createId},
+        create_name = #{createName},
+        create_time = #{createTime},
+        update_id = #{updateId},
+        update_name = #{updateName},
+        update_time = #{updateTime},
+        is_deleted = #{isDeleted},
+        material_name = #{materialName},
+      
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from mes_product_monthly_production_order where id = #{id}
+    </delete>
+    
+     <!--逻辑删除-->
+    <update id="removeById">
+        update mes_product_monthly_production_order set status = 1  where id = #{id}
+    </update>
+
+</mapper>
+

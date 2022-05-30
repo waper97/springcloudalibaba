@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bpm.server.mapper.MaterialRequirementsPlanningMapper">
+
+      <sql id="Base_Column_List">
+         id, planning_operation, operation_code, operation_date, need_begin_date, need_end_date, create_id, create_name, create_time, update_id, update_name, update_time, planning_operation_effective, plan_scheme_id, checker_id, check_name, check_time, is_deleted, issue_id, issuer_name, issue_time, master_production_plan_id, status     
+      </sql>
+
+    <resultMap type="com.bpm.common.vo.MaterialRequirementsPlanningVO" id="MaterialRequirementsPlanningMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="planningOperation" column="planning_operation" jdbcType="VARCHAR"/>
+        <result property="operationCode" column="operation_code" jdbcType="VARCHAR"/>
+        <result property="operationDate" column="operation_date" jdbcType="TIMESTAMP"/>
+        <result property="needBeginDate" column="need_begin_date" jdbcType="TIMESTAMP"/>
+        <result property="needEndDate" column="need_end_date" jdbcType="TIMESTAMP"/>
+        <result property="createId" column="create_id" jdbcType="VARCHAR"/>
+        <result property="createName" column="create_name" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateId" column="update_id" jdbcType="INTEGER"/>
+        <result property="updateName" column="update_name" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="planningOperationEffective" column="planning_operation_effective" jdbcType="TIMESTAMP"/>
+        <result property="planSchemeId" column="plan_scheme_id" jdbcType="VARCHAR"/>
+        <result property="checkerId" column="checker_id" jdbcType="VARCHAR"/>
+        <result property="checkName" column="check_name" jdbcType="VARCHAR"/>
+        <result property="checkTime" column="check_time" jdbcType="TIMESTAMP"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+        <result property="issueId" column="issue_id" jdbcType="INTEGER"/>
+        <result property="issuerName" column="issuer_name" jdbcType="VARCHAR"/>
+        <result property="issueTime" column="issue_time" jdbcType="TIMESTAMP"/>
+        <result property="masterProductionPlanId" column="master_production_plan_id" jdbcType="INTEGER"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="planCode" column="plan_code" jdbcType="VARCHAR"/>
+        <result property="documentType" column="document_type" jdbcType="VARCHAR"/>
+        <result property="productId" column="product_id" jdbcType="INTEGER"/>
+        <result property="productionWorkshopId" column="production_workshop_id" jdbcType="INTEGER"/>
+        <result property="planIntoQuantity" column="plan_into_quantity" jdbcType="VARCHAR"/>
+        <result property="netDemand" column="net_demand" jdbcType="VARCHAR"/>
+        <result property="quantityGross" column="quantity_gross" jdbcType="VARCHAR"/>
+        <result property="demandDate" column="demand_date" jdbcType="TIMESTAMP"/>
+        <result property="stockQuantity" column="stock_quantity" jdbcType="VARCHAR"/>
+        <result property="quantitiesReceived" column="quantities_received" jdbcType="VARCHAR"/>
+        <result property="startWorkingDate" column="start_working_date" jdbcType="TIMESTAMP"/>
+        <result property="completeWorkingDate" column="complete_working_date" jdbcType="VARCHAR"/>
+    </resultMap>
+
+<!--    <resultMap  type="com.bpm.common.vo.MaterialRequirementsPlanningVO" extends="MaterialRequirementsPlanningMap" id="MaterialRequirementsPlanningVOMap">-->
+<!--        <result property="planCode" column="plan_code" jdbcType="VARCHAR"/>-->
+<!--    </resultMap>-->
+    
+        <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="MaterialRequirementsPlanningMap">
+        select a.*,b.plan_code as needCode,c.dict_value as documentTypeName,d.material_name as materialName
+        ,d.material_code as materialCode,f.dict_value as statusName,g.name as productionWorkshopName
+        from mes_product_material_requirements_planning a
+        left join mes_product_master_production_plan b on b.id = a.master_production_plan_id
+        left join sys_dict_data c on c.dict_label = a.document_type  and c.dict_type = 'release_document_type'
+        left join basic_data_material_info d on d.id = a.product_id
+        left join sys_dict_data f on f.dict_label = CAST(a.status AS VARCHAR)  and f.dict_type = 'master_production_plan_status'
+        left join sys_department g on g.id = a.production_workshop_id
+        <where>
+            <if test="id != null">
+                and a.id = #{id}
+            </if>
+            <if test="planningOperation != null and planningOperation != ''">
+                and a.planning_operation = #{planningOperation}
+            </if>
+            <if test="operationCode != null and operationCode != ''">
+                and a.operation_code  like concat('%',#{operationCode},'%')
+            </if>
+            <if test="operationDate != null">
+                and a.operation_date = #{operationDate}
+            </if>
+            <if test="beginTime != null">
+                and a.operation_date >= #{beginTime}
+            </if>
+            <if test="endTime != null">
+                and a.operation_date &lt;= #{endTime}
+            </if>
+            <if test="needBeginDate != null">
+                and a.need_begin_date = #{needBeginDate}
+            </if>
+            <if test="needEndDate != null">
+                and a.need_end_date = #{needEndDate}
+            </if>
+            <if test="createId != null and createId != ''">
+                and a.create_id = #{createId}
+            </if>
+            <if test="createName != null and createName != ''">
+                and a.create_name = #{createName}
+            </if>
+            <if test="createTime != null">
+                and a.create_time = #{createTime}
+            </if>
+            <if test="updateId != null">
+                and a.update_id = #{updateId}
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and a.update_name = #{updateName}
+            </if>
+            <if test="updateTime != null">
+                and a.update_time = #{updateTime}
+            </if>
+            <if test="planningOperationEffective != null">
+                and a.planning_operation_effective = #{planningOperationEffective}
+            </if>
+            <if test="planSchemeId != null and planSchemeId != ''">
+                and a.plan_scheme_id = #{planSchemeId}
+            </if>
+            <if test="checkerId != null and checkerId != ''">
+                and a.checker_id = #{checkerId}
+            </if>
+            <if test="checkName != null and checkName != ''">
+                and a.check_name = #{checkName}
+            </if>
+            <if test="checkTime != null">
+                and a.check_time = #{checkTime}
+            </if>
+            <if test="isDeleted != null">
+                and a.is_deleted = #{isDeleted}
+            </if>
+            <if test="issueId != null">
+                and a.issue_id = #{issueId}
+            </if>
+            <if test="issuerName != null and issuerName != ''">
+                and a.issuer_name = #{issuerName}
+            </if>
+            <if test="issueTime != null">
+                and a.issue_time = #{issueTime}
+            </if>
+            <if test="masterProductionPlanId != null">
+                and a.master_production_plan_id = #{masterProductionPlanId}
+            </if>
+            <if test="status != null">
+                and a.status = #{status}
+            </if>
+            <if test="planCode != null">
+                and a.plan_code like concat('%', #{planCode},'%')
+            </if>
+            <if test="documentType != null ">
+                and a.document_type = #{documentType}
+            </if>
+            <if test="productId != null">
+                and a.product_id = #{productId}
+            </if>
+            <if test="productionWorkshopId != null">
+                and a.production_workshop_id = #{productionWorkshopId}
+            </if>
+            <if test="planIntoQuantity != null">
+                and a.plan_into_quantity = #{planIntoQuantity}
+            </if>
+            <if test="netDemand != null">
+                and a.net_demand = #{netDemand}
+            </if>
+            <if test="quantityGross != null">
+                and a.quantity_gross = #{quantityGross}
+            </if>
+            <if test="demandDate != null">
+                and a.demand_date = #{demandDate}
+            </if>
+            <if test="stockQuantity != null">
+                and a.stock_quantity = #{stockQuantity}
+            </if>
+            <if test="quantitiesReceived != null">
+                and a.quantities_received = #{quantitiesReceived}
+            </if>
+            <if test="startWorkingDate != null">
+                and a.start_working_date = #{startWorkingDate}
+            </if>
+            <if test="completeWorkingDate != null ">
+                and a.complete_working_date = #{completeWorkingDate}
+            </if>
+        </where>
+        order by a.create_name desc
+    </select>
+
+    <select id="listMaterialRequirementsPlanning" resultMap="MaterialRequirementsPlanningMap">
+    select  a.*, b.plan_code,g.name as productionWorkshopName, h.dict_value as documentTypeName,	d.material_name as materialName,d.material_code as materialCode
+            ,i.dict_value as statusName
+        from mes_product_material_requirements_planning a
+        left join mes_product_master_production_plan b on a.master_production_plan_id = b.id
+        left join basic_data_material_info d on d.id = a.product_id
+        left join sys_department g on g.id = a.production_workshop_id
+        left join sys_dict_data h on h.dict_label = a.document_type and h.dict_type = 'release_document_type'
+        left join sys_dict_data i on i.dict_label = cast(a.status as varchar) and i.dict_type = 'master_production_plan_status'
+        <where>
+            <if test="planningOperation != null and planningOperation != ''">
+                and a.planning_operation = #{planningOperation}
+            </if>
+            <if test="operationCode != null and operationCode != ''">
+                and a.operation_code like concat('%',#{operationCode} ,'%')
+            </if>
+            <if test="operationDate != null">
+                and a.operation_date = #{operationDate}
+            </if>
+            <if test="needBeginDate != null">
+                and a.need_begin_date = #{needBeginDate}
+            </if>
+            <if test="needEndDate != null">
+                and a.need_end_date = #{needEndDate}
+            </if>
+            <if test="createId != null and createId != ''">
+                and a.create_id = #{createId}
+            </if>
+            <if test="createName != null and createName != ''">
+                and a.create_name like concat('%',#{createName},'%')
+            </if>
+            <if test="createTime != null">
+                and a.create_time = #{createTime}
+            </if>
+            <if test="updateId != null">
+                and a.update_id = #{updateId}
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and a.update_name = #{updateName}
+            </if>
+            <if test="updateTime != null">
+                and a.update_time = #{updateTime}
+            </if>
+            <if test="planningOperationEffective != null">
+                and a.planning_operation_effective = #{planningOperationEffective}
+            </if>
+            <if test="planSchemeId != null and planSchemeId != ''">
+                and a.plan_scheme_id = #{planSchemeId}
+            </if>
+            <if test="checkerId != null and checkerId != ''">
+                and a.checker_id = #{checkerId}
+            </if>
+            <if test="checkName != null and checkName != ''">
+                and a.check_name = #{checkName}
+            </if>
+            <if test="checkTime != null">
+                and a.check_time = #{checkTime}
+            </if>
+            <if test="isDeleted != null">
+                and a.is_deleted = #{isDeleted}
+            </if>
+            <if test="issueId != null">
+                and a.issue_id = #{issueId}
+            </if>
+            <if test="issuerName != null and issuerName != ''">
+                and a.issuer_name = #{issuerName}
+            </if>
+            <if test="issueTime != null">
+                and a.issue_time = #{issueTime}
+            </if>
+            <if test="masterProductionPlanId != null">
+                and a.master_production_plan_id = #{masterProductionPlanId}
+            </if>
+            <if test="status != null">
+                and a.status = #{status}
+            </if>
+            <if test="productionWorkshopId != null">
+                and a.production_workshop_id = #{productionWorkshopId}
+            </if>
+            <if test="documentType != null">
+                and a.document_type = #{documentType}
+            </if>
+
+        </where>
+        order by a.create_time desc
+    </select>
+    
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="MaterialRequirementsPlanningMap">
+        select  a.*, b.plan_code,g.name as productionWorkshopName, h.dict_value as documentTypeName,	d.material_name as materialName,d.material_code as materialCode
+             ,i.dict_value as statusName
+        from mes_product_material_requirements_planning a
+                 left join mes_product_master_production_plan b on a.master_production_plan_id = b.id
+                 left join basic_data_material_info d on d.id = a.product_id
+                 left join sys_department g on g.id = a.production_workshop_id
+                 left join sys_dict_data h on h.dict_label = a.document_type and h.dict_type = 'release_document_type'
+                 left join sys_dict_data i on i.dict_label = cast(a.status as varchar) and i.dict_type = 'master_production_plan_status'
+        where a.id = #{id}
+    </select>
+
+
+
+
+
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_material_requirements_planning(planning_operation, operation_code, operation_date, need_begin_date, need_end_date, create_id, create_name, create_time, update_id, update_name, update_time, planning_operation_effective, plan_scheme_id, checker_id, check_name, check_time, is_deleted, issue_id, issuer_name, issue_time, master_production_plan_id, status, plan_code, document_type, product_id, production_workshop_id, plan_into_quantity, net_demand, quantity_gross, demand_date, stock_quantity, quantities_received, start_working_date, complete_working_date)
+        values (#{planningOperation}, #{operationCode}, #{operationDate}, #{needBeginDate}, #{needEndDate}, #{createId}, #{createName}, #{createTime}, #{updateId}, #{updateName}, #{updateTime}, #{planningOperationEffective}, #{planSchemeId}, #{checkerId}, #{checkName}, #{checkTime}, #{isDeleted}, #{issueId}, #{issuerName}, #{issueTime}, #{masterProductionPlanId}, #{status}, #{planCode}, #{documentType}, #{productId}, #{productionWorkshopId}, #{planIntoQuantity}, #{netDemand}, #{quantityGross}, #{demandDate}, #{stockQuantity}, #{quantitiesReceived}, #{startWorkingDate}, #{completeWorkingDate})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_material_requirements_planning(planning_operation, operation_code, operation_date, need_begin_date, need_end_date, create_id, create_name, create_time, update_id, update_name, update_time, planning_operation_effective, plan_scheme_id, checker_id, check_name, check_time, is_deleted, issue_id, issuer_name, issue_time, master_production_plan_id, status, plan_code, document_type, product_id, production_workshop_id, plan_into_quantity, net_demand, quantity_gross, demand_date, stock_quantity, quantities_received, start_working_date, complete_working_date)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.planningOperation}, #{entity.operationCode}, #{entity.operationDate}, #{entity.needBeginDate}, #{entity.needEndDate}, #{entity.createId}, #{entity.createName}, #{entity.createTime}, #{entity.updateId}, #{entity.updateName}, #{entity.updateTime}, #{entity.planningOperationEffective}, #{entity.planSchemeId}, #{entity.checkerId}, #{entity.checkName}, #{entity.checkTime}, #{entity.isDeleted}, #{entity.issueId}, #{entity.issuerName}, #{entity.issueTime}, #{entity.masterProductionPlanId}, #{entity.status}, #{entity.planCode}, #{entity.documentType}, #{entity.productId}, #{entity.productionWorkshopId}, #{entity.planIntoQuantity}, #{entity.netDemand}, #{entity.quantityGross}, #{entity.demandDate}, #{entity.stockQuantity}, #{entity.quantitiesReceived}, #{entity.startWorkingDate}, #{entity.completeWorkingDate})
+        </foreach>
+    </insert>
+
+    <!--通过主键修改数据  选择性修改-->
+    <update id="updateSelective">
+        update mes_product_material_requirements_planning
+        <set>
+            <if test="planningOperation != null and planningOperation != ''">
+                planning_operation = #{planningOperation},
+            </if>
+            <if test="operationCode != null and operationCode != ''">
+                operation_code = #{operationCode},
+            </if>
+            <if test="operationDate != null">
+                operation_date = #{operationDate},
+            </if>
+            <if test="needBeginDate != null">
+                need_begin_date = #{needBeginDate},
+            </if>
+            <if test="needEndDate != null">
+                need_end_date = #{needEndDate},
+            </if>
+            <if test="createId != null and createId != ''">
+                create_id = #{createId},
+            </if>
+            <if test="createName != null and createName != ''">
+                create_name = #{createName},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateId != null">
+                update_id = #{updateId},
+            </if>
+            <if test="updateName != null and updateName != ''">
+                update_name = #{updateName},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="planningOperationEffective != null">
+                planning_operation_effective = #{planningOperationEffective},
+            </if>
+            <if test="planSchemeId != null and planSchemeId != ''">
+                plan_scheme_id = #{planSchemeId},
+            </if>
+            <if test="checkerId != null and checkerId != ''">
+                checker_id = #{checkerId},
+            </if>
+            <if test="checkName != null and checkName != ''">
+                check_name = #{checkName},
+            </if>
+            <if test="checkTime != null">
+                check_time = #{checkTime},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted},
+            </if>
+            <if test="issueId != null">
+                issue_id = #{issueId},
+            </if>
+            <if test="issuerName != null and issuerName != ''">
+                issuer_name = #{issuerName},
+            </if>
+            <if test="issueTime != null">
+                issue_time = #{issueTime},
+            </if>
+            <if test="masterProductionPlanId != null">
+                master_production_plan_id = #{masterProductionPlanId},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="planCode != null and planCode != ''">
+                plan_code = #{planCode},
+            </if>
+            <if test="documentType != null and documentType != ''">
+                document_type = #{documentType},
+            </if>
+            <if test="productId != null">
+                product_id = #{productId},
+            </if>
+            <if test="productionWorkshopId != null">
+                production_workshop_id = #{productionWorkshopId},
+            </if>
+            <if test="planIntoQuantity != null">
+                plan_into_quantity = #{planIntoQuantity},
+            </if>
+            <if test="netDemand != null">
+                net_demand = #{netDemand},
+            </if>
+            <if test="quantityGross != null">
+                quantity_gross = #{quantityGross},
+            </if>
+            <if test="demandDate != null">
+                demand_date = #{demandDate},
+            </if>
+            <if test="stockQuantity != null">
+                stock_quantity = #{stockQuantity},
+            </if>
+            <if test="quantitiesReceived != null">
+                quantities_received = #{quantitiesReceived},
+            </if>
+            <if test="startWorkingDate != null">
+                start_working_date = #{startWorkingDate},
+            </if>
+            <if test="completeWorkingDate != null and completeWorkingDate != ''">
+                complete_working_date = #{completeWorkingDate},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update mes_product_material_requirements_planning
+        set
+            planning_operation = #{planningOperation},
+            operation_code = #{operationCode},
+            operation_date = #{operationDate},
+            need_begin_date = #{needBeginDate},
+            need_end_date = #{needEndDate},
+            update_id = #{updateId},
+            update_name = #{updateName},
+            update_time = #{updateTime},
+            planning_operation_effective = #{planningOperationEffective},
+            plan_scheme_id = #{planSchemeId},
+            checker_id = #{checkerId},
+            check_name = #{checkName},
+            check_time = #{checkTime},
+            is_deleted = #{isDeleted},
+            issue_id = #{issueId},
+            issuer_name = #{issuerName},
+            issue_time = #{issueTime},
+            master_production_plan_id = #{masterProductionPlanId},
+            status = #{status},
+            plan_code = #{planCode},
+            document_type = #{documentType},
+            product_id = #{productId},
+            production_workshop_id = #{productionWorkshopId},
+            plan_into_quantity = #{planIntoQuantity},
+            net_demand = #{netDemand},
+            quantity_gross = #{quantityGross},
+            demand_date = #{demandDate},
+            stock_quantity = #{stockQuantity},
+            quantities_received = #{quantitiesReceived},
+            start_working_date = #{startWorkingDate},
+            complete_working_date = #{completeWorkingDate}
+
+            where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from mes_product_material_requirements_planning where id = #{id}
+    </delete>
+    
+     <!--逻辑删除-->
+    <update id="removeById">
+        update mes_product_material_requirements_planning set status = 1  where id = #{id}
+    </update>
+
+
+    <select id="sumImmediatestock" resultType="java.math.BigDecimal">
+        select  coalesce(sum(qty), 0 ) from mes_wms_stockcurrent
+        where material_id = #{productId}
+        and is_valid = '1'
+    </select>
+
+
+
+    <select id="sumSafeStockBymaterialId" resultType="java.math.BigDecimal">
+        select
+            coalesce(sum(min_stock),0)
+        from mes_wms_stockplacebind
+        where  is_valid = '1'
+        and material_id =1
+    </select>
+
+
+</mapper>
+

@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bpm.server.mapper.DayPlanningDetailMapper">
+
+      <sql id="Base_Column_List">
+         a.id,  a.broken_stone_warehouse_id, a.production_id, a.product_name, a.execution_sequence,
+          a.finished_product_warehouse_id,  a.planned_quantity, a.product_line_id
+         , a.first_time_burdening_weight, a.secend_time_burdening_weight, a.third_time_burdening_weight, a.send_out_warehouse_id,
+         a.send_out_warehouse_name, a.receiving_warehouse_id, a.receiving_warehouse_name, a.quantity_forwarded, a.finished_product_batches
+         ,a.issued_begin_time, a.issued_end_time, a.be_put_in_storage_warehouse_id, a.be_put_in_storage_warehouse_name
+         , a.receiving_production_line, a.receiving_production_line_name, a.status, a.remark, a.create_id, a.create_name, a.create_time
+         , a.update_id, a.update_name, a.update_time, a.is_deleted, a.day_planning_id, a.semi_finished_product_warehouse_id, a.pre_grinding_bin_id,a.equipment_id
+      </sql>
+      
+
+    <resultMap type="com.bpm.common.vo.DayPlanningDetailVO" id="DayPlanningDetailMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="productionVariety" column="production_variety" jdbcType="VARCHAR"/>
+        <result property="brokenStoneWarehouseId" column="broken_stone_warehouse_id" jdbcType="INTEGER"/>
+        <result property="productionId" column="production_id" jdbcType="INTEGER"/>
+        <result property="productName" column="product_name" jdbcType="VARCHAR"/>
+        <result property="executionSequence" column="execution_sequence" jdbcType="INTEGER"/>
+        <result property="materialCode" column="material_code" jdbcType="VARCHAR"/>
+        <result property="materialName" column="material_name" jdbcType="VARCHAR"/>
+        <result property="finishedProductWarehouseId" column="finished_product_warehouse_id" jdbcType="INTEGER"/>
+        <result property="verticalMillMachineNumber" column="vertical_mill_machine_number" jdbcType="VARCHAR"/>
+        <result property="plannedQuantity" column="planned_quantity" jdbcType="DECIMAL"/>
+        <result property="productLineId" column="product_line_id" jdbcType="INTEGER"/>
+        <result property="firstTimeBurdeningWeight" column="first_time_burdening_weight" jdbcType="VARCHAR"/>
+        <result property="secendTimeBurdeningWeight" column="secend_time_burdening_weight" jdbcType="VARCHAR"/>
+        <result property="thirdTimeBurdeningWeight" column="third_time_burdening_weight" jdbcType="VARCHAR"/>
+        <result property="sendOutWarehouseId" column="send_out_warehouse_id" jdbcType="INTEGER"/>
+        <result property="sendOutWarehouseName" column="send_out_warehouse_name" jdbcType="INTEGER"/>
+        <result property="receivingWarehouseId" column="receiving_warehouse_id" jdbcType="INTEGER"/>
+        <result property="receivingWarehouseName" column="receiving_warehouse_name" jdbcType="VARCHAR"/>
+        <result property="quantityForwarded" column="quantity_forwarded" jdbcType="VARCHAR"/>
+        <result property="finishedProductBatches" column="finished_product_batches" jdbcType="VARCHAR"/>
+        <result property="issuedBeginTime" column="issued_begin_time" jdbcType="TIMESTAMP"/>
+        <result property="issuedEndTime" column="issued_end_time" jdbcType="VARCHAR"/>
+        <result property="bePutInStorageWarehouseId" column="be_put_in_storage_warehouse_id" jdbcType="INTEGER"/>
+        <result property="bePutInStorageWarehouseName" column="be_put_in_storage_warehouse_name" jdbcType="VARCHAR"/>
+        <result property="receivingProductionLine" column="receiving_production_line" jdbcType="VARCHAR"/>
+        <result property="receivingProductionLineName" column="receiving_production_line_name" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="createId" column="create_id" jdbcType="VARCHAR"/>
+        <result property="createName" column="create_name" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateId" column="update_id" jdbcType="VARCHAR"/>
+        <result property="updateName" column="update_name" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+        <result property="dayPlanningId" column="day_planning_id" jdbcType="INTEGER"/>
+        <result property="semiFinishedProductWarehouseId" column="semi_finished_product_warehouse_id" jdbcType="INTEGER"/>
+        <result property="preGrindingBinId" column="pre_grinding_bin_id" jdbcType="INTEGER"/>
+        <result property="equipmentId" column="equipment_id" jdbcType="INTEGER"/>
+    </resultMap>
+    
+    
+        <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="DayPlanningDetailMap">
+        select
+          <include refid="Base_Column_List" />
+        from mes_product_day_planning_detail
+        <where>
+            <if test="id != null">
+                 and id = #{id}
+            </if>
+            <if test="productionVariety != null">
+                 and production_variety = #{productionVariety}
+            </if>
+            <if test="brokenStoneWarehouseId != null">
+                 and broken_stone_warehouse_id = #{brokenStoneWarehouseId}
+            </if>
+            <if test="productionId != null">
+                 and production_id = #{productionId}
+            </if>
+            <if test="productName != null and productName != ''">
+                 and product_name like concat('%','#{productName}','%') 
+
+            </if>
+            <if test="executionSequence != null">
+                 and execution_sequence = #{executionSequence}
+            </if>
+            <if test="materialCode != null and materialCode != ''">
+                 and material_code like concat('%','#{materialCode}','%') 
+
+            </if>
+            <if test="materialName != null and materialName != ''">
+                 and material_name like concat('%','#{materialName}','%') 
+
+            </if>
+            <if test="finishedProductWarehouseId != null">
+                 and finished_product_warehouse_id = #{finishedProductWarehouseId}
+            </if>
+            <if test="verticalMillMachineNumber != null and verticalMillMachineNumber != ''">
+                 and vertical_mill_machine_number = #{verticalMillMachineNumber}
+            </if>
+            <if test="plannedQuantity != null ">
+                 and planned_quantity = #{plannedQuantity}
+            </if>
+            <if test="productLineId != null">
+                 and product_line_id = #{productLineId}
+            </if>
+            <if test="firstTimeBurdeningWeight != null">
+                 and first_time_burdening_weight = #{firstTimeBurdeningWeight}
+            </if>
+            <if test="secendTimeBurdeningWeight != null">
+                 and secend_time_burdening_weight = #{secendTimeBurdeningWeight}
+            </if>
+            <if test="thirdTimeBurdeningWeight != null">
+                 and third_time_burdening_weight = #{thirdTimeBurdeningWeight}
+            </if>
+            <if test="sendOutWarehouseId != null">
+                 and send_out_warehouse_id = #{sendOutWarehouseId}
+            </if>
+            <if test="sendOutWarehouseName != null">
+                 and send_out_warehouse_name like concat('%','#{sendOutWarehouseName}','%')
+            </if>
+            <if test="receivingWarehouseId != null">
+                 and receiving_warehouse_id = #{receivingWarehouseId}
+            </if>
+            <if test="receivingWarehouseName != null and receivingWarehouseName != ''">
+                 and receiving_warehouse_name like concat('%','#{receivingWarehouseName}','%')
+            </if>
+            <if test="quantityForwarded != null">
+                 and quantity_forwarded = #{quantityForwarded}
+            </if>
+            <if test="finishedProductBatches != null and finishedProductBatches != ''">
+                 and finished_product_batches = #{finishedProductBatches}
+            </if>
+            <if test="issuedBeginTime != null">
+                 and issued_begin_time = #{issuedBeginTime}
+            </if>
+            <if test="issuedEndTime != null and issuedEndTime != ''">
+                 and issued_end_time = #{issuedEndTime}
+            </if>
+            <if test="bePutInStorageWarehouseId != null">
+                 and be_put_in_storage_warehouse_id = #{bePutInStorageWarehouseId}
+            </if>
+            <if test="bePutInStorageWarehouseName != null and bePutInStorageWarehouseName != ''">
+                 and be_put_in_storage_warehouse_name like concat('%','#{bePutInStorageWarehouseName}','%')             </if>
+            <if test="receivingProductionLine != null and receivingProductionLine != ''">
+                 and receiving_production_line = #{receivingProductionLine}
+            </if>
+            <if test="receivingProductionLineName != null and receivingProductionLineName != ''">
+                 and receiving_production_line_name like concat('%','#{receivingProductionLineName}','%')
+            </if>
+            <if test="status != null">
+                 and status = #{status}
+            </if>
+            <if test="remark != null and remark != ''">
+                 and remark = #{remark}
+            </if>
+            <if test="createId != null and createId != ''">
+                 and create_id = #{createId}
+            </if>
+            <if test="createName != null and createName != ''">
+                 and create_name like concat('%','#{createName}','%')
+            </if>
+            <if test="createTime != null">
+                 and create_time = #{createTime}
+            </if>
+            <if test="updateId != null and updateId != ''">
+                 and update_id = #{updateId}
+            </if>
+            <if test="updateName != null and updateName != ''">
+                 and update_name like concat('%','#{updateName}','%')
+            </if>
+            <if test="updateTime != null">
+                 and update_time = #{updateTime}
+            </if>
+            <if test="isDeleted != null">
+                 and is_deleted = #{isDeleted}
+            </if>
+            <if test="dayPlanningId != null">
+                 and day_planning_id = #{dayPlanningId}
+            </if>
+            <if test="semiFinishedProductWarehouseId != null">
+                 and semi_finished_product_warehouse_id = #{semiFinishedProductWarehouseId}
+            </if>
+            <if test="preGrindingBinId != null and preGrindingBinId != ''">
+                 and pre_grinding_bin_id = #{preGrindingBinId}
+            </if>
+            <if test="equipmentId">
+                 and equipment_id = #{equipmentId}
+            </if>
+        </where>
+        order by create_time desc
+    </select>
+
+
+    <select id="listByDayplaningId" resultMap="DayPlanningDetailMap">
+        select a.*
+        ,b.material_name
+        ,b.material_code
+        ,c.material_type_name as production_variety
+        ,d.id,d.material_unit_name as unitName
+        ,e.name as productLineName
+        ,g.stock_name as brokenStoneWarehouseName
+        ,g.stock_code as brokenStoneWarehouseCode
+
+        from mes_product_day_planning_detail a
+        left join basic_data_material_info b on b.id = a.production_id
+        left join basic_data_material_type c on c.id = b.material_type_id
+        left join basic_data_material_unit d on b.material_unit_id = d.id
+        left join sys_department e on e.id = a.product_line_id
+        left join  mes_wms_stock g on g.id = a.broken_stone_warehouse_id
+        where day_planning_id = #{dayPlanningId}
+    </select>
+
+<!--    日配料输送计划-->
+    <select id="listDayDosingTransportPlanningDetail" resultMap="DayPlanningDetailMap">
+        select <include refid="Base_Column_List" />
+        ,b.material_name
+        ,b.material_code
+        ,c.material_type_name as production_variety
+        ,d.id
+        ,d.material_unit_name as unitName
+        ,e.name as productLineName
+        ,g.stock_name as preGrindingBinName
+        ,h.stock_name as brokenStoneWarehouseName
+
+        from mes_product_day_planning_detail a
+        left join basic_data_material_info b on b.id = a.production_id
+        left join basic_data_material_type c on c.id = b.material_type_id
+        left join basic_data_material_unit d on b.material_unit_id = d.id
+        left join sys_department e on e.id = a.product_line_id
+        left join  mes_wms_stock g on g.id = a.pre_grinding_bin_id
+        left join  mes_wms_stock h on h.id = a.broken_stone_warehouse_id
+        where day_planning_id = #{dayPlanningId}
+    </select>
+
+    <!--日立磨生产计划-->
+    <select id="listDayVerticalMillProductPlanning" resultMap="DayPlanningDetailMap">
+        select <include refid="Base_Column_List" />
+        ,b.material_name
+        ,b.material_code
+        ,c.material_type_name as production_variety
+        ,d.id
+        ,d.material_unit_name as unitName
+        ,e.name as productLineName
+        ,g.stock_name as semiFinishedProductWarehouseName
+        ,g.stock_code as semiFinishedProductWarehouseCode
+        ,h.equ_code as vertical_mill_machine_number
+        ,i.stock_code as preGrindingBinCode
+        ,i.stock_name as preGrindingBinName
+        from mes_product_day_planning_detail a
+        left join basic_data_material_info b on b.id = a.production_id
+        left join basic_data_material_type c on c.id = b.material_type_id
+        left join basic_data_material_unit d on b.material_unit_id = d.id
+        left join sys_department e on e.id = a.product_line_id
+        left join  mes_wms_stock g on g.id = a.semi_finished_product_warehouse_id
+        left join equipment_info h on h.id = a.equipment_id
+        left join  mes_wms_stock i on i.id = a.pre_grinding_bin_id
+        where day_planning_id = #{dayPlanningId}
+    </select>
+<!--    粉料投料计划-->
+    <select id="listPowderDosingPlanning" resultMap="DayPlanningDetailMap">
+        select a.*,b.stock_name as semiFinishedProductWarehouseName ,c.material_name ,c.material_code
+        from  mes_product_day_planning_detail a
+        left join mes_wms_stock b on b.id = a.semi_finished_product_warehouse_id
+        left join basic_data_material_info c on c.id = a.production_id
+        where a.day_planning_id = #{dayPlanningId}
+    </select>
+<!--气力运输计划-->
+    <select  id="listPneumaticTransportPlanning" resultMap="DayPlanningDetailMap">
+        select a.*, b.stock_name as sendOutWarehouseName,c.stock_name as receivingWarehouseName ,d.material_name,d.material_code
+        from mes_product_day_planning_detail a
+        left join mes_wms_stock b on b.id = a.send_out_warehouse_id
+        left join mes_wms_stock c on c.id = a.receiving_warehouse_id
+        left join basic_data_material_info d on d.id = a.production_id
+        where a.day_planning_id = #{dayPlanningId}
+    </select>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="DayPlanningDetailMap">
+        select
+          id, production_variety, broken_stone_warehouse_id, production_id, product_name, execution_sequence, material_code, material_name, finished_product_warehouse_id, vertical_mill_machine_number, planned_quantity, product_line_id, first_time_burdening_weight, secend_time_burdening_weight, third_time_burdening_weight, send_out_warehouse_id, send_out_warehouse_name, receiving_warehouse_id, receiving_warehouse_name, quantity_forwarded, finished_product_batches, issued_begin_time, issued_end_time, be_put_in_storage_warehouse_id, be_put_in_storage_warehouse_name, receiving_production_line, receiving_production_line_name, status, remark, create_id, create_name, create_time, update_id, update_name, update_time, is_deleted, day_planning_id, semi_finished_product_warehouse_id, pre_grinding_bin_id
+        from mes_product_day_planning_detail
+        where id = #{id}
+    </select>
+
+
+
+
+
+
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_day_planning_detail(production_variety, broken_stone_warehouse_id, production_id, product_name, execution_sequence, material_code, material_name, finished_product_warehouse_id, vertical_mill_machine_number, planned_quantity, product_line_id, first_time_burdening_weight, secend_time_burdening_weight, third_time_burdening_weight, send_out_warehouse_id, send_out_warehouse_name, receiving_warehouse_id, receiving_warehouse_name, quantity_forwarded, finished_product_batches, issued_begin_time, issued_end_time, be_put_in_storage_warehouse_id, be_put_in_storage_warehouse_name, receiving_production_line, receiving_production_line_name, status, remark, create_id, create_name, create_time, update_id, update_name, update_time, is_deleted, day_planning_id, semi_finished_product_warehouse_id, pre_grinding_bin_id, equipment_id)
+        values (#{productionVariety}, #{brokenStoneWarehouseId}, #{productionId}, #{productName}, #{executionSequence}, #{materialCode}, #{materialName}, #{finishedProductWarehouseId}, #{verticalMillMachineNumber}, #{plannedQuantity}, #{productLineId}, #{firstTimeBurdeningWeight}, #{secendTimeBurdeningWeight}, #{thirdTimeBurdeningWeight}, #{sendOutWarehouseId}, #{sendOutWarehouseName}, #{receivingWarehouseId}, #{receivingWarehouseName}, #{quantityForwarded}, #{finishedProductBatches}, #{issuedBeginTime}, #{issuedEndTime}, #{bePutInStorageWarehouseId}, #{bePutInStorageWarehouseName}, #{receivingProductionLine}, #{receivingProductionLineName}, #{status}, #{remark}, #{createId}, #{createName}, now(), #{updateId}, #{updateName}, #{updateTime}, #{isDeleted}, #{dayPlanningId}, #{semiFinishedProductWarehouseId}, #{preGrindingBinId}, #{equipmentId})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_day_planning_detail(production_variety, broken_stone_warehouse_id, production_id, product_name, execution_sequence, material_code, material_name, finished_product_warehouse_id, vertical_mill_machine_number, planned_quantity, product_line_id, first_time_burdening_weight, secend_time_burdening_weight, third_time_burdening_weight, send_out_warehouse_id, send_out_warehouse_name, receiving_warehouse_id, receiving_warehouse_name, quantity_forwarded, finished_product_batches, issued_begin_time, issued_end_time, be_put_in_storage_warehouse_id, be_put_in_storage_warehouse_name, receiving_production_line, receiving_production_line_name, status, remark, create_id, create_name, create_time, update_id, update_name, update_time, is_deleted, day_planning_id, semi_finished_product_warehouse_id, pre_grinding_bin_id, equipment_id)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.productionVariety}, #{entity.brokenStoneWarehouseId}, #{entity.productionId}, #{entity.productName}, #{entity.executionSequence}, #{entity.materialCode}, #{entity.materialName}, #{entity.finishedProductWarehouseId}, #{entity.verticalMillMachineNumber}, #{entity.plannedQuantity}, #{entity.productLineId}, #{entity.firstTimeBurdeningWeight}, #{entity.secendTimeBurdeningWeight}, #{entity.thirdTimeBurdeningWeight}, #{entity.sendOutWarehouseId}, #{entity.sendOutWarehouseName}, #{entity.receivingWarehouseId}, #{entity.receivingWarehouseName}, #{entity.quantityForwarded}, #{entity.finishedProductBatches}, #{entity.issuedBeginTime}, #{entity.issuedEndTime}, #{entity.bePutInStorageWarehouseId}, #{entity.bePutInStorageWarehouseName}, #{entity.receivingProductionLine}, #{entity.receivingProductionLineName}, #{entity.status}, #{entity.remark}, #{entity.createId}, #{entity.createName}, #{entity.createTime}, #{entity.updateId}, #{entity.updateName}, #{entity.updateTime}, #{entity.isDeleted}, #{entity.dayPlanningId}, #{entity.semiFinishedProductWarehouseId}, #{entity.preGrindingBinId}, #{entity.equipmentId})
+        </foreach>
+    </insert>
+
+
+    <!--通过主键修改数据  选择性修改-->
+    <update id="updateSelective">
+        update mes_product_day_planning_detail
+        <set>
+            <if test="productionVariety != null">
+                production_variety = #{productionVariety},
+            </if>
+            <if test="brokenStoneWarehouseId != null">
+                broken_stone_warehouse_id = #{brokenStoneWarehouseId},
+            </if>
+            <if test="productionId != null">
+                production_id = #{productionId},
+            </if>
+            <if test="productName != null and productName != ''">
+                product_name = #{productName},
+            </if>
+            <if test="executionSequence != null">
+                execution_sequence = #{executionSequence},
+            </if>
+            <if test="materialCode != null and materialCode != ''">
+                material_code = #{materialCode},
+            </if>
+            <if test="materialName != null and materialName != ''">
+                material_name = #{materialName},
+            </if>
+            <if test="finishedProductWarehouseId != null">
+                finished_product_warehouse_id = #{finishedProductWarehouseId},
+            </if>
+            <if test="verticalMillMachineNumber != null and verticalMillMachineNumber != ''">
+                vertical_mill_machine_number = #{verticalMillMachineNumber},
+            </if>
+            <if test="plannedQuantity != null ">
+                planned_quantity = #{plannedQuantity},
+            </if>
+            <if test="productLineId != null">
+                product_line_id = #{productLineId},
+            </if>
+            <if test="firstTimeBurdeningWeight != null">
+                first_time_burdening_weight = #{firstTimeBurdeningWeight},
+            </if>
+            <if test="secendTimeBurdeningWeight != null">
+                secend_time_burdening_weight = #{secendTimeBurdeningWeight},
+            </if>
+            <if test="thirdTimeBurdeningWeight != null">
+                third_time_burdening_weight = #{thirdTimeBurdeningWeight},
+            </if>
+            <if test="sendOutWarehouseId != null">
+                send_out_warehouse_id = #{sendOutWarehouseId},
+            </if>
+            <if test="sendOutWarehouseName != null">
+                send_out_warehouse_name = #{sendOutWarehouseName},
+            </if>
+            <if test="receivingWarehouseId != null">
+                receiving_warehouse_id = #{receivingWarehouseId},
+            </if>
+            <if test="receivingWarehouseName != null and receivingWarehouseName != ''">
+                receiving_warehouse_name = #{receivingWarehouseName},
+            </if>
+            <if test="quantityForwarded != null">
+                quantity_forwarded = #{quantityForwarded},
+            </if>
+            <if test="finishedProductBatches != null and finishedProductBatches != ''">
+                finished_product_batches = #{finishedProductBatches},
+            </if>
+            <if test="issuedBeginTime != null">
+                issued_begin_time = #{issuedBeginTime},
+            </if>
+            <if test="issuedEndTime != null and issuedEndTime != ''">
+                issued_end_time = #{issuedEndTime},
+            </if>
+            <if test="bePutInStorageWarehouseId != null">
+                be_put_in_storage_warehouse_id = #{bePutInStorageWarehouseId},
+            </if>
+            <if test="bePutInStorageWarehouseName != null and bePutInStorageWarehouseName != ''">
+                be_put_in_storage_warehouse_name = #{bePutInStorageWarehouseName},
+            </if>
+            <if test="receivingProductionLine != null and receivingProductionLine != ''">
+                receiving_production_line = #{receivingProductionLine},
+            </if>
+            <if test="receivingProductionLineName != null and receivingProductionLineName != ''">
+                receiving_production_line_name = #{receivingProductionLineName},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="createId != null and createId != ''">
+                create_id = #{createId},
+            </if>
+            <if test="createName != null and createName != ''">
+                create_name = #{createName},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateId != null and updateId != ''">
+                update_id = #{updateId},
+            </if>
+            <if test="updateName != null and updateName != ''">
+                update_name = #{updateName},
+            </if>
+
+                update_time = now(),
+
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted},
+            </if>
+            <if test="dayPlanningId != null">
+                day_planning_id = #{dayPlanningId},
+            </if>
+            <if test="semiFinishedProductWarehouseId != null">
+                semi_finished_product_warehouse_id = #{semiFinishedProductWarehouseId},
+            </if>
+            <if test="preGrindingBinId != null and preGrindingBinId != ''">
+                pre_grinding_bin_id = #{preGrindingBinId},
+            </if>
+            <if test="equipmentId != null">
+                equipment_id = #{equipmentId},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    
+      <!--通过主键修改数据-->
+    <update id="update">
+        update mes_product_day_planning_detail
+        set
+        production_variety = #{productionVariety},
+        broken_stone_warehouse_id = #{brokenStoneWarehouseId},
+        production_id = #{productionId},
+        product_name = #{productName},
+        execution_sequence = #{executionSequence},
+        material_code = #{materialCode},
+        material_name = #{materialName},
+        finished_product_warehouse_id = #{finishedProductWarehouseId},
+        vertical_mill_machine_number = #{verticalMillMachineNumber},
+        planned_quantity = #{plannedQuantity},
+        product_line_id = #{productLineId},
+        first_time_burdening_weight = #{firstTimeBurdeningWeight},
+        secend_time_burdening_weight = #{secendTimeBurdeningWeight},
+        third_time_burdening_weight = #{thirdTimeBurdeningWeight},
+        send_out_warehouse_id = #{sendOutWarehouseId},
+        send_out_warehouse_name = #{sendOutWarehouseName},
+        receiving_warehouse_id = #{receivingWarehouseId},
+        receiving_warehouse_name = #{receivingWarehouseName},
+        quantity_forwarded = #{quantityForwarded},
+        finished_product_batches = #{finishedProductBatches},
+        issued_begin_time = #{issuedBeginTime},
+        issued_end_time = #{issuedEndTime},
+        be_put_in_storage_warehouse_id = #{bePutInStorageWarehouseId},
+        be_put_in_storage_warehouse_name = #{bePutInStorageWarehouseName},
+        receiving_production_line = #{receivingProductionLine},
+        receiving_production_line_name = #{receivingProductionLineName},
+        remark = #{remark},
+        update_id = #{updateId},
+        update_name = #{updateName},
+        update_time = now(),
+        day_planning_id = #{dayPlanningId},
+        semi_finished_product_warehouse_id = #{semiFinishedProductWarehouseId},
+        pre_grinding_bin_id = #{preGrindingBinId},
+        equipment_id = #{equipmentId}
+      
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from mes_product_day_planning_detail where id = #{id}
+    </delete>
+
+
+    <!--通过主键删除-->
+    <delete id="deleteByDayPlanningId">
+        delete from mes_product_day_planning_detail where day_planning_id = #{dayPlanningId}
+    </delete>
+    
+     <!--逻辑删除-->
+    <update id="removeById">
+        update mes_product_day_planning_detail set status = 1  where id = #{id}
+    </update>
+
+</mapper>
+

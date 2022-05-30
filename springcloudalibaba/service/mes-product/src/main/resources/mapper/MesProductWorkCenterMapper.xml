@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bpm.server.mapper.MesProductWorkCenterMapper">
+
+    <sql id="Base_Column_List">
+        id
+        ,
+        code,
+        name,
+        dept_id,
+        factory_id,
+        company_id,
+        cost_center,
+        receive_warehouse,
+        receive_location,
+        storage_warehouse,
+        substore,
+        resource_ategories,
+        status,
+        remark,
+        create_id,
+        create_name,
+        create_time,
+        update_id,
+        update_name,
+        update_time,
+        is_deleted,
+        company_name
+    </sql>
+
+    <resultMap type="com.bpm.common.domain.MesProductWorkCenter"
+               id="MesProductWorkCenterMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="code" column="code" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="deptId" column="dept_id" jdbcType="INTEGER"/>
+        <result property="factoryId" column="factory_id" jdbcType="INTEGER"/>
+        <result property="companyId" column="company_id" jdbcType="INTEGER"/>
+        <result property="costCenter" column="cost_center" jdbcType="VARCHAR"/>
+        <result property="receiveWarehouse" column="receive_warehouse" jdbcType="VARCHAR"/>
+        <result property="receiveLocation" column="receive_location" jdbcType="VARCHAR"/>
+        <result property="storageWarehouse" column="storage_warehouse" jdbcType="VARCHAR"/>
+        <result property="substore" column="substore" jdbcType="VARCHAR"/>
+        <result property="resourceAtegories" column="resource_ategories" jdbcType="INTEGER"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="createId" column="create_id" jdbcType="INTEGER"/>
+        <result property="createName" column="create_name" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateId" column="update_id" jdbcType="INTEGER"/>
+        <result property="updateName" column="update_name" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+        <result property="companyName" column="company_name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap type="com.bpm.common.vo.MesProductWorkCenterVo"
+               id="MesProductWorkCenterVoMap" extends="MesProductWorkCenterMap">
+        <result property="company" column="company" jdbcType="VARCHAR"/>
+        <result property="department" column="department" jdbcType="VARCHAR"/>
+        <result property="resourceAtegorieName" column="resource_ategorie_name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="ResourceCategoryVoMap" type="com.bpm.common.vo.ResourceCategoryVo">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="resourceCategory" column="resource_category" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查全部-->
+    <select id="queryAll" resultMap="MesProductWorkCenterMap">
+        select
+        <include refid="Base_Column_List"/>
+        from mes_product_work_center
+        order by create_time desc
+    </select>
+
+    <!--查单个-->
+    <select id="queryById" resultMap="MesProductWorkCenterMap">
+        select
+        <include refid="Base_Column_List"/>
+        from mes_product_work_center
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="MesProductWorkCenterMap">
+        select
+        id, code, name, dept_id, factory_id, company_id, cost_center, receive_warehouse, receive_location,
+        storage_warehouse, substore, resource_ategories, status, remark, create_id, create_name, create_time, update_id,
+        update_name, update_time, is_deleted, company_name
+        from mes_product_work_center
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="code != null and code != ''">
+                and code = #{code}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="deptId != null">
+                and dept_id = #{deptId}
+            </if>
+            <if test="factoryId != null">
+                and factory_id = #{factoryId}
+            </if>
+            <if test="companyId != null">
+                and company_id = #{companyId}
+            </if>
+            <if test="costCenter != null and costCenter != ''">
+                and cost_center = #{costCenter}
+            </if>
+            <if test="receiveWarehouse != null and receiveWarehouse != ''">
+                and receive_warehouse = #{receiveWarehouse}
+            </if>
+            <if test="receiveLocation != null and receiveLocation != ''">
+                and receive_location = #{receiveLocation}
+            </if>
+            <if test="storageWarehouse != null and storageWarehouse != ''">
+                and storage_warehouse = #{storageWarehouse}
+            </if>
+            <if test="substore != null and substore != ''">
+                and substore = #{substore}
+            </if>
+            <if test="resourceAtegories != null">
+                and resource_ategories = #{resourceAtegories}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="createId != null">
+                and create_id = #{createId}
+            </if>
+            <if test="createName != null and createName != ''">
+                and create_name = #{createName}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateId != null">
+                and update_id = #{updateId}
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and update_name = #{updateName}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="isDeleted != null">
+                and is_deleted = #{isDeleted}
+            </if>
+            <if test="companyName != null and companyName != ''">
+                and company_name = #{companyName}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from mes_product_work_center
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="code != null and code != ''">
+                and code = #{code}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="deptId != null">
+                and dept_id = #{deptId}
+            </if>
+            <if test="factoryId != null">
+                and factory_id = #{factoryId}
+            </if>
+            <if test="companyId != null">
+                and company_id = #{companyId}
+            </if>
+            <if test="costCenter != null and costCenter != ''">
+                and cost_center = #{costCenter}
+            </if>
+            <if test="receiveWarehouse != null and receiveWarehouse != ''">
+                and receive_warehouse = #{receiveWarehouse}
+            </if>
+            <if test="receiveLocation != null and receiveLocation != ''">
+                and receive_location = #{receiveLocation}
+            </if>
+            <if test="storageWarehouse != null and storageWarehouse != ''">
+                and storage_warehouse = #{storageWarehouse}
+            </if>
+            <if test="substore != null and substore != ''">
+                and substore = #{substore}
+            </if>
+            <if test="resourceAtegories != null">
+                and resource_ategories = #{resourceAtegories}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="createId != null">
+                and create_id = #{createId}
+            </if>
+            <if test="createName != null and createName != ''">
+                and create_name = #{createName}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateId != null">
+                and update_id = #{updateId}
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and update_name = #{updateName}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="isDeleted != null">
+                and is_deleted = #{isDeleted}
+            </if>
+            <if test="companyName != null and companyName != ''">
+                and company_name = #{companyName}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_work_center(code, name, dept_id, factory_id, company_id, cost_center, receive_warehouse,
+                                            receive_location, storage_warehouse, substore, resource_ategories, status,
+                                            remark, create_id, create_name, create_time, update_id, update_name,
+                                            update_time, is_deleted, company_name)
+        values (#{code}, #{name}, #{deptId}, #{factoryId}, #{companyId}, #{costCenter}, #{receiveWarehouse},
+                #{receiveLocation}, #{storageWarehouse}, #{substore}, #{resourceAtegories}, #{status}, #{remark},
+                #{createId}, #{createName}, #{createTime}, #{updateId}, #{updateName}, #{updateTime}, #{isDeleted},
+                #{companyName})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_work_center(code, name, dept_id, factory_id, company_id, cost_center, receive_warehouse,
+        receive_location, storage_warehouse, substore, resource_ategories, status, remark, create_id, create_name,
+        create_time, update_id, update_name, update_time, is_deleted, company_name)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.code}, #{entity.name}, #{entity.deptId}, #{entity.factoryId}, #{entity.companyId},
+            #{entity.costCenter}, #{entity.receiveWarehouse}, #{entity.receiveLocation}, #{entity.storageWarehouse},
+            #{entity.substore}, #{entity.resourceAtegories}, #{entity.status}, #{entity.remark}, #{entity.createId},
+            #{entity.createName}, #{entity.createTime}, #{entity.updateId}, #{entity.updateName}, #{entity.updateTime},
+            #{entity.isDeleted}, #{entity.companyName})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_work_center(code, name, dept_id, factory_id, company_id, cost_center, receive_warehouse,
+        receive_location, storage_warehouse, substore, resource_ategories, status, remark, create_id, create_name,
+        create_time, update_id, update_name, update_time, is_deleted, company_name)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.code}, #{entity.name}, #{entity.deptId}, #{entity.factoryId}, #{entity.companyId},
+            #{entity.costCenter}, #{entity.receiveWarehouse}, #{entity.receiveLocation}, #{entity.storageWarehouse},
+            #{entity.substore}, #{entity.resourceAtegories}, #{entity.status}, #{entity.remark}, #{entity.createId},
+            #{entity.createName}, #{entity.createTime}, #{entity.updateId}, #{entity.updateName}, #{entity.updateTime},
+            #{entity.isDeleted}, #{entity.companyName})
+        </foreach>
+        on duplicate key update
+        code = values(code),
+        name = values(name),
+        dept_id = values(dept_id),
+        factory_id = values(factory_id),
+        company_id = values(company_id),
+        cost_center = values(cost_center),
+        receive_warehouse = values(receive_warehouse),
+        receive_location = values(receive_location),
+        storage_warehouse = values(storage_warehouse),
+        substore = values(substore),
+        resource_ategories = values(resource_ategories),
+        status = values(status),
+        remark = values(remark),
+        create_id = values(create_id),
+        create_name = values(create_name),
+        create_time = values(create_time),
+        update_id = values(update_id),
+        update_name = values(update_name),
+        update_time = values(update_time),
+        is_deleted = values(is_deleted),
+        company_name = values(company_name)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update mes_product_work_center
+        <set>
+            <if test="code != null and code != ''">
+                code = #{code},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="deptId != null">
+                dept_id = #{deptId},
+            </if>
+            <if test="factoryId != null">
+                factory_id = #{factoryId},
+            </if>
+            <if test="companyId != null">
+                company_id = #{companyId},
+            </if>
+            <if test="costCenter != null and costCenter != ''">
+                cost_center = #{costCenter},
+            </if>
+            <if test="receiveWarehouse != null and receiveWarehouse != ''">
+                receive_warehouse = #{receiveWarehouse},
+            </if>
+            <if test="receiveLocation != null and receiveLocation != ''">
+                receive_location = #{receiveLocation},
+            </if>
+            <if test="storageWarehouse != null and storageWarehouse != ''">
+                storage_warehouse = #{storageWarehouse},
+            </if>
+            <if test="substore != null and substore != ''">
+                substore = #{substore},
+            </if>
+            <if test="resourceAtegories != null">
+                resource_ategories = #{resourceAtegories},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="createId != null">
+                create_id = #{createId},
+            </if>
+            <if test="createName != null and createName != ''">
+                create_name = #{createName},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateId != null">
+                update_id = #{updateId},
+            </if>
+            <if test="updateName != null and updateName != ''">
+                update_name = #{updateName},
+            </if>
+            update_time = now(),
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted},
+            </if>
+            <if test="companyName != null and companyName != ''">
+                company_name = #{companyName},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from mes_product_work_center
+        where id = #{id}
+    </delete>
+
+    <!--逻辑删除-->
+    <update id="removeById">
+        update mes_product_work_center
+        set status = 1
+        where id = #{id}
+    </update>
+
+    <!--分页查-->
+    <select id="queryByPage" resultMap="MesProductWorkCenterVoMap">
+        select
+        c.*,
+        sc.name company,
+        d.name department,
+        dd.dict_value resource_ategorie_name
+        from mes_product_work_center c
+        left join sys_company sc on sc.id=c.company_id
+        left join sys_department d on d.id=c.dept_id
+        left join sys_dict_data dd on dd.id=c.resource_ategories
+        <where>
+            <if test="code != null and code != ''">
+                and c.code like concat('%',#{code},'%')
+            </if>
+            <if test="name != null and name != ''">
+                and c.name like concat('%',#{name},'%')
+            </if>
+            <if test="status != null">
+                and c.status = #{status}
+            </if>
+            <if test="startDate != null">
+                and c.create_time <![CDATA[>=]]> #{startDate}
+            </if>
+            <if test="endDate != null">
+                and c.create_time <![CDATA[<=]]> #{endDate}
+            </if>
+        </where>
+    </select>
+
+    <!--查询所有资源类别-->
+    <select id="queryAllResourceCategories" resultMap="ResourceCategoryVoMap">
+        select id,
+               dict_value resource_category
+        from sys_dict_data
+        where dict_type = 'resource_ategories';
+    </select>
+</mapper>
+

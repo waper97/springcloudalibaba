@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bpm.server.mapper.MesProductDayBrokenForkliftFeedingPlanningDetailMapper">
+
+    <sql id="Base_Column_List">
+        id
+        , day_broken_forklift_feeding_planning_id, execution_sequence, minerals_code, minerals_name, ratio, plan_quantity, status, remark, create_id, create_name, create_time, update_id, update_name, update_time, is_deleted, storage_yard_location, material_id, storage_yard_location_id
+    </sql>
+
+    <resultMap type="com.bpm.common.domain.MesProductDayBrokenForkliftFeedingPlanningDetail"
+               id="MesProductDayBrokenForkliftFeedingPlanningDetailMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="dayBrokenForkliftFeedingPlanningId" column="day_broken_forklift_feeding_planning_id"
+                jdbcType="INTEGER"/>
+        <result property="executionSequence" column="execution_sequence" jdbcType="INTEGER"/>
+        <result property="mineralsCode" column="minerals_code" jdbcType="VARCHAR"/>
+        <result property="mineralsName" column="minerals_name" jdbcType="VARCHAR"/>
+        <result property="ratio" column="ratio" jdbcType="VARCHAR"/>
+        <result property="planQuantity" column="plan_quantity" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="createId" column="create_id" jdbcType="INTEGER"/>
+        <result property="createName" column="create_name" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateId" column="update_id" jdbcType="INTEGER"/>
+        <result property="updateName" column="update_name" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+        <result property="storageYardLocation" column="storage_yard_location" jdbcType="VARCHAR"/>
+        <result property="materialId" column="material_id" jdbcType="INTEGER"/>
+        <result property="storageYardLocationId" column="storage_yard_location_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <resultMap type="com.bpm.common.vo.MesProductDayBrokenForkliftFeedingPlanningDetailVo" id="PlanDetailVoMap"
+               extends="MesProductDayBrokenForkliftFeedingPlanningDetailMap">
+        <result property="materialCode" column="material_code" jdbcType="VARCHAR"/>
+        <result property="materialName" column="material_name" jdbcType="VARCHAR"/>
+        <result property="stockPlaceCode" column="stock_place_code" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="MesProductDayBrokenForkliftFeedingPlanningDetailMap">
+        select
+        <include refid="Base_Column_List"/>
+        from mes_product_day_broken_forklift_feeding_planning_detail
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="dayBrokenForkliftFeedingPlanningId != null">
+                and day_broken_forklift_feeding_planning_id = #{dayBrokenForkliftFeedingPlanningId}
+            </if>
+            <if test="executionSequence != null">
+                and execution_sequence = #{executionSequence}
+            </if>
+            <if test="mineralsCode != null and mineralsCode != ''">
+                and minerals_code = #{mineralsCode}
+            </if>
+            <if test="mineralsName != null and mineralsName != ''">
+                and minerals_name = #{mineralsName}
+            </if>
+            <if test="ratio != null">
+                and ratio = #{ratio}
+            </if>
+            <if test="planQuantity != null">
+                and plan_quantity = #{planQuantity}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="createId != null">
+                and create_id = #{createId}
+            </if>
+            <if test="createName != null and createName != ''">
+                and create_name = #{createName}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateId != null">
+                and update_id = #{updateId}
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and update_name = #{updateName}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="isDeleted != null">
+                and is_deleted = #{isDeleted}
+            </if>
+            <if test="storageYardLocation != null and storageYardLocation != ''">
+                and storage_yard_location = #{storageYardLocation}
+            </if>
+            <if test="materialId != null">
+                and material_id = #{materialId}
+            </if>
+            <if test="storageYardLocationId != null">
+                and storage_yard_location_id = #{storageYardLocationId}
+            </if>
+        </where>
+    </select>
+
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="MesProductDayBrokenForkliftFeedingPlanningDetailMap">
+        select id,
+               day_broken_forklift_feeding_planning_id,
+               execution_sequence,
+               minerals_code,
+               minerals_name,
+               ratio,
+               plan_quantity,
+               status,
+               remark,
+               create_id,
+               create_name,
+               create_time,
+               update_id,
+               update_name,
+               update_time,
+               is_deleted,
+               storage_yard_location,
+               material_id,
+               storage_yard_location_id
+        from mes_product_day_broken_forklift_feeding_planning_detail
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="MesProductDayBrokenForkliftFeedingPlanningDetailMap">
+        select
+        id, day_broken_forklift_feeding_planning_id, execution_sequence, minerals_code, minerals_name, ratio,
+        plan_quantity, status, remark, create_id, create_name, create_time, update_id, update_name, update_time,
+        is_deleted, storage_yard_location, material_id, storage_yard_location_id
+        from mes_product_day_broken_forklift_feeding_planning_detail
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="dayBrokenForkliftFeedingPlanningId != null">
+                and day_broken_forklift_feeding_planning_id = #{dayBrokenForkliftFeedingPlanningId}
+            </if>
+            <if test="executionSequence != null">
+                and execution_sequence = #{executionSequence}
+            </if>
+            <if test="mineralsCode != null and mineralsCode != ''">
+                and minerals_code = #{mineralsCode}
+            </if>
+            <if test="mineralsName != null and mineralsName != ''">
+                and minerals_name = #{mineralsName}
+            </if>
+            <if test="ratio != null">
+                and ratio = #{ratio}
+            </if>
+            <if test="planQuantity != null">
+                and plan_quantity = #{planQuantity}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="createId != null">
+                and create_id = #{createId}
+            </if>
+            <if test="createName != null and createName != ''">
+                and create_name = #{createName}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateId != null">
+                and update_id = #{updateId}
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and update_name = #{updateName}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="isDeleted != null">
+                and is_deleted = #{isDeleted}
+            </if>
+            <if test="storageYardLocation != null and storageYardLocation != ''">
+                and storage_yard_location = #{storageYardLocation}
+            </if>
+            <if test="materialId != null">
+                and material_id = #{materialId}
+            </if>
+            <if test="storageYardLocationId != null">
+                and storage_yard_location_id = #{storageYardLocationId}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from mes_product_day_broken_forklift_feeding_planning_detail
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="dayBrokenForkliftFeedingPlanningId != null">
+                and day_broken_forklift_feeding_planning_id = #{dayBrokenForkliftFeedingPlanningId}
+            </if>
+            <if test="executionSequence != null">
+                and execution_sequence = #{executionSequence}
+            </if>
+            <if test="mineralsCode != null and mineralsCode != ''">
+                and minerals_code = #{mineralsCode}
+            </if>
+            <if test="mineralsName != null and mineralsName != ''">
+                and minerals_name = #{mineralsName}
+            </if>
+            <if test="ratio != null">
+                and ratio = #{ratio}
+            </if>
+            <if test="planQuantity != null">
+                and plan_quantity = #{planQuantity}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="createId != null">
+                and create_id = #{createId}
+            </if>
+            <if test="createName != null and createName != ''">
+                and create_name = #{createName}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateId != null">
+                and update_id = #{updateId}
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and update_name = #{updateName}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="isDeleted != null">
+                and is_deleted = #{isDeleted}
+            </if>
+            <if test="storageYardLocation != null and storageYardLocation != ''">
+                and storage_yard_location = #{storageYardLocation}
+            </if>
+            <if test="materialId != null">
+                and material_id = #{materialId}
+            </if>
+            <if test="storageYardLocationId != null">
+                and storage_yard_location_id = #{storageYardLocationId}
+            </if>
+        </where>
+    </select>
+
+    <!--根据投料计划id查询所有投料计划详情-->
+    <select id="queryByPlanId" resultMap="PlanDetailVoMap">
+        select d.*,
+               i.material_code,
+               i.material_name,
+               s.stock_place_code
+        from mes_product_day_broken_forklift_feeding_planning_detail d
+                 left join basic_data_material_info i on i.id = d.material_id
+                 left join mes_wms_stockplace s on s.id = d.storage_yard_location_id
+        where d.day_broken_forklift_feeding_planning_id = #{planId}
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_day_broken_forklift_feeding_planning_detail(day_broken_forklift_feeding_planning_id,
+                                                                            execution_sequence, minerals_code,
+                                                                            minerals_name, ratio, plan_quantity, status,
+                                                                            remark, create_id, create_name, create_time,
+                                                                            update_id, update_name, update_time,
+                                                                            is_deleted, storage_yard_location,
+                                                                            material_id, storage_yard_location_id)
+        values (#{dayBrokenForkliftFeedingPlanningId}, #{executionSequence}, #{mineralsCode}, #{mineralsName}, #{ratio},
+                #{planQuantity}, #{status}, #{remark}, #{createId}, #{createName}, now(), #{updateId},
+                #{updateName}, #{updateTime}, #{isDeleted}, #{storageYardLocation}, #{materialId},
+                #{storageYardLocationId})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_day_broken_forklift_feeding_planning_detail(day_broken_forklift_feeding_planning_id,
+        execution_sequence, minerals_code, minerals_name, ratio, plan_quantity, status, remark, create_id, create_name,
+        create_time, update_id, update_name, update_time, is_deleted, storage_yard_location, material_id,
+        storage_yard_location_id)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.dayBrokenForkliftFeedingPlanningId}, #{entity.executionSequence}, #{entity.mineralsCode},
+            #{entity.mineralsName}, #{entity.ratio}, #{entity.planQuantity}, #{entity.status}, #{entity.remark},
+            #{entity.createId}, #{entity.createName}, #{entity.createTime}, #{entity.updateId}, #{entity.updateName},
+            #{entity.updateTime}, #{entity.isDeleted}, #{entity.storageYardLocation}, #{entity.materialId},
+            #{entity.storageYardLocationId})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_day_broken_forklift_feeding_planning_detail(day_broken_forklift_feeding_planning_id,
+        execution_sequence, minerals_code, minerals_name, ratio, plan_quantity, status, remark, create_id, create_name,
+        create_time, update_id, update_name, update_time, is_deleted, storage_yard_location, material_id,
+        storage_yard_location_id)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.dayBrokenForkliftFeedingPlanningId}, #{entity.executionSequence}, #{entity.mineralsCode},
+            #{entity.mineralsName}, #{entity.ratio}, #{entity.planQuantity}, #{entity.status}, #{entity.remark},
+            #{entity.createId}, #{entity.createName}, #{entity.createTime}, #{entity.updateId}, #{entity.updateName},
+            #{entity.updateTime}, #{entity.isDeleted}, #{entity.storageYardLocation}, #{entity.materialId},
+            #{entity.storageYardLocationId})
+        </foreach>
+        on duplicate key update
+        day_broken_forklift_feeding_planning_id = values(day_broken_forklift_feeding_planning_id),
+        execution_sequence = values(execution_sequence),
+        minerals_code = values(minerals_code),
+        minerals_name = values(minerals_name),
+        ratio = values(ratio),
+        plan_quantity = values(plan_quantity),
+        status = values(status),
+        remark = values(remark),
+        create_id = values(create_id),
+        create_name = values(create_name),
+        create_time = values(create_time),
+        update_id = values(update_id),
+        update_name = values(update_name),
+        update_time = values(update_time),
+        is_deleted = values(is_deleted),
+        storage_yard_location = values(storage_yard_location),
+        material_id = values(material_id),
+        storage_yard_location_id = values(storage_yard_location_id)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update mes_product_day_broken_forklift_feeding_planning_detail
+        <set>
+            <if test="dayBrokenForkliftFeedingPlanningId != null">
+                day_broken_forklift_feeding_planning_id = #{dayBrokenForkliftFeedingPlanningId},
+            </if>
+            <if test="executionSequence != null">
+                execution_sequence = #{executionSequence},
+            </if>
+            <if test="mineralsCode != null and mineralsCode != ''">
+                minerals_code = #{mineralsCode},
+            </if>
+            <if test="mineralsName != null and mineralsName != ''">
+                minerals_name = #{mineralsName},
+            </if>
+            <if test="ratio != null">
+                ratio = #{ratio},
+            </if>
+            <if test="planQuantity != null">
+                plan_quantity = #{planQuantity},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="createId != null">
+                create_id = #{createId},
+            </if>
+            <if test="createName != null and createName != ''">
+                create_name = #{createName},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateId != null">
+                update_id = #{updateId},
+            </if>
+            <if test="updateName != null and updateName != ''">
+                update_name = #{updateName},
+            </if>
+            update_time = now(),
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted},
+            </if>
+            <if test="storageYardLocation != null and storageYardLocation != ''">
+                storage_yard_location = #{storageYardLocation},
+            </if>
+            <if test="materialId != null">
+                material_id = #{materialId},
+            </if>
+            <if test="storageYardLocationId != null">
+                storage_yard_location_id = #{storageYardLocationId},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from mes_product_day_broken_forklift_feeding_planning_detail
+        where id = #{id}
+    </delete>
+
+    <!--根据投料计划id删除所有原有投料计划详情-->
+    <delete id="deleteByPlanId">
+        delete
+        from mes_product_day_broken_forklift_feeding_planning_detail
+        where day_broken_forklift_feeding_planning_id = #{planId}
+    </delete>
+
+    <!--逻辑删除-->
+    <update id="removeById">
+        update mes_product_day_broken_forklift_feeding_planning_detail
+        set status = 1
+        where day_broken_forklift_feeding_planning_id = #{planId}
+    </update>
+
+</mapper>
+

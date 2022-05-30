@@ -1,0 +1,25 @@
+server:
+  port: 9012
+spring:
+  datasource:
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    username: GDWMS
+    password: 123456
+    url: jdbc:oracle:thin:@//47.108.65.249:1521/ORCL
+eureka:
+  instance:
+    prefer-ip-address: true
+    #实例名
+    instance-id: mes_mineral_powder_production_server-dev:${server.port}
+    #    instance-id: ${eureka.instance.ip-address}:${spring.application.name}:${eureka.instance.non-secure-port}
+    #配置状态页面为swagger-bootstrap-ui（封装swagger的开源项目，用户界面比较友好，推荐一个）接口页面，默认为项目的info端点页面
+    #    status-page-url: http://${eureka.instance.ip-address}:${eureka.instance.non-secure-port}/v2/api-docs
+    #设置外网IP号(就是natapp 中的域名)
+    #    ip-address: server.natappfree.cc
+    #设置外网端口号（natapp 的端口）
+    #    non-secure-port: 33106
+  client:
+    service-url:
+      #euraka地址
+      #defaultZone: http://47.108.65.249:8763/eureka/
+      defaultZone: http://localhost:8766/eureka/

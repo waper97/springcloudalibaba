@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bpm.server.mapper.MesProductPrehomogenizationRecordDetailMapper">
+
+    <sql id="Base_Column_List">
+        id
+        ,
+        prehomogenization_record_id,
+        material_id,
+        material_code,
+        material_name,
+        demand_quantity,
+        material_source_id,
+        material_source,
+        gravel_warehouse_id,
+        gravel_warehouse,
+        serial_number,
+        remark,
+        create_id,
+        create_name,
+        create_time,
+        update_id,
+        update_name,
+        update_time,
+        is_deleted
+    </sql>
+
+    <resultMap type="com.bpm.common.domain.MesProductPrehomogenizationRecordDetail"
+               id="MesProductPrehomogenizationRecordDetailMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="prehomogenizationRecordId" column="prehomogenization_record_id" jdbcType="INTEGER"/>
+        <result property="materialId" column="material_id" jdbcType="INTEGER"/>
+        <result property="materialCode" column="material_code" jdbcType="VARCHAR"/>
+        <result property="materialName" column="material_name" jdbcType="VARCHAR"/>
+        <result property="demandQuantity" column="demand_quantity" jdbcType="VARCHAR"/>
+        <result property="materialSourceId" column="material_source_id" jdbcType="INTEGER"/>
+        <result property="materialSource" column="material_source" jdbcType="VARCHAR"/>
+        <result property="gravelWarehouseId" column="gravel_warehouse_id" jdbcType="INTEGER"/>
+        <result property="gravelWarehouse" column="gravel_warehouse" jdbcType="VARCHAR"/>
+        <result property="serialNumber" column="serial_number" jdbcType="INTEGER"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="createId" column="create_id" jdbcType="INTEGER"/>
+        <result property="createName" column="create_name" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateId" column="update_id" jdbcType="INTEGER"/>
+        <result property="updateName" column="update_name" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <resultMap type="com.bpm.common.vo.MesProductPreHomogenizationRecordDetailVo"
+               id="DetailVoMap" extends="MesProductPrehomogenizationRecordDetailMap">
+        <result property="materialCode1" column="material_code_1" jdbcType="VARCHAR"/>
+        <result property="materialName1" column="material_name_1" jdbcType="VARCHAR"/>
+        <result property="materialSource1" column="material_source_1" jdbcType="VARCHAR"/>
+        <result property="gravelWarehouse1" column="gravel_warehouse_1" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查全部-->
+    <select id="queryAll" resultMap="MesProductPrehomogenizationRecordDetailMap">
+        select
+        <include refid="Base_Column_List"/>
+        from mes_product_prehomogenization_record_detail
+    </select>
+
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="MesProductPrehomogenizationRecordDetailMap">
+        select
+        <include refid="Base_Column_List"/>
+        from mes_product_prehomogenization_record_detail
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="MesProductPrehomogenizationRecordDetailMap">
+        select
+        id, prehomogenization_record_id, material_id, material_code, material_name, demand_quantity, material_source_id,
+        material_source, gravel_warehouse_id, gravel_warehouse, serial_number, remark, create_id, create_name,
+        create_time, update_id, update_name, update_time, is_deleted
+        from mes_product_prehomogenization_record_detail
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="prehomogenizationRecordId != null">
+                and prehomogenization_record_id = #{prehomogenizationRecordId}
+            </if>
+            <if test="materialId != null">
+                and material_id = #{materialId}
+            </if>
+            <if test="materialCode != null and materialCode != ''">
+                and material_code = #{materialCode}
+            </if>
+            <if test="materialName != null and materialName != ''">
+                and material_name = #{materialName}
+            </if>
+            <if test="demandQuantity != null">
+                and demand_quantity = #{demandQuantity}
+            </if>
+            <if test="materialSourceId != null">
+                and material_source_id = #{materialSourceId}
+            </if>
+            <if test="materialSource != null and materialSource != ''">
+                and material_source = #{materialSource}
+            </if>
+            <if test="gravelWarehouseId != null">
+                and gravel_warehouse_id = #{gravelWarehouseId}
+            </if>
+            <if test="gravelWarehouse != null and gravelWarehouse != ''">
+                and gravel_warehouse = #{gravelWarehouse}
+            </if>
+            <if test="serialNumber != null">
+                and serial_number = #{serialNumber}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="createId != null">
+                and create_id = #{createId}
+            </if>
+            <if test="createName != null and createName != ''">
+                and create_name = #{createName}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateId != null">
+                and update_id = #{updateId}
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and update_name = #{updateName}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="isDeleted != null">
+                and is_deleted = #{isDeleted}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from mes_product_prehomogenization_record_detail
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="prehomogenizationRecordId != null">
+                and prehomogenization_record_id = #{prehomogenizationRecordId}
+            </if>
+            <if test="materialId != null">
+                and material_id = #{materialId}
+            </if>
+            <if test="materialCode != null and materialCode != ''">
+                and material_code = #{materialCode}
+            </if>
+            <if test="materialName != null and materialName != ''">
+                and material_name = #{materialName}
+            </if>
+            <if test="demandQuantity != null">
+                and demand_quantity = #{demandQuantity}
+            </if>
+            <if test="materialSourceId != null">
+                and material_source_id = #{materialSourceId}
+            </if>
+            <if test="materialSource != null and materialSource != ''">
+                and material_source = #{materialSource}
+            </if>
+            <if test="gravelWarehouseId != null">
+                and gravel_warehouse_id = #{gravelWarehouseId}
+            </if>
+            <if test="gravelWarehouse != null and gravelWarehouse != ''">
+                and gravel_warehouse = #{gravelWarehouse}
+            </if>
+            <if test="serialNumber != null">
+                and serial_number = #{serialNumber}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="createId != null">
+                and create_id = #{createId}
+            </if>
+            <if test="createName != null and createName != ''">
+                and create_name = #{createName}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateId != null">
+                and update_id = #{updateId}
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and update_name = #{updateName}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="isDeleted != null">
+                and is_deleted = #{isDeleted}
+            </if>
+        </where>
+    </select>
+
+    <!--根据预均化记录id查询所有预均化记录详情-->
+    <select id="queryByPreHomogenizationRecordId" resultMap="DetailVoMap">
+        select d.*,
+               i.material_code material_code_1,
+               i.material_name material_name_1,
+               dd.dict_value   material_source_1,
+               s.stock_code    gravel_warehouse_1
+        from mes_product_prehomogenization_record_detail d
+                 left join basic_data_material_info i on i.id = d.material_id
+                 left join sys_dict_data dd on dd.dict_type = 'material_source' and dd.dict_sort = d.material_source_id
+                 left join mes_wms_stock s on s.id = d.gravel_warehouse_id
+        where d.prehomogenization_record_id = #{preHomogenizationRecordId};
+    </select>
+
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_prehomogenization_record_detail(prehomogenization_record_id, material_id, material_code,
+                                                                material_name, demand_quantity, material_source_id,
+                                                                material_source, gravel_warehouse_id, gravel_warehouse,
+                                                                serial_number, remark, create_id, create_name,
+                                                                create_time, update_id, update_name, update_time,
+                                                                is_deleted)
+        values (#{prehomogenizationRecordId}, #{materialId}, #{materialCode}, #{materialName}, #{demandQuantity},
+                #{materialSourceId}, #{materialSource}, #{gravelWarehouseId}, #{gravelWarehouse}, #{serialNumber},
+                #{remark}, #{createId}, #{createName}, now(), #{updateId}, #{updateName}, #{updateTime},
+                #{isDeleted})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_prehomogenization_record_detail(prehomogenization_record_id, material_id, material_code,
+        material_name, demand_quantity, material_source_id, material_source, gravel_warehouse_id, gravel_warehouse,
+        serial_number, remark, create_id, create_name, create_time, update_id, update_name, update_time, is_deleted)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.prehomogenizationRecordId}, #{entity.materialId}, #{entity.materialCode}, #{entity.materialName},
+            #{entity.demandQuantity}, #{entity.materialSourceId}, #{entity.materialSource}, #{entity.gravelWarehouseId},
+            #{entity.gravelWarehouse}, #{entity.serialNumber}, #{entity.remark}, #{entity.createId},
+            #{entity.createName}, #{entity.createTime}, #{entity.updateId}, #{entity.updateName}, #{entity.updateTime},
+            #{entity.isDeleted})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_prehomogenization_record_detail(prehomogenization_record_id, material_id, material_code,
+        material_name, demand_quantity, material_source_id, material_source, gravel_warehouse_id, gravel_warehouse,
+        serial_number, remark, create_id, create_name, create_time, update_id, update_name, update_time, is_deleted)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.prehomogenizationRecordId}, #{entity.materialId}, #{entity.materialCode}, #{entity.materialName},
+            #{entity.demandQuantity}, #{entity.materialSourceId}, #{entity.materialSource}, #{entity.gravelWarehouseId},
+            #{entity.gravelWarehouse}, #{entity.serialNumber}, #{entity.remark}, #{entity.createId},
+            #{entity.createName}, #{entity.createTime}, #{entity.updateId}, #{entity.updateName}, #{entity.updateTime},
+            #{entity.isDeleted})
+        </foreach>
+        on duplicate key update
+        prehomogenization_record_id = values(prehomogenization_record_id),
+        material_id = values(material_id),
+        material_code = values(material_code),
+        material_name = values(material_name),
+        demand_quantity = values(demand_quantity),
+        material_source_id = values(material_source_id),
+        material_source = values(material_source),
+        gravel_warehouse_id = values(gravel_warehouse_id),
+        gravel_warehouse = values(gravel_warehouse),
+        serial_number = values(serial_number),
+        remark = values(remark),
+        create_id = values(create_id),
+        create_name = values(create_name),
+        create_time = values(create_time),
+        update_id = values(update_id),
+        update_name = values(update_name),
+        update_time = values(update_time),
+        is_deleted = values(is_deleted)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update mes_product_prehomogenization_record_detail
+        <set>
+            <if test="prehomogenizationRecordId != null">
+                prehomogenization_record_id = #{prehomogenizationRecordId},
+            </if>
+            <if test="materialId != null">
+                material_id = #{materialId},
+            </if>
+            <if test="materialCode != null and materialCode != ''">
+                material_code = #{materialCode},
+            </if>
+            <if test="materialName != null and materialName != ''">
+                material_name = #{materialName},
+            </if>
+            <if test="demandQuantity != null">
+                demand_quantity = #{demandQuantity},
+            </if>
+            <if test="materialSourceId != null">
+                material_source_id = #{materialSourceId},
+            </if>
+            <if test="materialSource != null and materialSource != ''">
+                material_source = #{materialSource},
+            </if>
+            <if test="gravelWarehouseId != null">
+                gravel_warehouse_id = #{gravelWarehouseId},
+            </if>
+            <if test="gravelWarehouse != null and gravelWarehouse != ''">
+                gravel_warehouse = #{gravelWarehouse},
+            </if>
+            <if test="serialNumber != null">
+                serial_number = #{serialNumber},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="createId != null">
+                create_id = #{createId},
+            </if>
+            <if test="createName != null and createName != ''">
+                create_name = #{createName},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateId != null">
+                update_id = #{updateId},
+            </if>
+            <if test="updateName != null and updateName != ''">
+                update_name = #{updateName},
+            </if>
+            update_time = now(),
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from mes_product_prehomogenization_record_detail
+        where id = #{id}
+    </delete>
+
+    <!--根据预均化记录id删除所有原有预均化记录详情-->
+    <delete id="deleteByPreHomogenizationRecordId">
+        delete
+        from mes_product_prehomogenization_record_detail
+        where prehomogenization_record_id = #{recordId}
+    </delete>
+
+    <!--逻辑删除-->
+    <update id="removeById">
+        update mes_product_prehomogenization_record_detail
+        set status = 1
+        where id = #{id}
+    </update>
+
+</mapper>
+

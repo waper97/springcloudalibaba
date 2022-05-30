@@ -12,6 +12,7 @@
     <modules>
         <module>mybatisplusgenerator</module>
         <module>rocketmq</module>
+        <module>rabbitmq</module>
     </modules>
 
 

@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bpm.server.mapper.BillOfMaterialMapper">
+    <sql id="Base_Column_List">
+        id, code, type, product_id, cardinality, version, effective_date, failure_date, yield, remark, status, create_id, create_name, create_time, update_id, update_name, update_time, is_deleted
+    </sql>
+
+    <sql id="Mes_product_Column_List">
+        a.id,
+        a.code,
+        a.type,
+        a.product_id,
+        a.cardinality,
+        a.version,
+        a.effective_date,
+        a.failure_date,
+        a.yield,
+        a.remark,
+        a.status,
+        a.create_id,
+        a.create_time,
+        a.update_id,
+        a.update_name,
+        a.update_time,
+        a.is_deleted,
+        a.bom_name,
+        a.cost_amount
+    </sql>
+
+    <resultMap type="com.bpm.common.vo.BillOfMaterialVO" id="MesProductBillOfMaterialMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="code" column="code" jdbcType="VARCHAR"/>
+        <result property="type" column="type" jdbcType="VARCHAR"/>
+        <result property="productId" column="product_id" jdbcType="INTEGER"/>
+        <result property="cardinality" column="cardinality" jdbcType="DECIMAL"/>
+        <result property="version" column="version" jdbcType="VARCHAR"/>
+        <result property="effectiveDate" column="effective_date" jdbcType="TIMESTAMP"/>
+        <result property="failureDate" column="failure_date" jdbcType="TIMESTAMP"/>
+        <result property="yield" column="yield" jdbcType="VARCHAR"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="createId" column="create_id" jdbcType="INTEGER"/>
+        <result property="createName" column="create_name" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateId" column="update_id" jdbcType="INTEGER"/>
+        <result property="updateName" column="update_name" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+        <result property="productName" column="productName" jdbcType="VARCHAR"/>
+        <result property="productCode" column="productCode" jdbcType="VARCHAR"/>
+        <result property="bomName" column="bom_name" jdbcType="VARCHAR"/>
+        <result property="costAmount" column="cost_amount" jdbcType="DECIMAL"/>
+
+    </resultMap>
+
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="MesProductBillOfMaterialMap">
+<!--        select-->
+<!--        <include refid="Base_Column_List"/>-->
+<!--        from mes_product_bill_of_material-->
+        select <include refid="Mes_product_Column_List" />,
+                (select u.name from sys_user u where u.id  = a.create_id limit 1) create_name,
+               b.material_name as mineralName,
+               b.material_code as mineralCode,
+               c.material_unit_name as unitOfMeasurement
+        from mes_product_bill_of_material a
+        left join basic_data_material_info b on a.product_id = b.id
+        left join basic_data_material_unit c on c.id = b.material_unit_id
+        <where>
+            <if test="id != null">
+                and a.id = #{id}
+            </if>
+            <if test="code != null and code != ''">
+                and a.code like concat('%',#{code},'%')
+            </if>
+            <if test="type != null and type != ''">
+                and type = #{type}
+            </if>
+            <if test="productId != null and productId != ''">
+                and product_id = #{productId}
+            </if>
+            <if test="productName != null and productName != ''">
+                and b.material_name like concat('%',#{productName},'%')
+            </if>
+            <if test="productCode != null and productCode != ''">
+                and b.material_code like  concat('%',#{productCode},'%')
+            </if>
+            <if test="mineralName != null and mineralName != ''">
+                and b.material_name like concat('%',#{mineralName},'%')
+            </if>
+            <if test="mineralCode != null and mineralCode != ''">
+                and b.material_code like  concat('%',#{mineralCode},'%')
+            </if>
+            <if test="beginTime != null ">
+                and a.create_time >= #{beginTime}
+            </if>
+            <if test="endTime != null">
+                and a.create_time &lt; #{endTime}
+            </if>
+            <if test="cardinality != null and cardinality != ''">
+                and a.cardinality = #{cardinality}
+            </if>
+            <if test="version != null and version != ''">
+                and a.version = #{version}
+            </if>
+            <if test="effectiveDate != null">
+                and a.effective_date = #{effectiveDate}
+            </if>
+            <if test="failureDate != null">
+                and a.failure_date = #{failureDate}
+            </if>
+            <if test="yield != null">
+                and a.yield = #{yield}
+            </if>
+            <if test="remark != null and remark != ''">
+                and a.remark = #{remark}
+            </if>
+            <if test="status != null">
+                and a.status = #{status}
+            </if>
+            <if test="createId != null and createId != ''">
+                and a.create_id = #{createId}
+            </if>
+            <if test="createName != null and createName != ''">
+                and a.create_name = #{createName}
+            </if>
+            <if test="createTime != null">
+                and a.create_time = #{createTime}
+            </if>
+            <if test="updateId != null and updateId != ''">
+                and a.update_id = #{updateId}
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and a.update_name = #{updateName}
+            </if>
+            <if test="updateTime != null">
+                and a.update_time = #{updateTime}
+            </if>
+            <if test="isDeleted != null">
+                and a.is_deleted = #{isDeleted}
+            </if>
+            <if test="bomName != null">
+                and a.bom_name = #{bomName}
+            </if>
+            <if test="costAmount != null">
+                and a.cost_amount = #{costAmount}
+            </if>
+        </where>
+        order by a.id desc
+    </select>
+
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="MesProductBillOfMaterialMap">
+        select id,
+               code,
+               type,
+               product_id,
+               cardinality,
+               version,
+               effective_date,
+               failure_date,
+               yield,
+               remark,
+               status,
+               create_id,
+               create_name,
+               create_time,
+               update_id,
+               update_name,
+               update_time,
+               is_deleted,
+               bom_name,
+               cost_amount
+        from mes_product_bill_of_material
+        where id = #{id}
+    </select>
+
+    <!-- 根据矿粉id查询bom-->
+    <select id="getBomByProductId" resultMap="MesProductBillOfMaterialMap">
+        select *
+        from  mes_product_bill_of_material
+        where product_id = #{productId}
+        and status = 2
+    </select>
+
+
+
+
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_bill_of_material(code, type, product_id, cardinality, version, effective_date,
+                                                 failure_date, yield, remark, status, create_id, create_name,
+                                                 create_time, update_id, update_name, update_time, is_deleted,bom_name,cost_amount)
+        values (#{code}, #{type}, #{productId}, #{cardinality}, #{version}, #{effectiveDate}, #{failureDate}, #{yield},
+                #{remark}, 1, #{createId}, #{createName}, now(), #{updateId}, #{updateName},
+                #{updateTime}, 1,#{bomName},#{costAmount})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_bill_of_material(code, type, product_id, cardinality, version, effective_date,
+        failure_date, yield, remark, status, create_id, create_name, create_time, update_id, update_name, update_time,
+        is_deleted,bom_name,cost_amount)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.code}, #{entity.type}, #{entity.productId}, #{entity.cardinality}, #{entity.version},
+            #{entity.effectiveDate}, #{entity.failureDate}, #{entity.yield}, #{entity.remark}, #{entity.status},
+            #{entity.createId}, #{entity.createName}, #{entity.createTime}, #{entity.updateId}, #{entity.updateName},
+            #{entity.updateTime}, #{entity.isDeleted},#{entity.bomName},#{entity.costAmount})
+        </foreach>
+    </insert>
+
+
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update mes_product_bill_of_material
+        <set>
+            <if test="code != null and code != ''">
+                code = #{code},
+            </if>
+            <if test="type != null and type != ''">
+                type = #{type},
+            </if>
+            <if test="productId != null and productId != ''">
+                product_id = #{productId},
+            </if>
+            <if test="cardinality != null and cardinality != ''">
+                cardinality = #{cardinality},
+            </if>
+            <if test="version != null and version != ''">
+                version = #{version},
+            </if>
+            <if test="effectiveDate != null">
+                effective_date = #{effectiveDate},
+            </if>
+            <if test="failureDate != null">
+                failure_date = #{failureDate},
+            </if>
+            <if test="yield != null">
+                yield = #{yield},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="createId != null and createId != ''">
+                create_id = #{createId},
+            </if>
+            <if test="createName != null and createName != ''">
+                create_name = #{createName},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateId != null and updateId != ''">
+                update_id = #{updateId},
+            </if>
+            <if test="updateName != null and updateName != ''">
+                update_name = #{updateName},
+            </if>
+
+                update_time = now(),
+
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted},
+            </if>
+            <if test="bomName != null">
+                bom_name = #{bomName},
+            </if>
+            <if test="costAmount != null">
+                cost_amount = #{costAmount},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from mes_product_bill_of_material
+        where id = #{id}
+    </delete>
+
+    <!--逻辑删除-->
+    <update id="removeById">
+        update mes_product_bill_of_material
+        set status = 1
+        where id = #{id}
+    </update>
+
+
+</mapper>
+

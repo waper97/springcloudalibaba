@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bpm.server.mapper.MesProductProductionLineMapper">
+
+    <sql id="Base_Column_List">
+        id,
+        code,
+        name,
+        parent_id,
+        factory_id,
+        company_id,
+        start_time,
+        end_time,
+        status,
+        remark,
+        create_id,
+        create_name,
+        create_time,
+        update_id,
+        update_name,
+        update_time,
+        is_fixed_production,
+        company_name
+    </sql>
+
+    <resultMap type="com.bpm.common.domain.MesProductProductionLine"
+               id="MesProductProductionLineMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="code" column="code" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="parentId" column="parent_id" jdbcType="INTEGER"/>
+        <result property="factoryId" column="factory_id" jdbcType="INTEGER"/>
+        <result property="companyId" column="company_id" jdbcType="INTEGER"/>
+        <result property="startTime" column="start_time" jdbcType="TIMESTAMP"/>
+        <result property="endTime" column="end_time" jdbcType="TIMESTAMP"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="createId" column="create_id" jdbcType="INTEGER"/>
+        <result property="createName" column="create_name" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateId" column="update_id" jdbcType="INTEGER"/>
+        <result property="updateName" column="update_name" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="isFixedProduction" column="is_fixed_production" jdbcType="INTEGER"/>
+        <result property="companyName" column="company_name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap type="com.bpm.common.vo.MesProductProductionLineVo" extends="MesProductProductionLineMap"
+               id="MesProductProductionLineVoMap">
+        <result property="parentLineNumber" column="parent_line_number" jdbcType="VARCHAR"/>
+        <result property="factory" column="factory" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
+    <!--查全部-->
+    <select id="queryAll" resultMap="MesProductProductionLineMap">
+        select
+        <include refid="Base_Column_List"/>
+        from mes_product_production_line
+    </select>
+
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="MesProductProductionLineMap">
+        select
+        <include refid="Base_Column_List"/>
+        from mes_product_production_line
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="MesProductProductionLineMap">
+        select
+        <include refid="Base_Column_List"/>
+        from mes_product_production_line
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="code != null and code != ''">
+                and code = #{code}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="parentId != null">
+                and parent_id = #{parentId}
+            </if>
+            <if test="factoryId != null">
+                and factory_id = #{factoryId}
+            </if>
+            <if test="companyId != null">
+                and company_id = #{companyId}
+            </if>
+            <if test="startTime != null">
+                and start_time = #{startTime}
+            </if>
+            <if test="endTime != null">
+                and end_time = #{endTime}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="createId != null">
+                and create_id = #{createId}
+            </if>
+            <if test="createName != null and createName != ''">
+                and create_name = #{createName}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateId != null">
+                and update_id = #{updateId}
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and update_name = #{updateName}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="isFixedProduction != null">
+                and is_fixed_production = #{isFixedProduction}
+            </if>
+            <if test="companyName != null and companyName != ''">
+                and company_name = #{companyName}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from mes_product_production_line
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="code != null and code != ''">
+                and code = #{code}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="parentId != null">
+                and parent_id = #{parentId}
+            </if>
+            <if test="factoryId != null">
+                and factory_id = #{factoryId}
+            </if>
+            <if test="companyId != null">
+                and company_id = #{companyId}
+            </if>
+            <if test="startTime != null">
+                and start_time = #{startTime}
+            </if>
+            <if test="endTime != null">
+                and end_time = #{endTime}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="createId != null">
+                and create_id = #{createId}
+            </if>
+            <if test="createName != null and createName != ''">
+                and create_name = #{createName}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateId != null">
+                and update_id = #{updateId}
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and update_name = #{updateName}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="isFixedProduction != null">
+                and is_fixed_production = #{isFixedProduction}
+            </if>
+            <if test="companyName != null and companyName != ''">
+                and company_name = #{companyName}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_production_line(code, name, parent_id, factory_id, company_id, start_time, end_time,
+                                                status, remark, create_id, create_name, create_time, update_id,
+                                                update_name, update_time, is_fixed_production, company_name)
+        values (#{code}, #{name}, #{parentId}, #{factoryId}, #{companyId}, #{startTime}, #{endTime}, #{status},
+                #{remark}, #{createId}, #{createName}, now(), #{updateId}, #{updateName}, #{updateTime},
+                #{isFixedProduction}, #{companyName})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_production_line(code, name, parent_id, factory_id, company_id, start_time, end_time,
+        status, remark, create_id, create_name, create_time, update_id, update_name, update_time, is_fixed_production,
+        company_name)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.code}, #{entity.name}, #{entity.parentId}, #{entity.factoryId}, #{entity.companyId},
+            #{entity.startTime}, #{entity.endTime}, #{entity.status}, #{entity.remark}, #{entity.createId},
+            #{entity.createName}, #{entity.createTime}, #{entity.updateId}, #{entity.updateName}, #{entity.updateTime},
+            #{entity.isFixedProduction}, #{entity.companyName})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_production_line(code, name, parent_id, factory_id, company_id, start_time, end_time,
+        status, remark, create_id, create_name, create_time, update_id, update_name, update_time, is_fixed_production,
+        company_name)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.code}, #{entity.name}, #{entity.parentId}, #{entity.factoryId}, #{entity.companyId},
+            #{entity.startTime}, #{entity.endTime}, #{entity.status}, #{entity.remark}, #{entity.createId},
+            #{entity.createName}, #{entity.createTime}, #{entity.updateId}, #{entity.updateName}, #{entity.updateTime},
+            #{entity.isFixedProduction}, #{entity.companyName})
+        </foreach>
+        on duplicate key update
+        code = values(code),
+        name = values(name),
+        parent_id = values(parent_id),
+        factory_id = values(factory_id),
+        company_id = values(company_id),
+        start_time = values(start_time),
+        end_time = values(end_time),
+        status = values(status),
+        remark = values(remark),
+        create_id = values(create_id),
+        create_name = values(create_name),
+        create_time = values(create_time),
+        update_id = values(update_id),
+        update_name = values(update_name),
+        update_time = values(update_time),
+        is_fixed_production = values(is_fixed_production),
+        company_name = values(company_name)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update mes_product_production_line
+        <set>
+            <if test="code != null and code != ''">
+                code = #{code},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="parentId != null">
+                parent_id = #{parentId},
+            </if>
+            <if test="factoryId != null">
+                factory_id = #{factoryId},
+            </if>
+            <if test="companyId != null">
+                company_id = #{companyId},
+            </if>
+            <if test="startTime != null">
+                start_time = #{startTime},
+            </if>
+            <if test="endTime != null">
+                end_time = #{endTime},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="createId != null">
+                create_id = #{createId},
+            </if>
+            <if test="createName != null and createName != ''">
+                create_name = #{createName},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateId != null">
+                update_id = #{updateId},
+            </if>
+            <if test="updateName != null and updateName != ''">
+                update_name = #{updateName},
+            </if>
+            update_time = now(),
+            <if test="isFixedProduction != null">
+                is_fixed_production = #{isFixedProduction},
+            </if>
+            <if test="companyName != null and companyName != ''">
+                company_name = #{companyName},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from mes_product_production_line
+        where id = #{id}
+    </delete>
+
+    <!--逻辑删除-->
+    <update id="removeById">
+        update mes_product_production_line
+        set status = 1
+        where id = #{id}
+    </update>
+
+    <!--分页查-->
+    <select id="queryByPage" resultMap="MesProductProductionLineVoMap">
+        select
+            l.id,
+            l.code,
+            l.name,
+            l.parent_id,
+            l.factory_id,
+            l.company_id,
+            l.is_fixed_production,
+            l.start_time,
+            l.end_time,
+            l.status,
+            l.remark,
+            l.create_id,
+            l.create_time,
+            l.update_id,
+            l.update_name,
+            l.update_time,
+            l.company_name,
+        (select u.name from sys_user u where u.id  = l.create_id limit 1) create_name,
+        pl.code parent_line_number,
+        c.name factory
+        from mes_product_production_line l
+        LEFT JOIN mes_product_production_line pl on l.parent_id=pl.id
+        LEFT JOIN sys_company c on l.factory_id=c.id
+        <where>
+            <if test="code != null and code != ''">
+                and l.code like concat('%',#{code},'%')
+            </if>
+            <if test="name != null and name != ''">
+                and l.name like concat('%',#{name},'%')
+            </if>
+            <if test="status != null">
+                and l.status = #{status}
+            </if>
+            <if test="startDate != null">
+                and l.create_time <![CDATA[>=]]> #{startDate}
+            </if>
+            <if test="endDate != null">
+                and l.create_time <![CDATA[<=]]> #{endDate}
+            </if>
+        </where>
+    </select>
+
+    <!--查询所有生产线编号-->
+    <select id="queryAllLineNumbers" resultType="com.bpm.common.vo.ProductionLineNumberVo">
+        select id,
+               code,
+               name
+        from mes_product_production_line;
+    </select>
+
+    <!--查询所有公司名称-->
+    <select id="queryAllCompanyNames" resultType="com.bpm.common.vo.CompanyNameVo">
+        select id,
+               name
+        from sys_company;
+    </select>
+
+</mapper>
+

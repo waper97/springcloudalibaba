@@ -8,6 +8,7 @@
         <artifactId>springcloudalibaba</artifactId>
     </parent>
 
+    <packaging>pom</packaging>
     <groupId>com.waper</groupId>
     <artifactId>service-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
@@ -16,25 +17,26 @@
     <properties>
         <java.version>1.8</java.version>
     </properties>
+
+
+
+    <modules>
+        <module>mes-product-api</module>
+    </modules>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.springframework.boot</groupId>-->
+<!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
+<!--            </plugin>-->
         </plugins>
     </build>
 

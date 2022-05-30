@@ -1,0 +1,498 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bpm.server.mapper.MesProductHomogenizationRecordMapper">
+
+    <sql id="Base_Column_List">
+        id
+        ,
+        plan_code,
+        process,
+        semi_finished_product_warehouse_id,
+        finished_product_warehouse_id,
+        product_id,
+        product_name,
+        target_weight,
+        plan_begin_time,
+        plan_end_time,
+        actual_begin_time,
+        actual_end_time,
+        pretreatment_unit,
+        entering_arehouse,
+        entering_arehouse_rule,
+        material_level,
+        homogenization_date,
+        status,
+        remark,
+        create_id,
+        create_name,
+        create_time,
+        update_id,
+        update_name,
+        update_time,
+        is_deleted,
+        batch
+    </sql>
+
+    <resultMap type="com.bpm.common.domain.MesProductHomogenizationRecord" id="MesProductHomogenizationRecordMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="planCode" column="plan_code" jdbcType="VARCHAR"/>
+        <result property="process" column="process" jdbcType="INTEGER"/>
+        <result property="semiFinishedProductWarehouseId" column="semi_finished_product_warehouse_id"
+                jdbcType="INTEGER"/>
+        <result property="finishedProductWarehouseId" column="finished_product_warehouse_id" jdbcType="INTEGER"/>
+        <result property="productId" column="product_id" jdbcType="INTEGER"/>
+        <result property="productName" column="product_name" jdbcType="VARCHAR"/>
+        <result property="targetWeight" column="target_weight" jdbcType="VARCHAR"/>
+        <result property="planBeginTime" column="plan_begin_time" jdbcType="TIMESTAMP"/>
+        <result property="planEndTime" column="plan_end_time" jdbcType="TIMESTAMP"/>
+        <result property="actualBeginTime" column="actual_begin_time" jdbcType="TIMESTAMP"/>
+        <result property="actualEndTime" column="actual_end_time" jdbcType="TIMESTAMP"/>
+        <result property="pretreatmentUnit" column="pretreatment_unit" jdbcType="VARCHAR"/>
+        <result property="enteringArehouse" column="entering_arehouse" jdbcType="VARCHAR"/>
+        <result property="enteringArehouseRule" column="entering_arehouse_rule" jdbcType="VARCHAR"/>
+        <result property="materialLevel" column="material_level" jdbcType="VARCHAR"/>
+        <result property="homogenizationDate" column="homogenization_date" jdbcType="TIMESTAMP"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="createId" column="create_id" jdbcType="INTEGER"/>
+        <result property="createName" column="create_name" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateId" column="update_id" jdbcType="INTEGER"/>
+        <result property="updateName" column="update_name" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+        <result property="batch" column="batch" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap type="com.bpm.common.vo.MesProductHomogenizationRecordVo" extends="MesProductHomogenizationRecordMap"
+               id="MesProductHomogenizationRecordVoMap">
+        <result property="processName" column="process_name" jdbcType="VARCHAR"/>
+        <result property="finishedProductWarehouseCode" column="finished_product_warehouse_code" jdbcType="VARCHAR"/>
+        <result property="mineralPowderCode" column="mineral_powder_code" jdbcType="VARCHAR"/>
+        <result property="mineralPowderName" column="mineral_powder_name" jdbcType="VARCHAR"/>
+        <result property="statusName" column="statusName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
+    <!--查全部-->
+    <select id="queryAll" resultMap="MesProductHomogenizationRecordMap">
+        select
+        <include refid="Base_Column_List"/>
+        from mes_product_homogenization_record
+    </select>
+
+
+    <!--查单个-->
+    <select id="queryById" resultMap="MesProductHomogenizationRecordVoMap">
+        select r.*,
+               d.dict_value    process_name,
+               s.stock_code    finished_product_warehouse_code,
+               i.material_code mineral_powder_code,
+               i.material_name mineral_powder_name
+        from mes_product_homogenization_record r
+                 left join sys_dict_data d on d.dict_type='process' and d.dict_sort = r.process
+                 left join mes_wms_stock s on s.id = r.finished_product_warehouse_id
+                 left join basic_data_material_info i on i.id = r.product_id
+        where r.id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="MesProductHomogenizationRecordMap">
+        select
+        id, plan_code, process, semi_finished_product_warehouse_id, finished_product_warehouse_id, product_id,
+        product_name, target_weight, plan_begin_time, plan_end_time, actual_begin_time, actual_end_time,
+        pretreatment_unit, entering_arehouse, entering_arehouse_rule, material_level, homogenization_date, status,
+        remark, create_id, create_name, create_time, update_id, update_name, update_time, is_deleted, batch
+        from mes_product_homogenization_record
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="planCode != null and planCode != ''">
+                and plan_code = #{planCode}
+            </if>
+            <if test="process != null">
+                and process = #{process}
+            </if>
+            <if test="semiFinishedProductWarehouseId != null">
+                and semi_finished_product_warehouse_id = #{semiFinishedProductWarehouseId}
+            </if>
+            <if test="finishedProductWarehouseId != null">
+                and finished_product_warehouse_id = #{finishedProductWarehouseId}
+            </if>
+            <if test="productId != null">
+                and product_id = #{productId}
+            </if>
+            <if test="productName != null and productName != ''">
+                and product_name = #{productName}
+            </if>
+            <if test="targetWeight != null">
+                and target_weight = #{targetWeight}
+            </if>
+            <if test="planBeginTime != null">
+                and plan_begin_time = #{planBeginTime}
+            </if>
+            <if test="planEndTime != null">
+                and plan_end_time = #{planEndTime}
+            </if>
+            <if test="actualBeginTime != null">
+                and actual_begin_time = #{actualBeginTime}
+            </if>
+            <if test="actualEndTime != null">
+                and actual_end_time = #{actualEndTime}
+            </if>
+            <if test="pretreatmentUnit != null and pretreatmentUnit != ''">
+                and pretreatment_unit = #{pretreatmentUnit}
+            </if>
+            <if test="enteringArehouse != null and enteringArehouse != ''">
+                and entering_arehouse = #{enteringArehouse}
+            </if>
+            <if test="enteringArehouseRule != null and enteringArehouseRule != ''">
+                and entering_arehouse_rule = #{enteringArehouseRule}
+            </if>
+            <if test="materialLevel != null and materialLevel != ''">
+                and material_level = #{materialLevel}
+            </if>
+            <if test="homogenizationDate != null">
+                and homogenization_date = #{homogenizationDate}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="createId != null">
+                and create_id = #{createId}
+            </if>
+            <if test="createName != null and createName != ''">
+                and create_name = #{createName}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateId != null">
+                and update_id = #{updateId}
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and update_name = #{updateName}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="isDeleted != null">
+                and is_deleted = #{isDeleted}
+            </if>
+            <if test="batch != null and batch != ''">
+                and batch = #{batch}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from mes_product_homogenization_record
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="planCode != null and planCode != ''">
+                and plan_code = #{planCode}
+            </if>
+            <if test="process != null">
+                and process = #{process}
+            </if>
+            <if test="semiFinishedProductWarehouseId != null">
+                and semi_finished_product_warehouse_id = #{semiFinishedProductWarehouseId}
+            </if>
+            <if test="finishedProductWarehouseId != null">
+                and finished_product_warehouse_id = #{finishedProductWarehouseId}
+            </if>
+            <if test="productId != null">
+                and product_id = #{productId}
+            </if>
+            <if test="productName != null and productName != ''">
+                and product_name = #{productName}
+            </if>
+            <if test="targetWeight != null">
+                and target_weight = #{targetWeight}
+            </if>
+            <if test="planBeginTime != null">
+                and plan_begin_time = #{planBeginTime}
+            </if>
+            <if test="planEndTime != null">
+                and plan_end_time = #{planEndTime}
+            </if>
+            <if test="actualBeginTime != null">
+                and actual_begin_time = #{actualBeginTime}
+            </if>
+            <if test="actualEndTime != null">
+                and actual_end_time = #{actualEndTime}
+            </if>
+            <if test="pretreatmentUnit != null and pretreatmentUnit != ''">
+                and pretreatment_unit = #{pretreatmentUnit}
+            </if>
+            <if test="enteringArehouse != null and enteringArehouse != ''">
+                and entering_arehouse = #{enteringArehouse}
+            </if>
+            <if test="enteringArehouseRule != null and enteringArehouseRule != ''">
+                and entering_arehouse_rule = #{enteringArehouseRule}
+            </if>
+            <if test="materialLevel != null and materialLevel != ''">
+                and material_level = #{materialLevel}
+            </if>
+            <if test="homogenizationDate != null">
+                and homogenization_date = #{homogenizationDate}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="createId != null">
+                and create_id = #{createId}
+            </if>
+            <if test="createName != null and createName != ''">
+                and create_name = #{createName}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateId != null">
+                and update_id = #{updateId}
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and update_name = #{updateName}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="isDeleted != null">
+                and is_deleted = #{isDeleted}
+            </if>
+            <if test="batch != null and batch != ''">
+                and batch = #{batch}
+            </if>
+        </where>
+    </select>
+
+    <!--分页查-->
+    <select id="queryByPage" resultMap="MesProductHomogenizationRecordVoMap">
+        select
+        r.*,
+        d.dict_value process_name,
+        s.stock_code finished_product_warehouse_code,
+        i.material_code mineral_powder_code,
+        i.material_name mineral_powder_name,
+        f.dict_value as statusName
+        from mes_product_homogenization_record r
+        left join sys_dict_data d on d.dict_type='process' and d.dict_sort = r.process
+        left join mes_wms_stock s on s.id=r.finished_product_warehouse_id
+        left join basic_data_material_info i on i.id=r.product_id
+        left join sys_dict_data f on f.dict_type='homogenization_record_status' and f.dict_label = CAST(r.status as VARCHAR)
+
+        <where>
+            <if test="finishedProductWarehouseCode != null and finishedProductWarehouseCode != ''">
+                and s.stock_code like concat('%',#{finishedProductWarehouseCode},'%')
+            </if>
+            <if test="mineralPowderCode != null and mineralPowderCode != ''">
+                and i.material_code like concat('%',#{mineralPowderCode},'%')
+            </if>
+            <if test="mineralPowderName != null and mineralPowderName != ''">
+                and i.material_name like concat('%',#{mineralPowderName},'%')
+            </if>
+            <if test="startDate != null">
+                and r.create_time <![CDATA[>=]]> #{startDate}
+            </if>
+            <if test="endDate != null">
+                and r.create_time <![CDATA[<=]]> #{endDate}
+            </if>
+            <if test="status != null">
+                and r.status = #{status}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_homogenization_record(plan_code, process, semi_finished_product_warehouse_id,
+                                                      finished_product_warehouse_id, product_id, product_name,
+                                                      target_weight, plan_begin_time, plan_end_time, actual_begin_time,
+                                                      actual_end_time, pretreatment_unit, entering_arehouse,
+                                                      entering_arehouse_rule, material_level, homogenization_date,
+                                                      status, remark, create_id, create_name, create_time, update_id,
+                                                      update_name, update_time, is_deleted, batch)
+        values (#{planCode}, #{process}, #{semiFinishedProductWarehouseId}, #{finishedProductWarehouseId}, #{productId},
+                #{productName}, #{targetWeight}, #{planBeginTime}, #{planEndTime}, #{actualBeginTime}, #{actualEndTime},
+                #{pretreatmentUnit}, #{enteringArehouse}, #{enteringArehouseRule}, #{materialLevel},
+                #{homogenizationDate}, #{status}, #{remark}, #{createId}, #{createName}, now(), #{updateId},
+                #{updateName}, #{updateTime}, #{isDeleted}, #{batch})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_homogenization_record(plan_code, process, semi_finished_product_warehouse_id,
+        finished_product_warehouse_id, product_id, product_name, target_weight, plan_begin_time, plan_end_time,
+        actual_begin_time, actual_end_time, pretreatment_unit, entering_arehouse, entering_arehouse_rule,
+        material_level, homogenization_date, status, remark, create_id, create_name, create_time, update_id,
+        update_name, update_time, is_deleted, batch)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.planCode}, #{entity.process}, #{entity.semiFinishedProductWarehouseId},
+            #{entity.finishedProductWarehouseId}, #{entity.productId}, #{entity.productName}, #{entity.targetWeight},
+            #{entity.planBeginTime}, #{entity.planEndTime}, #{entity.actualBeginTime}, #{entity.actualEndTime},
+            #{entity.pretreatmentUnit}, #{entity.enteringArehouse}, #{entity.enteringArehouseRule},
+            #{entity.materialLevel}, #{entity.homogenizationDate}, #{entity.status}, #{entity.remark},
+            #{entity.createId}, #{entity.createName}, #{entity.createTime}, #{entity.updateId}, #{entity.updateName},
+            #{entity.updateTime}, #{entity.isDeleted}, #{entity.batch})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_homogenization_record(plan_code, process, semi_finished_product_warehouse_id,
+        finished_product_warehouse_id, product_id, product_name, target_weight, plan_begin_time, plan_end_time,
+        actual_begin_time, actual_end_time, pretreatment_unit, entering_arehouse, entering_arehouse_rule,
+        material_level, homogenization_date, status, remark, create_id, create_name, create_time, update_id,
+        update_name, update_time, is_deleted, batch)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.planCode}, #{entity.process}, #{entity.semiFinishedProductWarehouseId},
+            #{entity.finishedProductWarehouseId}, #{entity.productId}, #{entity.productName}, #{entity.targetWeight},
+            #{entity.planBeginTime}, #{entity.planEndTime}, #{entity.actualBeginTime}, #{entity.actualEndTime},
+            #{entity.pretreatmentUnit}, #{entity.enteringArehouse}, #{entity.enteringArehouseRule},
+            #{entity.materialLevel}, #{entity.homogenizationDate}, #{entity.status}, #{entity.remark},
+            #{entity.createId}, #{entity.createName}, #{entity.createTime}, #{entity.updateId}, #{entity.updateName},
+            #{entity.updateTime}, #{entity.isDeleted}, #{entity.batch})
+        </foreach>
+        on duplicate key update
+        plan_code = values(plan_code),
+        process = values(process),
+        semi_finished_product_warehouse_id = values(semi_finished_product_warehouse_id),
+        finished_product_warehouse_id = values(finished_product_warehouse_id),
+        product_id = values(product_id),
+        product_name = values(product_name),
+        target_weight = values(target_weight),
+        plan_begin_time = values(plan_begin_time),
+        plan_end_time = values(plan_end_time),
+        actual_begin_time = values(actual_begin_time),
+        actual_end_time = values(actual_end_time),
+        pretreatment_unit = values(pretreatment_unit),
+        entering_arehouse = values(entering_arehouse),
+        entering_arehouse_rule = values(entering_arehouse_rule),
+        material_level = values(material_level),
+        homogenization_date = values(homogenization_date),
+        status = values(status),
+        remark = values(remark),
+        create_id = values(create_id),
+        create_name = values(create_name),
+        create_time = values(create_time),
+        update_id = values(update_id),
+        update_name = values(update_name),
+        update_time = values(update_time),
+        is_deleted = values(is_deleted)
+        batch = values(batch)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update mes_product_homogenization_record
+        <set>
+            <if test="planCode != null and planCode != ''">
+                plan_code = #{planCode},
+            </if>
+            <if test="process != null">
+                process = #{process},
+            </if>
+            <if test="semiFinishedProductWarehouseId != null">
+                semi_finished_product_warehouse_id = #{semiFinishedProductWarehouseId},
+            </if>
+            <if test="finishedProductWarehouseId != null">
+                finished_product_warehouse_id = #{finishedProductWarehouseId},
+            </if>
+            <if test="productId != null">
+                product_id = #{productId},
+            </if>
+            <if test="productName != null and productName != ''">
+                product_name = #{productName},
+            </if>
+            <if test="targetWeight != null">
+                target_weight = #{targetWeight},
+            </if>
+            <if test="planBeginTime != null">
+                plan_begin_time = #{planBeginTime},
+            </if>
+            <if test="planEndTime != null">
+                plan_end_time = #{planEndTime},
+            </if>
+            <if test="actualBeginTime != null">
+                actual_begin_time = #{actualBeginTime},
+            </if>
+            <if test="actualEndTime != null">
+                actual_end_time = #{actualEndTime},
+            </if>
+            <if test="pretreatmentUnit != null and pretreatmentUnit != ''">
+                pretreatment_unit = #{pretreatmentUnit},
+            </if>
+            <if test="enteringArehouse != null and enteringArehouse != ''">
+                entering_arehouse = #{enteringArehouse},
+            </if>
+            <if test="enteringArehouseRule != null and enteringArehouseRule != ''">
+                entering_arehouse_rule = #{enteringArehouseRule},
+            </if>
+            <if test="materialLevel != null and materialLevel != ''">
+                material_level = #{materialLevel},
+            </if>
+            <if test="homogenizationDate != null">
+                homogenization_date = #{homogenizationDate},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="createId != null">
+                create_id = #{createId},
+            </if>
+            <if test="createName != null and createName != ''">
+                create_name = #{createName},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateId != null">
+                update_id = #{updateId},
+            </if>
+            <if test="updateName != null and updateName != ''">
+                update_name = #{updateName},
+            </if>
+            update_time = now(),
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted},
+            </if>
+            <if test="batch != null and batch != ''">
+                batch = #{batch},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from mes_product_homogenization_record
+        where id = #{id}
+    </delete>
+
+    <!--逻辑删除-->
+    <update id="removeById">
+        update mes_product_homogenization_record
+        set status = 1
+        where id = #{id}
+    </update>
+
+</mapper>
+

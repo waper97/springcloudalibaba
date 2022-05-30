@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bpm.server.mapper.MineralPowderRequirementsPlanningDetailMapper">
+
+      <sql id="Base_Column_List">
+         a.id, a.mes_product_mineral_powder_requirements_planning_id, a.plan_quantity, a.month, a.plan_date_begin, a.plan_date_end, a.operation_date, a.bill_of_material_id, a.work_type, a.unit_id, a.unit_name, a.supplier_id, a.supplier_full_name, a.material_id,  a.material_short_name, a.material_specification, a.product_id, a.product_code, a.product_short_name, a.product_specification, a.customer_code, a.forecast_order_quantity, a.require_quantity, a.plan_accetp_quantity, a.projected_available_balance_init_value, a.plan_output_quantity, a.projected_available_balance, a.plan_input_quantity, a.available_to_promise, a.plan_begin_date, a.plan_end_date, a.need_date, a.saleorder_id, a.saleorder_code, a.sale_month_plan_id, a.sale_month_plan_code, a.plan_order_id, a.plan_order_code, a.manu_order_id, a.manu_order_no, a.department_id,a. business_close_status, a.type, a.status, a.issue_id, a.issuer_name, a.issue_time, a.remark, a.create_id, a.create_name, a.create_time, a.update_id, a.update_name,a.update_time, a.is_received, a.net_require_quantity,a.plan_type,a.is_mps
+      </sql>
+
+    <resultMap type="com.bpm.common.vo.MineralPowderRequirementsPlanningDetailVO" id="MineralPowderRequirementsPlanningDetailMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="mesProductMineralPowderRequirementsPlanningId" column="mes_product_mineral_powder_requirements_planning_id" jdbcType="INTEGER"/>
+        <result property="planQuantity" column="plan_quantity" jdbcType="VARCHAR"/>
+        <result property="month" column="month" jdbcType="INTEGER"/>
+        <result property="planDateBegin" column="plan_date_begin" jdbcType="TIMESTAMP"/>
+        <result property="planDateEnd" column="plan_date_end" jdbcType="TIMESTAMP"/>
+        <result property="operationDate" column="operation_date" jdbcType="TIMESTAMP"/>
+        <result property="billOfMaterialId" column="bill_of_material_id" jdbcType="INTEGER"/>
+        <result property="workType" column="work_type" jdbcType="INTEGER"/>
+        <result property="unitId" column="unit_id" jdbcType="INTEGER"/>
+        <result property="unitName" column="unit_name" jdbcType="VARCHAR"/>
+        <result property="supplierId" column="supplier_id" jdbcType="INTEGER"/>
+        <result property="supplierFullName" column="supplier_full_name" jdbcType="VARCHAR"/>
+        <result property="materialId" column="material_id" jdbcType="INTEGER"/>
+        <result property="materialCode" column="material_code" jdbcType="VARCHAR"/>
+        <result property="materialShortName" column="material_short_name" jdbcType="VARCHAR"/>
+        <result property="materialSpecification" column="material_specification" jdbcType="VARCHAR"/>
+        <result property="productId" column="product_id" jdbcType="INTEGER"/>
+        <result property="productCode" column="product_code" jdbcType="VARCHAR"/>
+        <result property="productShortName" column="product_short_name" jdbcType="VARCHAR"/>
+        <result property="productSpecification" column="product_specification" jdbcType="VARCHAR"/>
+        <result property="customerCode" column="customer_code" jdbcType="VARCHAR"/>
+        <result property="forecastOrderQuantity" column="forecast_order_quantity" jdbcType="VARCHAR"/>
+        <result property="requireQuantity" column="require_quantity" jdbcType="VARCHAR"/>
+        <result property="planAccetpQuantity" column="plan_accetp_quantity" jdbcType="VARCHAR"/>
+        <result property="projectedAvailableBalanceInitValue" column="projected_available_balance_init_value" jdbcType="VARCHAR"/>
+        <result property="planOutputQuantity" column="plan_output_quantity" jdbcType="VARCHAR"/>
+        <result property="projectedAvailableBalance" column="projected_available_balance" jdbcType="VARCHAR"/>
+        <result property="planInputQuantity" column="plan_input_quantity" jdbcType="VARCHAR"/>
+        <result property="availableToPromise" column="available_to_promise" jdbcType="VARCHAR"/>
+        <result property="planBeginDate" column="plan_begin_date" jdbcType="TIMESTAMP"/>
+        <result property="planEndDate" column="plan_end_date" jdbcType="TIMESTAMP"/>
+        <result property="needDate" column="need_date" jdbcType="TIMESTAMP"/>
+        <result property="saleorderId" column="saleorder_id" jdbcType="INTEGER"/>
+        <result property="saleorderCode" column="saleorder_code" jdbcType="VARCHAR"/>
+        <result property="saleMonthPlanId" column="sale_month_plan_id" jdbcType="INTEGER"/>
+        <result property="saleMonthPlanCode" column="sale_month_plan_code" jdbcType="VARCHAR"/>
+        <result property="planOrderId" column="plan_order_id" jdbcType="INTEGER"/>
+        <result property="planOrderCode" column="plan_order_code" jdbcType="VARCHAR"/>
+        <result property="manuOrderId" column="manu_order_id" jdbcType="INTEGER"/>
+        <result property="manuOrderNo" column="manu_order_no" jdbcType="VARCHAR"/>
+        <result property="departmentId" column="department_id" jdbcType="INTEGER"/>
+        <result property="businessCloseStatus" column="business_close_status" jdbcType="VARCHAR"/>
+        <result property="type" column="type" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="VARCHAR"/>
+        <result property="issueId" column="issue_id" jdbcType="INTEGER"/>
+        <result property="issuerName" column="issuer_name" jdbcType="VARCHAR"/>
+        <result property="issueTime" column="issue_time" jdbcType="TIMESTAMP"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="createId" column="create_id" jdbcType="VARCHAR"/>
+        <result property="createName" column="create_name" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateId" column="update_id" jdbcType="VARCHAR"/>
+        <result property="updateName" column="update_name" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="isReceived" column="is_received" jdbcType="VARCHAR"/>
+        <result property="netRequireQuantity" column="net_require_quantity" jdbcType="VARCHAR"/>
+        <result property="planType" column="plan_type" jdbcType="VARCHAR"/>
+        <result property="isMps" column="is_mps" jdbcType="INTEGER"/>
+    </resultMap>
+    
+    
+        <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="MineralPowderRequirementsPlanningDetailMap">
+        select
+          <include refid="Base_Column_List" />,c.material_unit_name  as unit_name,d.dict_value as planTypeName
+        from mes_product_mineral_powder_requirements_planning_detail a
+        left join basic_data_material_info b on b.id = a.product_id
+        left join basic_data_material_unit c on c.id = a.unit_id
+        left join sys_dict_data d on d.dict_label = a.plan_type and d.dict_type = 'mineral_powder_requirements_planning_plan_type'
+        <where>
+            <if test="id != null">
+                and a.id = #{id}
+            </if>
+            <if test="mesProductMineralPowderRequirementsPlanningId != null">
+                and a.mes_product_mineral_powder_requirements_planning_id = #{mesProductMineralPowderRequirementsPlanningId}
+            </if>
+            <if test="planQuantity != null">
+                and a.plan_quantity = #{planQuantity}
+            </if>
+            <if test="month != null and month != ''">
+                and a.month = #{month}
+            </if>
+            <if test="planDateBegin != null">
+                and a.plan_date_begin = #{planDateBegin}
+            </if>
+            <if test="planDateEnd != null">
+                and a.plan_date_end = #{planDateEnd}
+            </if>
+            <if test="operationDate != null">
+                and a.operation_date = #{operationDate}
+            </if>
+            <if test="billOfMaterialId != null">
+                and a.bill_of_material_id = #{billOfMaterialId}
+            </if>
+            <if test="workType != null">
+                and a.work_type = #{workType}
+            </if>
+            <if test="unitId != null and unitId != ''">
+                and a.unit_id = #{unitId}
+            </if>
+            <if test="unitName != null and unitName != ''">
+                and a.unit_name = #{unitName}
+            </if>
+            <if test="supplierId != null">
+                and a.supplier_id = #{supplierId}
+            </if>
+            <if test="supplierFullName != null and supplierFullName != ''">
+                and a.supplier_full_name = #{supplierFullName}
+            </if>
+            <if test="materialId != null">
+                and a.material_id = #{materialId}
+            </if>
+            <if test="materialCode != null and materialCode != ''">
+                and a.material_code = #{materialCode}
+            </if>
+            <if test="materialShortName != null and materialShortName != ''">
+                and a.material_short_name = #{materialShortName}
+            </if>
+            <if test="materialSpecification != null and materialSpecification != ''">
+                and a.material_specification = #{materialSpecification}
+            </if>
+            <if test="productId != null">
+                and a.product_id = #{productId}
+            </if>
+            <if test="productCode != null and productCode != ''">
+                and a.product_code = #{productCode}
+            </if>
+            <if test="productShortName != null and productShortName != ''">
+                and a.product_short_name = #{productShortName}
+            </if>
+            <if test="productSpecification != null and productSpecification != ''">
+                and a.product_specification = #{productSpecification}
+            </if>
+            <if test="customerCode != null and customerCode != ''">
+                and a.customer_code = #{customerCode}
+            </if>
+            <if test="forecastOrderQuantity != null">
+                and a.forecast_order_quantity = #{forecastOrderQuantity}
+            </if>
+            <if test="requireQuantity != null">
+                and a.require_quantity = #{requireQuantity}
+            </if>
+            <if test="planAccetpQuantity != null">
+                and a.plan_accetp_quantity = #{planAccetpQuantity}
+            </if>
+            <if test="projectedAvailableBalanceInitValue != null">
+                and a.projected_available_balance_init_value = #{projectedAvailableBalanceInitValue}
+            </if>
+            <if test="planOutputQuantity != null">
+                and a.plan_output_quantity = #{planOutputQuantity}
+            </if>
+            <if test="projectedAvailableBalance != null">
+                and a.projected_available_balance = #{projectedAvailableBalance}
+            </if>
+            <if test="planInputQuantity != null">
+                and a.plan_input_quantity = #{planInputQuantity}
+            </if>
+            <if test="availableToPromise != null">
+                and a.available_to_promise = #{availableToPromise}
+            </if>
+            <if test="planBeginDate != null">
+                and a.plan_begin_date = #{planBeginDate}
+            </if>
+            <if test="planEndDate != null">
+                and a.plan_end_date = #{planEndDate}
+            </if>
+            <if test="needDate != null">
+                and a.need_date = #{needDate}
+            </if>
+            <if test="saleorderId != null">
+                and a.saleorder_id = #{saleorderId}
+            </if>
+            <if test="saleorderCode != null and saleorderCode != ''">
+                and a.saleorder_code = #{saleorderCode}
+            </if>
+            <if test="saleMonthPlanId != null">
+                and a.sale_month_plan_id = #{saleMonthPlanId}
+            </if>
+            <if test="saleMonthPlanCode != null and saleMonthPlanCode != ''">
+                and a.sale_month_plan_code = #{saleMonthPlanCode}
+            </if>
+            <if test="planOrderId != null">
+                and a.plan_order_id = #{planOrderId}
+            </if>
+            <if test="planOrderCode != null and planOrderCode != ''">
+                and a.plan_order_code = #{planOrderCode}
+            </if>
+            <if test="manuOrderId != null">
+                and a.manu_order_id = #{manuOrderId}
+            </if>
+            <if test="manuOrderNo != null and manuOrderNo != ''">
+                and a.manu_order_no = #{manuOrderNo}
+            </if>
+            <if test="departmentId != null">
+                and a.department_id = #{departmentId}
+            </if>
+            <if test="businessCloseStatus != null and businessCloseStatus != ''">
+                and a.business_close_status = #{businessCloseStatus}
+            </if>
+            <if test="type != null and type != ''">
+                and a.type = #{type}
+            </if>
+            <if test="status != null and status != ''">
+                and a.status = #{status}
+            </if>
+            <if test="issueId != null">
+                and a.issue_id = #{issueId}
+            </if>
+            <if test="issuerName != null and issuerName != ''">
+                and a.issuer_name = #{issuerName}
+            </if>
+            <if test="issueTime != null">
+                and a.issue_time = #{issueTime}
+            </if>
+            <if test="remark != null and remark != ''">
+                and a.remark = #{remark}
+            </if>
+            <if test="createId != null and createId != ''">
+                and a.create_id = #{createId}
+            </if>
+            <if test="createName != null and createName != ''">
+                and a.create_name = #{createName}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateId != null and updateId != ''">
+                and update_id = #{updateId}
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and update_name = #{updateName}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="isReceived != null and isReceived != ''">
+                and is_received = #{isReceived}
+            </if>
+            <if test="netRequireQuantity != null">
+                and net_require_quantity = #{netRequireQuantity}
+            </if>
+            <if test="planType != null">
+                and plan_type = #{planType}
+            </if>
+        </where>
+        order by a.create_time desc
+    </select>
+    
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="MineralPowderRequirementsPlanningDetailMap">
+        select
+          id, mes_product_mineral_powder_requirements_planning_id, plan_quantity, month, plan_date_begin, plan_date_end, operation_date, bill_of_material_id, work_type, unit_id, unit_name, supplier_id, supplier_full_name, material_id, material_code, material_short_name, material_specification, product_id, product_code, product_short_name, product_specification, customer_code, forecast_order_quantity, require_quantity, plan_accetp_quantity, projected_available_balance_init_value, plan_output_quantity, projected_available_balance, plan_input_quantity, available_to_promise, plan_begin_date, plan_end_date, need_date, saleorder_id, saleorder_code, sale_month_plan_id, sale_month_plan_code, plan_order_id, plan_order_code, manu_order_id, manu_order_no, department_id, business_close_status, type, status, issue_id, issuer_name, issue_time, remark, create_id, create_name, create_time, update_id, update_name, update_time, is_received, net_require_quantity,plan_type,is_mps
+        from mes_product_mineral_powder_requirements_planning_detail
+        where id = #{id}
+    </select>
+
+   
+    
+
+ 
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_mineral_powder_requirements_planning_detail(mes_product_mineral_powder_requirements_planning_id, plan_quantity, month, plan_date_begin, plan_date_end, operation_date, bill_of_material_id, work_type, unit_id, unit_name, supplier_id, supplier_full_name, material_id, material_code, material_short_name, material_specification, product_id, product_code, product_short_name, product_specification, customer_code, forecast_order_quantity, require_quantity, plan_accetp_quantity, projected_available_balance_init_value, plan_output_quantity, projected_available_balance, plan_input_quantity, available_to_promise, plan_begin_date, plan_end_date, need_date, saleorder_id, saleorder_code, sale_month_plan_id, sale_month_plan_code, plan_order_id, plan_order_code, manu_order_id, manu_order_no, department_id, business_close_status, type, status, issue_id, issuer_name, issue_time, remark, create_id, create_name, create_time, update_id, update_name, update_time, is_received, net_require_quantity, plan_type,is_mps)
+        values (#{mesProductMineralPowderRequirementsPlanningId}, #{planQuantity}, #{month}, #{planDateBegin}, #{planDateEnd}, #{operationDate}, #{billOfMaterialId}, #{workType}, #{unitId}, #{unitName}, #{supplierId}, #{supplierFullName}, #{materialId}, #{materialCode}, #{materialShortName}, #{materialSpecification}, #{productId}, #{productCode}, #{productShortName}, #{productSpecification}, #{customerCode}, #{forecastOrderQuantity}, #{requireQuantity}, #{planAccetpQuantity}, #{projectedAvailableBalanceInitValue}, #{planOutputQuantity}, #{projectedAvailableBalance}, #{planInputQuantity}, #{availableToPromise}, #{planBeginDate}, #{planEndDate}, #{needDate}, #{saleorderId}, #{saleorderCode}, #{saleMonthPlanId}, #{saleMonthPlanCode}, #{planOrderId}, #{planOrderCode}, #{manuOrderId}, #{manuOrderNo}, #{departmentId}, #{businessCloseStatus}, #{type}, #{status}, #{issueId}, #{issuerName}, #{issueTime}, #{remark}, #{createId}, #{createName},now(), #{updateId}, #{updateName}, #{updateTime}, #{isReceived}, #{netRequireQuantity} , #{planType},0)
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_mineral_powder_requirements_planning_detail(mes_product_mineral_powder_requirements_planning_id, plan_quantity, month, plan_date_begin, plan_date_end, operation_date, bill_of_material_id, work_type, unit_id, unit_name, supplier_id, supplier_full_name, material_id, material_code, material_short_name, material_specification, product_id, product_code, product_short_name, product_specification, customer_code, forecast_order_quantity, require_quantity, plan_accetp_quantity, projected_available_balance_init_value, plan_output_quantity, projected_available_balance, plan_input_quantity, available_to_promise, plan_begin_date, plan_end_date, need_date, saleorder_id, saleorder_code, sale_month_plan_id, sale_month_plan_code, plan_order_id, plan_order_code, manu_order_id, manu_order_no, department_id, business_close_status, type, status, issue_id, issuer_name, issue_time, remark, create_id, create_name, create_time, update_id, update_name, update_time, is_received, net_require_quantity,plan_type,is_mps)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.mesProductMineralPowderRequirementsPlanningId}, #{entity.planQuantity}, #{entity.month}, #{entity.planDateBegin}, #{entity.planDateEnd}, #{entity.operationDate}, #{entity.billOfMaterialId}, #{entity.workType}, #{entity.unitId}, #{entity.unitName}, #{entity.supplierId}, #{entity.supplierFullName}, #{entity.materialId}, #{entity.materialCode}, #{entity.materialShortName}, #{entity.materialSpecification}, #{entity.productId}, #{entity.productCode}, #{entity.productShortName}, #{entity.productSpecification}, #{entity.customerCode}, #{entity.forecastOrderQuantity}, #{entity.requireQuantity}, #{entity.planAccetpQuantity}, #{entity.projectedAvailableBalanceInitValue}, #{entity.planOutputQuantity}, #{entity.projectedAvailableBalance}, #{entity.planInputQuantity}, #{entity.availableToPromise}, #{entity.planBeginDate}, #{entity.planEndDate}, #{entity.needDate}, #{entity.saleorderId}, #{entity.saleorderCode}, #{entity.saleMonthPlanId}, #{entity.saleMonthPlanCode}, #{entity.planOrderId}, #{entity.planOrderCode}, #{entity.manuOrderId}, #{entity.manuOrderNo}, #{entity.departmentId}, #{entity.businessCloseStatus}, #{entity.type}, #{entity.status}, #{entity.issueId}, #{entity.issuerName}, #{entity.issueTime}, #{entity.remark}, #{entity.createId}, #{entity.createName},now(), #{entity.updateId}, #{entity.updateName}, #{entity.updateTime}, #{entity.isReceived}, #{entity.netRequireQuantity}, #{entity.planType},0)
+        </foreach>
+    </insert>
+
+
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update mes_product_mineral_powder_requirements_planning_detail
+        <set>
+            <if test="mesProductMineralPowderRequirementsPlanningId != null">
+                mes_product_mineral_powder_requirements_planning_id = #{mesProductMineralPowderRequirementsPlanningId},
+            </if>
+            <if test="planQuantity != null">
+                plan_quantity = #{planQuantity},
+            </if>
+            <if test="month != null and month != ''">
+                month = #{month},
+            </if>
+            <if test="planDateBegin != null">
+                plan_date_begin = #{planDateBegin},
+            </if>
+            <if test="planDateEnd != null">
+                plan_date_end = #{planDateEnd},
+            </if>
+            <if test="operationDate != null">
+                operation_date = #{operationDate},
+            </if>
+            <if test="billOfMaterialId != null">
+                bill_of_material_id = #{billOfMaterialId},
+            </if>
+            <if test="workType != null">
+                work_type = #{workType},
+            </if>
+            <if test="unitId != null and unitId != ''">
+                unit_id = #{unitId},
+            </if>
+            <if test="unitName != null and unitName != ''">
+                unit_name = #{unitName},
+            </if>
+            <if test="supplierId != null">
+                supplier_id = #{supplierId},
+            </if>
+            <if test="supplierFullName != null and supplierFullName != ''">
+                supplier_full_name = #{supplierFullName},
+            </if>
+            <if test="materialId != null">
+                material_id = #{materialId},
+            </if>
+            <if test="materialCode != null and materialCode != ''">
+                material_code = #{materialCode},
+            </if>
+            <if test="materialShortName != null and materialShortName != ''">
+                material_short_name = #{materialShortName},
+            </if>
+            <if test="materialSpecification != null and materialSpecification != ''">
+                material_specification = #{materialSpecification},
+            </if>
+            <if test="productId != null">
+                product_id = #{productId},
+            </if>
+            <if test="productCode != null and productCode != ''">
+                product_code = #{productCode},
+            </if>
+            <if test="productShortName != null and productShortName != ''">
+                product_short_name = #{productShortName},
+            </if>
+            <if test="productSpecification != null and productSpecification != ''">
+                product_specification = #{productSpecification},
+            </if>
+            <if test="customerCode != null and customerCode != ''">
+                customer_code = #{customerCode},
+            </if>
+            <if test="forecastOrderQuantity != null">
+                forecast_order_quantity = #{forecastOrderQuantity},
+            </if>
+            <if test="requireQuantity != null">
+                require_quantity = #{requireQuantity},
+            </if>
+            <if test="planAccetpQuantity != null">
+                plan_accetp_quantity = #{planAccetpQuantity},
+            </if>
+            <if test="projectedAvailableBalanceInitValue != null">
+                projected_available_balance_init_value = #{projectedAvailableBalanceInitValue},
+            </if>
+            <if test="planOutputQuantity != null">
+                plan_output_quantity = #{planOutputQuantity},
+            </if>
+            <if test="projectedAvailableBalance != null">
+                projected_available_balance = #{projectedAvailableBalance},
+            </if>
+            <if test="planInputQuantity != null">
+                plan_input_quantity = #{planInputQuantity},
+            </if>
+            <if test="availableToPromise != null">
+                available_to_promise = #{availableToPromise},
+            </if>
+            <if test="planBeginDate != null">
+                plan_begin_date = #{planBeginDate},
+            </if>
+            <if test="planEndDate != null">
+                plan_end_date = #{planEndDate},
+            </if>
+            <if test="needDate != null">
+                need_date = #{needDate},
+            </if>
+            <if test="saleorderId != null">
+                saleorder_id = #{saleorderId},
+            </if>
+            <if test="saleorderCode != null and saleorderCode != ''">
+                saleorder_code = #{saleorderCode},
+            </if>
+            <if test="saleMonthPlanId != null">
+                sale_month_plan_id = #{saleMonthPlanId},
+            </if>
+            <if test="saleMonthPlanCode != null and saleMonthPlanCode != ''">
+                sale_month_plan_code = #{saleMonthPlanCode},
+            </if>
+            <if test="planOrderId != null">
+                plan_order_id = #{planOrderId},
+            </if>
+            <if test="planOrderCode != null and planOrderCode != ''">
+                plan_order_code = #{planOrderCode},
+            </if>
+            <if test="manuOrderId != null">
+                manu_order_id = #{manuOrderId},
+            </if>
+            <if test="manuOrderNo != null and manuOrderNo != ''">
+                manu_order_no = #{manuOrderNo},
+            </if>
+            <if test="departmentId != null">
+                department_id = #{departmentId},
+            </if>
+            <if test="businessCloseStatus != null and businessCloseStatus != ''">
+                business_close_status = #{businessCloseStatus},
+            </if>
+            <if test="type != null and type != ''">
+                type = #{type},
+            </if>
+            <if test="status != null and status != ''">
+                status = #{status},
+            </if>
+            <if test="issueId != null">
+                issue_id = #{issueId},
+            </if>
+            <if test="issuerName != null and issuerName != ''">
+                issuer_name = #{issuerName},
+            </if>
+            <if test="issueTime != null">
+                issue_time = #{issueTime},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+
+            <if test="updateId != null ">
+                update_id = #{updateId},
+            </if>
+            <if test="updateName != null and updateName != ''">
+                update_name = #{updateName},
+            </if>
+
+                update_time = now(),
+
+            <if test="isReceived != null">
+                is_received = #{isReceived},
+            </if>
+            <if test="netRequireQuantity != null">
+                net_require_quantity = #{netRequireQuantity},
+            </if>
+            <if test="planType != null">
+                plan_type = #{planType},
+            </if>
+            <if test="isMps != null">
+                is_mps = #{isMps},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from mes_product_mineral_powder_requirements_planning_detail where id = #{id}
+    </delete>
+    
+     <!--逻辑删除-->
+    <update id="removeById">
+        update mes_product_mineral_powder_requirements_planning_detail set status = 1  where id = #{id}
+    </update>
+
+
+    <select id="getByMineralPowderRequirementsPlanningId" resultMap="MineralPowderRequirementsPlanningDetailMap">
+        select
+        <include refid="Base_Column_List"/>
+        ,c.material_unit_name  as unit_name
+        ,d.dict_value as planTypeName
+        ,b.material_code as material_code
+        ,b.material_name as materialName
+        from mes_product_mineral_powder_requirements_planning_detail a
+        left join basic_data_material_info b on b.id = a.product_id
+        left join basic_data_material_unit c on c.id = a.unit_id
+        left join sys_dict_data d on d.dict_label = a.plan_type and d.dict_type = 'mineral_powder_requirements_planning_plan_type'
+        where a.mes_product_mineral_powder_requirements_planning_id = #{mesProductMineralPowderRequirementsPlanningId}
+    </select>
+
+
+</mapper>
+

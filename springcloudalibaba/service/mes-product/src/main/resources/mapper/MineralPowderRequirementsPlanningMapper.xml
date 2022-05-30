@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bpm.server.mapper.MineralPowderRequirementsPlanningMapper">
+
+      <sql id="Base_Column_List">
+         id, plan_code, plan_date_begin, plan_date_end, plan_cycle, silo, remark, status, create_id, create_name, create_time, update_id, update_name, update_time  , demand_organization_id
+      </sql>
+
+    <sql id="Alias_Column_List">
+        a.id, a.plan_code, a.plan_date_begin, a.plan_date_end, a.plan_cycle, a.silo, a.remark, a.status, a.create_id, a.create_name, a.create_time, a.update_id, a.update_name, a.update_time,a.demand_organization_id
+    </sql>
+
+    <resultMap type="com.bpm.common.vo.MineralPowderRequirementsPlanningVO" id="MineralPowderRequirementsPlanningMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="planCode" column="plan_code" jdbcType="VARCHAR"/>
+        <result property="planDateBegin" column="plan_date_begin" jdbcType="TIMESTAMP"/>
+        <result property="planDateEnd" column="plan_date_end" jdbcType="TIMESTAMP"/>
+        <result property="planCycle" column="plan_cycle" jdbcType="VARCHAR"/>
+        <result property="silo" column="silo" jdbcType="INTEGER"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="createId" column="create_id" jdbcType="VARCHAR"/>
+        <result property="createName" column="create_name" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateId" column="update_id" jdbcType="VARCHAR"/>
+        <result property="updateName" column="update_name" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="demandOrganizatioId" column="demand_organization_id" jdbcType="INTEGER"/>
+    </resultMap>
+    
+    
+        <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="MineralPowderRequirementsPlanningMap">
+        select
+          <include refid="Alias_Column_List" />,b.customer_name AS demandOrganizatioName,c. stock_place_name as siloName,d.dict_value planCycleName,f.dict_value as statusName
+        from mes_product_mineral_powder_requirements_planning a
+        left join basic_data_customer_management  b on b.id = a.demand_organization_id
+        left join mes_wms_stockplace c on c.id = a.silo
+        left join sys_dict_data d on d.dict_label = a.plan_cycle and d.dict_type = 'plan_cycle'
+        left join sys_dict_data f on f.dict_label = cast(a.status as VARCHAR) and f.dict_type = 'mineral_powder_requirements_planning_status'
+        <where>
+            <if test="id != null">
+                and a.id = #{id}
+            </if>
+            <if test="planCode != null and planCode != ''">
+                and a.plan_code like concat('%',#{planCode},'%')
+            </if>
+            <if test="planDateBegin != null">
+                and a.plan_date_begin = #{planDateBegin}
+            </if>
+            <if test="planDateEnd != null">
+                and a.plan_date_end = #{planDateEnd}
+            </if>
+            <if test="planCycle != null and planCycle != ''">
+                and a.plan_cycle = #{planCycle}
+            </if>
+            <if test="silo != null and silo != ''">
+                and a.silo = #{silo}
+            </if>
+            <if test="remark != null and remark != ''">
+                and a.remark = #{remark}
+            </if>
+            <if test="status != null">
+                and a.status = #{status}
+            </if>
+            <if test="createId != null and createId != ''">
+                and a.create_id = #{createId}
+            </if>
+            <if test="createName != null and createName != ''">
+                and a.create_name = #{createName}
+            </if>
+            <if test="createTime != null">
+                and a.create_time = #{createTime}
+            </if>
+            <if test="beginTime != null">
+                 and create_time >= #{beginTime}
+            </if>
+            <if test="endTime != null and updateId != ''">
+                and create_time &lt;= #{endTime}
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and update_name = #{updateName}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="materialName != null and materialName != ''">
+                and a.id in (
+                    select mes_product_mineral_powder_requirements_planning_id
+                    from mes_product_mineral_powder_requirements_planning_detail
+                    where material_short_name
+                    like concat ('%',#{materialName},'%')
+                )
+            </if>
+            <if test="materialCode != null and materialCode != '' ">
+                and a.id in (
+                    select mes_product_mineral_powder_requirements_planning_id
+                    from mes_product_mineral_powder_requirements_planning_detail
+                    where material_code
+                    like concat ('%',#{materialCode},'%')
+                )
+            </if>
+        </where>
+        order by a.create_time desc
+    </select>
+    
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="MineralPowderRequirementsPlanningMap">
+        select
+          id, plan_code, plan_date_begin, plan_date_end, plan_cycle, silo, remark, status, create_id, create_name, create_time, update_id, update_name, update_time,demand_organization_id
+        from mes_product_mineral_powder_requirements_planning
+        where id = #{id}
+    </select>
+
+   
+    
+
+ 
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_mineral_powder_requirements_planning(plan_code, plan_date_begin, plan_date_end, plan_cycle, silo, remark, status, create_id, create_name, create_time, update_id, update_name, update_time,demand_organization_id)
+        values (#{planCode}, #{planDateBegin}, #{planDateEnd}, #{planCycle}, #{silo}, #{remark}, #{status}, #{createId}, #{createName}, now(), #{updateId}, #{updateName}, #{updateTime} ,#{demandOrganizatioId})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_mineral_powder_requirements_planning(plan_code, plan_date_begin, plan_date_end, plan_cycle, silo, remark, status, create_id, create_name, create_time, update_id, update_name, update_time,demand_organization_id)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.planCode}, #{entity.planDateBegin}, #{entity.planDateEnd}, #{entity.planCycle}, #{entity.silo}, #{entity.remark}, #{entity.status}, #{entity.createId}, #{entity.createName},now(), #{entity.updateId}, #{entity.updateName}, #{entity.updateTime},#{demandOrganizatioId})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_mineral_powder_requirements_planning(plan_code, plan_date_begin, plan_date_end, plan_cycle, silo, remark, status, create_id, create_name, create_time, update_id, update_name, update_time,demand_organization_id)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.planCode}, #{entity.planDateBegin}, #{entity.planDateEnd}, #{entity.planCycle}, #{entity.silo}, #{entity.remark}, #{entity.status}, #{entity.createId}, #{entity.createName},now(), #{entity.updateId}, #{entity.updateName}, #{entity.updateTime},#{demandOrganizatioId})
+        </foreach>
+        on duplicate key update
+        plan_code = values(plan_code),
+        plan_date_begin = values(plan_date_begin),
+        plan_date_end = values(plan_date_end),
+        plan_cycle = values(plan_cycle),
+        silo = values(silo),
+        remark = values(remark),
+        status = values(status),
+        create_id = values(create_id),
+        create_name = values(create_name),
+        create_time = values(create_time),
+        update_id = values(update_id),
+        update_name = values(update_name),
+        update_time = values(update_time)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update mes_product_mineral_powder_requirements_planning
+        <set>
+            <if test="planCode != null and planCode != ''">
+                plan_code = #{planCode},
+            </if>
+            <if test="planDateBegin != null">
+                plan_date_begin = #{planDateBegin},
+            </if>
+            <if test="planDateEnd != null">
+                plan_date_end = #{planDateEnd},
+            </if>
+            <if test="planCycle != null and planCycle != ''">
+                plan_cycle = #{planCycle},
+            </if>
+            <if test="silo != null and silo != ''">
+                silo = #{silo},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="updateId != null and updateId != ''">
+                update_id = #{updateId},
+            </if>
+            <if test="updateName != null and updateName != ''">
+                update_name = #{updateName},
+            </if>
+                update_time = now(),
+            <if test="demandOrganizatioId != null">
+                demand_organization_id = #{demandOrganizatioId},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from mes_product_mineral_powder_requirements_planning where id = #{id}
+    </delete>
+    
+     <!--逻辑删除-->
+    <update id="removeById">
+        update mes_product_mineral_powder_requirements_planning set status = 1  where id = #{id}
+    </update>
+
+
+
+
+
+
+</mapper>
+

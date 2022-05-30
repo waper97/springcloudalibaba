@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bpm.server.mapper.BillOfMaterialDetailMapper">
+    <sql id="Base_Column_List">
+        id, mes_product_bill_of_material_id, seqnumber, cardinality, product_id, material_properties_id, mes_product_bill_of_material_detail_id, subitem_materiel_id, subitem_material_code, subitem_material_name, subitem_material_quantity, create_id, create_name, create_time, update_id, update_name, update_time, is_deleted,attrition_rate
+    </sql>
+
+
+
+    <resultMap type="com.bpm.common.vo.BillOfMaterialDetailVO" id="MesProductBillOfMaterialDetailMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="mesProductBillOfMaterialId" column="mes_product_bill_of_material_id" jdbcType="INTEGER"/>
+        <result property="seqnumber" column="seqnumber" jdbcType="VARCHAR"/>
+        <result property="cardinality" column="cardinality" jdbcType="DECIMAL"/>
+        <result property="productId" column="product_id" jdbcType="VARCHAR"/>
+        <result property="materialPropertiesId" column="material_properties_id" jdbcType="DECIMAL"/>
+        <result property="mesProductBillOfMaterialDetailId" column="mes_product_bill_of_material_detail_id"
+                jdbcType="DECIMAL"/>
+        <result property="subitemMaterielId" column="subitem_materiel_id" jdbcType="DECIMAL"/>
+        <result property="subitemMaterialCode" column="subitem_material_code" jdbcType="VARCHAR"/>
+        <result property="subitemMaterialName" column="subitem_material_name" jdbcType="VARCHAR"/>
+        <result property="subitemMaterialQuantity" column="subitem_material_quantity" jdbcType="DECIMAL"/>
+        <result property="createId" column="create_id" jdbcType="DECIMAL"/>
+        <result property="createName" column="create_name" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateId" column="update_id" jdbcType="DECIMAL"/>
+        <result property="updateName" column="update_name" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+        <result property="attritionRate" column="attrition_rate" jdbcType="DECIMAL"/>
+        <result property="rate" column="rate" jdbcType="DECIMAL"/>
+        <result property="materielQuantity" column="materiel_quantity" jdbcType="DECIMAL"/>
+        <result property="costAmount" column="cost_amount" jdbcType="DECIMAL"/>
+    </resultMap>
+
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="MesProductBillOfMaterialDetailMap">
+        select
+        <include refid="Base_Column_List"/>
+        from mes_product_bill_of_material_detail
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="mesProductBillOfMaterialId != null and mesProductBillOfMaterialId != ''">
+                and mes_product_bill_of_material_id = #{mesProductBillOfMaterialId}
+            </if>
+            <if test="seqnumber != null and seqnumber != ''">
+                and seqnumber = #{seqnumber}
+            </if>
+            <if test="cardinality != null and cardinality != ''">
+                and cardinality = #{cardinality}
+            </if>
+            <if test="productId != null and productId != ''">
+                and product_id = #{productId}
+            </if>
+            <if test="materialPropertiesId != null and materialPropertiesId != ''">
+                and material_properties_id = #{materialPropertiesId}
+            </if>
+            <if test="mesProductBillOfMaterialDetailId != null and mesProductBillOfMaterialDetailId != ''">
+                and mes_product_bill_of_material_detail_id = #{mesProductBillOfMaterialDetailId}
+            </if>
+            <if test="subitemMaterielId != null and subitemMaterielId != ''">
+                and subitem_materiel_id = #{subitemMaterielId}
+            </if>
+            <if test="subitemMaterialCode != null and subitemMaterialCode != ''">
+                and subitem_material_code = #{subitemMaterialCode}
+            </if>
+            <if test="subitemMaterialName != null and subitemMaterialName != ''">
+                and subitem_material_name = #{subitemMaterialName}
+            </if>
+            <if test="subitemMaterialQuantity != null">
+                and subitem_material_quantity = #{subitemMaterialQuantity}
+            </if>
+            <if test="createId != null and createId != ''">
+                and create_id = #{createId}
+            </if>
+            <if test="createName != null and createName != ''">
+                and create_name = #{createName}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateId != null and updateId != ''">
+                and update_id = #{updateId}
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and update_name = #{updateName}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="isDeleted != null">
+                and is_deleted = #{isDeleted}
+            </if>
+            <if test="attritionRate != null">
+                and attrition_rate = #{attritionRate}
+            </if>
+            <if test="rate != null">
+                and rate = #{rate}
+            </if>
+            <if test="materielQuantity != null">
+                and materiel_quantity = #{materielQuantity}
+            </if>
+            <if test="costAmount != null">
+                and cost_amount = #{costAmount}
+            </if>
+        </where>
+        order by id
+    </select>
+
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="MesProductBillOfMaterialDetailMap">
+        select id,
+               mes_product_bill_of_material_id,
+               seqnumber,
+               cardinality,
+               product_id,
+               material_properties_id,
+               mes_product_bill_of_material_detail_id,
+               subitem_materiel_id,
+               subitem_material_code,
+               subitem_material_name,
+               subitem_material_quantity,
+               create_id,
+               create_name,
+               create_time,
+               update_id,
+               update_name,
+               update_time,
+               is_deleted,
+               attrition_rate,
+               rate,
+               materiel_quantity,
+               cost_amount
+        from mes_product_bill_of_material_detail
+        where id = #{id}
+    </select>
+
+
+
+
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_bill_of_material_detail(mes_product_bill_of_material_id, seqnumber, cardinality,
+                                                        product_id, material_properties_id,
+                                                        mes_product_bill_of_material_detail_id, subitem_materiel_id,
+                                                        subitem_material_code, subitem_material_name,
+                                                        subitem_material_quantity, create_id, create_name, create_time,
+                                                        update_id, update_name, update_time, is_deleted,attrition_rate,rate,materiel_quantity,cost_amount)
+        values (#{mesProductBillOfMaterialId}, #{seqnumber}, #{cardinality}, #{productId}, #{materialPropertiesId},
+                #{mesProductBillOfMaterialDetailId}, #{subitemMaterielId}, #{subitemMaterialCode},
+                #{subitemMaterialName}, #{subitemMaterialQuantity}, #{createId}, #{createName}, #{createTime},
+                #{updateId}, #{updateName}, #{updateTime}, #{isDeleted},#{attritionRate},#{rate},#{materielQuantity},#{costAmount})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_bill_of_material_detail(mes_product_bill_of_material_id, seqnumber, cardinality,
+        product_id, material_properties_id, mes_product_bill_of_material_detail_id, subitem_materiel_id,
+        subitem_material_code, subitem_material_name, subitem_material_quantity, create_id, create_name, create_time,
+        update_id, update_name, update_time, is_deleted,attrition_rate,rate,materiel_quantity,cost_amount)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.mesProductBillOfMaterialId}, #{entity.seqnumber}, #{entity.cardinality}, #{entity.productId},
+            #{entity.materialPropertiesId}, #{entity.mesProductBillOfMaterialDetailId}, #{entity.subitemMaterielId},
+            #{entity.subitemMaterialCode}, #{entity.subitemMaterialName}, #{entity.subitemMaterialQuantity},
+            #{entity.createId}, #{entity.createName}, #{entity.createTime}, #{entity.updateId}, #{entity.updateName},
+            #{entity.updateTime}, #{entity.isDeleted},#{entity.attritionRate},#{entity.rate},#{entity.materielQuantity},#{entity.costAmount})
+        </foreach>
+    </insert>
+
+
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update mes_product_bill_of_material_detail
+        <set>
+            <if test="mesProductBillOfMaterialId != null and mesProductBillOfMaterialId != ''">
+                mes_product_bill_of_material_id = #{mesProductBillOfMaterialId},
+            </if>
+            <if test="seqnumber != null and seqnumber != ''">
+                seqnumber = #{seqnumber},
+            </if>
+            <if test="cardinality != null and cardinality != ''">
+                cardinality = #{cardinality},
+            </if>
+            <if test="productId != null and productId != ''">
+                product_id = #{productId},
+            </if>
+            <if test="materialPropertiesId != null and materialPropertiesId != ''">
+                material_properties_id = #{materialPropertiesId},
+            </if>
+            <if test="mesProductBillOfMaterialDetailId != null and mesProductBillOfMaterialDetailId != ''">
+                mes_product_bill_of_material_detail_id = #{mesProductBillOfMaterialDetailId},
+            </if>
+            <if test="subitemMaterielId != null and subitemMaterielId != ''">
+                subitem_materiel_id = #{subitemMaterielId},
+            </if>
+            <if test="subitemMaterialCode != null and subitemMaterialCode != ''">
+                subitem_material_code = #{subitemMaterialCode},
+            </if>
+            <if test="subitemMaterialName != null and subitemMaterialName != ''">
+                subitem_material_name = #{subitemMaterialName},
+            </if>
+            <if test="subitemMaterialQuantity != null">
+                subitem_material_quantity = #{subitemMaterialQuantity},
+            </if>
+            <if test="createId != null and createId != ''">
+                create_id = #{createId},
+            </if>
+            <if test="createName != null and createName != ''">
+                create_name = #{createName},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateId != null and updateId != ''">
+                update_id = #{updateId},
+            </if>
+            <if test="updateName != null and updateName != ''">
+                update_name = #{updateName},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted},
+            </if>
+            <if test="attritionRate != null">
+                attrition_rate = #{attritionRate},
+            </if>
+            <if test="rate != null">
+                rate = #{rate},
+            </if>
+            <if test="materielQuantity != null">
+                materiel_quantity = #{materielQuantity},
+            </if>
+            <if test="costAmount != null">
+                cost_amount = #{costAmount},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from mes_product_bill_of_material_detail
+        where id = #{id}
+    </delete>
+
+    <!--逻辑删除-->
+    <update id="removeById">
+        update mes_product_bill_of_material_detail
+        set status = 1
+        where id = #{id}
+    </update>
+
+
+    <select id="listProductBillOfMaterialDetailByProductBillOfMaterialId" resultMap="MesProductBillOfMaterialDetailMap" >
+        select  a.*,d.dict_value as materialPropertiesName,
+                a.rate,c.material_unit_name as unitOfMeasurement,
+                b.material_name as materialName,
+                b.material_code as materialCode
+        from mes_product_bill_of_material_detail a
+        left join basic_data_material_info b on b.id = a.product_id
+        left join basic_data_material_unit c on c.id = b.material_unit_id
+        left join sys_dict_data d on d.dict_label = CAST(a.material_properties_id AS VARCHAR) and d.dict_type =  'bom_material_properties'
+        where  mes_product_bill_of_material_id = #{bomId}
+    </select>
+</mapper>
+

@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bpm.server.mapper.ProductInWorkReportMapper">
+
+      <sql id="Base_Column_List">
+         id, work_report_code, work_report_date, work_enter_id, bom_id, stock_id, material_id, units_id, qty, batch_no, status, posting_date, stock_type, source_id, source_code, in_date, in_code, department_id, company_id, company_code, company_name, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid
+      </sql>
+      
+
+    <resultMap type="com.bpm.common.vo.ProductInWorkReportVO" id="ProductInWorkReportMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="workReportCode" column="work_report_code" jdbcType="VARCHAR"/>
+        <result property="workReportDate" column="work_report_date" jdbcType="VARCHAR"/>
+        <result property="workEnterId" column="work_enter_id" jdbcType="INTEGER"/>
+        <result property="bomId" column="bom_id" jdbcType="INTEGER"/>
+        <result property="stockId" column="stock_id" jdbcType="INTEGER"/>
+        <result property="materialId" column="material_id" jdbcType="INTEGER"/>
+        <result property="unitsId" column="units_id" jdbcType="INTEGER"/>
+        <result property="qty" column="qty" jdbcType="INTEGER"/>
+        <result property="batchNo" column="batch_no" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="VARCHAR"/>
+        <result property="postingDate" column="posting_date" jdbcType="VARCHAR"/>
+        <result property="stockType" column="stock_type" jdbcType="INTEGER"/>
+        <result property="sourceId" column="source_id" jdbcType="INTEGER"/>
+        <result property="sourceCode" column="source_code" jdbcType="VARCHAR"/>
+        <result property="inDate" column="in_date" jdbcType="VARCHAR"/>
+        <result property="inCode" column="in_code" jdbcType="VARCHAR"/>
+        <result property="departmentId" column="department_id" jdbcType="INTEGER"/>
+        <result property="companyId" column="company_id" jdbcType="INTEGER"/>
+        <result property="companyCode" column="company_code" jdbcType="VARCHAR"/>
+        <result property="companyName" column="company_name" jdbcType="VARCHAR"/>
+        <result property="createId" column="create_id" jdbcType="INTEGER"/>
+        <result property="createName" column="create_name" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="VARCHAR"/>
+        <result property="updateId" column="update_id" jdbcType="INTEGER"/>
+        <result property="updateName" column="update_name" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="VARCHAR"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="isValid" column="is_valid" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+    
+        <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="ProductInWorkReportMap">
+        select
+          <include refid="Base_Column_List" />
+        from product_in_work_report
+        <where>
+            <if test="id != null">
+                 and id = #{id}
+            </if>
+            <if test="workReportCode != null and workReportCode != ''">
+                 and work_report_code like concat('%','#{workReportCode}','%') 
+                 and work_report_code = #{workReportCode}
+            </if>
+            <if test="workReportDate != null and workReportDate != ''">
+                 and work_report_date = #{workReportDate}
+            </if>
+            <if test="workEnterId != null">
+                 and work_enter_id = #{workEnterId}
+            </if>
+            <if test="bomId != null">
+                 and bom_id = #{bomId}
+            </if>
+            <if test="stockId != null">
+                 and stock_id = #{stockId}
+            </if>
+            <if test="materialId != null">
+                 and material_id = #{materialId}
+            </if>
+            <if test="unitsId != null">
+                 and units_id = #{unitsId}
+            </if>
+            <if test="qty != null">
+                 and qty = #{qty}
+            </if>
+            <if test="batchNo != null and batchNo != ''">
+                 and batch_no = #{batchNo}
+            </if>
+            <if test="status != null and status != ''">
+                 and status = #{status}
+            </if>
+            <if test="postingDate != null and postingDate != ''">
+                 and posting_date = #{postingDate}
+            </if>
+            <if test="stockType != null">
+                 and stock_type = #{stockType}
+            </if>
+            <if test="sourceId != null">
+                 and source_id = #{sourceId}
+            </if>
+            <if test="sourceCode != null and sourceCode != ''">
+                 and source_code like concat('%','#{sourceCode}','%') 
+                 and source_code = #{sourceCode}
+            </if>
+            <if test="inDate != null and inDate != ''">
+                 and in_date = #{inDate}
+            </if>
+            <if test="inCode != null and inCode != ''">
+                 and in_code like concat('%','#{inCode}','%') 
+                 and in_code = #{inCode}
+            </if>
+            <if test="departmentId != null">
+                 and department_id = #{departmentId}
+            </if>
+            <if test="companyId != null">
+                 and company_id = #{companyId}
+            </if>
+            <if test="companyCode != null and companyCode != ''">
+                 and company_code like concat('%','#{companyCode}','%') 
+                 and company_code = #{companyCode}
+            </if>
+            <if test="companyName != null and companyName != ''">
+                 and company_name like concat('%','#{companyName}','%') 
+                 and company_name = #{companyName}
+            </if>
+            <if test="createId != null">
+                 and create_id = #{createId}
+            </if>
+            <if test="createName != null and createName != ''">
+                 and create_name like concat('%','#{createName}','%') 
+                 and create_name = #{createName}
+            </if>
+            <if test="createTime != null and createTime != ''">
+                 and create_time = #{createTime}
+            </if>
+            <if test="updateId != null">
+                 and update_id = #{updateId}
+            </if>
+            <if test="updateName != null and updateName != ''">
+                 and update_name like concat('%','#{updateName}','%') 
+                 and update_name = #{updateName}
+            </if>
+            <if test="updateTime != null and updateTime != ''">
+                 and update_time = #{updateTime}
+            </if>
+            <if test="remark != null and remark != ''">
+                 and remark = #{remark}
+            </if>
+            <if test="isValid != null and isValid != ''">
+                 and is_valid = #{isValid}
+            </if>
+        </where>
+        order by create_time
+    </select>
+    
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="ProductInWorkReportMap">
+        select
+          id, work_report_code, work_report_date, work_enter_id, bom_id, stock_id, material_id, units_id, qty, batch_no, status, posting_date, stock_type, source_id, source_code, in_date, in_code, department_id, company_id, company_code, company_name, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid
+        from product_in_work_report
+        where id = #{id}
+    </select>
+
+   
+    
+
+ 
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into product_in_work_report(work_report_code, work_report_date, work_enter_id, bom_id, stock_id, material_id, units_id, qty, batch_no, status, posting_date, stock_type, source_id, source_code, in_date, in_code, department_id, company_id, company_code, company_name, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid)
+        values (#{workReportCode}, #{workReportDate}, #{workEnterId}, #{bomId}, #{stockId}, #{materialId}, #{unitsId}, #{qty}, #{batchNo}, #{status}, #{postingDate}, #{stockType}, #{sourceId}, #{sourceCode}, #{inDate}, #{inCode}, #{departmentId}, #{companyId}, #{companyCode}, #{companyName}, #{createId}, #{createName}, #{createTime}, #{updateId}, #{updateName}, #{updateTime}, #{remark}, #{isValid})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into product_in_work_report(work_report_code, work_report_date, work_enter_id, bom_id, stock_id, material_id, units_id, qty, batch_no, status, posting_date, stock_type, source_id, source_code, in_date, in_code, department_id, company_id, company_code, company_name, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.workReportCode}, #{entity.workReportDate}, #{entity.workEnterId}, #{entity.bomId}, #{entity.stockId}, #{entity.materialId}, #{entity.unitsId}, #{entity.qty}, #{entity.batchNo}, #{entity.status}, #{entity.postingDate}, #{entity.stockType}, #{entity.sourceId}, #{entity.sourceCode}, #{entity.inDate}, #{entity.inCode}, #{entity.departmentId}, #{entity.companyId}, #{entity.companyCode}, #{entity.companyName}, #{entity.createId}, #{entity.createName}, #{entity.createTime}, #{entity.updateId}, #{entity.updateName}, #{entity.updateTime}, #{entity.remark}, #{entity.isValid})
+        </foreach>
+    </insert>
+
+
+    <!--通过主键修改数据  选择性修改-->
+    <update id="updateSelective">
+        update product_in_work_report
+        <set>
+            <if test="workReportCode != null and workReportCode != ''">
+                work_report_code = #{workReportCode},
+            </if>
+            <if test="workReportDate != null and workReportDate != ''">
+                work_report_date = #{workReportDate},
+            </if>
+            <if test="workEnterId != null">
+                work_enter_id = #{workEnterId},
+            </if>
+            <if test="bomId != null">
+                bom_id = #{bomId},
+            </if>
+            <if test="stockId != null">
+                stock_id = #{stockId},
+            </if>
+            <if test="materialId != null">
+                material_id = #{materialId},
+            </if>
+            <if test="unitsId != null">
+                units_id = #{unitsId},
+            </if>
+            <if test="qty != null">
+                qty = #{qty},
+            </if>
+            <if test="batchNo != null and batchNo != ''">
+                batch_no = #{batchNo},
+            </if>
+            <if test="status != null and status != ''">
+                status = #{status},
+            </if>
+            <if test="postingDate != null and postingDate != ''">
+                posting_date = #{postingDate},
+            </if>
+            <if test="stockType != null">
+                stock_type = #{stockType},
+            </if>
+            <if test="sourceId != null">
+                source_id = #{sourceId},
+            </if>
+            <if test="sourceCode != null and sourceCode != ''">
+                source_code = #{sourceCode},
+            </if>
+            <if test="inDate != null and inDate != ''">
+                in_date = #{inDate},
+            </if>
+            <if test="inCode != null and inCode != ''">
+                in_code = #{inCode},
+            </if>
+            <if test="departmentId != null">
+                department_id = #{departmentId},
+            </if>
+            <if test="companyId != null">
+                company_id = #{companyId},
+            </if>
+            <if test="companyCode != null and companyCode != ''">
+                company_code = #{companyCode},
+            </if>
+            <if test="companyName != null and companyName != ''">
+                company_name = #{companyName},
+            </if>
+            <if test="createId != null">
+                create_id = #{createId},
+            </if>
+            <if test="createName != null and createName != ''">
+                create_name = #{createName},
+            </if>
+            <if test="createTime != null and createTime != ''">
+                create_time = #{createTime},
+            </if>
+            <if test="updateId != null">
+                update_id = #{updateId},
+            </if>
+            <if test="updateName != null and updateName != ''">
+                update_name = #{updateName},
+            </if>
+            <if test="updateTime != null and updateTime != ''">
+                update_time = #{updateTime},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="isValid != null and isValid != ''">
+                is_valid = #{isValid},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    
+      <!--通过主键修改数据-->
+    <update id="update">
+        update product_in_work_report
+        set
+        work_report_code = #{workReportCode},
+        work_report_date = #{workReportDate},
+        work_enter_id = #{workEnterId},
+        bom_id = #{bomId},
+        stock_id = #{stockId},
+        material_id = #{materialId},
+        units_id = #{unitsId},
+        qty = #{qty},
+        batch_no = #{batchNo},
+        status = #{status},
+        posting_date = #{postingDate},
+        stock_type = #{stockType},
+        source_id = #{sourceId},
+        source_code = #{sourceCode},
+        in_date = #{inDate},
+        in_code = #{inCode},
+        department_id = #{departmentId},
+        company_id = #{companyId},
+        company_code = #{companyCode},
+        company_name = #{companyName},
+        create_id = #{createId},
+        create_name = #{createName},
+        create_time = #{createTime},
+        update_id = #{updateId},
+        update_name = #{updateName},
+        update_time = #{updateTime},
+        remark = #{remark},
+        is_valid = #{isValid},
+      
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from product_in_work_report where id = #{id}
+    </delete>
+    
+     <!--逻辑删除-->
+    <update id="removeById">
+        update product_in_work_report set status = 1  where id = #{id}
+    </update>
+
+</mapper>
+

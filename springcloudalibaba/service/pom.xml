@@ -12,6 +12,7 @@
 
     <modules>
         <module>dataanalysis</module>
+        <module>mes-product</module>
     </modules>
     <groupId>com.waper</groupId>
     <artifactId>service</artifactId>

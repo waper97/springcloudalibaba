@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bpm.server.mapper.MineralFormulaDetailMapper">
+
+    <sql id="Base_Column_List">
+        id
+        ,
+        mineral_formula_id,
+        broken_stone_warehouse_id,
+        varieties,
+        percentage,
+        status,
+        create_id,
+        create_name,
+        create_time,
+        update_id,
+        update_name,
+        update_time,
+        is_deleted
+    </sql>
+
+    <resultMap type="com.bpm.common.domain.MineralFormulaDetail"
+               id="MineralFormulaDetailMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="mineralFormulaId" column="mineral_formula_id" jdbcType="INTEGER"/>
+        <result property="brokenStoneWarehouseId" column="broken_stone_warehouse_id" jdbcType="INTEGER"/>
+        <result property="varieties" column="varieties" jdbcType="INTEGER"/>
+        <result property="percentage" column="percentage" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="createId" column="create_id" jdbcType="INTEGER"/>
+        <result property="createName" column="create_name" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateId" column="update_id" jdbcType="INTEGER"/>
+        <result property="updateName" column="update_name" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <resultMap type="com.bpm.common.vo.MineralFormulaDetailVo" extends="MineralFormulaDetailMap"
+               id="MineralFormulaDetailVoMap">
+        <result property="warehouseCode" column="warehouse_code" jdbcType="VARCHAR"/>
+        <result property="materialCode" column="material_code" jdbcType="VARCHAR"/>
+        <result property="materialName" column="material_name" jdbcType="VARCHAR"/>
+
+    </resultMap>
+
+
+    <!--查全部-->
+    <select id="queryAll" resultMap="MineralFormulaDetailMap">
+        select
+        <include refid="Base_Column_List"/>
+        from mes_wms_mineral_formula_detail
+    </select>
+
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="MineralFormulaDetailMap">
+        select
+        <include refid="Base_Column_List"/>
+        from mes_wms_mineral_formula_detail
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="MineralFormulaDetailMap">
+        select
+        id, mineral_formula_id, broken_stone_warehouse_id, varieties, percentage, status, create_id, create_name,
+        create_time, update_id, update_name, update_time, is_deleted
+        from mes_wms_mineral_formula_detail
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="mineralFormulaId != null">
+                and mineral_formula_id = #{mineralFormulaId}
+            </if>
+            <if test="brokenStoneWarehouseId != null">
+                and broken_stone_warehouse_id = #{brokenStoneWarehouseId}
+            </if>
+            <if test="varieties != null">
+                and varieties = #{varieties}
+            </if>
+            <if test="percentage != null">
+                and percentage = #{percentage}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="createId != null">
+                and create_id = #{createId}
+            </if>
+            <if test="createName != null and createName != ''">
+                and create_name = #{createName}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateId != null">
+                and update_id = #{updateId}
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and update_name = #{updateName}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="isDeleted != null">
+                and is_deleted = #{isDeleted}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from mes_wms_mineral_formula_detail
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="mineralFormulaId != null">
+                and mineral_formula_id = #{mineralFormulaId}
+            </if>
+            <if test="brokenStoneWarehouseId != null">
+                and broken_stone_warehouse_id = #{brokenStoneWarehouseId}
+            </if>
+            <if test="varieties != null">
+                and varieties = #{varieties}
+            </if>
+            <if test="percentage != null">
+                and percentage = #{percentage}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="createId != null">
+                and create_id = #{createId}
+            </if>
+            <if test="createName != null and createName != ''">
+                and create_name = #{createName}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateId != null">
+                and update_id = #{updateId}
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and update_name = #{updateName}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="isDeleted != null">
+                and is_deleted = #{isDeleted}
+            </if>
+        </where>
+    </select>
+
+    <!--根据矿石配方id查询所有矿石配方详情-->
+    <select id="queryByMineralFormulaId" resultMap="MineralFormulaDetailVoMap">
+        select d.*,
+               s.stock_code    warehouse_code,
+               i.material_code material_code,
+               i.material_name material_name
+        from mes_wms_mineral_formula_detail d
+                 left join mes_wms_stock s on s.id = d.broken_stone_warehouse_id
+                 left join basic_data_material_info i on i.id = d.varieties
+        where d.mineral_formula_id = #{mineralFormulaId};
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_wms_mineral_formula_detail(mineral_formula_id, broken_stone_warehouse_id, varieties, percentage,
+                                                   status, create_id, create_name, create_time, update_id, update_name,
+                                                   update_time, is_deleted)
+        values (#{mineralFormulaId}, #{brokenStoneWarehouseId}, #{varieties}, #{percentage}, #{status}, #{createId},
+                #{createName}, now(), #{updateId}, #{updateName}, #{updateTime}, #{isDeleted})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_wms_mineral_formula_detail(mineral_formula_id, broken_stone_warehouse_id, varieties, percentage,
+        status, create_id, create_name, create_time, update_id, update_name, update_time, is_deleted)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.mineralFormulaId}, #{entity.brokenStoneWarehouseId}, #{entity.varieties}, #{entity.percentage},
+            #{entity.status}, #{entity.createId}, #{entity.createName}, #{entity.createTime}, #{entity.updateId},
+            #{entity.updateName}, #{entity.updateTime}, #{entity.isDeleted})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_wms_mineral_formula_detail(mineral_formula_id, broken_stone_warehouse_id, varieties, percentage,
+        status, create_id, create_name, create_time, update_id, update_name, update_time, is_deleted)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.mineralFormulaId}, #{entity.brokenStoneWarehouseId}, #{entity.varieties}, #{entity.percentage},
+            #{entity.status}, #{entity.createId}, #{entity.createName}, #{entity.createTime}, #{entity.updateId},
+            #{entity.updateName}, #{entity.updateTime}, #{entity.isDeleted})
+        </foreach>
+        on duplicate key update
+        mineral_formula_id = values(mineral_formula_id),
+        broken_stone_warehouse_id = values(broken_stone_warehouse_id),
+        varieties = values(varieties),
+        percentage = values(percentage),
+        status = values(status),
+        create_id = values(create_id),
+        create_name = values(create_name),
+        create_time = values(create_time),
+        update_id = values(update_id),
+        update_name = values(update_name),
+        update_time = values(update_time),
+        is_deleted = values(is_deleted)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update mes_wms_mineral_formula_detail
+        <set>
+            <if test="mineralFormulaId != null">
+                mineral_formula_id = #{mineralFormulaId},
+            </if>
+            <if test="brokenStoneWarehouseId != null">
+                broken_stone_warehouse_id = #{brokenStoneWarehouseId},
+            </if>
+            <if test="varieties != null">
+                varieties = #{varieties},
+            </if>
+            <if test="percentage != null">
+                percentage = #{percentage},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="createId != null">
+                create_id = #{createId},
+            </if>
+            <if test="createName != null and createName != ''">
+                create_name = #{createName},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateId != null">
+                update_id = #{updateId},
+            </if>
+            <if test="updateName != null and updateName != ''">
+                update_name = #{updateName},
+            </if>
+            update_time =now(),
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from mes_wms_mineral_formula_detail
+        where id = #{id}
+    </delete>
+
+    <!--根据矿石配方id删除所有原有矿石配方详情-->
+    <delete id="deleteByMineralFormulaId">
+        delete
+        from mes_wms_mineral_formula_detail
+        where mineral_formula_id = #{mineralFormulaId}
+    </delete>
+
+    <!--逻辑删除-->
+    <update id="removeById">
+        update mes_wms_mineral_formula_detail
+        set status = 1
+        where id = #{id}
+    </update>
+
+</mapper>
+

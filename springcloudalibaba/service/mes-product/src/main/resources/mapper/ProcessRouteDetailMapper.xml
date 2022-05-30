@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bpm.server.mapper.ProcessRouteDetailMapper">
+    <sql id="Base_Column_List">
+        id, mes_product_process_route_id, execution_sequence_number, process_coding, process_name, work_center, remark, create_id, create_name, create_time, update_id, update_name, update_time
+    </sql>
+
+    <resultMap type="com.bpm.common.domain.ProcessRouteDetail" id="MesProductProcessRouteDetailMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="mesProductProcessRouteId" column="mes_product_process_route_id" jdbcType="VARCHAR"/>
+        <result property="executionSequenceNumber" column="execution_sequence_number" jdbcType="VARCHAR"/>
+        <result property="processCoding" column="process_coding" jdbcType="VARCHAR"/>
+        <result property="processName" column="process_name" jdbcType="VARCHAR"/>
+        <result property="workCenter" column="work_center" jdbcType="VARCHAR"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="createId" column="create_id" jdbcType="VARCHAR"/>
+        <result property="createName" column="create_name" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateId" column="update_id" jdbcType="VARCHAR"/>
+        <result property="updateName" column="update_name" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="MesProductProcessRouteDetailMap">
+        select
+        <include refid="Base_Column_List"/>
+        from mes_product_process_route_detail
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="mesProductProcessRouteId != null and mesProductProcessRouteId != ''">
+                and mes_product_process_route_id = #{mesProductProcessRouteId}
+            </if>
+            <if test="executionSequenceNumber != null and executionSequenceNumber != ''">
+                and execution_sequence_number = #{executionSequenceNumber}
+            </if>
+            <if test="processCoding != null and processCoding != ''">
+                and process_coding = #{processCoding}
+            </if>
+            <if test="processName != null and processName != ''">
+                and process_name = #{processName}
+            </if>
+            <if test="workCenter != null and workCenter != ''">
+                and work_center = #{workCenter}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="createId != null and createId != ''">
+                and create_id = #{createId}
+            </if>
+            <if test="createName != null and createName != ''">
+                and create_name = #{createName}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateId != null and updateId != ''">
+                and update_id = #{updateId}
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and update_name = #{updateName}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+        order by create_time desc
+    </select>
+
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="MesProductProcessRouteDetailMap">
+        select id,
+               mes_product_process_route_id,
+               execution_sequence_number,
+               process_coding,
+               process_name,
+               work_center,
+               remark,
+               create_id,
+               create_name,
+               create_time,
+               update_id,
+               update_name,
+               update_time
+        from mes_product_process_route_detail
+        where mes_product_process_route_id = #{mesProductProcessRouteId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="MesProductProcessRouteDetailMap">
+        select
+        id, mes_product_process_route_id, execution_sequence_number, process_coding, process_name, work_center, remark,
+        create_id, create_name, create_time, update_id, update_name, update_time
+        from mes_product_process_route_detail
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="mesProductProcessRouteId != null and mesProductProcessRouteId != ''">
+                and mes_product_process_route_id = #{mesProductProcessRouteId}
+            </if>
+            <if test="executionSequenceNumber != null and executionSequenceNumber != ''">
+                and execution_sequence_number = #{executionSequenceNumber}
+            </if>
+            <if test="processCoding != null and processCoding != ''">
+                and process_coding = #{processCoding}
+            </if>
+            <if test="processName != null and processName != ''">
+                and process_name = #{processName}
+            </if>
+            <if test="workCenter != null and workCenter != ''">
+                and work_center = #{workCenter}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="createId != null and createId != ''">
+                and create_id = #{createId}
+            </if>
+            <if test="createName != null and createName != ''">
+                and create_name = #{createName}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateId != null and updateId != ''">
+                and update_id = #{updateId}
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and update_name = #{updateName}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from mes_product_process_route_detail
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="mesProductProcessRouteId != null and mesProductProcessRouteId != ''">
+                and mes_product_process_route_id = #{mesProductProcessRouteId}
+            </if>
+            <if test="executionSequenceNumber != null and executionSequenceNumber != ''">
+                and execution_sequence_number = #{executionSequenceNumber}
+            </if>
+            <if test="processCoding != null and processCoding != ''">
+                and process_coding = #{processCoding}
+            </if>
+            <if test="processName != null and processName != ''">
+                and process_name = #{processName}
+            </if>
+            <if test="workCenter != null and workCenter != ''">
+                and work_center = #{workCenter}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="createId != null and createId != ''">
+                and create_id = #{createId}
+            </if>
+            <if test="createName != null and createName != ''">
+                and create_name = #{createName}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateId != null and updateId != ''">
+                and update_id = #{updateId}
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and update_name = #{updateName}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </select>
+
+
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_process_route_detail(mes_product_process_route_id, execution_sequence_number, process_coding, process_name, work_center, remark, create_id, create_name, create_time, update_id, update_name, update_time, is_deleted)
+        values (#{mesProductProcessRouteId}, #{executionSequenceNumber}, #{processCoding}, #{processName}, #{workCenter}, #{remark}, #{createId}, #{createName}, #{createTime}, #{updateId}, #{updateName}, #{updateTime}, #{isDeleted})
+    </insert>
+
+
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_process_route_detail(mes_product_process_route_id, execution_sequence_number, process_coding, process_name, work_center, remark, create_id, create_name, create_time, update_id, update_name, update_time, is_deleted)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.mesProductProcessRouteId}, #{entity.executionSequenceNumber}, #{entity.processCoding}, #{entity.processName}, #{entity.workCenter}, #{entity.remark}, #{entity.createId}, #{entity.createName}, now(), #{entity.updateId}, #{entity.updateName}, #{entity.updateTime}, #{entity.isDeleted})
+        </foreach>
+    </insert>
+
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update mes_product_process_route_detail
+        <set>
+            <if test="mesProductProcessRouteId != null">
+                mes_product_process_route_id = #{mesProductProcessRouteId},
+            </if>
+            <if test="executionSequenceNumber != null and executionSequenceNumber != ''">
+                execution_sequence_number = #{executionSequenceNumber},
+            </if>
+            <if test="processCoding != null and processCoding != ''">
+                process_coding = #{processCoding},
+            </if>
+            <if test="processName != null and processName != ''">
+                process_name = #{processName},
+            </if>
+            <if test="workCenter != null and workCenter != ''">
+                work_center = #{workCenter},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="updateId != null and updateId != ''">
+                update_id = #{updateId},
+            </if>
+            <if test="updateName != null and updateName != ''">
+                update_name = #{updateName},
+            </if>
+
+                update_time = now(),
+
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from mes_product_process_route_detail
+        where id = #{id}
+    </delete>
+
+    <!--逻辑删除-->
+    <update id="removeById">
+        update mes_product_process_route_detail
+        set status = 1
+        where mes_product_process_route_id = #{id}
+    </update>
+</mapper>
+

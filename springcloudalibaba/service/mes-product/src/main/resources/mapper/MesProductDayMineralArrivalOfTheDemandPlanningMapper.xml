@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bpm.server.mapper.MesProductDayMineralArrivalOfTheDemandPlanningMapper">
+
+    <sql id="Base_Column_List">
+        id
+        ,
+        plan_code,
+        plan_cycle,
+        plan_type,
+        arrival_of_the_demand_begin_date,
+        arrival_of_the_demand_end_date,
+        arrival_time,
+        place_of_receipt,
+        materials_id,
+        materials_code,
+        materials_name,
+        plan_arrival_quantity,
+        maximum_storage,
+        dosage,
+        arrival_of_the_demand_quantity,
+        line_numbers, quality_item,
+        quality_requirements_limit,
+        quality_requirements_lower,
+        status,
+        remark,
+        create_id,
+        create_name,
+        create_time,
+        update_id,
+        update_name,
+        update_time,
+        is_deleted
+    </sql>
+
+    <resultMap type="com.bpm.common.domain.MesProductDayMineralArrivalOfTheDemandPlanning"
+               id="MesProductDayMineralArrivalOfTheDemandPlanningMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="planCode" column="plan_code" jdbcType="VARCHAR"/>
+        <result property="planCycle" column="plan_cycle" jdbcType="INTEGER"/>
+        <result property="planType" column="plan_type" jdbcType="INTEGER"/>
+        <result property="arrivalOfTheDemandBeginDate" column="arrival_of_the_demand_begin_date"
+                jdbcType="TIMESTAMP"/>
+        <result property="arrivalOfTheDemandEndDate" column="arrival_of_the_demand_end_date" jdbcType="TIMESTAMP"/>
+        <result property="arrivalTime" column="arrival_time" jdbcType="TIMESTAMP"/>
+        <result property="placeOfReceipt" column="place_of_receipt" jdbcType="INTEGER"/>
+        <result property="materialsId" column="materials_id" jdbcType="INTEGER"/>
+        <result property="materialsCode" column="materials_code" jdbcType="VARCHAR"/>
+        <result property="materialsName" column="materials_name" jdbcType="VARCHAR"/>
+        <result property="planArrivalQuantity" column="plan_arrival_quantity" jdbcType="VARCHAR"/>
+        <result property="maximumStorage" column="maximum_storage" jdbcType="VARCHAR"/>
+        <result property="dosage" column="dosage" jdbcType="VARCHAR"/>
+        <result property="arrivalOfTheDemandQuantity" column="arrival_of_the_demand_quantity" jdbcType="VARCHAR"/>
+        <result property="lineNumbers" column="line_numbers" jdbcType="INTEGER"/>
+        <result property="qualityItem" column="quality_item" jdbcType="VARCHAR"/>
+        <result property="qualityRequirementsLimit" column="quality_requirements_limit" jdbcType="VARCHAR"/>
+        <result property="qualityRequirementsLower" column="quality_requirements_lower" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="createId" column="create_id" jdbcType="INTEGER"/>
+        <result property="createName" column="create_name" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateId" column="update_id" jdbcType="INTEGER"/>
+        <result property="updateName" column="update_name" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <resultMap type="com.bpm.common.vo.MesProductDayMineralArrivalOfTheDemandPlanningVo"
+               id="PlanningVoMap" extends="MesProductDayMineralArrivalOfTheDemandPlanningMap">
+        <result property="planningCycle" column="planning_cycle" jdbcType="VARCHAR"/>
+        <result property="receiptPlace" column="receipt_place" jdbcType="VARCHAR"/>
+        <result property="materialCode" column="material_code" jdbcType="VARCHAR"/>
+        <result property="materialName" column="material_name" jdbcType="VARCHAR"/>
+
+    </resultMap>
+
+
+    <!--查全部-->
+    <select id="queryAll" resultMap="MesProductDayMineralArrivalOfTheDemandPlanningMap">
+        select
+        <include refid="Base_Column_List"/>
+        from mes_product_day_mineral_arrival_of_the_demand_planning
+    </select>
+
+
+    <!--查单个-->
+    <select id="queryById" resultMap="MesProductDayMineralArrivalOfTheDemandPlanningMap">
+        select
+        <include refid="Base_Column_List"/>
+        from mes_product_day_mineral_arrival_of_the_demand_planning
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="MesProductDayMineralArrivalOfTheDemandPlanningMap">
+        select
+        id, plan_code, plan_cycle, plan_type, arrival_of_the_demand_begin_date, arrival_of_the_demand_end_date,
+        arrival_time, place_of_receipt, materials_id, materials_code, materials_name, plan_arrival_quantity,
+        maximum_storage, dosage, arrival_of_the_demand_quantity, line_numbers, quality_item, quality_requirements_limit,
+        quality_requirements_lower, status, remark, create_id, create_name, create_time, update_id, update_name,
+        update_time, is_deleted
+        from mes_product_day_mineral_arrival_of_the_demand_planning
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="planCode != null and planCode != ''">
+                and plan_code = #{planCode}
+            </if>
+            <if test="planCycle != null">
+                and plan_cycle = #{planCycle}
+            </if>
+            <if test="planType != null">
+                and plan_type = #{planType}
+            </if>
+            <if test="arrivalOfTheDemandBeginDate != null">
+                and arrival_of_the_demand_begin_date = #{arrivalOfTheDemandBeginDate}
+            </if>
+            <if test="arrivalOfTheDemandEndDate != null">
+                and arrival_of_the_demand_end_date = #{arrivalOfTheDemandEndDate}
+            </if>
+            <if test="arrivalTime != null">
+                and arrival_time = #{arrivalTime}
+            </if>
+            <if test="placeOfReceipt != null">
+                and place_of_receipt = #{placeOfReceipt}
+            </if>
+            <if test="materialsId != null">
+                and materials_id = #{materialsId}
+            </if>
+            <if test="materialsCode != null and materialsCode != ''">
+                and materials_code = #{materialsCode}
+            </if>
+            <if test="materialsName != null and materialsName != ''">
+                and materials_name = #{materialsName}
+            </if>
+            <if test="planArrivalQuantity != null">
+                and plan_arrival_quantity = #{planArrivalQuantity}
+            </if>
+            <if test="maximumStorage != null">
+                and maximum_storage = #{maximumStorage}
+            </if>
+            <if test="dosage != null">
+                and dosage = #{dosage}
+            </if>
+            <if test="arrivalOfTheDemandQuantity != null">
+                and arrival_of_the_demand_quantity = #{arrivalOfTheDemandQuantity}
+            </if>
+            <if test="lineNumbers != null">
+                and line_numbers = #{lineNumbers}
+            </if>
+            <if test="qualityItem != null and qualityItem != ''">
+                and quality_item = #{qualityItem}
+            </if>
+            <if test="qualityRequirementsLimit != null">
+                and quality_requirements_limit = #{qualityRequirementsLimit}
+            </if>
+            <if test="qualityRequirementsLower != null">
+                and quality_requirements_lower = #{qualityRequirementsLower}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="createId != null">
+                and create_id = #{createId}
+            </if>
+            <if test="createName != null and createName != ''">
+                and create_name = #{createName}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateId != null">
+                and update_id = #{updateId}
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and update_name = #{updateName}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="isDeleted != null">
+                and is_deleted = #{isDeleted}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from mes_product_day_mineral_arrival_of_the_demand_planning
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="planCode != null and planCode != ''">
+                and plan_code = #{planCode}
+            </if>
+            <if test="planCycle != null">
+                and plan_cycle = #{planCycle}
+            </if>
+            <if test="planType != null">
+                and plan_type = #{planType}
+            </if>
+            <if test="arrivalOfTheDemandBeginDate != null">
+                and arrival_of_the_demand_begin_date = #{arrivalOfTheDemandBeginDate}
+            </if>
+            <if test="arrivalOfTheDemandEndDate != null">
+                and arrival_of_the_demand_end_date = #{arrivalOfTheDemandEndDate}
+            </if>
+            <if test="arrivalTime != null">
+                and arrival_time = #{arrivalTime}
+            </if>
+            <if test="placeOfReceipt != null">
+                and place_of_receipt = #{placeOfReceipt}
+            </if>
+            <if test="materialsId != null">
+                and materials_id = #{materialsId}
+            </if>
+            <if test="materialsCode != null and materialsCode != ''">
+                and materials_code = #{materialsCode}
+            </if>
+            <if test="materialsName != null and materialsName != ''">
+                and materials_name = #{materialsName}
+            </if>
+            <if test="planArrivalQuantity != null">
+                and plan_arrival_quantity = #{planArrivalQuantity}
+            </if>
+            <if test="maximumStorage != null">
+                and maximum_storage = #{maximumStorage}
+            </if>
+            <if test="dosage != null">
+                and dosage = #{dosage}
+            </if>
+            <if test="arrivalOfTheDemandQuantity != null">
+                and arrival_of_the_demand_quantity = #{arrivalOfTheDemandQuantity}
+            </if>
+            <if test="lineNumbers != null">
+                and line_numbers = #{lineNumbers}
+            </if>
+            <if test="qualityItem != null and qualityItem != ''">
+                and quality_item = #{qualityItem}
+            </if>
+            <if test="qualityRequirementsLimit != null">
+                and quality_requirements_limit = #{qualityRequirementsLimit}
+            </if>
+            <if test="qualityRequirementsLower != null">
+                and quality_requirements_lower = #{qualityRequirementsLower}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="createId != null">
+                and create_id = #{createId}
+            </if>
+            <if test="createName != null and createName != ''">
+                and create_name = #{createName}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateId != null">
+                and update_id = #{updateId}
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and update_name = #{updateName}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="isDeleted != null">
+                and is_deleted = #{isDeleted}
+            </if>
+        </where>
+    </select>
+
+    <!--分页查-->
+    <select id="queryByPage" resultMap="PlanningVoMap">
+        select
+        p.*,
+        d1.dict_value planning_cycle,
+        d2.dict_value receipt_place,
+        i.material_code,
+        i.material_name
+        from mes_product_day_mineral_arrival_of_the_demand_planning p
+        left join sys_dict_data d1 on d1.id=p.plan_cycle
+        left join sys_dict_data d2 on d2.id=p.place_of_receipt
+        left join basic_data_material_info i on i.id=p.materials_id
+        <where>
+            <if test="materialsCode != null and materialsCode != ''">
+                and i.material_code like concat('%',#{materialsCode},'%')
+            </if>
+            <if test="materialsName != null and materialsName != ''">
+                and i.material_name like concat('%',#{materialsName},'%')
+            </if>
+            <if test="startDate != null">
+                and p.create_time <![CDATA[>=]]> #{startDate}
+            </if>
+            <if test="endDate != null">
+                and p.create_time <![CDATA[<=]]> #{endDate}
+            </if>
+            <if test="status != null">
+                and p.status = #{status}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_day_mineral_arrival_of_the_demand_planning(plan_code, plan_cycle, plan_type,
+                                                                           arrival_of_the_demand_begin_date,
+                                                                           arrival_of_the_demand_end_date, arrival_time,
+                                                                           place_of_receipt, materials_id,
+                                                                           materials_code, materials_name,
+                                                                           plan_arrival_quantity, maximum_storage,
+                                                                           dosage, arrival_of_the_demand_quantity,
+                                                                           line_numbers, quality_item,
+                                                                           quality_requirements_limit,
+                                                                           quality_requirements_lower, status, remark,
+                                                                           create_id, create_name, create_time,
+                                                                           update_id, update_name, update_time,
+                                                                           is_deleted)
+        values (#{planCode}, #{planCycle}, #{planType}, #{arrivalOfTheDemandBeginDate}, #{arrivalOfTheDemandEndDate},
+                #{arrivalTime}, #{placeOfReceipt}, #{materialsId}, #{materialsCode}, #{materialsName},
+                #{planArrivalQuantity}, #{maximumStorage}, #{dosage}, #{arrivalOfTheDemandQuantity}, #{lineNumbers},
+                #{qualityItem}, #{qualityRequirementsLimit}, #{qualityRequirementsLower}, #{status}, #{remark},
+                #{createId}, #{createName}, now(), #{updateId}, #{updateName}, #{updateTime}, #{isDeleted})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_day_mineral_arrival_of_the_demand_planning(plan_code, plan_cycle, plan_type,
+        arrival_of_the_demand_begin_date, arrival_of_the_demand_end_date, arrival_time, place_of_receipt, materials_id,
+        materials_code, materials_name, plan_arrival_quantity, maximum_storage, dosage, arrival_of_the_demand_quantity,
+        line_numbers, quality_item, quality_requirements_limit, quality_requirements_lower, status, remark, create_id,
+        create_name, create_time, update_id, update_name, update_time, is_deleted)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.planCode}, #{entity.planCycle}, #{entity.planType}, #{entity.arrivalOfTheDemandBeginDate},
+            #{entity.arrivalOfTheDemandEndDate}, #{entity.arrivalTime}, #{entity.placeOfReceipt}, #{entity.materialsId},
+            #{entity.materialsCode}, #{entity.materialsName}, #{entity.planArrivalQuantity}, #{entity.maximumStorage},
+            #{entity.dosage}, #{entity.arrivalOfTheDemandQuantity}, #{entity.lineNumbers}, #{entity.qualityItem},
+            #{entity.qualityRequirementsLimit}, #{entity.qualityRequirementsLower}, #{entity.status}, #{entity.remark},
+            #{entity.createId}, #{entity.createName}, #{entity.createTime}, #{entity.updateId}, #{entity.updateName},
+            #{entity.updateTime}, #{entity.isDeleted})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_day_mineral_arrival_of_the_demand_planning(plan_code, plan_cycle, plan_type,
+        arrival_of_the_demand_begin_date, arrival_of_the_demand_end_date, arrival_time, place_of_receipt, materials_id,
+        materials_code, materials_name, plan_arrival_quantity, maximum_storage, dosage, arrival_of_the_demand_quantity,
+        line_numbers, quality_item, quality_requirements_limit, quality_requirements_lower, status, remark, create_id,
+        create_name, create_time, update_id, update_name, update_time, is_deleted)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.planCode}, #{entity.planCycle}, #{entity.planType}, #{entity.arrivalOfTheDemandBeginDate},
+            #{entity.arrivalOfTheDemandEndDate}, #{entity.arrivalTime}, #{entity.placeOfReceipt}, #{entity.materialsId},
+            #{entity.materialsCode}, #{entity.materialsName}, #{entity.planArrivalQuantity}, #{entity.maximumStorage},
+            #{entity.dosage}, #{entity.arrivalOfTheDemandQuantity}, #{entity.lineNumbers}, #{entity.qualityItem},
+            #{entity.qualityRequirementsLimit}, #{entity.qualityRequirementsLower}, #{entity.status}, #{entity.remark},
+            #{entity.createId}, #{entity.createName}, #{entity.createTime}, #{entity.updateId}, #{entity.updateName},
+            #{entity.updateTime}, #{entity.isDeleted})
+        </foreach>
+        on duplicate key update
+        plan_code = values(plan_code),
+        plan_cycle = values(plan_cycle),
+        plan_type = values(plan_type),
+        arrival_of_the_demand_begin_date = values(arrival_of_the_demand_begin_date),
+        arrival_of_the_demand_end_date = values(arrival_of_the_demand_end_date),
+        arrival_time = values(arrival_time),
+        place_of_receipt = values(place_of_receipt),
+        materials_id = values(materials_id),
+        materials_code = values(materials_code),
+        materials_name = values(materials_name),
+        plan_arrival_quantity = values(plan_arrival_quantity),
+        maximum_storage = values(maximum_storage),
+        dosage = values(dosage),
+        arrival_of_the_demand_quantity = values(arrival_of_the_demand_quantity),
+        line_numbers = values(line_numbers),
+        quality_item = values(quality_item),
+        quality_requirements_limit = values(quality_requirements_limit),
+        quality_requirements_lower = values(quality_requirements_lower),
+        status = values(status),
+        remark = values(remark),
+        create_id = values(create_id),
+        create_name = values(create_name),
+        create_time = values(create_time),
+        update_id = values(update_id),
+        update_name = values(update_name),
+        update_time = values(update_time),
+        is_deleted = values(is_deleted)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update mes_product_day_mineral_arrival_of_the_demand_planning
+        <set>
+            <if test="planCode != null and planCode != ''">
+                plan_code = #{planCode},
+            </if>
+            <if test="planCycle != null">
+                plan_cycle = #{planCycle},
+            </if>
+            <if test="planType != null">
+                plan_type = #{planType},
+            </if>
+            <if test="arrivalOfTheDemandBeginDate != null">
+                arrival_of_the_demand_begin_date = #{arrivalOfTheDemandBeginDate},
+            </if>
+            <if test="arrivalOfTheDemandEndDate != null">
+                arrival_of_the_demand_end_date = #{arrivalOfTheDemandEndDate},
+            </if>
+            <if test="arrivalTime != null">
+                arrival_time = #{arrivalTime},
+            </if>
+            <if test="placeOfReceipt != null">
+                place_of_receipt = #{placeOfReceipt},
+            </if>
+            <if test="materialsId != null">
+                materials_id = #{materialsId},
+            </if>
+            <if test="materialsCode != null and materialsCode != ''">
+                materials_code = #{materialsCode},
+            </if>
+            <if test="materialsName != null and materialsName != ''">
+                materials_name = #{materialsName},
+            </if>
+            <if test="planArrivalQuantity != null">
+                plan_arrival_quantity = #{planArrivalQuantity},
+            </if>
+            <if test="maximumStorage != null">
+                maximum_storage = #{maximumStorage},
+            </if>
+            <if test="dosage != null">
+                dosage = #{dosage},
+            </if>
+            <if test="arrivalOfTheDemandQuantity != null">
+                arrival_of_the_demand_quantity = #{arrivalOfTheDemandQuantity},
+            </if>
+            <if test="lineNumbers != null">
+                line_numbers = #{lineNumbers},
+            </if>
+            <if test="qualityItem != null and qualityItem != ''">
+                quality_item = #{qualityItem},
+            </if>
+            <if test="qualityRequirementsLimit != null">
+                quality_requirements_limit = #{qualityRequirementsLimit},
+            </if>
+            <if test="qualityRequirementsLower != null">
+                quality_requirements_lower = #{qualityRequirementsLower},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="createId != null">
+                create_id = #{createId},
+            </if>
+            <if test="createName != null and createName != ''">
+                create_name = #{createName},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateId != null">
+                update_id = #{updateId},
+            </if>
+            <if test="updateName != null and updateName != ''">
+                update_name = #{updateName},
+            </if>
+            update_time = now(),
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from mes_product_day_mineral_arrival_of_the_demand_planning
+        where id = #{id}
+    </delete>
+
+    <!--逻辑删除-->
+    <update id="removeById">
+        update mes_product_day_mineral_arrival_of_the_demand_planning
+        set status = 1
+        where id = #{id}
+    </update>
+
+</mapper>
+

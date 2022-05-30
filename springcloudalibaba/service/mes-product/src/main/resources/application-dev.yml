@@ -1,0 +1,22 @@
+server:
+  port: 7000
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: 123456
+    url: jdbc:postgresql://192.168.234.131:5432/cswf_mes
+    druid:
+      stat-view-servlet:
+        login-username: root         #账号
+        login-password: 123456       #密码
+        url-pattern: /druid/*        # 登录页面后缀  http://ip:port/druid
+        enabled: true                #开启监控
+        allow: localhost
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.234.131:8848
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher

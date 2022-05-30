@@ -1,0 +1,593 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bpm.server.mapper.DayPlanningMapper">
+
+      <sql id="Base_Column_List">
+         id, plan_code, processe, plan_date, plan_begin_time, plan_end_time, execution_sequence, product_type, mineral_powder_code, finished_goods_warehouse_id, finished_goods_warehouse_number, finished_product_batches, target_weight, material_level, homogenize_time, receive_production_line, status, remark, create_id, create_name, create_time, update_id, update_name, update_time, is_deleted,plan_type
+      </sql>
+
+    <sql id="CommonSearchCondition">
+        <where>
+            a.product_type = #{productType}
+            <if test="id != null">
+                and a.id = #{id}
+            </if>
+            <if test="planCode != null and planCode != ''">
+                and a.plan_code like concat('%',#{planCode},'%')
+            </if>
+            <if test="processe != null">
+                and a.processe = #{processe}
+            </if>
+            <if test="planDate != null ">
+                and a.plan_date = #{planDate}
+            </if>
+            <if test="planBeginTime != null ">
+                and a.plan_begin_time = #{planBeginTime}
+            </if>
+            <if test="beginTime != null ">
+                and a.create_time >= #{beginTime}
+            </if>
+            <if test="endTime != null ">
+                and a.create_time &lt;= #{beginTime}
+            </if>
+            <if test="planEndTime != null ">
+                and a.plan_end_time = #{planEndTime}
+            </if>
+            <if test="executionSequence != null">
+                and a.execution_sequence = #{executionSequence}
+            </if>
+            <if test="mineralPowderCode != null and mineralPowderCode != ''">
+                and a.mineral_powder_code like concat('%',#{mineralPowderCode},'%')
+            </if>
+            <if test="finishedGoodsWarehouseId != null">
+                and a.finished_goods_warehouse_id = #{finishedGoodsWarehouseId}
+            </if>
+            <if test="finishedGoodsWarehouseNumber != null">
+                and a.finished_goods_warehouse_number = #{finishedGoodsWarehouseNumber}
+            </if>
+            <if test="finishedProductBatches != null and finishedProductBatches != ''">
+                and a.finished_product_batches = #{finishedProductBatches}
+            </if>
+            <if test="targetWeight != null">
+                and a.target_weight = #{targetWeight}
+            </if>
+            <if test="materialLevel != null and materialLevel != ''">
+                and a.material_level = #{materialLevel}
+            </if>
+            <if test="homogenizeTime != null ">
+                and a.homogenize_time = #{homogenizeTime}
+            </if>
+            <if test="receiveProductionLine != null and receiveProductionLine != ''">
+                and a.receive_production_line = #{receiveProductionLine}
+            </if>
+            <if test="status != null">
+                and a.status = #{status}
+            </if>
+            <if test="remark != null and remark != ''">
+                and a.remark = #{remark}
+            </if>
+            <if test="createId != null and createId != ''">
+                and a.create_id = #{createId}
+            </if>
+            <if test="createName != null and createName != ''">
+                and a.create_name like concat('%',#{createName},'%')
+            </if>
+            <if test="createTime != null">
+                and a.create_time = #{createTime}
+            </if>
+            <if test="updateId != null and updateId != ''">
+                and a.update_id = #{updateId}
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and a.update_name like concat('%',#{updateName},'%')
+            </if>
+            <if test="updateTime != null">
+                and a.update_time = #{updateTime}
+            </if>
+            <if test="isDeleted != null">
+                and a.is_deleted = #{isDeleted}
+            </if>
+
+        </where>
+    </sql>
+      
+
+    <resultMap type="com.bpm.common.vo.DayPlanningVO" id="DayPlanningMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="planCode" column="plan_code" jdbcType="VARCHAR"/>
+        <result property="processe" column="processe" jdbcType="INTEGER"/>
+        <result property="planDate" column="plan_date" jdbcType="VARCHAR"/>
+        <result property="planBeginTime" column="plan_begin_time" jdbcType="TIMESTAMP"/>
+        <result property="planEndTime" column="plan_end_time" jdbcType="TIMESTAMP"/>
+        <result property="executionSequence" column="execution_sequence" jdbcType="INTEGER"/>
+        <result property="productType" column="product_type" jdbcType="VARCHAR"/>
+        <result property="mineralPowderCode" column="mineral_powder_code" jdbcType="VARCHAR"/>
+        <result property="finishedGoodsWarehouseId" column="finished_goods_warehouse_id" jdbcType="INTEGER"/>
+        <result property="finishedGoodsWarehouseNumber" column="finished_goods_warehouse_number" jdbcType="VARCHAR"/>
+        <result property="finishedProductBatches" column="finished_product_batches" jdbcType="VARCHAR"/>
+        <result property="targetWeight" column="target_weight" jdbcType="VARCHAR"/>
+        <result property="materialLevel" column="material_level" jdbcType="VARCHAR"/>
+        <result property="homogenizeTime" column="homogenize_time" jdbcType="VARCHAR"/>
+        <result property="receiveProductionLine" column="receive_production_line" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="createId" column="create_id" jdbcType="VARCHAR"/>
+        <result property="createName" column="create_name" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateId" column="update_id" jdbcType="VARCHAR"/>
+        <result property="updateName" column="update_name" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+        <result property="planType" column="plan_type" jdbcType="VARCHAR"/>
+        <result property="productId" column="product_id" jdbcType="INTEGER"/>
+        <result property="sendOutWarehouseId" column="send_out_warehouse_id" jdbcType="INTEGER"/>
+        <result property="receivingWarehouseId" column="receiving_warehouse_id" jdbcType="VARCHAR"/>
+        <result property="materialName" column="material_name" jdbcType="VARCHAR"/>
+        <result property="materialCode" column="material_code" jdbcType="VARCHAR"/>
+
+    </resultMap>
+    
+    
+        <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="DayPlanningMap">
+        select a.*
+        ,b.dict_value as statusName
+        ,c.name as productionWorkshopName
+        from mes_product_day_planning a
+        left join sys_dict_data b on b.dict_label = CAST(a.status AS VARCHAR) and b.dict_type = 'day_planning_status'
+        left join sys_department c on c.id = a.finished_goods_warehouse_id
+        <where>
+            product_type = #{productType}
+            <if test="id != null">
+                 and a.id = #{id}
+            </if>
+            <if test="planCode != null and planCode != ''">
+                 and a.plan_code like concat('%',#{planCode},'%')
+            </if>
+            <if test="processe != null">
+                 and a.processe = #{processe}
+            </if>
+            <if test="planDate != null ">
+                 and a.plan_date = #{planDate}
+            </if>
+            <if test="planBeginTime != null ">
+                 and a.plan_begin_time = #{planBeginTime}
+            </if>
+            <if test="beginTime != null ">
+                and a.create_time >= #{beginTime}
+            </if>
+            <if test="endTime != null ">
+                and a.create_time &lt;= #{beginTime}
+            </if>
+            <if test="planEndTime != null ">
+                 and a.plan_end_time = #{planEndTime}
+            </if>
+            <if test="executionSequence != null">
+                 and a.execution_sequence = #{executionSequence}
+            </if>
+            <if test="productType != null">
+                 and a.product_type = #{productType}
+            </if>
+            <if test="mineralPowderCode != null and mineralPowderCode != ''">
+                 and a.mineral_powder_code like concat('%',#{mineralPowderCode},'%')
+            </if>
+            <if test="finishedGoodsWarehouseId != null">
+                 and a.finished_goods_warehouse_id = #{finishedGoodsWarehouseId}
+            </if>
+            <if test="finishedGoodsWarehouseNumber != null">
+                 and a.finished_goods_warehouse_number = #{finishedGoodsWarehouseNumber}
+            </if>
+            <if test="finishedProductBatches != null and finishedProductBatches != ''">
+                 and a.finished_product_batches = #{finishedProductBatches}
+            </if>
+            <if test="targetWeight != null">
+                 and a.target_weight = #{targetWeight}
+            </if>
+            <if test="materialLevel != null and materialLevel != ''">
+                 and a.material_level = #{materialLevel}
+            </if>
+            <if test="homogenizeTime != null ">
+                 and a.homogenize_time = #{homogenizeTime}
+            </if>
+            <if test="receiveProductionLine != null and receiveProductionLine != ''">
+                 and a.receive_production_line = #{receiveProductionLine}
+            </if>
+            <if test="status != null">
+                 and a.status = #{status}
+            </if>
+            <if test="remark != null and remark != ''">
+                 and a.remark = #{remark}
+            </if>
+            <if test="createId != null and createId != ''">
+                 and a.create_id = #{createId}
+            </if>
+            <if test="createName != null and createName != ''">
+                 and a.create_name like concat('%',#{createName},'%')
+            </if>
+            <if test="createTime != null">
+                 and a.create_time = #{createTime}
+            </if>
+            <if test="updateId != null and updateId != ''">
+                 and a.update_id = #{updateId}
+            </if>
+            <if test="updateName != null and updateName != ''">
+                 and a.update_name like concat('%',#{updateName},'%')
+            </if>
+            <if test="updateTime != null">
+                 and a.update_time = #{updateTime}
+            </if>
+            <if test="isDeleted != null">
+                 and a.is_deleted = #{isDeleted}
+            </if>
+            <if test="materialName !=null and materialName!= '' ">
+                and a.id in
+                (
+                select a.day_planning_id from  mes_product_day_planning_detail a
+                left join basic_data_material_info b on b.id = a.production_id
+                where b.material_name like concat('%',#{materialName},'%')
+                )
+            </if>
+            <if test="brokenStoneWarehouseCode !=null and brokenStoneWarehouseCode!= '' ">
+                and a.id in
+                (
+                    select day_planning_id from  mes_product_day_planning_detail a
+                    left join mes_wms_stock b on b.id = a.broken_stone_warehouse_id
+                    where b.stock_code like concat('%',#{brokenStoneWarehouseCode},'%')
+                )
+            </if>
+
+            <if test="brokenStoneWarehouseName !=null and brokenStoneWarehouseCode!= '' ">
+                and a.id in
+                (
+                select day_planning_id from  mes_product_day_planning_detail a
+                left join mes_wms_stock b on b.id = a.broken_stone_warehouse_id
+                where b.stock_code like concat('%',#{brokenStoneWarehouseName},'%')
+                )
+            </if>
+
+
+        </where>
+        order by a.create_time desc
+    </select>
+    
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="DayPlanningMap">
+        select
+          id, plan_code, processe, plan_date, plan_begin_time, plan_end_time, execution_sequence, product_type, mineral_powder_code, finished_goods_warehouse_id, finished_goods_warehouse_number, finished_product_batches, target_weight, material_level, homogenize_time, receive_production_line, status, remark, create_id, create_name, create_time, update_id, update_name, update_time, is_deleted,plan_Type,product_id,send_out_warehouse_id, receiving_warehouse_id
+        from mes_product_day_planning
+        where id = #{id}
+    </select>
+
+   
+    
+
+ 
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_day_planning(plan_code, processe, plan_date, plan_begin_time, plan_end_time, execution_sequence, product_type, mineral_powder_code, finished_goods_warehouse_id, finished_goods_warehouse_number, finished_product_batches, target_weight, material_level, homogenize_time, receive_production_line, status, remark, create_id, create_name, create_time, update_id, update_name, update_time, is_deleted,plan_Type,product_id,send_out_warehouse_id, receiving_warehouse_id)
+        values (#{planCode}, #{processe}, #{planDate}, #{planBeginTime}, #{planEndTime}, #{executionSequence}, #{productType}, #{mineralPowderCode}, #{finishedGoodsWarehouseId}, #{finishedGoodsWarehouseNumber}, #{finishedProductBatches}, #{targetWeight}, #{materialLevel}, #{homogenizeTime}, #{receiveProductionLine}, #{status}, #{remark}, #{createId}, #{createName}, now(), #{updateId}, #{updateName}, #{updateTime}, #{isDeleted},#{planType} ,#{productId},#{sendOutWarehouseId}, #{receivingWarehouseId})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_day_planning(plan_code, processe, plan_date, plan_begin_time, plan_end_time, execution_sequence, product_type, mineral_powder_code, finished_goods_warehouse_id, finished_goods_warehouse_number, finished_product_batches, target_weight, material_level, homogenize_time, receive_production_line, status, remark, create_id, create_name, create_time, update_id, update_name, update_time, is_deleted, plan_Type,send_out_warehouse_id, receiving_warehouse_id)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.planCode}, #{entity.processe}, #{entity.planDate}, #{entity.planBeginTime}, #{entity.planEndTime}, #{entity.executionSequence}, #{entity.productType}, #{entity.mineralPowderCode}, #{entity.finishedGoodsWarehouseId}, #{entity.finishedGoodsWarehouseNumber}, #{entity.finishedProductBatches}, #{entity.targetWeight}, #{entity.materialLevel}, #{entity.homogenizeTime}, #{entity.receiveProductionLine}, #{entity.status}, #{entity.remark}, #{entity.createId}, #{entity.createName},now(), #{entity.updateId}, #{entity.updateName}, #{entity.updateTime}, #{entity.isDeleted} ,#{entity.planType},#{entity.productId},#{entity.sendOutWarehouseId}, #{entity.receivingWarehouseId)
+        </foreach>
+    </insert>
+
+
+    <!--通过主键修改数据  选择性修改-->
+    <update id="updateSelective">
+        update mes_product_day_planning
+        <set>
+            <if test="planCode != null and planCode != ''">
+                plan_code = #{planCode},
+            </if>
+            <if test="processe != null">
+                processe = #{processe},
+            </if>
+            <if test="planDate != null ">
+                plan_date = #{planDate},
+            </if>
+            <if test="planBeginTime ">
+                plan_begin_time = #{planBeginTime},
+            </if>
+            <if test="planEndTime != null ">
+                plan_end_time = #{planEndTime},
+            </if>
+            <if test="executionSequence != null">
+                execution_sequence = #{executionSequence},
+            </if>
+            <if test="productType != null">
+                product_type = #{productType},
+            </if>
+            <if test="mineralPowderCode != null and mineralPowderCode != ''">
+                mineral_powder_code = #{mineralPowderCode},
+            </if>
+            <if test="finishedGoodsWarehouseId != null">
+                finished_goods_warehouse_id = #{finishedGoodsWarehouseId},
+            </if>
+            <if test="finishedGoodsWarehouseNumber != null">
+                finished_goods_warehouse_number = #{finishedGoodsWarehouseNumber},
+            </if>
+            <if test="finishedProductBatches != null ">
+                finished_product_batches = #{finishedProductBatches},
+            </if>
+            <if test="targetWeight != null">
+                target_weight = #{targetWeight},
+            </if>
+            <if test="materialLevel != null and materialLevel != ''">
+                material_level = #{materialLevel},
+            </if>
+            <if test="homogenizeTime != null ">
+                homogenize_time = #{homogenizeTime},
+            </if>
+            <if test="receiveProductionLine != null and receiveProductionLine != ''">
+                receive_production_line = #{receiveProductionLine},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="createId != null and createId != ''">
+                create_id = #{createId},
+            </if>
+            <if test="createName != null and createName != ''">
+                create_name = #{createName},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateId != null and updateId != ''">
+                update_id = #{updateId},
+            </if>
+            <if test="updateName != null and updateName != ''">
+                update_name = #{updateName},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted},
+            </if>
+            <if test="planType != null">
+                plan_type = #{planType},
+            </if>
+            <if test="productId != null">
+                product_id = #{productId},
+            </if>
+            <if test="receivingWarehouseId != null">
+                receiving_warehouse_id = #{receivingWarehouseId},
+            </if>
+            <if test="sendOutWarehouseId != null">
+                send_out_warehouse_id =  #{sendOutWarehouseId},
+            </if>
+
+
+        </set>
+        where id = #{id}
+    </update>
+    
+      <!--通过主键修改数据-->
+    <update id="update">
+        update mes_product_day_planning
+        set
+<!--        plan_code = #{planCode},-->
+        processe = #{processe},
+        plan_date = #{planDate},
+        plan_begin_time = #{planBeginTime},
+        plan_end_time = #{planEndTime},
+        execution_sequence = #{executionSequence},
+        product_type = #{productType},
+        mineral_powder_code = #{mineralPowderCode},
+        finished_goods_warehouse_id = #{finishedGoodsWarehouseId},
+        finished_goods_warehouse_number = #{finishedGoodsWarehouseNumber},
+        finished_product_batches = #{finishedProductBatches},
+        target_weight = #{targetWeight},
+        material_level = #{materialLevel},
+        homogenize_time = #{homogenizeTime},
+        receive_production_line = #{receiveProductionLine},
+        status = #{status},
+        remark = #{remark},
+        update_id = #{updateId},
+        update_name = #{updateName},
+        update_time = now(),
+        is_deleted = #{isDeleted},
+        plan_type = #{planType},
+        product_id = #{productId}
+
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from mes_product_day_planning where id = #{id}
+    </delete>
+    
+     <!--逻辑删除-->
+    <update id="removeById">
+        update mes_product_day_planning set status = 1  where id = #{id}
+    </update>
+<!-- 日配料输送计划-->
+    <select id="listDayDosingTransportPlanning"  resultMap="DayPlanningMap">
+        select a.*,
+        b.dict_value as statusName,
+        c.name as productionWorkshopName
+        from mes_product_day_planning a
+        left join sys_dict_data b on b.dict_label = CAST(a.status AS VARCHAR) and b.dict_type = 'day_planning_status'
+        left join sys_department c on c.id = a.finished_goods_warehouse_id
+        <include refid="CommonSearchCondition"/>
+        <if test="preGrindingBinName != null and preGrindingBinName != '' " >
+            and a.id in
+            (
+            select day_planning_id
+            from  mes_product_day_planning_detail a
+            inner join  mes_wms_stock b on b.id = a.pre_grinding_bin_id
+            where b.stock_name like concat('%',#{preGrindingBinName},'%')
+            )
+        </if>
+        <if test="materialCode !=null and materialCode!= '' ">
+            and a.product_id in
+            (
+            select  a.product_id
+            from mes_product_day_planning a
+            inner join basic_data_material_info b on b.id = a.product_id
+            where b.material_code like  concat('%',#{materialCode},'%')
+            )
+        </if>
+        <if test="brokenStoneWarehouseName !=null and brokenStoneWarehouseName!= '' ">
+            and a.id in
+            (
+            select day_planning_id
+            from  mes_product_day_planning_detail a
+            left join mes_wms_stock b on b.id = a.broken_stone_warehouse_id
+            where b.stock_name like concat('%',#{brokenStoneWarehouseName},'%')
+            )
+        </if>
+        <if test="brokenStoneWarehouseCode !=null and brokenStoneWarehouseCode!= '' ">
+            and a.id in
+            (
+            select day_planning_id
+            from  mes_product_day_planning_detail a
+            left join mes_wms_stock b on b.id = a.broken_stone_warehouse_id
+            where b.stock_code like concat('%',#{brokenStoneWarehouseCode},'%')
+            )
+        </if>
+        order by a.id
+    </select>
+<!--日立磨生产计划-->
+    <select id="listDayVerticalMillProductPlanning"  resultMap="DayPlanningMap">
+        select a.*,
+        b.dict_value as statusName,
+        c.name as productionWorkshopName
+        from mes_product_day_planning a
+        left join sys_dict_data b on b.dict_label = CAST(a.status AS VARCHAR) and b.dict_type = 'day_planning_status'
+        left join sys_department c on c.id = a.finished_goods_warehouse_id
+        <include refid="CommonSearchCondition"/>
+        <if test="brokenStoneWarehouseName !=null and brokenStoneWarehouseName!= '' ">
+            and a.id in
+            (
+            select day_planning_id
+            from  mes_product_day_planning_detail a
+            left join mes_wms_stock b on b.id = a.semi_finished_product_warehouse_id
+            where b.stock_name like concat('%',#{brokenStoneWarehouseName},'%')
+            )
+        </if>
+        <if test="brokenStoneWarehouseCode !=null and brokenStoneWarehouseCode!= '' ">
+            and a.id in
+            (
+            select day_planning_id
+            from  mes_product_day_planning_detail a
+            left join mes_wms_stock b on b.id = a.semi_finished_product_warehouse_id
+            where b.stock_code like concat('%',#{brokenStoneWarehouseCode},'%')
+            )
+        </if>
+        order by a.create_time desc
+    </select>
+
+<!--粉料配料计划-->
+    <select id="listPowderDosingPlanning"  resultMap="DayPlanningMap">
+        select
+        a.id,
+        a.plan_code,
+        a.processe,
+        a.plan_date,
+        a.plan_begin_time,
+        a.plan_end_time,
+        a.execution_sequence,
+        a.product_type,
+        a.mineral_powder_code,
+        a.finished_goods_warehouse_id,
+        a.finished_product_batches,
+        a.target_weight,
+        a.material_level,
+        a.homogenize_time,
+        a.receive_production_line,
+        a.status,
+        a.remark,
+        a.create_id,
+        a.create_name,
+        a.create_time,
+        a.update_id,
+        a.update_name,
+        a.update_time,
+        a.is_deleted,
+        a.plan_type,
+        a.product_id,
+        a.send_out_warehouse_id,
+        a.receiving_warehouse_id,
+        b.stock_name,
+        c.material_name,
+        C.material_code,
+        d.in_batch_no AS finished_product_batches,
+        b.stock_name AS finishedGoodsWarehouseName,
+        b.stock_code AS finished_goods_warehouse_number,
+        e.dict_value as statusName
+        from mes_product_day_planning a
+        left join mes_wms_stock b on b.id = a.finished_goods_warehouse_id
+        left join basic_data_material_info c on c.id = a.product_id
+        left join mes_wms_stockcurrent d on d.stock_id = a.finished_goods_warehouse_id and d.material_id = a.product_id  and d.stock_type = '5'
+        left join sys_dict_data e on e.dict_label = CAST(a.status AS VARCHAR) and e.dict_type = 'day_planning_status'
+         <include refid="CommonSearchCondition"/>
+        <if test="materialName !=null and materialName!= '' ">
+            and a.product_id in
+            (
+            select  a.product_id
+            from mes_product_day_planning a
+            inner join basic_data_material_info b on b.id = a.product_id
+            where b.material_name like  concat('%',#{materialName},'%')
+            )
+        </if>
+        <if test="materialCode !=null and materialCode!= '' ">
+            and a.product_id in
+            (
+            select  a.product_id
+            from mes_product_day_planning a
+            inner join basic_data_material_info b on b.id = a.product_id
+            where b.material_code like  concat('%',#{materialCode},'%')
+            )
+        </if>
+        order by a.create_time desc
+    </select>
+<!--气力运输计划-->
+    <select id="listPneumaticTransportPlanning" resultMap="DayPlanningMap" >
+        select a.*,
+        b.stock_name as sendOutWarehouseName,
+        c.stock_name as receivingWarehouseName,
+        d.material_name,
+        d.material_code,
+        e.dict_value as statusName
+        from mes_product_day_planning a
+        left join mes_wms_stock b on b.id = a.send_out_warehouse_id
+        left join mes_wms_stock c on c.id = a.receiving_warehouse_id
+        left join basic_data_material_info d on d.id = a.product_id
+        left join sys_dict_data e on e.dict_label = CAST(a.status AS VARCHAR) and e.dict_type = 'day_planning_status'
+        <include refid="CommonSearchCondition"/>
+        <if test="materialName !=null and materialName!= '' ">
+            and a.product_id in
+            (
+            select  a.product_id
+            from mes_product_day_planning a
+            inner join basic_data_material_info b on b.id = a.product_id
+            where b.material_name like  concat('%',#{materialName},'%')
+            )
+        </if>
+        <if test="materialCode !=null and materialCode!= '' ">
+            and a.product_id in
+            (
+            select  a.product_id
+            from mes_product_day_planning a
+            inner join basic_data_material_info b on b.id = a.product_id
+            where b.material_code like  concat('%',#{materialCode},'%')
+            )
+        </if>
+        order by a.create_time desc
+    </select>
+
+</mapper>
+

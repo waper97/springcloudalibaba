@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bpm.server.mapper.DayMineralPowderRequirementsPlanningDetailMapper">
+
+      <sql id="Base_Column_List">
+         id, day_mineral_powder_requirements_planning_id, product_id, mineral_powder_code, mineral_powder_name, planned_quantity, unit_of_measurement, remark, status, create_id, create_name, create_time, update_id, update_name, update_time, is_deleted     
+      </sql>
+
+    <resultMap type="com.bpm.common.domain.DayMineralPowderRequirementsPlanningDetail" id="DayMineralPowderRequirementsPlanningDetailMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="dayMineralPowderRequirementsPlanningId" column="day_mineral_powder_requirements_planning_id" jdbcType="INTEGER"/>
+        <result property="productId" column="product_id" jdbcType="INTEGER"/>
+        <result property="mineralPowderCode" column="mineral_powder_code" jdbcType="VARCHAR"/>
+        <result property="mineralPowderName" column="mineral_powder_name" jdbcType="VARCHAR"/>
+        <result property="plannedQuantity" column="planned_quantity" jdbcType="VARCHAR"/>
+        <result property="unitOfMeasurement" column="unit_of_measurement" jdbcType="VARCHAR"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="VARCHAR"/>
+        <result property="createId" column="create_id" jdbcType="VARCHAR"/>
+        <result property="createName" column="create_name" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateId" column="update_id" jdbcType="VARCHAR"/>
+        <result property="updateName" column="update_name" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+    </resultMap>
+    
+    
+        <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="DayMineralPowderRequirementsPlanningDetailMap">
+        select
+          <include refid="Base_Column_List" />
+        from mes_product_day_mineral_powder_requirements_planning_detail
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="dayMineralPowderRequirementsPlanningId != null">
+                and day_mineral_powder_requirements_planning_id = #{dayMineralPowderRequirementsPlanningId}
+            </if>
+            <if test="productId != null">
+                and product_id = #{productId}
+            </if>
+            <if test="mineralPowderCode != null and mineralPowderCode != ''">
+                and mineral_powder_code = #{mineralPowderCode}
+            </if>
+            <if test="mineralPowderName != null and mineralPowderName != ''">
+                and mineral_powder_name = #{mineralPowderName}
+            </if>
+            <if test="plannedQuantity != null">
+                and planned_quantity = #{plannedQuantity}
+            </if>
+            <if test="unitOfMeasurement != null and unitOfMeasurement != ''">
+                and unit_of_measurement = #{unitOfMeasurement}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="status != null and status != ''">
+                and status = #{status}
+            </if>
+            <if test="createId != null and createId != ''">
+                and create_id = #{createId}
+            </if>
+            <if test="createName != null and createName != ''">
+                and create_name = #{createName}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateId != null and updateId != ''">
+                and update_id = #{updateId}
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and update_name = #{updateName}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="isDeleted != null">
+                and is_deleted = #{isDeleted}
+            </if>
+        </where>
+        order by create_time desc
+    </select>
+    
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="DayMineralPowderRequirementsPlanningDetailMap">
+        select
+          id, day_mineral_powder_requirements_planning_id, product_id, mineral_powder_code, mineral_powder_name, planned_quantity, unit_of_measurement, remark, status, create_id, create_name, create_time, update_id, update_name, update_time, is_deleted
+        from mes_product_day_mineral_powder_requirements_planning_detail
+        where id = #{id}
+    </select>
+
+
+
+    <select id="listByPowderRequirementsPlanningId" resultMap="DayMineralPowderRequirementsPlanningDetailMap" >
+        select
+            id, day_mineral_powder_requirements_planning_id, product_id, mineral_powder_code, mineral_powder_name, planned_quantity, unit_of_measurement, remark, status, create_id, create_name, create_time, update_id, update_name, update_time, is_deleted
+        from mes_product_day_mineral_powder_requirements_planning_detail
+        where day_mineral_powder_requirements_planning_id = #{dayMineralPowderRequirementsPlanningId}
+    </select>
+    
+
+ 
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_day_mineral_powder_requirements_planning_detail(day_mineral_powder_requirements_planning_id, product_id, mineral_powder_code, mineral_powder_name, planned_quantity, unit_of_measurement, remark, status, create_id, create_name, create_time, update_id, update_name, update_time, is_deleted)
+        values (#{dayMineralPowderRequirementsPlanningId}, #{productId}, #{mineralPowderCode}, #{mineralPowderName}, #{plannedQuantity}, #{unitOfMeasurement}, #{remark}, #{status}, #{createId}, #{createName}, now(), #{updateId}, #{updateName}, #{updateTime}, #{isDeleted})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_day_mineral_powder_requirements_planning_detail(day_mineral_powder_requirements_planning_id, product_id, mineral_powder_code, mineral_powder_name, planned_quantity, unit_of_measurement, remark, status, create_id, create_name, create_time, update_id, update_name, update_time, is_deleted)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.dayMineralPowderRequirementsPlanningId}, #{entity.productId}, #{entity.mineralPowderCode}, #{entity.mineralPowderName}, #{entity.plannedQuantity}, #{entity.unitOfMeasurement}, #{entity.remark}, #{entity.status}, #{entity.createId}, #{entity.createName},now(), #{entity.updateId}, #{entity.updateName}, #{entity.updateTime}, #{entity.isDeleted})
+        </foreach>
+    </insert>
+
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_day_mineral_powder_requirements_planning_detail(day_mineral_powder_requirements_planning_id, product_id, mineral_powder_code, mineral_powder_name, planned_quantity, unit_of_measurement, remark, status, create_id, create_name, create_time, update_id, update_name, update_time, is_deleted)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.dayMineralPowderRequirementsPlanningId}, #{entity.productId}, #{entity.mineralPowderCode}, #{entity.mineralPowderName}, #{entity.plannedQuantity}, #{entity.unitOfMeasurement}, #{entity.remark}, #{entity.status}, #{entity.createId}, #{entity.createName}, #{entity.createTime}, #{entity.updateId}, #{entity.updateName}, #{entity.updateTime}, #{entity.isDeleted})
+        </foreach>
+        on duplicate key update
+        day_mineral_powder_requirements_planning_id = values(day_mineral_powder_requirements_planning_id),
+        product_id = values(product_id),
+        mineral_powder_code = values(mineral_powder_code),
+        mineral_powder_name = values(mineral_powder_name),
+        planned_quantity = values(planned_quantity),
+        unit_of_measurement = values(unit_of_measurement),
+        remark = values(remark),
+        status = values(status),
+        create_id = values(create_id),
+        create_name = values(create_name),
+        create_time = values(create_time),
+        update_id = values(update_id),
+        update_name = values(update_name),
+        update_time = values(now()),
+        is_deleted = values(is_deleted)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update mes_product_day_mineral_powder_requirements_planning_detail
+        <set>
+            <if test="dayMineralPowderRequirementsPlanningId != null">
+                day_mineral_powder_requirements_planning_id = #{dayMineralPowderRequirementsPlanningId},
+            </if>
+            <if test="productId != null">
+                product_id = #{productId},
+            </if>
+            <if test="mineralPowderCode != null and mineralPowderCode != ''">
+                mineral_powder_code = #{mineralPowderCode},
+            </if>
+            <if test="mineralPowderName != null and mineralPowderName != ''">
+                mineral_powder_name = #{mineralPowderName},
+            </if>
+            <if test="plannedQuantity != null">
+                planned_quantity = #{plannedQuantity},
+            </if>
+            <if test="unitOfMeasurement != null and unitOfMeasurement != ''">
+                unit_of_measurement = #{unitOfMeasurement},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="updateId != null and updateId != ''">
+                update_id = #{updateId},
+            </if>
+            <if test="updateName != null and updateName != ''">
+                update_name = #{updateName},
+            </if>
+
+                update_time =now(),
+
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from mes_product_day_mineral_powder_requirements_planning_detail where id = #{id}
+    </delete>
+    
+     <!--逻辑删除-->
+    <update id="removeById">
+        update mes_product_day_mineral_powder_requirements_planning_detail set status = 1  where id = #{id}
+    </update>
+
+</mapper>
+

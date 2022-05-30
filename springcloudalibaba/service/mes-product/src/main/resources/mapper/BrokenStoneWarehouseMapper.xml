@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bpm.server.mapper.BrokenStoneWarehouseMapper">
+
+    <sql id="Base_Column_List">
+        id
+        , name, warehouse_id, production_scores, materials_id, materials_name, stone_code, stone_name, status, remark, create_id, create_name, create_time, update_id, update_name, update_time, is_deleted, code
+    </sql>
+
+
+    <resultMap type="com.bpm.common.domain.BrokenStoneWarehouse" id="BrokenStoneWarehouseMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="warehouseId" column="warehouse_id" jdbcType="INTEGER"/>
+        <result property="productionScores" column="production_scores" jdbcType="VARCHAR"/>
+        <result property="materialsId" column="materials_id" jdbcType="INTEGER"/>
+        <result property="materialsName" column="materials_name" jdbcType="VARCHAR"/>
+        <result property="stoneCode" column="stone_code" jdbcType="VARCHAR"/>
+        <result property="stoneName" column="stone_name" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="createId" column="create_id" jdbcType="INTEGER"/>
+        <result property="createName" column="create_name" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateId" column="update_id" jdbcType="INTEGER"/>
+        <result property="updateName" column="update_name" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+        <result property="code" column="code" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap type="com.bpm.common.vo.BrokenStoneWarehouseVO" extends="BrokenStoneWarehouseMap"
+               id="BrokenStoneWarehouseVOMap">
+        <result property="stockCode" column="stock_code" jdbcType="VARCHAR"/>
+        <result property="materialTypeName" column="material_type_name" jdbcType="VARCHAR"/>
+        <result property="materialCode" column="material_code" jdbcType="VARCHAR"/>
+        <result property="materialName" column="material_name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BrokenStoneWarehouseVOMap">
+        select
+        w.*,
+        s.stock_code,
+        t.material_type_name,
+        i.material_code,
+        i.material_name
+        from mes_product_broken_stone_warehouse w
+        LEFT JOIN mes_wms_stock s on s.id=w.warehouse_id
+        LEFT JOIN basic_data_material_info i on i.id=w.materials_id
+        LEFT JOIN basic_data_material_type t on t.id=i.material_type_id
+        <where>
+            <if test="stockCode != null and stockCode != ''">
+                and s.stock_code like concat('%',#{stockCode},'%')
+            </if>
+            <if test="materialName != null and materialName != ''">
+                and i.material_name like concat('%',#{materialName},'%')
+            </if>
+            <if test="materialTypeName != null and materialTypeName != ''">
+                and t.material_type_name like concat('%',#{materialTypeName},'%')
+            </if>
+        </where>
+        order by w.id
+    </select>
+
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BrokenStoneWarehouseMap">
+        select id,
+               name,
+               warehouse_id,
+               production_scores,
+               materials_id,
+               materials_name,
+               stone_code,
+               stone_name,
+               status,
+               remark,
+               create_id,
+               create_name,
+               create_time,
+               update_id,
+               update_name,
+               update_time,
+               is_deleted,
+               code
+        from mes_product_broken_stone_warehouse
+        where id = #{id}
+    </select>
+
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_broken_stone_warehouse(name, warehouse_id, production_scores, materials_id,
+                                                       materials_name, stone_code, stone_name, status, remark,
+                                                       create_id, create_name, create_time, update_id, update_name,
+                                                       update_time, is_deleted, code)
+        values (#{name}, #{warehouseId}, #{productionScores}, #{materialsId}, #{materialsName}, #{stoneCode},
+                #{stoneName}, 1, #{remark}, #{createId}, #{createName}, now(), #{updateId}, #{updateName},
+                #{updateTime}, #{isDeleted}, #{code})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_broken_stone_warehouse(name, warehouse_id, production_scores, materials_id,
+        materials_name, stone_code, stone_name, status, remark, create_id, create_name, create_time, update_id,
+        update_name, update_time, is_deleted, code)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.name}, #{entity.warehouseId}, #{entity.productionScores}, #{entity.materialsId},
+            #{entity.materialsName}, #{entity.stoneCode}, #{entity.stoneName}, #{entity.status}, #{entity.remark},
+            #{entity.createId}, #{entity.createName}, now(), #{entity.updateId}, #{entity.updateName},
+            #{entity.updateTime}, #{entity.isDeleted}, #{entity.code})
+        </foreach>
+    </insert>
+
+
+    <!--通过主键修改数据  选择性修改-->
+    <update id="updateSelective">
+        update mes_product_broken_stone_warehouse
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="warehouseId != null">
+                warehouse_id = #{warehouseId},
+            </if>
+            <if test="productionScores != null and productionScores != ''">
+                production_scores = #{productionScores},
+            </if>
+            <if test="materialsId != null">
+                materials_id = #{materialsId},
+            </if>
+            <if test="materialsName != null and materialsName != ''">
+                materials_name = #{materialsName},
+            </if>
+            <if test="stoneCode != null and stoneCode != ''">
+                stone_code = #{stoneCode},
+            </if>
+            <if test="stoneName != null and stoneName != ''">
+                stone_name = #{stoneName},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="createId != null">
+                create_id = #{createId},
+            </if>
+            <if test="createName != null and createName != ''">
+                create_name = #{createName},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateId != null">
+                update_id = #{updateId},
+            </if>
+            <if test="updateName != null and updateName != ''">
+                update_name = #{updateName},
+            </if>
+            update_time = now(),
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted},
+            </if>
+            <if test="code != null and code != ''">
+                code = #{code},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update mes_product_broken_stone_warehouse
+        set name              = #{name},
+            warehouse_id      = #{warehouseId},
+            production_scores = #{productionScores},
+            materials_id      = #{materialsId},
+            materials_name    = #{materialsName},
+            stone_code        = #{stoneCode},
+            stone_name        = #{stoneName},
+            status            = #{status},
+            remark            = #{remark},
+            create_id         = #{createId},
+            create_name       = #{createName},
+            create_time       = #{createTime},
+            update_id         = #{updateId},
+            update_name       = #{updateName},
+            update_time       = #{updateTime},
+            is_deleted        = #{isDeleted},
+            code              = #{code}
+
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from mes_product_broken_stone_warehouse
+        where id = #{id}
+    </delete>
+
+    <!--逻辑删除-->
+    <update id="removeById">
+        update mes_product_broken_stone_warehouse
+        set status = 1
+        where id = #{id}
+    </update>
+
+</mapper>
+
