@@ -1,11 +1,15 @@
 server:
   port: 7000
 spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
   datasource:
     driver-class-name: org.postgresql.Driver
     username: postgres
     password: 123456
-    url: jdbc:postgresql://192.168.234.131:5432/cswf_mes
+#    url: jdbc:postgresql://192.168.234.131:5432/cswf_mes
+    url: jdbc:postgresql://192.168.170.129:5432/postgres
     druid:
       stat-view-servlet:
         login-username: root         #账号
@@ -16,7 +20,4 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 192.168.234.131:8848
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
+        server-addr: 192.168.170.129:8848

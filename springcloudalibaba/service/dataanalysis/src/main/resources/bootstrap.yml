@@ -4,5 +4,9 @@ spring:
   cloud:
     nacos:
       config:
-        server-addr: http://192.168.234.131:8848
+        server-addr: http://192.168.170.129:8848
         file-extension: yml
+
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER

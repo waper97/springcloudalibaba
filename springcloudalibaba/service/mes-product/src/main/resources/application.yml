@@ -4,15 +4,15 @@ spring:
   profiles:
     active: dev
   datasource:
-    # 连接池配置
-    druid:
-      stat-view-servlet:
-        login-username: root         #账号
-        login-password: 123456       #密码
-        url-pattern: /druid/*        # 登录页面后缀  http://ip:port/druid
-        enabled: true                #开启监控
+#    # 连接池配置
+#    druid:
+#      stat-view-servlet:
+#        login-username: root         #账号
+#        login-password: 123456       #密码
+#        url-pattern: /druid/*        # 登录页面后缀  http://ip:port/druid
+#        enabled: true                #开启监控
   redis:
-    host: 192.168.234.131
+    host: 192.168.170.129
     port: 6379
     password: 123456
 mybatis:
@@ -26,4 +26,3 @@ knife4j:
   setting:
     # 是否开启请求缓存
     enableRequestCache: true
-

@@ -33,7 +33,7 @@ import java.util.List;
 @RequestMapping("/waper/api/hero")
 @Slf4j
 public class HeroController extends BaseController {
-    @Value("${hero}")
+//    @Value("${hero}")
     private String hero;
     @Autowired
     private HeroService heroService;
