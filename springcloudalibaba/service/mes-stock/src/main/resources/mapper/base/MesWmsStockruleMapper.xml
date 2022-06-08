@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bpm.mes.stock.server.mapper.base.MesWmsStockruleMapper">
+
+      <sql id="Base_Column_List">
+         id, rule_code, rule_name, rule_conclusion, f_company_id, f_en_code, f_short_name, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid, rule_value, in_out_propert     
+      </sql>
+      
+      <sql id="query_List">
+                  xxx.id AS id,
+         xxx.rule_code AS ruleCode,
+         xxx.rule_name AS ruleName,
+         xxx.rule_conclusion AS ruleConclusion,
+         xxx.f_company_id AS fCompanyId,
+         xxx.f_en_code AS fEnCode,
+         xxx.f_short_name AS fShortName,
+         xxx.create_id AS createId,
+         xxx.create_name AS createName,
+         xxx.create_time AS createTime,
+         xxx.update_id AS updateId,
+         xxx.update_name AS updateName,
+         xxx.update_time AS updateTime,
+         xxx.remark AS remark,
+         xxx.is_valid AS isValid,
+         xxx.rule_value AS ruleValue,
+         xxx.in_out_propert AS inOutPropert,
+      </sql>
+
+    <resultMap type="com.bpm.mes.stock.server.domain.MesWmsStockrule" id="MesWmsStockruleMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="ruleCode" column="rule_code" jdbcType="VARCHAR"/>
+        <result property="ruleName" column="rule_name" jdbcType="VARCHAR"/>
+        <result property="ruleConclusion" column="rule_conclusion" jdbcType="VARCHAR"/>
+        <result property="fCompanyId" column="f_company_id" jdbcType="INTEGER"/>
+        <result property="fEnCode" column="f_en_code" jdbcType="VARCHAR"/>
+        <result property="fShortName" column="f_short_name" jdbcType="VARCHAR"/>
+        <result property="createId" column="create_id" jdbcType="INTEGER"/>
+        <result property="createName" column="create_name" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateId" column="update_id" jdbcType="INTEGER"/>
+        <result property="updateName" column="update_name" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="isValid" column="is_valid" jdbcType="VARCHAR"/>
+        <result property="ruleValue" column="rule_value" jdbcType="VARCHAR"/>
+        <result property="inOutPropert" column="in_out_propert" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+    
+        <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="MesWmsStockruleMap">
+        select
+          <include refid="Base_Column_List" />
+        from mes_wms_stockrule
+        <where>
+        is_valid = '1'
+            <if test="id != null">
+                and id = #{id}                
+            </if>
+            <if test="ruleCode != null and ruleCode != ''">
+                and rule_code  like concat('%',#{ruleCode},'%')                
+            </if>
+            <if test="ruleName != null and ruleName != ''">
+                and rule_name  like concat('%',#{ruleName},'%')                
+            </if>
+            <if test="ruleConclusion != null and ruleConclusion != ''">
+                and rule_conclusion  like concat('%',#{ruleConclusion},'%')                
+            </if>
+            <if test="fCompanyId != null">
+                and f_company_id = #{fCompanyId}                
+            </if>
+            <if test="fEnCode != null and fEnCode != ''">
+                and f_en_code  like concat('%',#{fEnCode},'%')                
+            </if>
+            <if test="fShortName != null and fShortName != ''">
+                and f_short_name  like concat('%',#{fShortName},'%')                
+            </if>
+            <if test="createId != null">
+                and create_id = #{createId}                
+            </if>
+            <if test="createName != null and createName != ''">
+                and create_name  like concat('%',#{createName},'%')                
+            </if>
+            <if test="createTime != null">
+                and create_time                 
+            </if>
+            <if test="updateId != null">
+                and update_id = #{updateId}                
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and update_name  like concat('%',#{updateName},'%')                
+            </if>
+            <if test="updateTime != null">
+                and update_time                 
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark  like concat('%',#{remark},'%')                
+            </if>
+            <if test="isValid != null and isValid != ''">
+                and is_valid  like concat('%',#{isValid},'%')                
+            </if>
+            <if test="ruleValue != null and ruleValue != ''">
+                and rule_value  like concat('%',#{ruleValue},'%')                
+            </if>
+            <if test="inOutPropert != null and inOutPropert != ''">
+                and in_out_propert  like concat('%',#{inOutPropert},'%')                
+            </if>
+        </where>
+        order by id desc
+    </select>
+    
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="MesWmsStockruleMap">
+        select
+          id, rule_code, rule_name, rule_conclusion, f_company_id, f_en_code, f_short_name, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid, rule_value, in_out_propert
+        from mes_wms_stockrule
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="MesWmsStockruleMap">
+        select
+          id, rule_code, rule_name, rule_conclusion, f_company_id, f_en_code, f_short_name, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid, rule_value, in_out_propert
+        from mes_wms_stockrule
+        <where>
+        is_valid = '1'
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="ruleCode != null and ruleCode != ''">
+                and rule_code = #{ruleCode}
+            </if>
+            <if test="ruleName != null and ruleName != ''">
+                and rule_name = #{ruleName}
+            </if>
+            <if test="ruleConclusion != null and ruleConclusion != ''">
+                and rule_conclusion = #{ruleConclusion}
+            </if>
+            <if test="fCompanyId != null">
+                and f_company_id = #{fCompanyId}
+            </if>
+            <if test="fEnCode != null and fEnCode != ''">
+                and f_en_code = #{fEnCode}
+            </if>
+            <if test="fShortName != null and fShortName != ''">
+                and f_short_name = #{fShortName}
+            </if>
+            <if test="createId != null">
+                and create_id = #{createId}
+            </if>
+            <if test="createName != null and createName != ''">
+                and create_name = #{createName}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateId != null">
+                and update_id = #{updateId}
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and update_name = #{updateName}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="isValid != null and isValid != ''">
+                and is_valid = #{isValid}
+            </if>
+            <if test="ruleValue != null and ruleValue != ''">
+                and rule_value = #{ruleValue}
+            </if>
+            <if test="inOutPropert != null and inOutPropert != ''">
+                and in_out_propert = #{inOutPropert}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+    
+    
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from mes_wms_stockrule
+        <where>
+        is_valid = '1'
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="ruleCode != null and ruleCode != ''">
+                and rule_code = #{ruleCode}
+            </if>
+            <if test="ruleName != null and ruleName != ''">
+                and rule_name = #{ruleName}
+            </if>
+            <if test="ruleConclusion != null and ruleConclusion != ''">
+                and rule_conclusion = #{ruleConclusion}
+            </if>
+            <if test="fCompanyId != null">
+                and f_company_id = #{fCompanyId}
+            </if>
+            <if test="fEnCode != null and fEnCode != ''">
+                and f_en_code = #{fEnCode}
+            </if>
+            <if test="fShortName != null and fShortName != ''">
+                and f_short_name = #{fShortName}
+            </if>
+            <if test="createId != null">
+                and create_id = #{createId}
+            </if>
+            <if test="createName != null and createName != ''">
+                and create_name = #{createName}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateId != null">
+                and update_id = #{updateId}
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and update_name = #{updateName}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="isValid != null and isValid != ''">
+                and is_valid = #{isValid}
+            </if>
+            <if test="ruleValue != null and ruleValue != ''">
+                and rule_value = #{ruleValue}
+            </if>
+            <if test="inOutPropert != null and inOutPropert != ''">
+                and in_out_propert = #{inOutPropert}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_wms_stockrule(rule_code, rule_name, rule_conclusion, f_company_id, f_en_code, f_short_name, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid, rule_value, in_out_propert)
+        values (#{ruleCode}, #{ruleName}, #{ruleConclusion}, #{fCompanyId}, #{fEnCode}, #{fShortName}, #{createId}, #{createName}, #{createTime}, #{updateId}, #{updateName}, #{updateTime}, #{remark}, #{isValid}, #{ruleValue}, #{inOutPropert})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_wms_stockrule(rule_code, rule_name, rule_conclusion, f_company_id, f_en_code, f_short_name, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid, rule_value, in_out_propert)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.ruleCode}, #{entity.ruleName}, #{entity.ruleConclusion}, #{entity.fCompanyId}, #{entity.fEnCode}, #{entity.fShortName}, #{entity.createId}, #{entity.createName}, #{entity.createTime}, #{entity.updateId}, #{entity.updateName}, #{entity.updateTime}, #{entity.remark}, #{entity.isValid}, #{entity.ruleValue}, #{entity.inOutPropert})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_wms_stockrule(rule_code, rule_name, rule_conclusion, f_company_id, f_en_code, f_short_name, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid, rule_value, in_out_propert)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.ruleCode}, #{entity.ruleName}, #{entity.ruleConclusion}, #{entity.fCompanyId}, #{entity.fEnCode}, #{entity.fShortName}, #{entity.createId}, #{entity.createName}, #{entity.createTime}, #{entity.updateId}, #{entity.updateName}, #{entity.updateTime}, #{entity.remark}, #{entity.isValid}, #{entity.ruleValue}, #{entity.inOutPropert})
+        </foreach>
+        on duplicate key update
+        rule_code = values(rule_code),
+        rule_name = values(rule_name),
+        rule_conclusion = values(rule_conclusion),
+        f_company_id = values(f_company_id),
+        f_en_code = values(f_en_code),
+        f_short_name = values(f_short_name),
+        create_id = values(create_id),
+        create_name = values(create_name),
+        create_time = values(create_time),
+        update_id = values(update_id),
+        update_name = values(update_name),
+        update_time = values(update_time),
+        remark = values(remark),
+        is_valid = values(is_valid),
+        rule_value = values(rule_value),
+        in_out_propert = values(in_out_propert)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update mes_wms_stockrule
+        <set>
+            <if test="ruleCode != null and ruleCode != ''">
+                rule_code = #{ruleCode},
+            </if>
+            <if test="ruleName != null and ruleName != ''">
+                rule_name = #{ruleName},
+            </if>
+            <if test="ruleConclusion != null and ruleConclusion != ''">
+                rule_conclusion = #{ruleConclusion},
+            </if>
+            <if test="fCompanyId != null">
+                f_company_id = #{fCompanyId},
+            </if>
+            <if test="fEnCode != null and fEnCode != ''">
+                f_en_code = #{fEnCode},
+            </if>
+            <if test="fShortName != null and fShortName != ''">
+                f_short_name = #{fShortName},
+            </if>
+            <if test="createId != null">
+                create_id = #{createId},
+            </if>
+            <if test="createName != null and createName != ''">
+                create_name = #{createName},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateId != null">
+                update_id = #{updateId},
+            </if>
+            <if test="updateName != null and updateName != ''">
+                update_name = #{updateName},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="isValid != null and isValid != ''">
+                is_valid = #{isValid},
+            </if>
+            <if test="ruleValue != null and ruleValue != ''">
+                rule_value = #{ruleValue},
+            </if>
+            <if test="inOutPropert != null and inOutPropert != ''">
+                in_out_propert = #{inOutPropert},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    
+    <!--通过主键修改数据-->
+    <update id="edit">
+        update mes_wms_stockrule
+        <set>
+           rule_code = #{ruleCode},
+           rule_name = #{ruleName},
+           rule_conclusion = #{ruleConclusion},
+           f_company_id = #{fCompanyId},
+           f_en_code = #{fEnCode},
+           f_short_name = #{fShortName},
+           create_id = #{createId},
+           create_name = #{createName},
+           create_time = #{createTime},
+           update_id = #{updateId},
+           update_name = #{updateName},
+           update_time = #{updateTime},
+           remark = #{remark},
+           is_valid = #{isValid},
+           rule_value = #{ruleValue},
+           in_out_propert = #{inOutPropert},
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from mes_wms_stockrule where id = #{id}
+    </delete>
+    
+    <!--通过主键逻辑删除-->
+    <delete id="updateById">
+        update mes_wms_stockrule set is_valid = '0' where id = #{id}
+    </delete>
+
+</mapper>
+

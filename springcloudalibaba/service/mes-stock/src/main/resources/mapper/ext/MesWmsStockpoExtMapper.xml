@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bpm.mes.stock.server.mapper.ext.MesWmsStockpoExtMapper">
+    <select id="queryAll" resultType="com.bpm.mes.stock.server.vo.MesWmsStockpoQueryVo">
+        SELECT
+            po."id",
+            po.stock_po_code AS stockPoCode,
+            po.po_bill_date as poBillDate,
+            po.po_posting_date as poPostingDate,
+            po."year",
+            po.out_stock_id AS outStockId,
+            po.out_stock_code AS outStockCode,
+            po.out_stock_name AS outStockName,
+            po.in_stock_id AS inStockId,
+            po.in_stock_code AS inStockCode,
+            po.in_stock_name AS inStockName,
+            po.client_id AS clientId,
+            po.client_code AS clientCode,
+            po.client_name AS clientName,
+            po.out_type_id AS outTypeId,
+            po.out_bill_code AS outBillCode,
+            po.in_type_id AS inTypeId,
+            po.in_bill_code AS inBillCode,
+            po.po_type,
+            sdd1.dict_value AS poType,
+            po."state" AS state1,
+            sdd2.dict_value AS "state",
+            po.department_id AS departmentId,
+            po.department_code AS departmentCode,
+            po.department_name AS departmentName,
+            po.emp_id AS empId,
+            po.emp_code AS empCode,
+            po.emp_name AS empName,
+            po.manager_id AS managerId,
+            po.manager_code AS managerCode,
+            po.manager_name AS managerName,
+            po.checker_id AS checkerId,
+            po.checker_name AS checkerName,
+            po.checker_time AS checkerTime,
+            po.f_company_id AS fCompanyId,
+            po.f_en_code AS fEnCode,
+            po.f_short_name AS fShortName,
+            po.create_id AS createId,
+            po.create_name AS createName,
+            po.create_time AS createTime,
+            po.update_id AS updateId,
+            po.update_name AS updateName,
+            po.update_time AS updateTime,
+            po.remark AS remark,
+            po.is_valid AS isValid,
+            po.out_company_id AS outCompanyId,
+            po.out_company_name AS outCompanyName,
+            po.in_company_id AS inCompanyId,
+            po.in_company_name AS inCompanyName,
+            po.disposer AS disposer,
+            po.disposer_id AS disposerId,
+            po.period AS period
+        FROM
+            mes_wms_stockpo po
+                LEFT JOIN sys_dict_data sdd1 ON sdd1.dict_label = po.po_type
+                AND sdd1.status = '1'
+                AND sdd1.dict_type = 'stockpo_type'
+                LEFT JOIN sys_dict_data sdd2 ON sdd2.dict_label = po."state"
+                AND sdd2.status = '1'
+                AND sdd2.dict_type = 'stockpo_state'
+                LEFT JOIN mes_wms_stockpolist pl ON pl.stock_po_id = po."id"
+                AND pl.is_valid = '1'
+        WHERE
+            po.is_valid = '1'
+            <if test="stockPoCode != null and stockPoCode != ''">
+                and po.stock_po_code  like concat('%',#{stockPoCode},'%')
+            </if>
+            <if test="id != null and id != ''">
+                and po."id"  = #{id}
+            </if>
+            <if test="poType != null and poType != ''">
+                and po.po_type  like concat('%',#{poType},'%')
+            </if>
+            <if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+                and po.po_bill_date &lt;= #{endTime} and po.po_bill_date >= #{startTime}
+            </if>
+            <if test="materialCode != null and materialCode != ''">
+                and pl.material_code  like concat('%',#{materialCode},'%')
+            </if>
+            <if test="materialShortName != null and materialShortName != ''">
+                and pl.material_short_name  like concat('%',#{materialShortName},'%')
+            </if>
+        GROUP BY
+        po."id",sdd1.dict_value,sdd2.dict_value
+        ORDER BY
+        po."id" DESC
+    </select>
+    <select id="outStock" resultType="com.bpm.mes.stock.server.vo.MesWmsStockPoListVo">
+        SELECT DISTINCT
+            stock_id AS stockId,
+            stock_code AS stockCode,
+            stock_name AS stockName
+        FROM
+            mes_wms_stockcurrent
+        WHERE
+            is_valid = '1'
+    </select>
+    <select id="outStockPlace" resultType="com.bpm.mes.stock.server.vo.MesWmsStockPoPlaceListVo">
+        SELECT
+            "id" as stockCurrentId,
+            stock_id AS stockId,
+            stock_code AS stockCode,
+            stock_name AS stockName,
+            stock_place_id AS stockPlaceId,
+            stock_place_code AS stockPlaceCode,
+            stock_place_name AS stockPlaceName,
+            suppliar_id AS suppliarId,
+            suppliar_code AS suppliarCode,
+            suppliar_name AS suppliarName,
+            material_id AS materialId,
+            material_code AS materialCode,
+            material_short_name AS materialShortName,
+            material_spec AS materialSpec,
+            material_tr_id AS materialTrId,
+            units_id AS unitsId,
+            units_name AS unitsName,
+            in_batch_no AS inBatchNo,
+            qty_useable AS qtyUseable
+        FROM
+            mes_wms_stockcurrent
+        WHERE
+            is_valid = '1'
+          AND stock_id = #{stockId}
+    </select>
+    <select id="inStock" resultType="com.bpm.mes.stock.server.vo.MesWmsStockPoListVo">
+        SELECT
+            "id" as stockId,
+            stock_code AS stockCode,
+            stock_name AS stockName,
+            stock_type AS stockType
+        FROM
+            mes_wms_stock
+        WHERE
+            is_valid = '1' and state = '1'
+    </select>
+    <select id="inStockPlace" resultType="com.bpm.mes.stock.server.vo.MesWmsStockPoPlaceListVo">
+        SELECT
+            "id" as  stockPlaceId,
+            stock_place_code AS stockPlaceCode,
+            stock_place_name AS stockPlaceName,
+            stock_id AS stockId,
+            stock_code AS stockCode,
+            stock_name AS stockName
+        FROM
+            mes_wms_stockplace
+        WHERE
+            is_valid = '1' and stock_id = #{stockId}
+    </select>
+    <select id="queryPoCode" resultType="java.lang.String">
+        SELECT
+            stock_po_code AS stockPoCode
+        FROM
+            mes_wms_stockpo
+        WHERE
+            is_valid = '1'
+          AND date_format(create_time,'%Y-%m-%d') = date_format(now(),'%Y-%m-%d')
+        ORDER BY
+            "id" DESC
+            LIMIT 1
+    </select>
+    <select id="queryStockPo" resultType="com.bpm.mes.stock.server.domain.MesWmsStockpolist">
+        SELECT
+            "id",
+            stock_po_code AS stockPoCode
+        FROM
+            mes_wms_stockpolist
+        WHERE
+            is_valid = '1' AND ("state" = '1' OR "state" = '2')
+            and stock_po_id = #{stockPoId}
+    </select>
+</mapper>

@@ -1,0 +1,743 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bpm.mes.stock.server.mapper.base.MesWmsStockMapper">
+
+      <sql id="Base_Column_List">
+         id, stock_code, stock_name, stock_type, material_tr_id, stock_manager_id, stock_manager_code, stock_manager_name, stock_address, stock_phone, department_id, department_code, department_name, client_id, client_no, client_name, erp_id, erp_code, erp_name, is_warn, state, organization_id, organization_code, organization_name, f_company_id, f_en_code, f_short_name, plant_code, plant_name, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid, is_leaf, stock_property, is_distribution     
+      </sql>
+      
+      <sql id="query_List">
+                  xxx.id AS id,
+         xxx.stock_code AS stockCode,
+         xxx.stock_name AS stockName,
+         xxx.stock_type AS stockType,
+         xxx.material_tr_id AS materialTrId,
+         xxx.stock_manager_id AS stockManagerId,
+         xxx.stock_manager_code AS stockManagerCode,
+         xxx.stock_manager_name AS stockManagerName,
+         xxx.stock_address AS stockAddress,
+         xxx.stock_phone AS stockPhone,
+         xxx.department_id AS departmentId,
+         xxx.department_code AS departmentCode,
+         xxx.department_name AS departmentName,
+         xxx.client_id AS clientId,
+         xxx.client_no AS clientNo,
+         xxx.client_name AS clientName,
+         xxx.erp_id AS erpId,
+         xxx.erp_code AS erpCode,
+         xxx.erp_name AS erpName,
+         xxx.is_warn AS isWarn,
+         xxx.state AS state,
+         xxx.organization_id AS organizationId,
+         xxx.organization_code AS organizationCode,
+         xxx.organization_name AS organizationName,
+         xxx.f_company_id AS fCompanyId,
+         xxx.f_en_code AS fEnCode,
+         xxx.f_short_name AS fShortName,
+         xxx.plant_code AS plantCode,
+         xxx.plant_name AS plantName,
+         xxx.create_id AS createId,
+         xxx.create_name AS createName,
+         xxx.create_time AS createTime,
+         xxx.update_id AS updateId,
+         xxx.update_name AS updateName,
+         xxx.update_time AS updateTime,
+         xxx.remark AS remark,
+         xxx.is_valid AS isValid,
+         xxx.is_leaf AS isLeaf,
+         xxx.stock_property AS stockProperty,
+         xxx.is_distribution AS isDistribution,
+      </sql>
+
+    <resultMap type="com.bpm.mes.stock.server.domain.MesWmsStock" id="MesWmsStockMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="stockCode" column="stock_code" jdbcType="VARCHAR"/>
+        <result property="stockName" column="stock_name" jdbcType="VARCHAR"/>
+        <result property="stockType" column="stock_type" jdbcType="VARCHAR"/>
+        <result property="materialTrId" column="material_tr_id" jdbcType="VARCHAR"/>
+        <result property="stockManagerId" column="stock_manager_id" jdbcType="VARCHAR"/>
+        <result property="stockManagerCode" column="stock_manager_code" jdbcType="VARCHAR"/>
+        <result property="stockManagerName" column="stock_manager_name" jdbcType="VARCHAR"/>
+        <result property="stockAddress" column="stock_address" jdbcType="VARCHAR"/>
+        <result property="stockPhone" column="stock_phone" jdbcType="VARCHAR"/>
+        <result property="departmentId" column="department_id" jdbcType="INTEGER"/>
+        <result property="departmentCode" column="department_code" jdbcType="VARCHAR"/>
+        <result property="departmentName" column="department_name" jdbcType="VARCHAR"/>
+        <result property="clientId" column="client_id" jdbcType="INTEGER"/>
+        <result property="clientNo" column="client_no" jdbcType="VARCHAR"/>
+        <result property="clientName" column="client_name" jdbcType="VARCHAR"/>
+        <result property="erpId" column="erp_id" jdbcType="INTEGER"/>
+        <result property="erpCode" column="erp_code" jdbcType="VARCHAR"/>
+        <result property="erpName" column="erp_name" jdbcType="VARCHAR"/>
+        <result property="isWarn" column="is_warn" jdbcType="VARCHAR"/>
+        <result property="state" column="state" jdbcType="VARCHAR"/>
+        <result property="organizationId" column="organization_id" jdbcType="INTEGER"/>
+        <result property="organizationCode" column="organization_code" jdbcType="VARCHAR"/>
+        <result property="organizationName" column="organization_name" jdbcType="VARCHAR"/>
+        <result property="fCompanyId" column="f_company_id" jdbcType="INTEGER"/>
+        <result property="fEnCode" column="f_en_code" jdbcType="VARCHAR"/>
+        <result property="fShortName" column="f_short_name" jdbcType="VARCHAR"/>
+        <result property="plantCode" column="plant_code" jdbcType="VARCHAR"/>
+        <result property="plantName" column="plant_name" jdbcType="VARCHAR"/>
+        <result property="createId" column="create_id" jdbcType="INTEGER"/>
+        <result property="createName" column="create_name" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateId" column="update_id" jdbcType="INTEGER"/>
+        <result property="updateName" column="update_name" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="isValid" column="is_valid" jdbcType="VARCHAR"/>
+        <result property="isLeaf" column="is_leaf" jdbcType="VARCHAR"/>
+        <result property="stockProperty" column="stock_property" jdbcType="VARCHAR"/>
+        <result property="isDistribution" column="is_distribution" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+    
+        <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="MesWmsStockMap">
+        select
+          <include refid="Base_Column_List" />
+        from mes_wms_stock
+        <where>
+        is_valid = '1'
+            <if test="id != null">
+                and id = #{id}                
+            </if>
+            <if test="stockCode != null and stockCode != ''">
+                and stock_code  like concat('%',#{stockCode},'%')                
+            </if>
+            <if test="stockName != null and stockName != ''">
+                and stock_name  like concat('%',#{stockName},'%')                
+            </if>
+            <if test="stockType != null and stockType != ''">
+                and stock_type  like concat('%',#{stockType},'%')                
+            </if>
+            <if test="materialTrId != null and materialTrId != ''">
+                and material_tr_id  like concat('%',#{materialTrId},'%')                
+            </if>
+            <if test="stockManagerId != null and stockManagerId != ''">
+                and stock_manager_id  like concat('%',#{stockManagerId},'%')                
+            </if>
+            <if test="stockManagerCode != null and stockManagerCode != ''">
+                and stock_manager_code  like concat('%',#{stockManagerCode},'%')                
+            </if>
+            <if test="stockManagerName != null and stockManagerName != ''">
+                and stock_manager_name  like concat('%',#{stockManagerName},'%')                
+            </if>
+            <if test="stockAddress != null and stockAddress != ''">
+                and stock_address  like concat('%',#{stockAddress},'%')                
+            </if>
+            <if test="stockPhone != null and stockPhone != ''">
+                and stock_phone  like concat('%',#{stockPhone},'%')                
+            </if>
+            <if test="departmentId != null">
+                and department_id = #{departmentId}                
+            </if>
+            <if test="departmentCode != null and departmentCode != ''">
+                and department_code  like concat('%',#{departmentCode},'%')                
+            </if>
+            <if test="departmentName != null and departmentName != ''">
+                and department_name  like concat('%',#{departmentName},'%')                
+            </if>
+            <if test="clientId != null">
+                and client_id = #{clientId}                
+            </if>
+            <if test="clientNo != null and clientNo != ''">
+                and client_no  like concat('%',#{clientNo},'%')                
+            </if>
+            <if test="clientName != null and clientName != ''">
+                and client_name  like concat('%',#{clientName},'%')                
+            </if>
+            <if test="erpId != null">
+                and erp_id = #{erpId}                
+            </if>
+            <if test="erpCode != null and erpCode != ''">
+                and erp_code  like concat('%',#{erpCode},'%')                
+            </if>
+            <if test="erpName != null and erpName != ''">
+                and erp_name  like concat('%',#{erpName},'%')                
+            </if>
+            <if test="isWarn != null and isWarn != ''">
+                and is_warn  like concat('%',#{isWarn},'%')                
+            </if>
+            <if test="state != null and state != ''">
+                and state  like concat('%',#{state},'%')                
+            </if>
+            <if test="organizationId != null">
+                and organization_id = #{organizationId}                
+            </if>
+            <if test="organizationCode != null and organizationCode != ''">
+                and organization_code  like concat('%',#{organizationCode},'%')                
+            </if>
+            <if test="organizationName != null and organizationName != ''">
+                and organization_name  like concat('%',#{organizationName},'%')                
+            </if>
+            <if test="fCompanyId != null">
+                and f_company_id = #{fCompanyId}                
+            </if>
+            <if test="fEnCode != null and fEnCode != ''">
+                and f_en_code  like concat('%',#{fEnCode},'%')                
+            </if>
+            <if test="fShortName != null and fShortName != ''">
+                and f_short_name  like concat('%',#{fShortName},'%')                
+            </if>
+            <if test="plantCode != null and plantCode != ''">
+                and plant_code  like concat('%',#{plantCode},'%')                
+            </if>
+            <if test="plantName != null and plantName != ''">
+                and plant_name  like concat('%',#{plantName},'%')                
+            </if>
+            <if test="createId != null">
+                and create_id = #{createId}                
+            </if>
+            <if test="createName != null and createName != ''">
+                and create_name  like concat('%',#{createName},'%')                
+            </if>
+            <if test="createTime != null">
+                and create_time                 
+            </if>
+            <if test="updateId != null">
+                and update_id = #{updateId}                
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and update_name  like concat('%',#{updateName},'%')                
+            </if>
+            <if test="updateTime != null">
+                and update_time                 
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark  like concat('%',#{remark},'%')                
+            </if>
+            <if test="isValid != null and isValid != ''">
+                and is_valid  like concat('%',#{isValid},'%')                
+            </if>
+            <if test="isLeaf != null and isLeaf != ''">
+                and is_leaf  like concat('%',#{isLeaf},'%')                
+            </if>
+            <if test="stockProperty != null and stockProperty != ''">
+                and stock_property  like concat('%',#{stockProperty},'%')                
+            </if>
+            <if test="isDistribution != null and isDistribution != ''">
+                and is_distribution  like concat('%',#{isDistribution},'%')                
+            </if>
+        </where>
+        order by id desc
+    </select>
+    
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="MesWmsStockMap">
+        select
+          id, stock_code, stock_name, stock_type, material_tr_id, stock_manager_id, stock_manager_code, stock_manager_name, stock_address, stock_phone, department_id, department_code, department_name, client_id, client_no, client_name, erp_id, erp_code, erp_name, is_warn, state, organization_id, organization_code, organization_name, f_company_id, f_en_code, f_short_name, plant_code, plant_name, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid, is_leaf, stock_property, is_distribution
+        from mes_wms_stock
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="MesWmsStockMap">
+        select
+          id, stock_code, stock_name, stock_type, material_tr_id, stock_manager_id, stock_manager_code, stock_manager_name, stock_address, stock_phone, department_id, department_code, department_name, client_id, client_no, client_name, erp_id, erp_code, erp_name, is_warn, state, organization_id, organization_code, organization_name, f_company_id, f_en_code, f_short_name, plant_code, plant_name, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid, is_leaf, stock_property, is_distribution
+        from mes_wms_stock
+        <where>
+        is_valid = '1'
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="stockCode != null and stockCode != ''">
+                and stock_code = #{stockCode}
+            </if>
+            <if test="stockName != null and stockName != ''">
+                and stock_name = #{stockName}
+            </if>
+            <if test="stockType != null and stockType != ''">
+                and stock_type = #{stockType}
+            </if>
+            <if test="materialTrId != null and materialTrId != ''">
+                and material_tr_id = #{materialTrId}
+            </if>
+            <if test="stockManagerId != null and stockManagerId != ''">
+                and stock_manager_id = #{stockManagerId}
+            </if>
+            <if test="stockManagerCode != null and stockManagerCode != ''">
+                and stock_manager_code = #{stockManagerCode}
+            </if>
+            <if test="stockManagerName != null and stockManagerName != ''">
+                and stock_manager_name = #{stockManagerName}
+            </if>
+            <if test="stockAddress != null and stockAddress != ''">
+                and stock_address = #{stockAddress}
+            </if>
+            <if test="stockPhone != null and stockPhone != ''">
+                and stock_phone = #{stockPhone}
+            </if>
+            <if test="departmentId != null">
+                and department_id = #{departmentId}
+            </if>
+            <if test="departmentCode != null and departmentCode != ''">
+                and department_code = #{departmentCode}
+            </if>
+            <if test="departmentName != null and departmentName != ''">
+                and department_name = #{departmentName}
+            </if>
+            <if test="clientId != null">
+                and client_id = #{clientId}
+            </if>
+            <if test="clientNo != null and clientNo != ''">
+                and client_no = #{clientNo}
+            </if>
+            <if test="clientName != null and clientName != ''">
+                and client_name = #{clientName}
+            </if>
+            <if test="erpId != null">
+                and erp_id = #{erpId}
+            </if>
+            <if test="erpCode != null and erpCode != ''">
+                and erp_code = #{erpCode}
+            </if>
+            <if test="erpName != null and erpName != ''">
+                and erp_name = #{erpName}
+            </if>
+            <if test="isWarn != null and isWarn != ''">
+                and is_warn = #{isWarn}
+            </if>
+            <if test="state != null and state != ''">
+                and state = #{state}
+            </if>
+            <if test="organizationId != null">
+                and organization_id = #{organizationId}
+            </if>
+            <if test="organizationCode != null and organizationCode != ''">
+                and organization_code = #{organizationCode}
+            </if>
+            <if test="organizationName != null and organizationName != ''">
+                and organization_name = #{organizationName}
+            </if>
+            <if test="fCompanyId != null">
+                and f_company_id = #{fCompanyId}
+            </if>
+            <if test="fEnCode != null and fEnCode != ''">
+                and f_en_code = #{fEnCode}
+            </if>
+            <if test="fShortName != null and fShortName != ''">
+                and f_short_name = #{fShortName}
+            </if>
+            <if test="plantCode != null and plantCode != ''">
+                and plant_code = #{plantCode}
+            </if>
+            <if test="plantName != null and plantName != ''">
+                and plant_name = #{plantName}
+            </if>
+            <if test="createId != null">
+                and create_id = #{createId}
+            </if>
+            <if test="createName != null and createName != ''">
+                and create_name = #{createName}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateId != null">
+                and update_id = #{updateId}
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and update_name = #{updateName}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="isValid != null and isValid != ''">
+                and is_valid = #{isValid}
+            </if>
+            <if test="isLeaf != null and isLeaf != ''">
+                and is_leaf = #{isLeaf}
+            </if>
+            <if test="stockProperty != null and stockProperty != ''">
+                and stock_property = #{stockProperty}
+            </if>
+            <if test="isDistribution != null and isDistribution != ''">
+                and is_distribution = #{isDistribution}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+    
+    
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from mes_wms_stock
+        <where>
+        is_valid = '1'
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="stockCode != null and stockCode != ''">
+                and stock_code = #{stockCode}
+            </if>
+            <if test="stockName != null and stockName != ''">
+                and stock_name = #{stockName}
+            </if>
+            <if test="stockType != null and stockType != ''">
+                and stock_type = #{stockType}
+            </if>
+            <if test="materialTrId != null and materialTrId != ''">
+                and material_tr_id = #{materialTrId}
+            </if>
+            <if test="stockManagerId != null and stockManagerId != ''">
+                and stock_manager_id = #{stockManagerId}
+            </if>
+            <if test="stockManagerCode != null and stockManagerCode != ''">
+                and stock_manager_code = #{stockManagerCode}
+            </if>
+            <if test="stockManagerName != null and stockManagerName != ''">
+                and stock_manager_name = #{stockManagerName}
+            </if>
+            <if test="stockAddress != null and stockAddress != ''">
+                and stock_address = #{stockAddress}
+            </if>
+            <if test="stockPhone != null and stockPhone != ''">
+                and stock_phone = #{stockPhone}
+            </if>
+            <if test="departmentId != null">
+                and department_id = #{departmentId}
+            </if>
+            <if test="departmentCode != null and departmentCode != ''">
+                and department_code = #{departmentCode}
+            </if>
+            <if test="departmentName != null and departmentName != ''">
+                and department_name = #{departmentName}
+            </if>
+            <if test="clientId != null">
+                and client_id = #{clientId}
+            </if>
+            <if test="clientNo != null and clientNo != ''">
+                and client_no = #{clientNo}
+            </if>
+            <if test="clientName != null and clientName != ''">
+                and client_name = #{clientName}
+            </if>
+            <if test="erpId != null">
+                and erp_id = #{erpId}
+            </if>
+            <if test="erpCode != null and erpCode != ''">
+                and erp_code = #{erpCode}
+            </if>
+            <if test="erpName != null and erpName != ''">
+                and erp_name = #{erpName}
+            </if>
+            <if test="isWarn != null and isWarn != ''">
+                and is_warn = #{isWarn}
+            </if>
+            <if test="state != null and state != ''">
+                and state = #{state}
+            </if>
+            <if test="organizationId != null">
+                and organization_id = #{organizationId}
+            </if>
+            <if test="organizationCode != null and organizationCode != ''">
+                and organization_code = #{organizationCode}
+            </if>
+            <if test="organizationName != null and organizationName != ''">
+                and organization_name = #{organizationName}
+            </if>
+            <if test="fCompanyId != null">
+                and f_company_id = #{fCompanyId}
+            </if>
+            <if test="fEnCode != null and fEnCode != ''">
+                and f_en_code = #{fEnCode}
+            </if>
+            <if test="fShortName != null and fShortName != ''">
+                and f_short_name = #{fShortName}
+            </if>
+            <if test="plantCode != null and plantCode != ''">
+                and plant_code = #{plantCode}
+            </if>
+            <if test="plantName != null and plantName != ''">
+                and plant_name = #{plantName}
+            </if>
+            <if test="createId != null">
+                and create_id = #{createId}
+            </if>
+            <if test="createName != null and createName != ''">
+                and create_name = #{createName}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateId != null">
+                and update_id = #{updateId}
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and update_name = #{updateName}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="isValid != null and isValid != ''">
+                and is_valid = #{isValid}
+            </if>
+            <if test="isLeaf != null and isLeaf != ''">
+                and is_leaf = #{isLeaf}
+            </if>
+            <if test="stockProperty != null and stockProperty != ''">
+                and stock_property = #{stockProperty}
+            </if>
+            <if test="isDistribution != null and isDistribution != ''">
+                and is_distribution = #{isDistribution}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_wms_stock(stock_code, stock_name, stock_type, material_tr_id, stock_manager_id, stock_manager_code, stock_manager_name, stock_address, stock_phone, department_id, department_code, department_name, client_id, client_no, client_name, erp_id, erp_code, erp_name, is_warn, state, organization_id, organization_code, organization_name, f_company_id, f_en_code, f_short_name, plant_code, plant_name, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid, is_leaf, stock_property, is_distribution)
+        values (#{stockCode}, #{stockName}, #{stockType}, #{materialTrId}, #{stockManagerId}, #{stockManagerCode}, #{stockManagerName}, #{stockAddress}, #{stockPhone}, #{departmentId}, #{departmentCode}, #{departmentName}, #{clientId}, #{clientNo}, #{clientName}, #{erpId}, #{erpCode}, #{erpName}, #{isWarn}, #{state}, #{organizationId}, #{organizationCode}, #{organizationName}, #{fCompanyId}, #{fEnCode}, #{fShortName}, #{plantCode}, #{plantName}, #{createId}, #{createName}, #{createTime}, #{updateId}, #{updateName}, #{updateTime}, #{remark}, #{isValid}, #{isLeaf}, #{stockProperty}, #{isDistribution})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_wms_stock(stock_code, stock_name, stock_type, material_tr_id, stock_manager_id, stock_manager_code, stock_manager_name, stock_address, stock_phone, department_id, department_code, department_name, client_id, client_no, client_name, erp_id, erp_code, erp_name, is_warn, state, organization_id, organization_code, organization_name, f_company_id, f_en_code, f_short_name, plant_code, plant_name, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid, is_leaf, stock_property, is_distribution)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.stockCode}, #{entity.stockName}, #{entity.stockType}, #{entity.materialTrId}, #{entity.stockManagerId}, #{entity.stockManagerCode}, #{entity.stockManagerName}, #{entity.stockAddress}, #{entity.stockPhone}, #{entity.departmentId}, #{entity.departmentCode}, #{entity.departmentName}, #{entity.clientId}, #{entity.clientNo}, #{entity.clientName}, #{entity.erpId}, #{entity.erpCode}, #{entity.erpName}, #{entity.isWarn}, #{entity.state}, #{entity.organizationId}, #{entity.organizationCode}, #{entity.organizationName}, #{entity.fCompanyId}, #{entity.fEnCode}, #{entity.fShortName}, #{entity.plantCode}, #{entity.plantName}, #{entity.createId}, #{entity.createName}, #{entity.createTime}, #{entity.updateId}, #{entity.updateName}, #{entity.updateTime}, #{entity.remark}, #{entity.isValid}, #{entity.isLeaf}, #{entity.stockProperty}, #{entity.isDistribution})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_wms_stock(stock_code, stock_name, stock_type, material_tr_id, stock_manager_id, stock_manager_code, stock_manager_name, stock_address, stock_phone, department_id, department_code, department_name, client_id, client_no, client_name, erp_id, erp_code, erp_name, is_warn, state, organization_id, organization_code, organization_name, f_company_id, f_en_code, f_short_name, plant_code, plant_name, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid, is_leaf, stock_property, is_distribution)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.stockCode}, #{entity.stockName}, #{entity.stockType}, #{entity.materialTrId}, #{entity.stockManagerId}, #{entity.stockManagerCode}, #{entity.stockManagerName}, #{entity.stockAddress}, #{entity.stockPhone}, #{entity.departmentId}, #{entity.departmentCode}, #{entity.departmentName}, #{entity.clientId}, #{entity.clientNo}, #{entity.clientName}, #{entity.erpId}, #{entity.erpCode}, #{entity.erpName}, #{entity.isWarn}, #{entity.state}, #{entity.organizationId}, #{entity.organizationCode}, #{entity.organizationName}, #{entity.fCompanyId}, #{entity.fEnCode}, #{entity.fShortName}, #{entity.plantCode}, #{entity.plantName}, #{entity.createId}, #{entity.createName}, #{entity.createTime}, #{entity.updateId}, #{entity.updateName}, #{entity.updateTime}, #{entity.remark}, #{entity.isValid}, #{entity.isLeaf}, #{entity.stockProperty}, #{entity.isDistribution})
+        </foreach>
+        on duplicate key update
+        stock_code = values(stock_code),
+        stock_name = values(stock_name),
+        stock_type = values(stock_type),
+        material_tr_id = values(material_tr_id),
+        stock_manager_id = values(stock_manager_id),
+        stock_manager_code = values(stock_manager_code),
+        stock_manager_name = values(stock_manager_name),
+        stock_address = values(stock_address),
+        stock_phone = values(stock_phone),
+        department_id = values(department_id),
+        department_code = values(department_code),
+        department_name = values(department_name),
+        client_id = values(client_id),
+        client_no = values(client_no),
+        client_name = values(client_name),
+        erp_id = values(erp_id),
+        erp_code = values(erp_code),
+        erp_name = values(erp_name),
+        is_warn = values(is_warn),
+        state = values(state),
+        organization_id = values(organization_id),
+        organization_code = values(organization_code),
+        organization_name = values(organization_name),
+        f_company_id = values(f_company_id),
+        f_en_code = values(f_en_code),
+        f_short_name = values(f_short_name),
+        plant_code = values(plant_code),
+        plant_name = values(plant_name),
+        create_id = values(create_id),
+        create_name = values(create_name),
+        create_time = values(create_time),
+        update_id = values(update_id),
+        update_name = values(update_name),
+        update_time = values(update_time),
+        remark = values(remark),
+        is_valid = values(is_valid),
+        is_leaf = values(is_leaf),
+        stock_property = values(stock_property),
+        is_distribution = values(is_distribution)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update mes_wms_stock
+        <set>
+            <if test="stockCode != null and stockCode != ''">
+                stock_code = #{stockCode},
+            </if>
+            <if test="stockName != null and stockName != ''">
+                stock_name = #{stockName},
+            </if>
+            <if test="stockType != null and stockType != ''">
+                stock_type = #{stockType},
+            </if>
+            <if test="materialTrId != null and materialTrId != ''">
+                material_tr_id = #{materialTrId},
+            </if>
+            <if test="stockManagerId != null and stockManagerId != ''">
+                stock_manager_id = #{stockManagerId},
+            </if>
+            <if test="stockManagerCode != null and stockManagerCode != ''">
+                stock_manager_code = #{stockManagerCode},
+            </if>
+            <if test="stockManagerName != null and stockManagerName != ''">
+                stock_manager_name = #{stockManagerName},
+            </if>
+            <if test="stockAddress != null and stockAddress != ''">
+                stock_address = #{stockAddress},
+            </if>
+            <if test="stockPhone != null and stockPhone != ''">
+                stock_phone = #{stockPhone},
+            </if>
+            <if test="departmentId != null">
+                department_id = #{departmentId},
+            </if>
+            <if test="departmentCode != null and departmentCode != ''">
+                department_code = #{departmentCode},
+            </if>
+            <if test="departmentName != null and departmentName != ''">
+                department_name = #{departmentName},
+            </if>
+            <if test="clientId != null">
+                client_id = #{clientId},
+            </if>
+            <if test="clientNo != null and clientNo != ''">
+                client_no = #{clientNo},
+            </if>
+            <if test="clientName != null and clientName != ''">
+                client_name = #{clientName},
+            </if>
+            <if test="erpId != null">
+                erp_id = #{erpId},
+            </if>
+            <if test="erpCode != null and erpCode != ''">
+                erp_code = #{erpCode},
+            </if>
+            <if test="erpName != null and erpName != ''">
+                erp_name = #{erpName},
+            </if>
+            <if test="isWarn != null and isWarn != ''">
+                is_warn = #{isWarn},
+            </if>
+            <if test="state != null and state != ''">
+                state = #{state},
+            </if>
+            <if test="organizationId != null">
+                organization_id = #{organizationId},
+            </if>
+            <if test="organizationCode != null and organizationCode != ''">
+                organization_code = #{organizationCode},
+            </if>
+            <if test="organizationName != null and organizationName != ''">
+                organization_name = #{organizationName},
+            </if>
+            <if test="fCompanyId != null">
+                f_company_id = #{fCompanyId},
+            </if>
+            <if test="fEnCode != null and fEnCode != ''">
+                f_en_code = #{fEnCode},
+            </if>
+            <if test="fShortName != null and fShortName != ''">
+                f_short_name = #{fShortName},
+            </if>
+            <if test="plantCode != null and plantCode != ''">
+                plant_code = #{plantCode},
+            </if>
+            <if test="plantName != null and plantName != ''">
+                plant_name = #{plantName},
+            </if>
+            <if test="createId != null">
+                create_id = #{createId},
+            </if>
+            <if test="createName != null and createName != ''">
+                create_name = #{createName},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateId != null">
+                update_id = #{updateId},
+            </if>
+            <if test="updateName != null and updateName != ''">
+                update_name = #{updateName},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="isValid != null and isValid != ''">
+                is_valid = #{isValid},
+            </if>
+            <if test="isLeaf != null and isLeaf != ''">
+                is_leaf = #{isLeaf},
+            </if>
+            <if test="stockProperty != null and stockProperty != ''">
+                stock_property = #{stockProperty},
+            </if>
+            <if test="isDistribution != null and isDistribution != ''">
+                is_distribution = #{isDistribution},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    
+    <!--通过主键修改数据-->
+    <update id="edit">
+        update mes_wms_stock
+        <set>
+           stock_code = #{stockCode},
+           stock_name = #{stockName},
+           stock_type = #{stockType},
+           material_tr_id = #{materialTrId},
+           stock_manager_id = #{stockManagerId},
+           stock_manager_code = #{stockManagerCode},
+           stock_manager_name = #{stockManagerName},
+           stock_address = #{stockAddress},
+           stock_phone = #{stockPhone},
+           department_id = #{departmentId},
+           department_code = #{departmentCode},
+           department_name = #{departmentName},
+           client_id = #{clientId},
+           client_no = #{clientNo},
+           client_name = #{clientName},
+           erp_id = #{erpId},
+           erp_code = #{erpCode},
+           erp_name = #{erpName},
+           is_warn = #{isWarn},
+           state = #{state},
+           organization_id = #{organizationId},
+           organization_code = #{organizationCode},
+           organization_name = #{organizationName},
+           f_company_id = #{fCompanyId},
+           f_en_code = #{fEnCode},
+           f_short_name = #{fShortName},
+           plant_code = #{plantCode},
+           plant_name = #{plantName},
+           create_id = #{createId},
+           create_name = #{createName},
+           create_time = #{createTime},
+           update_id = #{updateId},
+           update_name = #{updateName},
+           update_time = #{updateTime},
+           remark = #{remark},
+           is_valid = #{isValid},
+           is_leaf = #{isLeaf},
+           stock_property = #{stockProperty},
+           is_distribution = #{isDistribution},
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from mes_wms_stock where id = #{id}
+    </delete>
+    
+    <!--通过主键逻辑删除-->
+    <delete id="updateById">
+        update mes_wms_stock set is_valid = '0' where id = #{id}
+    </delete>
+
+</mapper>
+

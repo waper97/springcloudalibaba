@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bpm.mes.stock.server.mapper.ext.MesWmsStockOutExtMapper">
+    <select id="queryAll" resultType="com.bpm.mes.stock.server.vo.MesWmsStockinoutQueryVo">
+        SELECT
+        io."id",
+        io.stock_in_out_code AS stockInOutCode,
+        io.frob AS frob,
+        io.in_out_type_propert AS inOutTypePropert,
+        io.in_out_type_id AS  inOutTypeId,
+        it.in_out_type_name AS inOutTypeName,
+        io.in_out_type_code AS inOutTypeCode,
+        io.bill_code AS billCode,
+        io.inout_date AS inoutDate,
+        io.inout_posting_date AS inoutPostingDate,
+        io.suppliar_id AS suppliarId,
+        io.suppliar_code AS suppliarCode,
+        io.suppliar_name AS suppliarName,
+        io.client_id AS clientId,
+        io.client_code AS clientCode,
+        io.client_name AS clientName,
+        io.stock_manager_id AS stockManagerId,
+        io.stock_manager_code AS stockManagerCode,
+        io.stock_manager_name AS stockManagerName,
+        io.inspect_id AS inspectId,
+        io.inspect_code AS inspectCode,
+        io.inspect_name AS inspectName,
+        io.settle_date AS settleDate,
+        io."year",
+        io.period AS period,
+        io.currency_id AS currencyId,
+        io.currency_code AS currencyCode,
+        io.exchange_rate AS exchangeRate,
+        io.stock_id AS stockId,
+        io.stock_code AS stockCode,
+        io.stock_name AS stockName,
+        io.back_flushed AS backFlushed,
+        io.client_id_receive AS clientIdReceive,
+        io.client_code_receive AS clientCodeReceive,
+        io.client_name_receive AS clientNameReceive,
+        io.consigner AS consigner,
+        io.receive_address AS receiveAddress,
+        io.phone AS phone,
+        io.f_manager_id AS fManagerId,
+        io.f_manager_code AS fManagerCode,
+        io.f_manager_name AS fManagerName,
+        io.sale_type AS saleType,
+        io.postyle AS postyle,
+        io.source_type AS sourceType,
+        io.source_id AS sourceId,
+        io.source_code AS sourceCode,
+        io.department_id AS departmentId,
+        io.department_code AS departmentCode,
+        io.department_name AS departmentName,
+        io.emp_id AS empId,
+        io.emp_code AS empCode,
+        io.emp_name AS empName,
+        io.manager_id AS managerId,
+        io.manager_code AS managerCode,
+        io.manager_name AS managerName,
+        io.status AS status1,
+        d1.dict_value AS status,
+        io.upt_state AS uptState,
+        io.up_stock_when_save AS upStockWhenSave,
+        io.checker_id AS checkerId,
+        io.checker_name AS checkerName,
+        io.checker_time AS checkerTime,
+        io.order_id AS orderId,
+        io.order_code AS orderCode,
+        io.task_id AS taskId,
+        io.task_code AS taskCode,
+        io.organization_id AS organizationId,
+        io.organization_code AS organizationCode,
+        io.organization_name AS organizationName,
+        io.company_id AS companyId,
+        io.company_code AS companyCode,
+        io.company_name AS companyName,
+        io.create_id AS createId,
+        io.create_name AS createName,
+        io.create_time AS createTime,
+        io.update_id AS updateId,
+        io.update_name AS updateName,
+        io.update_time AS updateTime,
+        io.remark AS remark,
+        io.is_valid AS isValid,
+        (CASE WHEN io.bill_code = 'XOUT' THEN io.client_name ELSE io.department_name END) AS deliveryName
+         FROM
+        mes_wms_stockinout io
+        LEFT JOIN mes_wms_inouttype it ON it."id" = io.in_out_type_id
+        AND io.is_valid = '1'
+        LEFT JOIN sys_dict_data d1 ON d1.dict_type = 'stockinout_status'
+        AND d1.status = '1'
+        AND d1.dict_label = io.status
+        LEFT JOIN mes_wms_stockinoutlist sil ON sil.stock_in_out_id = io."id"
+        AND sil.is_valid = '1'
+        WHERE
+        io.is_valid = '1'
+        AND in_out_type_propert = '2'
+        <if test="status != null and status != ''">
+            and io.status  like concat('%',#{status},'%')
+        </if>
+        <if test="inOutTypeId != null">
+            and io.in_out_type_id = #{inOutTypeId}
+        </if>
+        <if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+            and io.inout_date &lt;= #{endTime} and io.inout_date >= #{startTime}
+        </if>
+        <if test="materialCode != null and materialCode != ''">
+            and sil.material_code  like concat('%',#{materialCode},'%')
+        </if>
+        <if test="materialShortName != null and materialShortName != ''">
+            and sil.material_short_name  like concat('%',#{materialShortName},'%')
+        </if>
+        GROUP BY
+        io."id",it.in_out_type_name,d1.dict_value
+        ORDER BY
+        io."id" DESC
+    </select>
+    <select id="queryInOutCode" resultType="java.lang.String">
+        SELECT
+            in_out_type_propert AS inOutTypePropert
+        FROM
+            mes_wms_stockinout
+        WHERE
+            is_valid = '1'
+          AND in_out_type_propert = #{inOutPropert}
+          AND date_format ( create_time, '%Y-%m-%d' ) = date_format ( now( ), '%Y-%m-%d' )
+        ORDER BY
+            "id" DESC
+            LIMIT 1
+    </select>
+    <select id="queryPurchase" resultType="com.bpm.mes.stock.server.vo.MesWmsStockinoutVo">
+        SELECT
+            "id" AS buyAcceptId,
+            buy_accept_no AS buyAcceptNo,
+            client_id_receive AS clientIdReceive,
+            client_name_receive AS clientNameReceive,
+            consigner,
+            receive_address AS receiveAddress,
+            phone,
+            stock_id AS stockId,
+            stock_code AS stcokCode,
+            stock_name AS stockName,
+            supplier_id AS supplierId,
+            supplier_full_name AS suppliarName,
+            department_id AS departmentId,
+            department_no AS departmentCode,
+            emp_id AS empId,
+            emp_no AS empCode,
+            manager_id AS managerId,
+            manager_no AS managerCode,
+            currency_id AS currencyId,
+            currency_code AS currencyCode,
+            exchange_rate AS exchangerate,
+            source_type AS sourceType,
+            source_id AS sourceId,
+            source_code AS sourceCode
+        FROM
+            mes_purchase_buy_accept
+        WHERE
+            is_valid = '1'
+          AND STATE = '5'
+    </select>
+    <select id="queryPurchaseList" resultType="com.bpm.mes.stock.server.vo.MesWmsStockinoutListVo">
+        SELECT
+            ba."id" AS buyAcceptId,
+            ba.buy_accept_no AS buyAcceptNo,
+            ba.client_id_receive AS clientIdReceive,
+            ba.client_name_receive AS clientNameReceive,
+            ba.consigner,
+            ba.receive_address AS receiveAddress,
+            ba.phone,
+            ba.stock_id AS stockId,
+            ba.stock_code AS stcokCode,
+            ba.stock_name AS stockName,
+            ba.supplier_id AS supplierId,
+            ba.supplier_full_name AS suppliarName,
+            ba.department_id AS departmentId,
+            ba.department_no AS departmentCode,
+            ba.emp_id AS empId,
+            ba.emp_no AS empCode,
+            ba.manager_id AS managerId,
+            ba.manager_no AS managerCode,
+            ba.currency_id AS currencyId,
+            ba.currency_code AS currencyCode,
+            ba.exchange_rate AS exchangerate,
+            bal.source_type AS sourceType,
+            bal.source_id AS sourceId,
+            bal.source_code AS sourceCode,
+            bal."id" AS buyAcceptListId,
+            bal.material_code AS materielCode,
+            bal.materiel_id AS materielId,
+            bal.material_short_name AS materielName,
+            bal.material_short_name AS materialShortName,
+            bal.material_spec AS materialSpec,
+            bal.units_id AS unitsId,
+            bal.qty AS fPallet,
+            bal.pass_qty AS fFinished,
+            bal.bar_code AS barCode,
+            bal.in_batch_no AS inBatchNo,
+            bal.batch_no AS batchNo,
+            bal.kf_period AS kFPeriod,
+            bal.kf_date AS kFDate,
+            bal.period_date AS periodDate,
+            bal.stock_place_id AS stockPlaceId,
+            bal.stock_place_no AS stcokPlaceCode,
+            bal.buy_order_id AS stockPlaceName,
+            bal.buy_order_code AS stockPlaceName,
+            bal.buy_order_list_id AS stockPlaceName
+        FROM
+            mes_purchase_buy_accept ba
+                LEFT JOIN mes_purchase_buy_accept_list bal ON bal.buy_accept_id = ba."id"
+        WHERE
+            ba.is_valid = 1
+          AND ba.STATE = '5'
+          AND bal.is_valid = 1
+          AND bal.STATE = '5'
+        <if test="buyAcceptId != null">
+            and ba."id"  = #{buyAcceptId}
+        </if>
+        <if test="buyAcceptListId != null">
+            and bal."id"  = #{buyAcceptListId}
+        </if>
+    </select>
+</mapper>

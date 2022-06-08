@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bpm.mes.stock.server.mapper.base.MesWmsInouttypeMapper">
+
+      <sql id="Base_Column_List">
+         id, in_out_type_code, in_out_type_name, bill_flag, in_out_propert, default_flag, erp_id, erp_code, erp_name, erp_bill_code, is_upload, organization_id, organization_code, organization_name, f_company_id, f_en_code, f_short_name, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid     
+      </sql>
+      
+      <sql id="query_List">
+                  xxx.id AS id,
+         xxx.in_out_type_code AS inOutTypeCode,
+         xxx.in_out_type_name AS inOutTypeName,
+         xxx.bill_flag AS billFlag,
+         xxx.in_out_propert AS inOutPropert,
+         xxx.default_flag AS defaultFlag,
+         xxx.erp_id AS erpId,
+         xxx.erp_code AS erpCode,
+         xxx.erp_name AS erpName,
+         xxx.erp_bill_code AS erpBillCode,
+         xxx.is_upload AS isUpload,
+         xxx.organization_id AS organizationId,
+         xxx.organization_code AS organizationCode,
+         xxx.organization_name AS organizationName,
+         xxx.f_company_id AS fCompanyId,
+         xxx.f_en_code AS fEnCode,
+         xxx.f_short_name AS fShortName,
+         xxx.create_id AS createId,
+         xxx.create_name AS createName,
+         xxx.create_time AS createTime,
+         xxx.update_id AS updateId,
+         xxx.update_name AS updateName,
+         xxx.update_time AS updateTime,
+         xxx.remark AS remark,
+         xxx.is_valid AS isValid,
+      </sql>
+
+    <resultMap type="com.bpm.mes.stock.server.domain.MesWmsInouttype" id="MesWmsInouttypeMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="inOutTypeCode" column="in_out_type_code" jdbcType="VARCHAR"/>
+        <result property="inOutTypeName" column="in_out_type_name" jdbcType="VARCHAR"/>
+        <result property="billFlag" column="bill_flag" jdbcType="VARCHAR"/>
+        <result property="inOutPropert" column="in_out_propert" jdbcType="VARCHAR"/>
+        <result property="defaultFlag" column="default_flag" jdbcType="VARCHAR"/>
+        <result property="erpId" column="erp_id" jdbcType="INTEGER"/>
+        <result property="erpCode" column="erp_code" jdbcType="VARCHAR"/>
+        <result property="erpName" column="erp_name" jdbcType="VARCHAR"/>
+        <result property="erpBillCode" column="erp_bill_code" jdbcType="VARCHAR"/>
+        <result property="isUpload" column="is_upload" jdbcType="VARCHAR"/>
+        <result property="organizationId" column="organization_id" jdbcType="INTEGER"/>
+        <result property="organizationCode" column="organization_code" jdbcType="VARCHAR"/>
+        <result property="organizationName" column="organization_name" jdbcType="VARCHAR"/>
+        <result property="fCompanyId" column="f_company_id" jdbcType="INTEGER"/>
+        <result property="fEnCode" column="f_en_code" jdbcType="VARCHAR"/>
+        <result property="fShortName" column="f_short_name" jdbcType="VARCHAR"/>
+        <result property="createId" column="create_id" jdbcType="INTEGER"/>
+        <result property="createName" column="create_name" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateId" column="update_id" jdbcType="INTEGER"/>
+        <result property="updateName" column="update_name" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="isValid" column="is_valid" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+    
+        <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="MesWmsInouttypeMap">
+        select
+          <include refid="Base_Column_List" />
+        from mes_wms_inouttype
+        <where>
+        is_valid = '1'
+            <if test="id != null">
+                and id = #{id}                
+            </if>
+            <if test="inOutTypeCode != null and inOutTypeCode != ''">
+                and in_out_type_code  like concat('%',#{inOutTypeCode},'%')                
+            </if>
+            <if test="inOutTypeName != null and inOutTypeName != ''">
+                and in_out_type_name  like concat('%',#{inOutTypeName},'%')                
+            </if>
+            <if test="billFlag != null and billFlag != ''">
+                and bill_flag  like concat('%',#{billFlag},'%')                
+            </if>
+            <if test="inOutPropert != null and inOutPropert != ''">
+                and in_out_propert  like concat('%',#{inOutPropert},'%')                
+            </if>
+            <if test="defaultFlag != null and defaultFlag != ''">
+                and default_flag  like concat('%',#{defaultFlag},'%')                
+            </if>
+            <if test="erpId != null">
+                and erp_id = #{erpId}                
+            </if>
+            <if test="erpCode != null and erpCode != ''">
+                and erp_code  like concat('%',#{erpCode},'%')                
+            </if>
+            <if test="erpName != null and erpName != ''">
+                and erp_name  like concat('%',#{erpName},'%')                
+            </if>
+            <if test="erpBillCode != null and erpBillCode != ''">
+                and erp_bill_code  like concat('%',#{erpBillCode},'%')                
+            </if>
+            <if test="isUpload != null and isUpload != ''">
+                and is_upload  like concat('%',#{isUpload},'%')                
+            </if>
+            <if test="organizationId != null">
+                and organization_id = #{organizationId}                
+            </if>
+            <if test="organizationCode != null and organizationCode != ''">
+                and organization_code  like concat('%',#{organizationCode},'%')                
+            </if>
+            <if test="organizationName != null and organizationName != ''">
+                and organization_name  like concat('%',#{organizationName},'%')                
+            </if>
+            <if test="fCompanyId != null">
+                and f_company_id = #{fCompanyId}                
+            </if>
+            <if test="fEnCode != null and fEnCode != ''">
+                and f_en_code  like concat('%',#{fEnCode},'%')                
+            </if>
+            <if test="fShortName != null and fShortName != ''">
+                and f_short_name  like concat('%',#{fShortName},'%')                
+            </if>
+            <if test="createId != null">
+                and create_id = #{createId}                
+            </if>
+            <if test="createName != null and createName != ''">
+                and create_name  like concat('%',#{createName},'%')                
+            </if>
+            <if test="createTime != null">
+                and create_time                 
+            </if>
+            <if test="updateId != null">
+                and update_id = #{updateId}                
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and update_name  like concat('%',#{updateName},'%')                
+            </if>
+            <if test="updateTime != null">
+                and update_time                 
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark  like concat('%',#{remark},'%')                
+            </if>
+            <if test="isValid != null and isValid != ''">
+                and is_valid  like concat('%',#{isValid},'%')                
+            </if>
+        </where>
+        order by id desc
+    </select>
+    
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="MesWmsInouttypeMap">
+        select
+          id, in_out_type_code, in_out_type_name, bill_flag, in_out_propert, default_flag, erp_id, erp_code, erp_name, erp_bill_code, is_upload, organization_id, organization_code, organization_name, f_company_id, f_en_code, f_short_name, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid
+        from mes_wms_inouttype
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="MesWmsInouttypeMap">
+        select
+          id, in_out_type_code, in_out_type_name, bill_flag, in_out_propert, default_flag, erp_id, erp_code, erp_name, erp_bill_code, is_upload, organization_id, organization_code, organization_name, f_company_id, f_en_code, f_short_name, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid
+        from mes_wms_inouttype
+        <where>
+        is_valid = '1'
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="inOutTypeCode != null and inOutTypeCode != ''">
+                and in_out_type_code = #{inOutTypeCode}
+            </if>
+            <if test="inOutTypeName != null and inOutTypeName != ''">
+                and in_out_type_name = #{inOutTypeName}
+            </if>
+            <if test="billFlag != null and billFlag != ''">
+                and bill_flag = #{billFlag}
+            </if>
+            <if test="inOutPropert != null and inOutPropert != ''">
+                and in_out_propert = #{inOutPropert}
+            </if>
+            <if test="defaultFlag != null and defaultFlag != ''">
+                and default_flag = #{defaultFlag}
+            </if>
+            <if test="erpId != null">
+                and erp_id = #{erpId}
+            </if>
+            <if test="erpCode != null and erpCode != ''">
+                and erp_code = #{erpCode}
+            </if>
+            <if test="erpName != null and erpName != ''">
+                and erp_name = #{erpName}
+            </if>
+            <if test="erpBillCode != null and erpBillCode != ''">
+                and erp_bill_code = #{erpBillCode}
+            </if>
+            <if test="isUpload != null and isUpload != ''">
+                and is_upload = #{isUpload}
+            </if>
+            <if test="organizationId != null">
+                and organization_id = #{organizationId}
+            </if>
+            <if test="organizationCode != null and organizationCode != ''">
+                and organization_code = #{organizationCode}
+            </if>
+            <if test="organizationName != null and organizationName != ''">
+                and organization_name = #{organizationName}
+            </if>
+            <if test="fCompanyId != null">
+                and f_company_id = #{fCompanyId}
+            </if>
+            <if test="fEnCode != null and fEnCode != ''">
+                and f_en_code = #{fEnCode}
+            </if>
+            <if test="fShortName != null and fShortName != ''">
+                and f_short_name = #{fShortName}
+            </if>
+            <if test="createId != null">
+                and create_id = #{createId}
+            </if>
+            <if test="createName != null and createName != ''">
+                and create_name = #{createName}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateId != null">
+                and update_id = #{updateId}
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and update_name = #{updateName}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="isValid != null and isValid != ''">
+                and is_valid = #{isValid}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+    
+    
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from mes_wms_inouttype
+        <where>
+        is_valid = '1'
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="inOutTypeCode != null and inOutTypeCode != ''">
+                and in_out_type_code = #{inOutTypeCode}
+            </if>
+            <if test="inOutTypeName != null and inOutTypeName != ''">
+                and in_out_type_name = #{inOutTypeName}
+            </if>
+            <if test="billFlag != null and billFlag != ''">
+                and bill_flag = #{billFlag}
+            </if>
+            <if test="inOutPropert != null and inOutPropert != ''">
+                and in_out_propert = #{inOutPropert}
+            </if>
+            <if test="defaultFlag != null and defaultFlag != ''">
+                and default_flag = #{defaultFlag}
+            </if>
+            <if test="erpId != null">
+                and erp_id = #{erpId}
+            </if>
+            <if test="erpCode != null and erpCode != ''">
+                and erp_code = #{erpCode}
+            </if>
+            <if test="erpName != null and erpName != ''">
+                and erp_name = #{erpName}
+            </if>
+            <if test="erpBillCode != null and erpBillCode != ''">
+                and erp_bill_code = #{erpBillCode}
+            </if>
+            <if test="isUpload != null and isUpload != ''">
+                and is_upload = #{isUpload}
+            </if>
+            <if test="organizationId != null">
+                and organization_id = #{organizationId}
+            </if>
+            <if test="organizationCode != null and organizationCode != ''">
+                and organization_code = #{organizationCode}
+            </if>
+            <if test="organizationName != null and organizationName != ''">
+                and organization_name = #{organizationName}
+            </if>
+            <if test="fCompanyId != null">
+                and f_company_id = #{fCompanyId}
+            </if>
+            <if test="fEnCode != null and fEnCode != ''">
+                and f_en_code = #{fEnCode}
+            </if>
+            <if test="fShortName != null and fShortName != ''">
+                and f_short_name = #{fShortName}
+            </if>
+            <if test="createId != null">
+                and create_id = #{createId}
+            </if>
+            <if test="createName != null and createName != ''">
+                and create_name = #{createName}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateId != null">
+                and update_id = #{updateId}
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and update_name = #{updateName}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="isValid != null and isValid != ''">
+                and is_valid = #{isValid}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_wms_inouttype(in_out_type_code, in_out_type_name, bill_flag, in_out_propert, default_flag, erp_id, erp_code, erp_name, erp_bill_code, is_upload, organization_id, organization_code, organization_name, f_company_id, f_en_code, f_short_name, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid)
+        values (#{inOutTypeCode}, #{inOutTypeName}, #{billFlag}, #{inOutPropert}, #{defaultFlag}, #{erpId}, #{erpCode}, #{erpName}, #{erpBillCode}, #{isUpload}, #{organizationId}, #{organizationCode}, #{organizationName}, #{fCompanyId}, #{fEnCode}, #{fShortName}, #{createId}, #{createName}, #{createTime}, #{updateId}, #{updateName}, #{updateTime}, #{remark}, #{isValid})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_wms_inouttype(in_out_type_code, in_out_type_name, bill_flag, in_out_propert, default_flag, erp_id, erp_code, erp_name, erp_bill_code, is_upload, organization_id, organization_code, organization_name, f_company_id, f_en_code, f_short_name, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.inOutTypeCode}, #{entity.inOutTypeName}, #{entity.billFlag}, #{entity.inOutPropert}, #{entity.defaultFlag}, #{entity.erpId}, #{entity.erpCode}, #{entity.erpName}, #{entity.erpBillCode}, #{entity.isUpload}, #{entity.organizationId}, #{entity.organizationCode}, #{entity.organizationName}, #{entity.fCompanyId}, #{entity.fEnCode}, #{entity.fShortName}, #{entity.createId}, #{entity.createName}, #{entity.createTime}, #{entity.updateId}, #{entity.updateName}, #{entity.updateTime}, #{entity.remark}, #{entity.isValid})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_wms_inouttype(in_out_type_code, in_out_type_name, bill_flag, in_out_propert, default_flag, erp_id, erp_code, erp_name, erp_bill_code, is_upload, organization_id, organization_code, organization_name, f_company_id, f_en_code, f_short_name, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.inOutTypeCode}, #{entity.inOutTypeName}, #{entity.billFlag}, #{entity.inOutPropert}, #{entity.defaultFlag}, #{entity.erpId}, #{entity.erpCode}, #{entity.erpName}, #{entity.erpBillCode}, #{entity.isUpload}, #{entity.organizationId}, #{entity.organizationCode}, #{entity.organizationName}, #{entity.fCompanyId}, #{entity.fEnCode}, #{entity.fShortName}, #{entity.createId}, #{entity.createName}, #{entity.createTime}, #{entity.updateId}, #{entity.updateName}, #{entity.updateTime}, #{entity.remark}, #{entity.isValid})
+        </foreach>
+        on duplicate key update
+        in_out_type_code = values(in_out_type_code),
+        in_out_type_name = values(in_out_type_name),
+        bill_flag = values(bill_flag),
+        in_out_propert = values(in_out_propert),
+        default_flag = values(default_flag),
+        erp_id = values(erp_id),
+        erp_code = values(erp_code),
+        erp_name = values(erp_name),
+        erp_bill_code = values(erp_bill_code),
+        is_upload = values(is_upload),
+        organization_id = values(organization_id),
+        organization_code = values(organization_code),
+        organization_name = values(organization_name),
+        f_company_id = values(f_company_id),
+        f_en_code = values(f_en_code),
+        f_short_name = values(f_short_name),
+        create_id = values(create_id),
+        create_name = values(create_name),
+        create_time = values(create_time),
+        update_id = values(update_id),
+        update_name = values(update_name),
+        update_time = values(update_time),
+        remark = values(remark),
+        is_valid = values(is_valid)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update mes_wms_inouttype
+        <set>
+            <if test="inOutTypeCode != null and inOutTypeCode != ''">
+                in_out_type_code = #{inOutTypeCode},
+            </if>
+            <if test="inOutTypeName != null and inOutTypeName != ''">
+                in_out_type_name = #{inOutTypeName},
+            </if>
+            <if test="billFlag != null and billFlag != ''">
+                bill_flag = #{billFlag},
+            </if>
+            <if test="inOutPropert != null and inOutPropert != ''">
+                in_out_propert = #{inOutPropert},
+            </if>
+            <if test="defaultFlag != null and defaultFlag != ''">
+                default_flag = #{defaultFlag},
+            </if>
+            <if test="erpId != null">
+                erp_id = #{erpId},
+            </if>
+            <if test="erpCode != null and erpCode != ''">
+                erp_code = #{erpCode},
+            </if>
+            <if test="erpName != null and erpName != ''">
+                erp_name = #{erpName},
+            </if>
+            <if test="erpBillCode != null and erpBillCode != ''">
+                erp_bill_code = #{erpBillCode},
+            </if>
+            <if test="isUpload != null and isUpload != ''">
+                is_upload = #{isUpload},
+            </if>
+            <if test="organizationId != null">
+                organization_id = #{organizationId},
+            </if>
+            <if test="organizationCode != null and organizationCode != ''">
+                organization_code = #{organizationCode},
+            </if>
+            <if test="organizationName != null and organizationName != ''">
+                organization_name = #{organizationName},
+            </if>
+            <if test="fCompanyId != null">
+                f_company_id = #{fCompanyId},
+            </if>
+            <if test="fEnCode != null and fEnCode != ''">
+                f_en_code = #{fEnCode},
+            </if>
+            <if test="fShortName != null and fShortName != ''">
+                f_short_name = #{fShortName},
+            </if>
+            <if test="createId != null">
+                create_id = #{createId},
+            </if>
+            <if test="createName != null and createName != ''">
+                create_name = #{createName},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateId != null">
+                update_id = #{updateId},
+            </if>
+            <if test="updateName != null and updateName != ''">
+                update_name = #{updateName},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="isValid != null and isValid != ''">
+                is_valid = #{isValid},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    
+    <!--通过主键修改数据-->
+    <update id="edit">
+        update mes_wms_inouttype
+        <set>
+           in_out_type_code = #{inOutTypeCode},
+           in_out_type_name = #{inOutTypeName},
+           bill_flag = #{billFlag},
+           in_out_propert = #{inOutPropert},
+           default_flag = #{defaultFlag},
+           erp_id = #{erpId},
+           erp_code = #{erpCode},
+           erp_name = #{erpName},
+           erp_bill_code = #{erpBillCode},
+           is_upload = #{isUpload},
+           organization_id = #{organizationId},
+           organization_code = #{organizationCode},
+           organization_name = #{organizationName},
+           f_company_id = #{fCompanyId},
+           f_en_code = #{fEnCode},
+           f_short_name = #{fShortName},
+           create_id = #{createId},
+           create_name = #{createName},
+           create_time = #{createTime},
+           update_id = #{updateId},
+           update_name = #{updateName},
+           update_time = #{updateTime},
+           remark = #{remark},
+           is_valid = #{isValid},
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from mes_wms_inouttype where id = #{id}
+    </delete>
+    
+    <!--通过主键逻辑删除-->
+    <delete id="updateById">
+        update mes_wms_inouttype set is_valid = '0' where id = #{id}
+    </delete>
+
+</mapper>
+

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bpm.mes.stock.server.mapper.ext.MesWmsStockmoveplaceExtMapper">
+    <select id="selectStock" resultType="com.bpm.mes.stock.server.dto.MesWmsStockListDto">
+        SELECT DISTINCT
+            stock_id AS stockId,
+            stock_code AS stockCode,
+            stock_name AS stockName
+        FROM
+            mes_wms_stockcurrent
+        WHERE
+            is_valid = '1'
+        <if test="stockId != null">
+            and stock_id = #{stockId}
+        </if>
+    </select>
+    <select id="selectStockPlace" resultType="com.bpm.mes.stock.server.dto.MesWmsStockPlaceListDto">
+        SELECT DISTINCT
+            stock_place_id AS stockPlaceId,
+            stock_place_code AS stockPlaceCode,
+            stock_place_name AS stockPlaceName
+        FROM
+            mes_wms_stockcurrent
+        WHERE
+            is_valid = '1'
+          AND stock_id = #{stockId}
+        <if test="stockPlaceId != null">
+            and stock_place_id = #{stockPlaceId}
+        </if>
+    </select>
+    <select id="selectStockPlaceMaterial"
+            resultType="com.bpm.mes.stock.server.dto.MesWmsStockPlaceMaterialListDto">
+        SELECT
+               id as stockCurrentId,
+            material_id AS materialId,
+            material_code AS materialCode,
+            material_short_name AS materialShortName,
+               qty_useable as qtyUseable
+        FROM
+            mes_wms_stockcurrent
+        WHERE
+            is_valid = '1'
+          AND stock_place_id = #{stockPlaceId}
+    </select>
+    <select id="queryMoveCode" resultType="java.lang.String">
+        SELECT
+            move_code AS moveCode
+        FROM
+            mes_wms_stockmoveplace
+        WHERE
+            is_valid = '1'
+          AND date_format ( create_time, '%Y-%m-%d' ) = date_format ( now( ), '%Y-%m-%d' )
+        ORDER BY
+            "id" DESC
+            LIMIT 1
+    </select>
+    <select id="queryAll" resultType="com.bpm.mes.stock.server.domain.MesWmsStockmoveplace">
+        SELECT
+            mp."id",
+            mp.stock_current_sum_id AS stockCurrentSumId,
+            mp.stock_current_id AS stockCurrentId,
+            mp.stock_id AS stockId,
+            mp.stock_code AS stockCode,
+            mp.stock_name AS stockName,
+            mp.stock_place_id_source AS stockPlaceIdSource,
+            mp.stock_place_code_source AS stockPlaceCodeSource,
+            mp.stock_place_name_source AS stockPlaceNameSource,
+            mp.stock_place_id_new AS stockPlaceIdNew,
+            mp.stock_place_code_new AS stockPlaceCodeNew,
+            mp.stock_place_name_new AS stockPlaceNameNew,
+            mp.in_batch_no AS inBatchNo,
+            mp.batch_no AS batchNo,
+            mp.bar_code AS barCode,
+            mp.material_id AS materialId,
+            mp.material_code AS materialCode,
+            mp.material_short_name AS materialShortName,
+            mp.material_spec AS materialSpec,
+            mp.qty AS qty,
+            mp.qty_allot AS qtyAllot,
+            mp.qty_useable AS qtyUseable,
+            mp.qty_freeze AS qtyFreeze,
+            mp.suppliar_id AS suppliarId,
+            mp.suppliar_code AS suppliarCode,
+            mp.suppliar_full_name AS suppliarFullName,
+            mp.move_place_date AS movePlaceDate,
+            mp.disposer AS disposer,
+            mp.department_id AS departmentId,
+            mp.department_code AS departmentCode,
+            mp.department_name AS departmentName,
+            mp.organization_id AS organizationId,
+            mp.organization_code AS organizationCode,
+            mp.organization_name AS organizationName,
+            mp.f_company_id AS fCompanyId,
+            mp.f_en_code AS fEnCode,
+            mp.f_short_name AS fShortName,
+            mp.create_id AS createId,
+            mp.create_name AS createName,
+            mp.create_time AS createTime,
+            mp.update_id AS updateId,
+            mp.update_name AS updateName,
+            mp.update_time AS updateTime,
+            mp.remark AS remark,
+            mp.is_valid AS isValid,
+            mp.posting_place_date AS postingPlaceDate,
+            mp.STATE AS STATE,
+            mp.move_type,
+            sdd.dict_value AS moveType,
+            mp.move_code AS moveCode,
+            mp.units_id AS unitsId,
+            mp.units_name AS unitsName,
+            mp.disposer_id AS disposerId
+        FROM
+            mes_wms_stockmoveplace mp
+                LEFT JOIN sys_dict_data sdd ON sdd.dict_label = mp.move_type
+                AND sdd.dict_type = 'stockmoveplace_movetype'
+                AND sdd.status = 1
+        WHERE
+            mp.is_valid = '1'
+        <if test="stockCode != null and stockCode != ''">
+            and mp.stock_code  like concat('%',#{stockCode},'%')
+        </if>
+        <if test="stockName != null and stockName != ''">
+            and mp.stock_name  like concat('%',#{stockName},'%')
+        </if>
+        ORDER BY
+            mp."id" DESC
+    </select>
+</mapper>

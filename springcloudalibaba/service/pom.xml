@@ -13,6 +13,8 @@
     <modules>
         <module>dataanalysis</module>
         <module>mes-product</module>
+        <module>mes-stock</module>
+        <module>mes-purchase</module>
     </modules>
     <groupId>com.waper</groupId>
     <artifactId>service</artifactId>
@@ -23,16 +25,7 @@
         <java.version>1.8</java.version>
     </properties>
     <dependencies>
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter</artifactId>-->
-<!--        </dependency>-->
 
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-test</artifactId>-->
-<!--            <scope>test</scope>-->
-<!--        </dependency>-->
     </dependencies>
 
     <build>

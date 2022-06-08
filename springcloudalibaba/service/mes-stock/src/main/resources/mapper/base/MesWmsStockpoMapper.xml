@@ -1,0 +1,969 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bpm.mes.stock.server.mapper.base.MesWmsStockpoMapper">
+
+      <sql id="Base_Column_List">
+         id, stock_po_code, year, out_stock_id, out_stock_code, out_stock_name, in_stock_id, in_stock_code, in_stock_name, client_id, client_code, client_name, out_type_id, out_bill_code, in_type_id, in_bill_code, po_type, state, department_id, department_code, department_name, emp_id, emp_code, emp_name, manager_id, manager_code, manager_name, checker_id, checker_name, checker_time, f_company_id, f_en_code, f_short_name, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid, out_company_id, out_company_name, in_company_id, in_company_name, disposer, period, stock_current_sum_id, work_order_code, po_bill_date, po_posting_date, disposer_id, sap_id, sap_code     
+      </sql>
+      
+      <sql id="query_List">
+      SELECT   
+          xxx.id AS id,
+          xxx.stock_po_code AS stockPoCode,
+          xxx.year AS year,
+          xxx.out_stock_id AS outStockId,
+          xxx.out_stock_code AS outStockCode,
+          xxx.out_stock_name AS outStockName,
+          xxx.in_stock_id AS inStockId,
+          xxx.in_stock_code AS inStockCode,
+          xxx.in_stock_name AS inStockName,
+          xxx.client_id AS clientId,
+          xxx.client_code AS clientCode,
+          xxx.client_name AS clientName,
+          xxx.out_type_id AS outTypeId,
+          xxx.out_bill_code AS outBillCode,
+          xxx.in_type_id AS inTypeId,
+          xxx.in_bill_code AS inBillCode,
+          xxx.po_type AS poType,
+          xxx.state AS state,
+          xxx.department_id AS departmentId,
+          xxx.department_code AS departmentCode,
+          xxx.department_name AS departmentName,
+          xxx.emp_id AS empId,
+          xxx.emp_code AS empCode,
+          xxx.emp_name AS empName,
+          xxx.manager_id AS managerId,
+          xxx.manager_code AS managerCode,
+          xxx.manager_name AS managerName,
+          xxx.checker_id AS checkerId,
+          xxx.checker_name AS checkerName,
+          xxx.checker_time AS checkerTime,
+          xxx.f_company_id AS fCompanyId,
+          xxx.f_en_code AS fEnCode,
+          xxx.f_short_name AS fShortName,
+          xxx.create_id AS createId,
+          xxx.create_name AS createName,
+          xxx.create_time AS createTime,
+          xxx.update_id AS updateId,
+          xxx.update_name AS updateName,
+          xxx.update_time AS updateTime,
+          xxx.remark AS remark,
+          xxx.is_valid AS isValid,
+          xxx.out_company_id AS outCompanyId,
+          xxx.out_company_name AS outCompanyName,
+          xxx.in_company_id AS inCompanyId,
+          xxx.in_company_name AS inCompanyName,
+          xxx.disposer AS disposer,
+          xxx.period AS period,
+          xxx.stock_current_sum_id AS stockCurrentSumId,
+          xxx.work_order_code AS workOrderCode,
+          xxx.po_bill_date AS poBillDate,
+          xxx.po_posting_date AS poPostingDate,
+          xxx.disposer_id AS disposerId,
+          xxx.sap_id AS sapId,
+          xxx.sap_code AS sapCode,
+        FROM mes_wms_stockpo
+      </sql>
+
+    <resultMap type="com.bpm.mes.stock.server.domain.MesWmsStockpo" id="MesWmsStockpoMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="stockPoCode" column="stock_po_code" jdbcType="VARCHAR"/>
+        <result property="year" column="year" jdbcType="VARCHAR"/>
+        <result property="outStockId" column="out_stock_id" jdbcType="INTEGER"/>
+        <result property="outStockCode" column="out_stock_code" jdbcType="VARCHAR"/>
+        <result property="outStockName" column="out_stock_name" jdbcType="VARCHAR"/>
+        <result property="inStockId" column="in_stock_id" jdbcType="INTEGER"/>
+        <result property="inStockCode" column="in_stock_code" jdbcType="VARCHAR"/>
+        <result property="inStockName" column="in_stock_name" jdbcType="VARCHAR"/>
+        <result property="clientId" column="client_id" jdbcType="INTEGER"/>
+        <result property="clientCode" column="client_code" jdbcType="VARCHAR"/>
+        <result property="clientName" column="client_name" jdbcType="VARCHAR"/>
+        <result property="outTypeId" column="out_type_id" jdbcType="INTEGER"/>
+        <result property="outBillCode" column="out_bill_code" jdbcType="VARCHAR"/>
+        <result property="inTypeId" column="in_type_id" jdbcType="INTEGER"/>
+        <result property="inBillCode" column="in_bill_code" jdbcType="VARCHAR"/>
+        <result property="poType" column="po_type" jdbcType="VARCHAR"/>
+        <result property="state" column="state" jdbcType="VARCHAR"/>
+        <result property="departmentId" column="department_id" jdbcType="INTEGER"/>
+        <result property="departmentCode" column="department_code" jdbcType="VARCHAR"/>
+        <result property="departmentName" column="department_name" jdbcType="VARCHAR"/>
+        <result property="empId" column="emp_id" jdbcType="INTEGER"/>
+        <result property="empCode" column="emp_code" jdbcType="VARCHAR"/>
+        <result property="empName" column="emp_name" jdbcType="VARCHAR"/>
+        <result property="managerId" column="manager_id" jdbcType="INTEGER"/>
+        <result property="managerCode" column="manager_code" jdbcType="VARCHAR"/>
+        <result property="managerName" column="manager_name" jdbcType="VARCHAR"/>
+        <result property="checkerId" column="checker_id" jdbcType="INTEGER"/>
+        <result property="checkerName" column="checker_name" jdbcType="VARCHAR"/>
+        <result property="checkerTime" column="checker_time" jdbcType="TIMESTAMP"/>
+        <result property="fCompanyId" column="f_company_id" jdbcType="INTEGER"/>
+        <result property="fEnCode" column="f_en_code" jdbcType="VARCHAR"/>
+        <result property="fShortName" column="f_short_name" jdbcType="VARCHAR"/>
+        <result property="createId" column="create_id" jdbcType="INTEGER"/>
+        <result property="createName" column="create_name" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateId" column="update_id" jdbcType="INTEGER"/>
+        <result property="updateName" column="update_name" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="isValid" column="is_valid" jdbcType="VARCHAR"/>
+        <result property="outCompanyId" column="out_company_id" jdbcType="INTEGER"/>
+        <result property="outCompanyName" column="out_company_name" jdbcType="VARCHAR"/>
+        <result property="inCompanyId" column="in_company_id" jdbcType="INTEGER"/>
+        <result property="inCompanyName" column="in_company_name" jdbcType="VARCHAR"/>
+        <result property="disposer" column="disposer" jdbcType="VARCHAR"/>
+        <result property="period" column="period" jdbcType="VARCHAR"/>
+        <result property="stockCurrentSumId" column="stock_current_sum_id" jdbcType="INTEGER"/>
+        <result property="workOrderCode" column="work_order_code" jdbcType="VARCHAR"/>
+        <result property="poBillDate" column="po_bill_date" jdbcType="VARCHAR"/>
+        <result property="poPostingDate" column="po_posting_date" jdbcType="VARCHAR"/>
+        <result property="disposerId" column="disposer_id" jdbcType="INTEGER"/>
+        <result property="sapId" column="sap_id" jdbcType="INTEGER"/>
+        <result property="sapCode" column="sap_code" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+    
+        <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="MesWmsStockpoMap">
+        select
+          <include refid="Base_Column_List" />
+        from mes_wms_stockpo
+        <where>
+        is_valid = '1'
+            <if test="id != null">
+                and id = #{id}                
+            </if>
+            <if test="stockPoCode != null and stockPoCode != ''">
+                and stock_po_code  like concat('%',#{stockPoCode},'%')                
+            </if>
+            <if test="year != null and year != ''">
+                and year  like concat('%',#{year},'%')                
+            </if>
+            <if test="outStockId != null">
+                and out_stock_id = #{outStockId}                
+            </if>
+            <if test="outStockCode != null and outStockCode != ''">
+                and out_stock_code  like concat('%',#{outStockCode},'%')                
+            </if>
+            <if test="outStockName != null and outStockName != ''">
+                and out_stock_name  like concat('%',#{outStockName},'%')                
+            </if>
+            <if test="inStockId != null">
+                and in_stock_id = #{inStockId}                
+            </if>
+            <if test="inStockCode != null and inStockCode != ''">
+                and in_stock_code  like concat('%',#{inStockCode},'%')                
+            </if>
+            <if test="inStockName != null and inStockName != ''">
+                and in_stock_name  like concat('%',#{inStockName},'%')                
+            </if>
+            <if test="clientId != null">
+                and client_id = #{clientId}                
+            </if>
+            <if test="clientCode != null and clientCode != ''">
+                and client_code  like concat('%',#{clientCode},'%')                
+            </if>
+            <if test="clientName != null and clientName != ''">
+                and client_name  like concat('%',#{clientName},'%')                
+            </if>
+            <if test="outTypeId != null">
+                and out_type_id = #{outTypeId}                
+            </if>
+            <if test="outBillCode != null and outBillCode != ''">
+                and out_bill_code  like concat('%',#{outBillCode},'%')                
+            </if>
+            <if test="inTypeId != null">
+                and in_type_id = #{inTypeId}                
+            </if>
+            <if test="inBillCode != null and inBillCode != ''">
+                and in_bill_code  like concat('%',#{inBillCode},'%')                
+            </if>
+            <if test="poType != null and poType != ''">
+                and po_type  like concat('%',#{poType},'%')                
+            </if>
+            <if test="state != null and state != ''">
+                and state  like concat('%',#{state},'%')                
+            </if>
+            <if test="departmentId != null">
+                and department_id = #{departmentId}                
+            </if>
+            <if test="departmentCode != null and departmentCode != ''">
+                and department_code  like concat('%',#{departmentCode},'%')                
+            </if>
+            <if test="departmentName != null and departmentName != ''">
+                and department_name  like concat('%',#{departmentName},'%')                
+            </if>
+            <if test="empId != null">
+                and emp_id = #{empId}                
+            </if>
+            <if test="empCode != null and empCode != ''">
+                and emp_code  like concat('%',#{empCode},'%')                
+            </if>
+            <if test="empName != null and empName != ''">
+                and emp_name  like concat('%',#{empName},'%')                
+            </if>
+            <if test="managerId != null">
+                and manager_id = #{managerId}                
+            </if>
+            <if test="managerCode != null and managerCode != ''">
+                and manager_code  like concat('%',#{managerCode},'%')                
+            </if>
+            <if test="managerName != null and managerName != ''">
+                and manager_name  like concat('%',#{managerName},'%')                
+            </if>
+            <if test="checkerId != null">
+                and checker_id = #{checkerId}                
+            </if>
+            <if test="checkerName != null and checkerName != ''">
+                and checker_name  like concat('%',#{checkerName},'%')                
+            </if>
+            <if test="checkerTime != null">
+                and checker_time                 
+            </if>
+            <if test="fCompanyId != null">
+                and f_company_id = #{fCompanyId}                
+            </if>
+            <if test="fEnCode != null and fEnCode != ''">
+                and f_en_code  like concat('%',#{fEnCode},'%')                
+            </if>
+            <if test="fShortName != null and fShortName != ''">
+                and f_short_name  like concat('%',#{fShortName},'%')                
+            </if>
+            <if test="createId != null">
+                and create_id = #{createId}                
+            </if>
+            <if test="createName != null and createName != ''">
+                and create_name  like concat('%',#{createName},'%')                
+            </if>
+            <if test="createTime != null">
+                and create_time                 
+            </if>
+            <if test="updateId != null">
+                and update_id = #{updateId}                
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and update_name  like concat('%',#{updateName},'%')                
+            </if>
+            <if test="updateTime != null">
+                and update_time                 
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark  like concat('%',#{remark},'%')                
+            </if>
+            <if test="isValid != null and isValid != ''">
+                and is_valid  like concat('%',#{isValid},'%')                
+            </if>
+            <if test="outCompanyId != null">
+                and out_company_id = #{outCompanyId}                
+            </if>
+            <if test="outCompanyName != null and outCompanyName != ''">
+                and out_company_name  like concat('%',#{outCompanyName},'%')                
+            </if>
+            <if test="inCompanyId != null">
+                and in_company_id = #{inCompanyId}                
+            </if>
+            <if test="inCompanyName != null and inCompanyName != ''">
+                and in_company_name  like concat('%',#{inCompanyName},'%')                
+            </if>
+            <if test="disposer != null and disposer != ''">
+                and disposer  like concat('%',#{disposer},'%')                
+            </if>
+            <if test="period != null and period != ''">
+                and period  like concat('%',#{period},'%')                
+            </if>
+            <if test="stockCurrentSumId != null">
+                and stock_current_sum_id = #{stockCurrentSumId}                
+            </if>
+            <if test="workOrderCode != null and workOrderCode != ''">
+                and work_order_code  like concat('%',#{workOrderCode},'%')                
+            </if>
+            <if test="poBillDate != null and poBillDate != ''">
+                and po_bill_date  like concat('%',#{poBillDate},'%')                
+            </if>
+            <if test="poPostingDate != null and poPostingDate != ''">
+                and po_posting_date  like concat('%',#{poPostingDate},'%')                
+            </if>
+            <if test="disposerId != null">
+                and disposer_id = #{disposerId}                
+            </if>
+            <if test="sapId != null">
+                and sap_id = #{sapId}                
+            </if>
+            <if test="sapCode != null and sapCode != ''">
+                and sap_code  like concat('%',#{sapCode},'%')                
+            </if>
+        </where>
+        order by id desc
+    </select>
+    
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="MesWmsStockpoMap">
+        select
+          id, stock_po_code, year, out_stock_id, out_stock_code, out_stock_name, in_stock_id, in_stock_code, in_stock_name, client_id, client_code, client_name, out_type_id, out_bill_code, in_type_id, in_bill_code, po_type, state, department_id, department_code, department_name, emp_id, emp_code, emp_name, manager_id, manager_code, manager_name, checker_id, checker_name, checker_time, f_company_id, f_en_code, f_short_name, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid, out_company_id, out_company_name, in_company_id, in_company_name, disposer, period, stock_current_sum_id, work_order_code, po_bill_date, po_posting_date, disposer_id, sap_id, sap_code
+        from mes_wms_stockpo
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="MesWmsStockpoMap">
+        select
+          id, stock_po_code, year, out_stock_id, out_stock_code, out_stock_name, in_stock_id, in_stock_code, in_stock_name, client_id, client_code, client_name, out_type_id, out_bill_code, in_type_id, in_bill_code, po_type, state, department_id, department_code, department_name, emp_id, emp_code, emp_name, manager_id, manager_code, manager_name, checker_id, checker_name, checker_time, f_company_id, f_en_code, f_short_name, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid, out_company_id, out_company_name, in_company_id, in_company_name, disposer, period, stock_current_sum_id, work_order_code, po_bill_date, po_posting_date, disposer_id, sap_id, sap_code
+        from mes_wms_stockpo
+        <where>
+        is_valid = '1'
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="stockPoCode != null and stockPoCode != ''">
+                and stock_po_code = #{stockPoCode}
+            </if>
+            <if test="year != null and year != ''">
+                and year = #{year}
+            </if>
+            <if test="outStockId != null">
+                and out_stock_id = #{outStockId}
+            </if>
+            <if test="outStockCode != null and outStockCode != ''">
+                and out_stock_code = #{outStockCode}
+            </if>
+            <if test="outStockName != null and outStockName != ''">
+                and out_stock_name = #{outStockName}
+            </if>
+            <if test="inStockId != null">
+                and in_stock_id = #{inStockId}
+            </if>
+            <if test="inStockCode != null and inStockCode != ''">
+                and in_stock_code = #{inStockCode}
+            </if>
+            <if test="inStockName != null and inStockName != ''">
+                and in_stock_name = #{inStockName}
+            </if>
+            <if test="clientId != null">
+                and client_id = #{clientId}
+            </if>
+            <if test="clientCode != null and clientCode != ''">
+                and client_code = #{clientCode}
+            </if>
+            <if test="clientName != null and clientName != ''">
+                and client_name = #{clientName}
+            </if>
+            <if test="outTypeId != null">
+                and out_type_id = #{outTypeId}
+            </if>
+            <if test="outBillCode != null and outBillCode != ''">
+                and out_bill_code = #{outBillCode}
+            </if>
+            <if test="inTypeId != null">
+                and in_type_id = #{inTypeId}
+            </if>
+            <if test="inBillCode != null and inBillCode != ''">
+                and in_bill_code = #{inBillCode}
+            </if>
+            <if test="poType != null and poType != ''">
+                and po_type = #{poType}
+            </if>
+            <if test="state != null and state != ''">
+                and state = #{state}
+            </if>
+            <if test="departmentId != null">
+                and department_id = #{departmentId}
+            </if>
+            <if test="departmentCode != null and departmentCode != ''">
+                and department_code = #{departmentCode}
+            </if>
+            <if test="departmentName != null and departmentName != ''">
+                and department_name = #{departmentName}
+            </if>
+            <if test="empId != null">
+                and emp_id = #{empId}
+            </if>
+            <if test="empCode != null and empCode != ''">
+                and emp_code = #{empCode}
+            </if>
+            <if test="empName != null and empName != ''">
+                and emp_name = #{empName}
+            </if>
+            <if test="managerId != null">
+                and manager_id = #{managerId}
+            </if>
+            <if test="managerCode != null and managerCode != ''">
+                and manager_code = #{managerCode}
+            </if>
+            <if test="managerName != null and managerName != ''">
+                and manager_name = #{managerName}
+            </if>
+            <if test="checkerId != null">
+                and checker_id = #{checkerId}
+            </if>
+            <if test="checkerName != null and checkerName != ''">
+                and checker_name = #{checkerName}
+            </if>
+            <if test="checkerTime != null">
+                and checker_time = #{checkerTime}
+            </if>
+            <if test="fCompanyId != null">
+                and f_company_id = #{fCompanyId}
+            </if>
+            <if test="fEnCode != null and fEnCode != ''">
+                and f_en_code = #{fEnCode}
+            </if>
+            <if test="fShortName != null and fShortName != ''">
+                and f_short_name = #{fShortName}
+            </if>
+            <if test="createId != null">
+                and create_id = #{createId}
+            </if>
+            <if test="createName != null and createName != ''">
+                and create_name = #{createName}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateId != null">
+                and update_id = #{updateId}
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and update_name = #{updateName}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="isValid != null and isValid != ''">
+                and is_valid = #{isValid}
+            </if>
+            <if test="outCompanyId != null">
+                and out_company_id = #{outCompanyId}
+            </if>
+            <if test="outCompanyName != null and outCompanyName != ''">
+                and out_company_name = #{outCompanyName}
+            </if>
+            <if test="inCompanyId != null">
+                and in_company_id = #{inCompanyId}
+            </if>
+            <if test="inCompanyName != null and inCompanyName != ''">
+                and in_company_name = #{inCompanyName}
+            </if>
+            <if test="disposer != null and disposer != ''">
+                and disposer = #{disposer}
+            </if>
+            <if test="period != null and period != ''">
+                and period = #{period}
+            </if>
+            <if test="stockCurrentSumId != null">
+                and stock_current_sum_id = #{stockCurrentSumId}
+            </if>
+            <if test="workOrderCode != null and workOrderCode != ''">
+                and work_order_code = #{workOrderCode}
+            </if>
+            <if test="poBillDate != null and poBillDate != ''">
+                and po_bill_date = #{poBillDate}
+            </if>
+            <if test="poPostingDate != null and poPostingDate != ''">
+                and po_posting_date = #{poPostingDate}
+            </if>
+            <if test="disposerId != null">
+                and disposer_id = #{disposerId}
+            </if>
+            <if test="sapId != null">
+                and sap_id = #{sapId}
+            </if>
+            <if test="sapCode != null and sapCode != ''">
+                and sap_code = #{sapCode}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+    
+    
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from mes_wms_stockpo
+        <where>
+        is_valid = '1'
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="stockPoCode != null and stockPoCode != ''">
+                and stock_po_code = #{stockPoCode}
+            </if>
+            <if test="year != null and year != ''">
+                and year = #{year}
+            </if>
+            <if test="outStockId != null">
+                and out_stock_id = #{outStockId}
+            </if>
+            <if test="outStockCode != null and outStockCode != ''">
+                and out_stock_code = #{outStockCode}
+            </if>
+            <if test="outStockName != null and outStockName != ''">
+                and out_stock_name = #{outStockName}
+            </if>
+            <if test="inStockId != null">
+                and in_stock_id = #{inStockId}
+            </if>
+            <if test="inStockCode != null and inStockCode != ''">
+                and in_stock_code = #{inStockCode}
+            </if>
+            <if test="inStockName != null and inStockName != ''">
+                and in_stock_name = #{inStockName}
+            </if>
+            <if test="clientId != null">
+                and client_id = #{clientId}
+            </if>
+            <if test="clientCode != null and clientCode != ''">
+                and client_code = #{clientCode}
+            </if>
+            <if test="clientName != null and clientName != ''">
+                and client_name = #{clientName}
+            </if>
+            <if test="outTypeId != null">
+                and out_type_id = #{outTypeId}
+            </if>
+            <if test="outBillCode != null and outBillCode != ''">
+                and out_bill_code = #{outBillCode}
+            </if>
+            <if test="inTypeId != null">
+                and in_type_id = #{inTypeId}
+            </if>
+            <if test="inBillCode != null and inBillCode != ''">
+                and in_bill_code = #{inBillCode}
+            </if>
+            <if test="poType != null and poType != ''">
+                and po_type = #{poType}
+            </if>
+            <if test="state != null and state != ''">
+                and state = #{state}
+            </if>
+            <if test="departmentId != null">
+                and department_id = #{departmentId}
+            </if>
+            <if test="departmentCode != null and departmentCode != ''">
+                and department_code = #{departmentCode}
+            </if>
+            <if test="departmentName != null and departmentName != ''">
+                and department_name = #{departmentName}
+            </if>
+            <if test="empId != null">
+                and emp_id = #{empId}
+            </if>
+            <if test="empCode != null and empCode != ''">
+                and emp_code = #{empCode}
+            </if>
+            <if test="empName != null and empName != ''">
+                and emp_name = #{empName}
+            </if>
+            <if test="managerId != null">
+                and manager_id = #{managerId}
+            </if>
+            <if test="managerCode != null and managerCode != ''">
+                and manager_code = #{managerCode}
+            </if>
+            <if test="managerName != null and managerName != ''">
+                and manager_name = #{managerName}
+            </if>
+            <if test="checkerId != null">
+                and checker_id = #{checkerId}
+            </if>
+            <if test="checkerName != null and checkerName != ''">
+                and checker_name = #{checkerName}
+            </if>
+            <if test="checkerTime != null">
+                and checker_time = #{checkerTime}
+            </if>
+            <if test="fCompanyId != null">
+                and f_company_id = #{fCompanyId}
+            </if>
+            <if test="fEnCode != null and fEnCode != ''">
+                and f_en_code = #{fEnCode}
+            </if>
+            <if test="fShortName != null and fShortName != ''">
+                and f_short_name = #{fShortName}
+            </if>
+            <if test="createId != null">
+                and create_id = #{createId}
+            </if>
+            <if test="createName != null and createName != ''">
+                and create_name = #{createName}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateId != null">
+                and update_id = #{updateId}
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and update_name = #{updateName}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="isValid != null and isValid != ''">
+                and is_valid = #{isValid}
+            </if>
+            <if test="outCompanyId != null">
+                and out_company_id = #{outCompanyId}
+            </if>
+            <if test="outCompanyName != null and outCompanyName != ''">
+                and out_company_name = #{outCompanyName}
+            </if>
+            <if test="inCompanyId != null">
+                and in_company_id = #{inCompanyId}
+            </if>
+            <if test="inCompanyName != null and inCompanyName != ''">
+                and in_company_name = #{inCompanyName}
+            </if>
+            <if test="disposer != null and disposer != ''">
+                and disposer = #{disposer}
+            </if>
+            <if test="period != null and period != ''">
+                and period = #{period}
+            </if>
+            <if test="stockCurrentSumId != null">
+                and stock_current_sum_id = #{stockCurrentSumId}
+            </if>
+            <if test="workOrderCode != null and workOrderCode != ''">
+                and work_order_code = #{workOrderCode}
+            </if>
+            <if test="poBillDate != null and poBillDate != ''">
+                and po_bill_date = #{poBillDate}
+            </if>
+            <if test="poPostingDate != null and poPostingDate != ''">
+                and po_posting_date = #{poPostingDate}
+            </if>
+            <if test="disposerId != null">
+                and disposer_id = #{disposerId}
+            </if>
+            <if test="sapId != null">
+                and sap_id = #{sapId}
+            </if>
+            <if test="sapCode != null and sapCode != ''">
+                and sap_code = #{sapCode}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_wms_stockpo(stock_po_code, year, out_stock_id, out_stock_code, out_stock_name, in_stock_id, in_stock_code, in_stock_name, client_id, client_code, client_name, out_type_id, out_bill_code, in_type_id, in_bill_code, po_type, state, department_id, department_code, department_name, emp_id, emp_code, emp_name, manager_id, manager_code, manager_name, checker_id, checker_name, checker_time, f_company_id, f_en_code, f_short_name, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid, out_company_id, out_company_name, in_company_id, in_company_name, disposer, period, stock_current_sum_id, work_order_code, po_bill_date, po_posting_date, disposer_id, sap_id, sap_code)
+        values (#{stockPoCode}, #{year}, #{outStockId}, #{outStockCode}, #{outStockName}, #{inStockId}, #{inStockCode}, #{inStockName}, #{clientId}, #{clientCode}, #{clientName}, #{outTypeId}, #{outBillCode}, #{inTypeId}, #{inBillCode}, #{poType}, #{state}, #{departmentId}, #{departmentCode}, #{departmentName}, #{empId}, #{empCode}, #{empName}, #{managerId}, #{managerCode}, #{managerName}, #{checkerId}, #{checkerName}, #{checkerTime}, #{fCompanyId}, #{fEnCode}, #{fShortName}, #{createId}, #{createName}, #{createTime}, #{updateId}, #{updateName}, #{updateTime}, #{remark}, #{isValid}, #{outCompanyId}, #{outCompanyName}, #{inCompanyId}, #{inCompanyName}, #{disposer}, #{period}, #{stockCurrentSumId}, #{workOrderCode}, #{poBillDate}, #{poPostingDate}, #{disposerId}, #{sapId}, #{sapCode})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_wms_stockpo(stock_po_code, year, out_stock_id, out_stock_code, out_stock_name, in_stock_id, in_stock_code, in_stock_name, client_id, client_code, client_name, out_type_id, out_bill_code, in_type_id, in_bill_code, po_type, state, department_id, department_code, department_name, emp_id, emp_code, emp_name, manager_id, manager_code, manager_name, checker_id, checker_name, checker_time, f_company_id, f_en_code, f_short_name, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid, out_company_id, out_company_name, in_company_id, in_company_name, disposer, period, stock_current_sum_id, work_order_code, po_bill_date, po_posting_date, disposer_id, sap_id, sap_code)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.stockPoCode}, #{entity.year}, #{entity.outStockId}, #{entity.outStockCode}, #{entity.outStockName}, #{entity.inStockId}, #{entity.inStockCode}, #{entity.inStockName}, #{entity.clientId}, #{entity.clientCode}, #{entity.clientName}, #{entity.outTypeId}, #{entity.outBillCode}, #{entity.inTypeId}, #{entity.inBillCode}, #{entity.poType}, #{entity.state}, #{entity.departmentId}, #{entity.departmentCode}, #{entity.departmentName}, #{entity.empId}, #{entity.empCode}, #{entity.empName}, #{entity.managerId}, #{entity.managerCode}, #{entity.managerName}, #{entity.checkerId}, #{entity.checkerName}, #{entity.checkerTime}, #{entity.fCompanyId}, #{entity.fEnCode}, #{entity.fShortName}, #{entity.createId}, #{entity.createName}, #{entity.createTime}, #{entity.updateId}, #{entity.updateName}, #{entity.updateTime}, #{entity.remark}, #{entity.isValid}, #{entity.outCompanyId}, #{entity.outCompanyName}, #{entity.inCompanyId}, #{entity.inCompanyName}, #{entity.disposer}, #{entity.period}, #{entity.stockCurrentSumId}, #{entity.workOrderCode}, #{entity.poBillDate}, #{entity.poPostingDate}, #{entity.disposerId}, #{entity.sapId}, #{entity.sapCode})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_wms_stockpo(stock_po_code, year, out_stock_id, out_stock_code, out_stock_name, in_stock_id, in_stock_code, in_stock_name, client_id, client_code, client_name, out_type_id, out_bill_code, in_type_id, in_bill_code, po_type, state, department_id, department_code, department_name, emp_id, emp_code, emp_name, manager_id, manager_code, manager_name, checker_id, checker_name, checker_time, f_company_id, f_en_code, f_short_name, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid, out_company_id, out_company_name, in_company_id, in_company_name, disposer, period, stock_current_sum_id, work_order_code, po_bill_date, po_posting_date, disposer_id, sap_id, sap_code)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.stockPoCode}, #{entity.year}, #{entity.outStockId}, #{entity.outStockCode}, #{entity.outStockName}, #{entity.inStockId}, #{entity.inStockCode}, #{entity.inStockName}, #{entity.clientId}, #{entity.clientCode}, #{entity.clientName}, #{entity.outTypeId}, #{entity.outBillCode}, #{entity.inTypeId}, #{entity.inBillCode}, #{entity.poType}, #{entity.state}, #{entity.departmentId}, #{entity.departmentCode}, #{entity.departmentName}, #{entity.empId}, #{entity.empCode}, #{entity.empName}, #{entity.managerId}, #{entity.managerCode}, #{entity.managerName}, #{entity.checkerId}, #{entity.checkerName}, #{entity.checkerTime}, #{entity.fCompanyId}, #{entity.fEnCode}, #{entity.fShortName}, #{entity.createId}, #{entity.createName}, #{entity.createTime}, #{entity.updateId}, #{entity.updateName}, #{entity.updateTime}, #{entity.remark}, #{entity.isValid}, #{entity.outCompanyId}, #{entity.outCompanyName}, #{entity.inCompanyId}, #{entity.inCompanyName}, #{entity.disposer}, #{entity.period}, #{entity.stockCurrentSumId}, #{entity.workOrderCode}, #{entity.poBillDate}, #{entity.poPostingDate}, #{entity.disposerId}, #{entity.sapId}, #{entity.sapCode})
+        </foreach>
+        on duplicate key update
+        stock_po_code = values(stock_po_code),
+        year = values(year),
+        out_stock_id = values(out_stock_id),
+        out_stock_code = values(out_stock_code),
+        out_stock_name = values(out_stock_name),
+        in_stock_id = values(in_stock_id),
+        in_stock_code = values(in_stock_code),
+        in_stock_name = values(in_stock_name),
+        client_id = values(client_id),
+        client_code = values(client_code),
+        client_name = values(client_name),
+        out_type_id = values(out_type_id),
+        out_bill_code = values(out_bill_code),
+        in_type_id = values(in_type_id),
+        in_bill_code = values(in_bill_code),
+        po_type = values(po_type),
+        state = values(state),
+        department_id = values(department_id),
+        department_code = values(department_code),
+        department_name = values(department_name),
+        emp_id = values(emp_id),
+        emp_code = values(emp_code),
+        emp_name = values(emp_name),
+        manager_id = values(manager_id),
+        manager_code = values(manager_code),
+        manager_name = values(manager_name),
+        checker_id = values(checker_id),
+        checker_name = values(checker_name),
+        checker_time = values(checker_time),
+        f_company_id = values(f_company_id),
+        f_en_code = values(f_en_code),
+        f_short_name = values(f_short_name),
+        create_id = values(create_id),
+        create_name = values(create_name),
+        create_time = values(create_time),
+        update_id = values(update_id),
+        update_name = values(update_name),
+        update_time = values(update_time),
+        remark = values(remark),
+        is_valid = values(is_valid),
+        out_company_id = values(out_company_id),
+        out_company_name = values(out_company_name),
+        in_company_id = values(in_company_id),
+        in_company_name = values(in_company_name),
+        disposer = values(disposer),
+        period = values(period),
+        stock_current_sum_id = values(stock_current_sum_id),
+        work_order_code = values(work_order_code),
+        po_bill_date = values(po_bill_date),
+        po_posting_date = values(po_posting_date),
+        disposer_id = values(disposer_id),
+        sap_id = values(sap_id),
+        sap_code = values(sap_code)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update mes_wms_stockpo
+        <set>
+            <if test="stockPoCode != null and stockPoCode != ''">
+                stock_po_code = #{stockPoCode},
+            </if>
+            <if test="year != null and year != ''">
+                year = #{year},
+            </if>
+            <if test="outStockId != null">
+                out_stock_id = #{outStockId},
+            </if>
+            <if test="outStockCode != null and outStockCode != ''">
+                out_stock_code = #{outStockCode},
+            </if>
+            <if test="outStockName != null and outStockName != ''">
+                out_stock_name = #{outStockName},
+            </if>
+            <if test="inStockId != null">
+                in_stock_id = #{inStockId},
+            </if>
+            <if test="inStockCode != null and inStockCode != ''">
+                in_stock_code = #{inStockCode},
+            </if>
+            <if test="inStockName != null and inStockName != ''">
+                in_stock_name = #{inStockName},
+            </if>
+            <if test="clientId != null">
+                client_id = #{clientId},
+            </if>
+            <if test="clientCode != null and clientCode != ''">
+                client_code = #{clientCode},
+            </if>
+            <if test="clientName != null and clientName != ''">
+                client_name = #{clientName},
+            </if>
+            <if test="outTypeId != null">
+                out_type_id = #{outTypeId},
+            </if>
+            <if test="outBillCode != null and outBillCode != ''">
+                out_bill_code = #{outBillCode},
+            </if>
+            <if test="inTypeId != null">
+                in_type_id = #{inTypeId},
+            </if>
+            <if test="inBillCode != null and inBillCode != ''">
+                in_bill_code = #{inBillCode},
+            </if>
+            <if test="poType != null and poType != ''">
+                po_type = #{poType},
+            </if>
+            <if test="state != null and state != ''">
+                state = #{state},
+            </if>
+            <if test="departmentId != null">
+                department_id = #{departmentId},
+            </if>
+            <if test="departmentCode != null and departmentCode != ''">
+                department_code = #{departmentCode},
+            </if>
+            <if test="departmentName != null and departmentName != ''">
+                department_name = #{departmentName},
+            </if>
+            <if test="empId != null">
+                emp_id = #{empId},
+            </if>
+            <if test="empCode != null and empCode != ''">
+                emp_code = #{empCode},
+            </if>
+            <if test="empName != null and empName != ''">
+                emp_name = #{empName},
+            </if>
+            <if test="managerId != null">
+                manager_id = #{managerId},
+            </if>
+            <if test="managerCode != null and managerCode != ''">
+                manager_code = #{managerCode},
+            </if>
+            <if test="managerName != null and managerName != ''">
+                manager_name = #{managerName},
+            </if>
+            <if test="checkerId != null">
+                checker_id = #{checkerId},
+            </if>
+            <if test="checkerName != null and checkerName != ''">
+                checker_name = #{checkerName},
+            </if>
+            <if test="checkerTime != null">
+                checker_time = #{checkerTime},
+            </if>
+            <if test="fCompanyId != null">
+                f_company_id = #{fCompanyId},
+            </if>
+            <if test="fEnCode != null and fEnCode != ''">
+                f_en_code = #{fEnCode},
+            </if>
+            <if test="fShortName != null and fShortName != ''">
+                f_short_name = #{fShortName},
+            </if>
+            <if test="createId != null">
+                create_id = #{createId},
+            </if>
+            <if test="createName != null and createName != ''">
+                create_name = #{createName},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateId != null">
+                update_id = #{updateId},
+            </if>
+            <if test="updateName != null and updateName != ''">
+                update_name = #{updateName},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="isValid != null and isValid != ''">
+                is_valid = #{isValid},
+            </if>
+            <if test="outCompanyId != null">
+                out_company_id = #{outCompanyId},
+            </if>
+            <if test="outCompanyName != null and outCompanyName != ''">
+                out_company_name = #{outCompanyName},
+            </if>
+            <if test="inCompanyId != null">
+                in_company_id = #{inCompanyId},
+            </if>
+            <if test="inCompanyName != null and inCompanyName != ''">
+                in_company_name = #{inCompanyName},
+            </if>
+            <if test="disposer != null and disposer != ''">
+                disposer = #{disposer},
+            </if>
+            <if test="period != null and period != ''">
+                period = #{period},
+            </if>
+            <if test="stockCurrentSumId != null">
+                stock_current_sum_id = #{stockCurrentSumId},
+            </if>
+            <if test="workOrderCode != null and workOrderCode != ''">
+                work_order_code = #{workOrderCode},
+            </if>
+            <if test="poBillDate != null and poBillDate != ''">
+                po_bill_date = #{poBillDate},
+            </if>
+            <if test="poPostingDate != null and poPostingDate != ''">
+                po_posting_date = #{poPostingDate},
+            </if>
+            <if test="disposerId != null">
+                disposer_id = #{disposerId},
+            </if>
+            <if test="sapId != null">
+                sap_id = #{sapId},
+            </if>
+            <if test="sapCode != null and sapCode != ''">
+                sap_code = #{sapCode},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    
+    <!--通过主键修改数据-->
+    <update id="edit">
+        update mes_wms_stockpo
+        <set>
+           stock_po_code = #{stockPoCode},
+           year = #{year},
+           out_stock_id = #{outStockId},
+           out_stock_code = #{outStockCode},
+           out_stock_name = #{outStockName},
+           in_stock_id = #{inStockId},
+           in_stock_code = #{inStockCode},
+           in_stock_name = #{inStockName},
+           client_id = #{clientId},
+           client_code = #{clientCode},
+           client_name = #{clientName},
+           out_type_id = #{outTypeId},
+           out_bill_code = #{outBillCode},
+           in_type_id = #{inTypeId},
+           in_bill_code = #{inBillCode},
+           po_type = #{poType},
+           state = #{state},
+           department_id = #{departmentId},
+           department_code = #{departmentCode},
+           department_name = #{departmentName},
+           emp_id = #{empId},
+           emp_code = #{empCode},
+           emp_name = #{empName},
+           manager_id = #{managerId},
+           manager_code = #{managerCode},
+           manager_name = #{managerName},
+           checker_id = #{checkerId},
+           checker_name = #{checkerName},
+           checker_time = #{checkerTime},
+           f_company_id = #{fCompanyId},
+           f_en_code = #{fEnCode},
+           f_short_name = #{fShortName},
+           create_id = #{createId},
+           create_name = #{createName},
+           create_time = #{createTime},
+           update_id = #{updateId},
+           update_name = #{updateName},
+           update_time = #{updateTime},
+           remark = #{remark},
+           is_valid = #{isValid},
+           out_company_id = #{outCompanyId},
+           out_company_name = #{outCompanyName},
+           in_company_id = #{inCompanyId},
+           in_company_name = #{inCompanyName},
+           disposer = #{disposer},
+           period = #{period},
+           stock_current_sum_id = #{stockCurrentSumId},
+           work_order_code = #{workOrderCode},
+           po_bill_date = #{poBillDate},
+           po_posting_date = #{poPostingDate},
+           disposer_id = #{disposerId},
+           sap_id = #{sapId},
+           sap_code = #{sapCode},
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from mes_wms_stockpo where id = #{id}
+    </delete>
+    
+    <!--通过主键逻辑删除-->
+    <delete id="updateById">
+        update mes_wms_stockpo set is_valid = '0' where id = #{id}
+    </delete>
+
+</mapper>
+

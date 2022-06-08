@@ -1,0 +1,697 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bpm.mes.stock.server.mapper.base.MesWmsStockcheckMapper">
+
+      <sql id="Base_Column_List">
+         id, stock_id, stock_code, stock_name, check_code, check_name, checker, check_date, year, month, start_date, end_date, check_type, checker_id, checker_name, checker_time, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid, company_id, company_code, company_name, is_lock, state, check_state, check_posting_date, check_account_date, stock_place_id, stock_place_code, stock_place_name, sap_id, sap_code     
+      </sql>
+      
+      <sql id="query_List">
+      SELECT   
+          xxx.id AS id,
+          xxx.stock_id AS stockId,
+          xxx.stock_code AS stockCode,
+          xxx.stock_name AS stockName,
+          xxx.check_code AS checkCode,
+          xxx.check_name AS checkName,
+          xxx.checker AS checker,
+          xxx.check_date AS checkDate,
+          xxx.year AS year,
+          xxx.month AS month,
+          xxx.start_date AS startDate,
+          xxx.end_date AS endDate,
+          xxx.check_type AS checkType,
+          xxx.checker_id AS checkerId,
+          xxx.checker_name AS checkerName,
+          xxx.checker_time AS checkerTime,
+          xxx.create_id AS createId,
+          xxx.create_name AS createName,
+          xxx.create_time AS createTime,
+          xxx.update_id AS updateId,
+          xxx.update_name AS updateName,
+          xxx.update_time AS updateTime,
+          xxx.remark AS remark,
+          xxx.is_valid AS isValid,
+          xxx.company_id AS companyId,
+          xxx.company_code AS companyCode,
+          xxx.company_name AS companyName,
+          xxx.is_lock AS isLock,
+          xxx.state AS state,
+          xxx.check_state AS checkState,
+          xxx.check_posting_date AS checkPostingDate,
+          xxx.check_account_date AS checkAccountDate,
+          xxx.stock_place_id AS stockPlaceId,
+          xxx.stock_place_code AS stockPlaceCode,
+          xxx.stock_place_name AS stockPlaceName,
+          xxx.sap_id AS sapId,
+          xxx.sap_code AS sapCode,
+        FROM mes_wms_stockcheck
+      </sql>
+
+    <resultMap type="com.bpm.mes.stock.server.domain.MesWmsStockcheck" id="MesWmsStockcheckMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="stockId" column="stock_id" jdbcType="INTEGER"/>
+        <result property="stockCode" column="stock_code" jdbcType="VARCHAR"/>
+        <result property="stockName" column="stock_name" jdbcType="VARCHAR"/>
+        <result property="checkCode" column="check_code" jdbcType="VARCHAR"/>
+        <result property="checkName" column="check_name" jdbcType="VARCHAR"/>
+        <result property="checker" column="checker" jdbcType="VARCHAR"/>
+        <result property="checkDate" column="check_date" jdbcType="VARCHAR"/>
+        <result property="year" column="year" jdbcType="VARCHAR"/>
+        <result property="month" column="month" jdbcType="VARCHAR"/>
+        <result property="startDate" column="start_date" jdbcType="TIMESTAMP"/>
+        <result property="endDate" column="end_date" jdbcType="TIMESTAMP"/>
+        <result property="checkType" column="check_type" jdbcType="VARCHAR"/>
+        <result property="checkerId" column="checker_id" jdbcType="INTEGER"/>
+        <result property="checkerName" column="checker_name" jdbcType="VARCHAR"/>
+        <result property="checkerTime" column="checker_time" jdbcType="TIMESTAMP"/>
+        <result property="createId" column="create_id" jdbcType="INTEGER"/>
+        <result property="createName" column="create_name" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateId" column="update_id" jdbcType="INTEGER"/>
+        <result property="updateName" column="update_name" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="isValid" column="is_valid" jdbcType="VARCHAR"/>
+        <result property="companyId" column="company_id" jdbcType="INTEGER"/>
+        <result property="companyCode" column="company_code" jdbcType="VARCHAR"/>
+        <result property="companyName" column="company_name" jdbcType="VARCHAR"/>
+        <result property="isLock" column="is_lock" jdbcType="VARCHAR"/>
+        <result property="state" column="state" jdbcType="VARCHAR"/>
+        <result property="checkState" column="check_state" jdbcType="VARCHAR"/>
+        <result property="checkPostingDate" column="check_posting_date" jdbcType="VARCHAR"/>
+        <result property="checkAccountDate" column="check_account_date" jdbcType="VARCHAR"/>
+        <result property="stockPlaceId" column="stock_place_id" jdbcType="INTEGER"/>
+        <result property="stockPlaceCode" column="stock_place_code" jdbcType="VARCHAR"/>
+        <result property="stockPlaceName" column="stock_place_name" jdbcType="VARCHAR"/>
+        <result property="sapId" column="sap_id" jdbcType="INTEGER"/>
+        <result property="sapCode" column="sap_code" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+    
+        <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="MesWmsStockcheckMap">
+        select
+          <include refid="Base_Column_List" />
+        from mes_wms_stockcheck
+        <where>
+        is_valid = '1'
+            <if test="id != null">
+                and id = #{id}                
+            </if>
+            <if test="stockId != null">
+                and stock_id = #{stockId}                
+            </if>
+            <if test="stockCode != null and stockCode != ''">
+                and stock_code  like concat('%',#{stockCode},'%')                
+            </if>
+            <if test="stockName != null and stockName != ''">
+                and stock_name  like concat('%',#{stockName},'%')                
+            </if>
+            <if test="checkCode != null and checkCode != ''">
+                and check_code  like concat('%',#{checkCode},'%')                
+            </if>
+            <if test="checkName != null and checkName != ''">
+                and check_name  like concat('%',#{checkName},'%')                
+            </if>
+            <if test="checker != null and checker != ''">
+                and checker  like concat('%',#{checker},'%')                
+            </if>
+            <if test="checkDate != null and checkDate != ''">
+                and check_date  like concat('%',#{checkDate},'%')                
+            </if>
+            <if test="year != null and year != ''">
+                and year  like concat('%',#{year},'%')                
+            </if>
+            <if test="month != null and month != ''">
+                and month  like concat('%',#{month},'%')                
+            </if>
+            <if test="startDate != null">
+                and start_date                 
+            </if>
+            <if test="endDate != null">
+                and end_date                 
+            </if>
+            <if test="checkType != null and checkType != ''">
+                and check_type  like concat('%',#{checkType},'%')                
+            </if>
+            <if test="checkerId != null">
+                and checker_id = #{checkerId}                
+            </if>
+            <if test="checkerName != null and checkerName != ''">
+                and checker_name  like concat('%',#{checkerName},'%')                
+            </if>
+            <if test="checkerTime != null">
+                and checker_time                 
+            </if>
+            <if test="createId != null">
+                and create_id = #{createId}                
+            </if>
+            <if test="createName != null and createName != ''">
+                and create_name  like concat('%',#{createName},'%')                
+            </if>
+            <if test="createTime != null">
+                and create_time                 
+            </if>
+            <if test="updateId != null">
+                and update_id = #{updateId}                
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and update_name  like concat('%',#{updateName},'%')                
+            </if>
+            <if test="updateTime != null">
+                and update_time                 
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark  like concat('%',#{remark},'%')                
+            </if>
+            <if test="isValid != null and isValid != ''">
+                and is_valid  like concat('%',#{isValid},'%')                
+            </if>
+            <if test="companyId != null">
+                and company_id = #{companyId}                
+            </if>
+            <if test="companyCode != null and companyCode != ''">
+                and company_code  like concat('%',#{companyCode},'%')                
+            </if>
+            <if test="companyName != null and companyName != ''">
+                and company_name  like concat('%',#{companyName},'%')                
+            </if>
+            <if test="isLock != null and isLock != ''">
+                and is_lock  like concat('%',#{isLock},'%')                
+            </if>
+            <if test="state != null and state != ''">
+                and state  like concat('%',#{state},'%')                
+            </if>
+            <if test="checkState != null and checkState != ''">
+                and check_state  like concat('%',#{checkState},'%')                
+            </if>
+            <if test="checkPostingDate != null and checkPostingDate != ''">
+                and check_posting_date  like concat('%',#{checkPostingDate},'%')                
+            </if>
+            <if test="checkAccountDate != null and checkAccountDate != ''">
+                and check_account_date  like concat('%',#{checkAccountDate},'%')                
+            </if>
+            <if test="stockPlaceId != null">
+                and stock_place_id = #{stockPlaceId}                
+            </if>
+            <if test="stockPlaceCode != null and stockPlaceCode != ''">
+                and stock_place_code  like concat('%',#{stockPlaceCode},'%')                
+            </if>
+            <if test="stockPlaceName != null and stockPlaceName != ''">
+                and stock_place_name  like concat('%',#{stockPlaceName},'%')                
+            </if>
+            <if test="sapId != null">
+                and sap_id = #{sapId}                
+            </if>
+            <if test="sapCode != null and sapCode != ''">
+                and sap_code  like concat('%',#{sapCode},'%')                
+            </if>
+        </where>
+        order by id desc
+    </select>
+    
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="MesWmsStockcheckMap">
+        select
+          id, stock_id, stock_code, stock_name, check_code, check_name, checker, check_date, year, month, start_date, end_date, check_type, checker_id, checker_name, checker_time, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid, company_id, company_code, company_name, is_lock, state, check_state, check_posting_date, check_account_date, stock_place_id, stock_place_code, stock_place_name, sap_id, sap_code
+        from mes_wms_stockcheck
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="MesWmsStockcheckMap">
+        select
+          id, stock_id, stock_code, stock_name, check_code, check_name, checker, check_date, year, month, start_date, end_date, check_type, checker_id, checker_name, checker_time, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid, company_id, company_code, company_name, is_lock, state, check_state, check_posting_date, check_account_date, stock_place_id, stock_place_code, stock_place_name, sap_id, sap_code
+        from mes_wms_stockcheck
+        <where>
+        is_valid = '1'
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="stockId != null">
+                and stock_id = #{stockId}
+            </if>
+            <if test="stockCode != null and stockCode != ''">
+                and stock_code = #{stockCode}
+            </if>
+            <if test="stockName != null and stockName != ''">
+                and stock_name = #{stockName}
+            </if>
+            <if test="checkCode != null and checkCode != ''">
+                and check_code = #{checkCode}
+            </if>
+            <if test="checkName != null and checkName != ''">
+                and check_name = #{checkName}
+            </if>
+            <if test="checker != null and checker != ''">
+                and checker = #{checker}
+            </if>
+            <if test="checkDate != null and checkDate != ''">
+                and check_date = #{checkDate}
+            </if>
+            <if test="year != null and year != ''">
+                and year = #{year}
+            </if>
+            <if test="month != null and month != ''">
+                and month = #{month}
+            </if>
+            <if test="startDate != null">
+                and start_date = #{startDate}
+            </if>
+            <if test="endDate != null">
+                and end_date = #{endDate}
+            </if>
+            <if test="checkType != null and checkType != ''">
+                and check_type = #{checkType}
+            </if>
+            <if test="checkerId != null">
+                and checker_id = #{checkerId}
+            </if>
+            <if test="checkerName != null and checkerName != ''">
+                and checker_name = #{checkerName}
+            </if>
+            <if test="checkerTime != null">
+                and checker_time = #{checkerTime}
+            </if>
+            <if test="createId != null">
+                and create_id = #{createId}
+            </if>
+            <if test="createName != null and createName != ''">
+                and create_name = #{createName}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateId != null">
+                and update_id = #{updateId}
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and update_name = #{updateName}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="isValid != null and isValid != ''">
+                and is_valid = #{isValid}
+            </if>
+            <if test="companyId != null">
+                and company_id = #{companyId}
+            </if>
+            <if test="companyCode != null and companyCode != ''">
+                and company_code = #{companyCode}
+            </if>
+            <if test="companyName != null and companyName != ''">
+                and company_name = #{companyName}
+            </if>
+            <if test="isLock != null and isLock != ''">
+                and is_lock = #{isLock}
+            </if>
+            <if test="state != null and state != ''">
+                and state = #{state}
+            </if>
+            <if test="checkState != null and checkState != ''">
+                and check_state = #{checkState}
+            </if>
+            <if test="checkPostingDate != null and checkPostingDate != ''">
+                and check_posting_date = #{checkPostingDate}
+            </if>
+            <if test="checkAccountDate != null and checkAccountDate != ''">
+                and check_account_date = #{checkAccountDate}
+            </if>
+            <if test="stockPlaceId != null">
+                and stock_place_id = #{stockPlaceId}
+            </if>
+            <if test="stockPlaceCode != null and stockPlaceCode != ''">
+                and stock_place_code = #{stockPlaceCode}
+            </if>
+            <if test="stockPlaceName != null and stockPlaceName != ''">
+                and stock_place_name = #{stockPlaceName}
+            </if>
+            <if test="sapId != null">
+                and sap_id = #{sapId}
+            </if>
+            <if test="sapCode != null and sapCode != ''">
+                and sap_code = #{sapCode}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+    
+    
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from mes_wms_stockcheck
+        <where>
+        is_valid = '1'
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="stockId != null">
+                and stock_id = #{stockId}
+            </if>
+            <if test="stockCode != null and stockCode != ''">
+                and stock_code = #{stockCode}
+            </if>
+            <if test="stockName != null and stockName != ''">
+                and stock_name = #{stockName}
+            </if>
+            <if test="checkCode != null and checkCode != ''">
+                and check_code = #{checkCode}
+            </if>
+            <if test="checkName != null and checkName != ''">
+                and check_name = #{checkName}
+            </if>
+            <if test="checker != null and checker != ''">
+                and checker = #{checker}
+            </if>
+            <if test="checkDate != null and checkDate != ''">
+                and check_date = #{checkDate}
+            </if>
+            <if test="year != null and year != ''">
+                and year = #{year}
+            </if>
+            <if test="month != null and month != ''">
+                and month = #{month}
+            </if>
+            <if test="startDate != null">
+                and start_date = #{startDate}
+            </if>
+            <if test="endDate != null">
+                and end_date = #{endDate}
+            </if>
+            <if test="checkType != null and checkType != ''">
+                and check_type = #{checkType}
+            </if>
+            <if test="checkerId != null">
+                and checker_id = #{checkerId}
+            </if>
+            <if test="checkerName != null and checkerName != ''">
+                and checker_name = #{checkerName}
+            </if>
+            <if test="checkerTime != null">
+                and checker_time = #{checkerTime}
+            </if>
+            <if test="createId != null">
+                and create_id = #{createId}
+            </if>
+            <if test="createName != null and createName != ''">
+                and create_name = #{createName}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateId != null">
+                and update_id = #{updateId}
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and update_name = #{updateName}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="isValid != null and isValid != ''">
+                and is_valid = #{isValid}
+            </if>
+            <if test="companyId != null">
+                and company_id = #{companyId}
+            </if>
+            <if test="companyCode != null and companyCode != ''">
+                and company_code = #{companyCode}
+            </if>
+            <if test="companyName != null and companyName != ''">
+                and company_name = #{companyName}
+            </if>
+            <if test="isLock != null and isLock != ''">
+                and is_lock = #{isLock}
+            </if>
+            <if test="state != null and state != ''">
+                and state = #{state}
+            </if>
+            <if test="checkState != null and checkState != ''">
+                and check_state = #{checkState}
+            </if>
+            <if test="checkPostingDate != null and checkPostingDate != ''">
+                and check_posting_date = #{checkPostingDate}
+            </if>
+            <if test="checkAccountDate != null and checkAccountDate != ''">
+                and check_account_date = #{checkAccountDate}
+            </if>
+            <if test="stockPlaceId != null">
+                and stock_place_id = #{stockPlaceId}
+            </if>
+            <if test="stockPlaceCode != null and stockPlaceCode != ''">
+                and stock_place_code = #{stockPlaceCode}
+            </if>
+            <if test="stockPlaceName != null and stockPlaceName != ''">
+                and stock_place_name = #{stockPlaceName}
+            </if>
+            <if test="sapId != null">
+                and sap_id = #{sapId}
+            </if>
+            <if test="sapCode != null and sapCode != ''">
+                and sap_code = #{sapCode}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_wms_stockcheck(stock_id, stock_code, stock_name, check_code, check_name, checker, check_date, year, month, start_date, end_date, check_type, checker_id, checker_name, checker_time, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid, company_id, company_code, company_name, is_lock, state, check_state, check_posting_date, check_account_date, stock_place_id, stock_place_code, stock_place_name, sap_id, sap_code)
+        values (#{stockId}, #{stockCode}, #{stockName}, #{checkCode}, #{checkName}, #{checker}, #{checkDate}, #{year}, #{month}, #{startDate}, #{endDate}, #{checkType}, #{checkerId}, #{checkerName}, #{checkerTime}, #{createId}, #{createName}, #{createTime}, #{updateId}, #{updateName}, #{updateTime}, #{remark}, #{isValid}, #{companyId}, #{companyCode}, #{companyName}, #{isLock}, #{state}, #{checkState}, #{checkPostingDate}, #{checkAccountDate}, #{stockPlaceId}, #{stockPlaceCode}, #{stockPlaceName}, #{sapId}, #{sapCode})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_wms_stockcheck(stock_id, stock_code, stock_name, check_code, check_name, checker, check_date, year, month, start_date, end_date, check_type, checker_id, checker_name, checker_time, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid, company_id, company_code, company_name, is_lock, state, check_state, check_posting_date, check_account_date, stock_place_id, stock_place_code, stock_place_name, sap_id, sap_code)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.stockId}, #{entity.stockCode}, #{entity.stockName}, #{entity.checkCode}, #{entity.checkName}, #{entity.checker}, #{entity.checkDate}, #{entity.year}, #{entity.month}, #{entity.startDate}, #{entity.endDate}, #{entity.checkType}, #{entity.checkerId}, #{entity.checkerName}, #{entity.checkerTime}, #{entity.createId}, #{entity.createName}, #{entity.createTime}, #{entity.updateId}, #{entity.updateName}, #{entity.updateTime}, #{entity.remark}, #{entity.isValid}, #{entity.companyId}, #{entity.companyCode}, #{entity.companyName}, #{entity.isLock}, #{entity.state}, #{entity.checkState}, #{entity.checkPostingDate}, #{entity.checkAccountDate}, #{entity.stockPlaceId}, #{entity.stockPlaceCode}, #{entity.stockPlaceName}, #{entity.sapId}, #{entity.sapCode})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_wms_stockcheck(stock_id, stock_code, stock_name, check_code, check_name, checker, check_date, year, month, start_date, end_date, check_type, checker_id, checker_name, checker_time, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid, company_id, company_code, company_name, is_lock, state, check_state, check_posting_date, check_account_date, stock_place_id, stock_place_code, stock_place_name, sap_id, sap_code)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.stockId}, #{entity.stockCode}, #{entity.stockName}, #{entity.checkCode}, #{entity.checkName}, #{entity.checker}, #{entity.checkDate}, #{entity.year}, #{entity.month}, #{entity.startDate}, #{entity.endDate}, #{entity.checkType}, #{entity.checkerId}, #{entity.checkerName}, #{entity.checkerTime}, #{entity.createId}, #{entity.createName}, #{entity.createTime}, #{entity.updateId}, #{entity.updateName}, #{entity.updateTime}, #{entity.remark}, #{entity.isValid}, #{entity.companyId}, #{entity.companyCode}, #{entity.companyName}, #{entity.isLock}, #{entity.state}, #{entity.checkState}, #{entity.checkPostingDate}, #{entity.checkAccountDate}, #{entity.stockPlaceId}, #{entity.stockPlaceCode}, #{entity.stockPlaceName}, #{entity.sapId}, #{entity.sapCode})
+        </foreach>
+        on duplicate key update
+        stock_id = values(stock_id),
+        stock_code = values(stock_code),
+        stock_name = values(stock_name),
+        check_code = values(check_code),
+        check_name = values(check_name),
+        checker = values(checker),
+        check_date = values(check_date),
+        year = values(year),
+        month = values(month),
+        start_date = values(start_date),
+        end_date = values(end_date),
+        check_type = values(check_type),
+        checker_id = values(checker_id),
+        checker_name = values(checker_name),
+        checker_time = values(checker_time),
+        create_id = values(create_id),
+        create_name = values(create_name),
+        create_time = values(create_time),
+        update_id = values(update_id),
+        update_name = values(update_name),
+        update_time = values(update_time),
+        remark = values(remark),
+        is_valid = values(is_valid),
+        company_id = values(company_id),
+        company_code = values(company_code),
+        company_name = values(company_name),
+        is_lock = values(is_lock),
+        state = values(state),
+        check_state = values(check_state),
+        check_posting_date = values(check_posting_date),
+        check_account_date = values(check_account_date),
+        stock_place_id = values(stock_place_id),
+        stock_place_code = values(stock_place_code),
+        stock_place_name = values(stock_place_name),
+        sap_id = values(sap_id),
+        sap_code = values(sap_code)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update mes_wms_stockcheck
+        <set>
+            <if test="stockId != null">
+                stock_id = #{stockId},
+            </if>
+            <if test="stockCode != null and stockCode != ''">
+                stock_code = #{stockCode},
+            </if>
+            <if test="stockName != null and stockName != ''">
+                stock_name = #{stockName},
+            </if>
+            <if test="checkCode != null and checkCode != ''">
+                check_code = #{checkCode},
+            </if>
+            <if test="checkName != null and checkName != ''">
+                check_name = #{checkName},
+            </if>
+            <if test="checker != null and checker != ''">
+                checker = #{checker},
+            </if>
+            <if test="checkDate != null and checkDate != ''">
+                check_date = #{checkDate},
+            </if>
+            <if test="year != null and year != ''">
+                year = #{year},
+            </if>
+            <if test="month != null and month != ''">
+                month = #{month},
+            </if>
+            <if test="startDate != null">
+                start_date = #{startDate},
+            </if>
+            <if test="endDate != null">
+                end_date = #{endDate},
+            </if>
+            <if test="checkType != null and checkType != ''">
+                check_type = #{checkType},
+            </if>
+            <if test="checkerId != null">
+                checker_id = #{checkerId},
+            </if>
+            <if test="checkerName != null and checkerName != ''">
+                checker_name = #{checkerName},
+            </if>
+            <if test="checkerTime != null">
+                checker_time = #{checkerTime},
+            </if>
+            <if test="createId != null">
+                create_id = #{createId},
+            </if>
+            <if test="createName != null and createName != ''">
+                create_name = #{createName},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateId != null">
+                update_id = #{updateId},
+            </if>
+            <if test="updateName != null and updateName != ''">
+                update_name = #{updateName},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="isValid != null and isValid != ''">
+                is_valid = #{isValid},
+            </if>
+            <if test="companyId != null">
+                company_id = #{companyId},
+            </if>
+            <if test="companyCode != null and companyCode != ''">
+                company_code = #{companyCode},
+            </if>
+            <if test="companyName != null and companyName != ''">
+                company_name = #{companyName},
+            </if>
+            <if test="isLock != null and isLock != ''">
+                is_lock = #{isLock},
+            </if>
+            <if test="state != null and state != ''">
+                state = #{state},
+            </if>
+            <if test="checkState != null and checkState != ''">
+                check_state = #{checkState},
+            </if>
+            <if test="checkPostingDate != null and checkPostingDate != ''">
+                check_posting_date = #{checkPostingDate},
+            </if>
+            <if test="checkAccountDate != null and checkAccountDate != ''">
+                check_account_date = #{checkAccountDate},
+            </if>
+            <if test="stockPlaceId != null">
+                stock_place_id = #{stockPlaceId},
+            </if>
+            <if test="stockPlaceCode != null and stockPlaceCode != ''">
+                stock_place_code = #{stockPlaceCode},
+            </if>
+            <if test="stockPlaceName != null and stockPlaceName != ''">
+                stock_place_name = #{stockPlaceName},
+            </if>
+            <if test="sapId != null">
+                sap_id = #{sapId},
+            </if>
+            <if test="sapCode != null and sapCode != ''">
+                sap_code = #{sapCode},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    
+    <!--通过主键修改数据-->
+    <update id="edit">
+        update mes_wms_stockcheck
+        <set>
+           stock_id = #{stockId},
+           stock_code = #{stockCode},
+           stock_name = #{stockName},
+           check_code = #{checkCode},
+           check_name = #{checkName},
+           checker = #{checker},
+           check_date = #{checkDate},
+           year = #{year},
+           month = #{month},
+           start_date = #{startDate},
+           end_date = #{endDate},
+           check_type = #{checkType},
+           checker_id = #{checkerId},
+           checker_name = #{checkerName},
+           checker_time = #{checkerTime},
+           create_id = #{createId},
+           create_name = #{createName},
+           create_time = #{createTime},
+           update_id = #{updateId},
+           update_name = #{updateName},
+           update_time = #{updateTime},
+           remark = #{remark},
+           is_valid = #{isValid},
+           company_id = #{companyId},
+           company_code = #{companyCode},
+           company_name = #{companyName},
+           is_lock = #{isLock},
+           state = #{state},
+           check_state = #{checkState},
+           check_posting_date = #{checkPostingDate},
+           check_account_date = #{checkAccountDate},
+           stock_place_id = #{stockPlaceId},
+           stock_place_code = #{stockPlaceCode},
+           stock_place_name = #{stockPlaceName},
+           sap_id = #{sapId},
+           sap_code = #{sapCode},
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from mes_wms_stockcheck where id = #{id}
+    </delete>
+    
+    <!--通过主键逻辑删除-->
+    <delete id="updateById">
+        update mes_wms_stockcheck set is_valid = '0' where id = #{id}
+    </delete>
+
+</mapper>
+

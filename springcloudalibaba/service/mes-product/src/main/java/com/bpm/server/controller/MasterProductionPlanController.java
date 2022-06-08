@@ -9,14 +9,12 @@ import com.bpm.common.util.ResultUtil;
 import com.bpm.common.vo.MasterProductionPlanVO;
 import com.bpm.common.vo.PageInfoVO;
 import com.bpm.common.vo.ResultVO;
-import com.bpm.purchase.client.PurchaseClient;
 import com.bpm.server.service.MasterProductionPlanService;
 import com.github.xiaoymin.knife4j.annotations.ApiSupport;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.collections4.CollectionUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -38,8 +36,8 @@ public class MasterProductionPlanController {
     @Resource
     private MasterProductionPlanService masterProductionPlanService;
 
-    @Autowired
-    private PurchaseClient purchaseClient;
+//    @Autowired
+//    private PurchaseClient purchaseClient;
    
      /**
      * 条件查询 主生产计划

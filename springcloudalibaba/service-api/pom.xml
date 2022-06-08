@@ -22,6 +22,8 @@
 
     <modules>
         <module>mes-product-api</module>
+        <module>mes-stock-api</module>
+        <module>mes-purchase-api</module>
     </modules>
 <!--    <dependencies>-->
 <!--        <dependency>-->

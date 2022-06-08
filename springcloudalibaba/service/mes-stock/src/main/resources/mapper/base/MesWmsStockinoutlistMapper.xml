@@ -1,0 +1,1281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bpm.mes.stock.server.mapper.base.MesWmsStockinoutlistMapper">
+
+      <sql id="Base_Column_List">
+         id, stock_in_out_id, material_id, material_code, material_short_name, material_spec, units_id, units_name, stock_id, stock_code, stock_name, import_qty, f_pallet, f_finished, f_count, stock_qty, invoice_qty, sup_statement_list_id, sup_statement_id, verification_state, back_qty, price, amount, tax_rate, tax_amount, tax_price, all_amount, k_f_period, k_f_date, period_date, contract_id, contract_code, contract_list_id, source_type, source_id, source_code, source_list_id, order_id, order_code, order_list_id, task_id, task_code, task_list_id, sale_apply_invoice_id, sale_apply_invoice_list_id, e_r_p_spe_stock, e_r_p_of_object, checker_id, checker_name, checker_time, line_numbe, organization_id, organization_code, organization_name, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid, company_id, company_code, company_name, in_batch_no, batch_no, stock_place_id, stock_place_code, stock_place_name, bar_code, status, buy_accept_list_id, suppliar_id, suppliar_code, suppliar_name, work_report_code, work_report_id, work_report_time     
+      </sql>
+      
+      <sql id="query_List">
+                  xxx.id AS id,
+         xxx.stock_in_out_id AS stockInOutId,
+         xxx.material_id AS materialId,
+         xxx.material_code AS materialCode,
+         xxx.material_short_name AS materialShortName,
+         xxx.material_spec AS materialSpec,
+         xxx.units_id AS unitsId,
+         xxx.units_name AS unitsName,
+         xxx.stock_id AS stockId,
+         xxx.stock_code AS stockCode,
+         xxx.stock_name AS stockName,
+         xxx.import_qty AS importQty,
+         xxx.f_pallet AS fPallet,
+         xxx.f_finished AS fFinished,
+         xxx.f_count AS fCount,
+         xxx.stock_qty AS stockQty,
+         xxx.invoice_qty AS invoiceQty,
+         xxx.sup_statement_list_id AS supStatementListId,
+         xxx.sup_statement_id AS supStatementId,
+         xxx.verification_state AS verificationState,
+         xxx.back_qty AS backQty,
+         xxx.price AS price,
+         xxx.amount AS amount,
+         xxx.tax_rate AS taxRate,
+         xxx.tax_amount AS taxAmount,
+         xxx.tax_price AS taxPrice,
+         xxx.all_amount AS allAmount,
+         xxx.k_f_period AS kFPeriod,
+         xxx.k_f_date AS kFDate,
+         xxx.period_date AS periodDate,
+         xxx.contract_id AS contractId,
+         xxx.contract_code AS contractCode,
+         xxx.contract_list_id AS contractListId,
+         xxx.source_type AS sourceType,
+         xxx.source_id AS sourceId,
+         xxx.source_code AS sourceCode,
+         xxx.source_list_id AS sourceListId,
+         xxx.order_id AS orderId,
+         xxx.order_code AS orderCode,
+         xxx.order_list_id AS orderListId,
+         xxx.task_id AS taskId,
+         xxx.task_code AS taskCode,
+         xxx.task_list_id AS taskListId,
+         xxx.sale_apply_invoice_id AS saleApplyInvoiceId,
+         xxx.sale_apply_invoice_list_id AS saleApplyInvoiceListId,
+         xxx.e_r_p_spe_stock AS eRPSpeStock,
+         xxx.e_r_p_of_object AS eRPOfObject,
+         xxx.checker_id AS checkerId,
+         xxx.checker_name AS checkerName,
+         xxx.checker_time AS checkerTime,
+         xxx.line_numbe AS lineNumbe,
+         xxx.organization_id AS organizationId,
+         xxx.organization_code AS organizationCode,
+         xxx.organization_name AS organizationName,
+         xxx.create_id AS createId,
+         xxx.create_name AS createName,
+         xxx.create_time AS createTime,
+         xxx.update_id AS updateId,
+         xxx.update_name AS updateName,
+         xxx.update_time AS updateTime,
+         xxx.remark AS remark,
+         xxx.is_valid AS isValid,
+         xxx.company_id AS companyId,
+         xxx.company_code AS companyCode,
+         xxx.company_name AS companyName,
+         xxx.in_batch_no AS inBatchNo,
+         xxx.batch_no AS batchNo,
+         xxx.stock_place_id AS stockPlaceId,
+         xxx.stock_place_code AS stockPlaceCode,
+         xxx.stock_place_name AS stockPlaceName,
+         xxx.bar_code AS barCode,
+         xxx.status AS status,
+         xxx.buy_accept_list_id AS buyAcceptListId,
+         xxx.suppliar_id AS suppliarId,
+         xxx.suppliar_code AS suppliarCode,
+         xxx.suppliar_name AS suppliarName,
+         xxx.work_report_code AS workReportCode,
+         xxx.work_report_id AS workReportId,
+         xxx.work_report_time AS workReportTime,
+      </sql>
+
+    <resultMap type="com.bpm.mes.stock.server.domain.MesWmsStockinoutlist" id="MesWmsStockinoutlistMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="stockInOutId" column="stock_in_out_id" jdbcType="INTEGER"/>
+        <result property="materialId" column="material_id" jdbcType="INTEGER"/>
+        <result property="materialCode" column="material_code" jdbcType="VARCHAR"/>
+        <result property="materialShortName" column="material_short_name" jdbcType="VARCHAR"/>
+        <result property="materialSpec" column="material_spec" jdbcType="VARCHAR"/>
+        <result property="unitsId" column="units_id" jdbcType="INTEGER"/>
+        <result property="unitsName" column="units_name" jdbcType="VARCHAR"/>
+        <result property="stockId" column="stock_id" jdbcType="INTEGER"/>
+        <result property="stockCode" column="stock_code" jdbcType="VARCHAR"/>
+        <result property="stockName" column="stock_name" jdbcType="VARCHAR"/>
+        <result property="importQty" column="import_qty" jdbcType="VARCHAR"/>
+        <result property="fPallet" column="f_pallet" jdbcType="VARCHAR"/>
+        <result property="fFinished" column="f_finished" jdbcType="VARCHAR"/>
+        <result property="fCount" column="f_count" jdbcType="INTEGER"/>
+        <result property="stockQty" column="stock_qty" jdbcType="VARCHAR"/>
+        <result property="invoiceQty" column="invoice_qty" jdbcType="VARCHAR"/>
+        <result property="supStatementListId" column="sup_statement_list_id" jdbcType="INTEGER"/>
+        <result property="supStatementId" column="sup_statement_id" jdbcType="INTEGER"/>
+        <result property="verificationState" column="verification_state" jdbcType="VARCHAR"/>
+        <result property="backQty" column="back_qty" jdbcType="VARCHAR"/>
+        <result property="price" column="price" jdbcType="VARCHAR"/>
+        <result property="amount" column="amount" jdbcType="VARCHAR"/>
+        <result property="taxRate" column="tax_rate" jdbcType="VARCHAR"/>
+        <result property="taxAmount" column="tax_amount" jdbcType="VARCHAR"/>
+        <result property="taxPrice" column="tax_price" jdbcType="VARCHAR"/>
+        <result property="allAmount" column="all_amount" jdbcType="VARCHAR"/>
+        <result property="kFPeriod" column="k_f_period" jdbcType="INTEGER"/>
+        <result property="kFDate" column="k_f_date" jdbcType="VARCHAR"/>
+        <result property="periodDate" column="period_date" jdbcType="VARCHAR"/>
+        <result property="contractId" column="contract_id" jdbcType="INTEGER"/>
+        <result property="contractCode" column="contract_code" jdbcType="VARCHAR"/>
+        <result property="contractListId" column="contract_list_id" jdbcType="INTEGER"/>
+        <result property="sourceType" column="source_type" jdbcType="VARCHAR"/>
+        <result property="sourceId" column="source_id" jdbcType="INTEGER"/>
+        <result property="sourceCode" column="source_code" jdbcType="VARCHAR"/>
+        <result property="sourceListId" column="source_list_id" jdbcType="INTEGER"/>
+        <result property="orderId" column="order_id" jdbcType="INTEGER"/>
+        <result property="orderCode" column="order_code" jdbcType="VARCHAR"/>
+        <result property="orderListId" column="order_list_id" jdbcType="INTEGER"/>
+        <result property="taskId" column="task_id" jdbcType="INTEGER"/>
+        <result property="taskCode" column="task_code" jdbcType="VARCHAR"/>
+        <result property="taskListId" column="task_list_id" jdbcType="INTEGER"/>
+        <result property="saleApplyInvoiceId" column="sale_apply_invoice_id" jdbcType="INTEGER"/>
+        <result property="saleApplyInvoiceListId" column="sale_apply_invoice_list_id" jdbcType="INTEGER"/>
+        <result property="eRPSpeStock" column="e_r_p_spe_stock" jdbcType="VARCHAR"/>
+        <result property="eRPOfObject" column="e_r_p_of_object" jdbcType="VARCHAR"/>
+        <result property="checkerId" column="checker_id" jdbcType="INTEGER"/>
+        <result property="checkerName" column="checker_name" jdbcType="VARCHAR"/>
+        <result property="checkerTime" column="checker_time" jdbcType="TIMESTAMP"/>
+        <result property="lineNumbe" column="line_numbe" jdbcType="VARCHAR"/>
+        <result property="organizationId" column="organization_id" jdbcType="INTEGER"/>
+        <result property="organizationCode" column="organization_code" jdbcType="VARCHAR"/>
+        <result property="organizationName" column="organization_name" jdbcType="VARCHAR"/>
+        <result property="createId" column="create_id" jdbcType="INTEGER"/>
+        <result property="createName" column="create_name" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateId" column="update_id" jdbcType="INTEGER"/>
+        <result property="updateName" column="update_name" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="isValid" column="is_valid" jdbcType="VARCHAR"/>
+        <result property="companyId" column="company_id" jdbcType="INTEGER"/>
+        <result property="companyCode" column="company_code" jdbcType="VARCHAR"/>
+        <result property="companyName" column="company_name" jdbcType="VARCHAR"/>
+        <result property="inBatchNo" column="in_batch_no" jdbcType="VARCHAR"/>
+        <result property="batchNo" column="batch_no" jdbcType="VARCHAR"/>
+        <result property="stockPlaceId" column="stock_place_id" jdbcType="INTEGER"/>
+        <result property="stockPlaceCode" column="stock_place_code" jdbcType="VARCHAR"/>
+        <result property="stockPlaceName" column="stock_place_name" jdbcType="VARCHAR"/>
+        <result property="barCode" column="bar_code" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="VARCHAR"/>
+        <result property="buyAcceptListId" column="buy_accept_list_id" jdbcType="INTEGER"/>
+        <result property="suppliarId" column="suppliar_id" jdbcType="INTEGER"/>
+        <result property="suppliarCode" column="suppliar_code" jdbcType="VARCHAR"/>
+        <result property="suppliarName" column="suppliar_name" jdbcType="VARCHAR"/>
+        <result property="workReportCode" column="work_report_code" jdbcType="VARCHAR"/>
+        <result property="workReportId" column="work_report_id" jdbcType="INTEGER"/>
+        <result property="workReportTime" column="work_report_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    
+    
+        <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="MesWmsStockinoutlistMap">
+        select
+          <include refid="Base_Column_List" />
+        from mes_wms_stockinoutlist
+        <where>
+        is_valid = '1'
+            <if test="id != null">
+                and id = #{id}                
+            </if>
+            <if test="stockInOutId != null">
+                and stock_in_out_id = #{stockInOutId}                
+            </if>
+            <if test="materialId != null">
+                and material_id = #{materialId}                
+            </if>
+            <if test="materialCode != null and materialCode != ''">
+                and material_code  like concat('%',#{materialCode},'%')                
+            </if>
+            <if test="materialShortName != null and materialShortName != ''">
+                and material_short_name  like concat('%',#{materialShortName},'%')                
+            </if>
+            <if test="materialSpec != null and materialSpec != ''">
+                and material_spec  like concat('%',#{materialSpec},'%')                
+            </if>
+            <if test="unitsId != null">
+                and units_id = #{unitsId}                
+            </if>
+            <if test="unitsName != null and unitsName != ''">
+                and units_name  like concat('%',#{unitsName},'%')                
+            </if>
+            <if test="stockId != null">
+                and stock_id = #{stockId}                
+            </if>
+            <if test="stockCode != null and stockCode != ''">
+                and stock_code  like concat('%',#{stockCode},'%')                
+            </if>
+            <if test="stockName != null and stockName != ''">
+                and stock_name  like concat('%',#{stockName},'%')                
+            </if>
+            <if test="importQty != null">
+                and import_qty                 
+            </if>
+            <if test="fPallet != null">
+                and f_pallet                 
+            </if>
+            <if test="fFinished != null">
+                and f_finished                 
+            </if>
+            <if test="fCount != null">
+                and f_count = #{fCount}                
+            </if>
+            <if test="stockQty != null">
+                and stock_qty                 
+            </if>
+            <if test="invoiceQty != null">
+                and invoice_qty                 
+            </if>
+            <if test="supStatementListId != null">
+                and sup_statement_list_id = #{supStatementListId}                
+            </if>
+            <if test="supStatementId != null">
+                and sup_statement_id = #{supStatementId}                
+            </if>
+            <if test="verificationState != null and verificationState != ''">
+                and verification_state  like concat('%',#{verificationState},'%')                
+            </if>
+            <if test="backQty != null">
+                and back_qty                 
+            </if>
+            <if test="price != null">
+                and price                 
+            </if>
+            <if test="amount != null">
+                and amount                 
+            </if>
+            <if test="taxRate != null">
+                and tax_rate                 
+            </if>
+            <if test="taxAmount != null">
+                and tax_amount                 
+            </if>
+            <if test="taxPrice != null">
+                and tax_price                 
+            </if>
+            <if test="allAmount != null">
+                and all_amount                 
+            </if>
+            <if test="kFPeriod != null">
+                and k_f_period = #{kFPeriod}                
+            </if>
+            <if test="kFDate != null and kFDate != ''">
+                and k_f_date  like concat('%',#{kFDate},'%')                
+            </if>
+            <if test="periodDate != null and periodDate != ''">
+                and period_date  like concat('%',#{periodDate},'%')                
+            </if>
+            <if test="contractId != null">
+                and contract_id = #{contractId}                
+            </if>
+            <if test="contractCode != null and contractCode != ''">
+                and contract_code  like concat('%',#{contractCode},'%')                
+            </if>
+            <if test="contractListId != null">
+                and contract_list_id = #{contractListId}                
+            </if>
+            <if test="sourceType != null and sourceType != ''">
+                and source_type  like concat('%',#{sourceType},'%')                
+            </if>
+            <if test="sourceId != null">
+                and source_id = #{sourceId}                
+            </if>
+            <if test="sourceCode != null and sourceCode != ''">
+                and source_code  like concat('%',#{sourceCode},'%')                
+            </if>
+            <if test="sourceListId != null">
+                and source_list_id = #{sourceListId}                
+            </if>
+            <if test="orderId != null">
+                and order_id = #{orderId}                
+            </if>
+            <if test="orderCode != null and orderCode != ''">
+                and order_code  like concat('%',#{orderCode},'%')                
+            </if>
+            <if test="orderListId != null">
+                and order_list_id = #{orderListId}                
+            </if>
+            <if test="taskId != null">
+                and task_id = #{taskId}                
+            </if>
+            <if test="taskCode != null and taskCode != ''">
+                and task_code  like concat('%',#{taskCode},'%')                
+            </if>
+            <if test="taskListId != null">
+                and task_list_id = #{taskListId}                
+            </if>
+            <if test="saleApplyInvoiceId != null">
+                and sale_apply_invoice_id = #{saleApplyInvoiceId}                
+            </if>
+            <if test="saleApplyInvoiceListId != null">
+                and sale_apply_invoice_list_id = #{saleApplyInvoiceListId}                
+            </if>
+            <if test="eRPSpeStock != null and eRPSpeStock != ''">
+                and e_r_p_spe_stock  like concat('%',#{eRPSpeStock},'%')                
+            </if>
+            <if test="eRPOfObject != null and eRPOfObject != ''">
+                and e_r_p_of_object  like concat('%',#{eRPOfObject},'%')                
+            </if>
+            <if test="checkerId != null">
+                and checker_id = #{checkerId}                
+            </if>
+            <if test="checkerName != null and checkerName != ''">
+                and checker_name  like concat('%',#{checkerName},'%')                
+            </if>
+            <if test="checkerTime != null">
+                and checker_time                 
+            </if>
+            <if test="lineNumbe != null and lineNumbe != ''">
+                and line_numbe  like concat('%',#{lineNumbe},'%')                
+            </if>
+            <if test="organizationId != null">
+                and organization_id = #{organizationId}                
+            </if>
+            <if test="organizationCode != null and organizationCode != ''">
+                and organization_code  like concat('%',#{organizationCode},'%')                
+            </if>
+            <if test="organizationName != null and organizationName != ''">
+                and organization_name  like concat('%',#{organizationName},'%')                
+            </if>
+            <if test="createId != null">
+                and create_id = #{createId}                
+            </if>
+            <if test="createName != null and createName != ''">
+                and create_name  like concat('%',#{createName},'%')                
+            </if>
+            <if test="createTime != null">
+                and create_time                 
+            </if>
+            <if test="updateId != null">
+                and update_id = #{updateId}                
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and update_name  like concat('%',#{updateName},'%')                
+            </if>
+            <if test="updateTime != null">
+                and update_time                 
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark  like concat('%',#{remark},'%')                
+            </if>
+            <if test="isValid != null and isValid != ''">
+                and is_valid  like concat('%',#{isValid},'%')                
+            </if>
+            <if test="companyId != null">
+                and company_id = #{companyId}                
+            </if>
+            <if test="companyCode != null and companyCode != ''">
+                and company_code  like concat('%',#{companyCode},'%')                
+            </if>
+            <if test="companyName != null and companyName != ''">
+                and company_name  like concat('%',#{companyName},'%')                
+            </if>
+            <if test="inBatchNo != null and inBatchNo != ''">
+                and in_batch_no  like concat('%',#{inBatchNo},'%')                
+            </if>
+            <if test="batchNo != null and batchNo != ''">
+                and batch_no  like concat('%',#{batchNo},'%')                
+            </if>
+            <if test="stockPlaceId != null">
+                and stock_place_id = #{stockPlaceId}                
+            </if>
+            <if test="stockPlaceCode != null and stockPlaceCode != ''">
+                and stock_place_code  like concat('%',#{stockPlaceCode},'%')                
+            </if>
+            <if test="stockPlaceName != null and stockPlaceName != ''">
+                and stock_place_name  like concat('%',#{stockPlaceName},'%')                
+            </if>
+            <if test="barCode != null and barCode != ''">
+                and bar_code  like concat('%',#{barCode},'%')                
+            </if>
+            <if test="status != null and status != ''">
+                and status  like concat('%',#{status},'%')                
+            </if>
+            <if test="buyAcceptListId != null">
+                and buy_accept_list_id = #{buyAcceptListId}                
+            </if>
+            <if test="suppliarId != null">
+                and suppliar_id = #{suppliarId}                
+            </if>
+            <if test="suppliarCode != null and suppliarCode != ''">
+                and suppliar_code  like concat('%',#{suppliarCode},'%')                
+            </if>
+            <if test="suppliarName != null and suppliarName != ''">
+                and suppliar_name  like concat('%',#{suppliarName},'%')                
+            </if>
+            <if test="workReportCode != null and workReportCode != ''">
+                and work_report_code  like concat('%',#{workReportCode},'%')                
+            </if>
+            <if test="workReportId != null">
+                and work_report_id = #{workReportId}                
+            </if>
+            <if test="workReportTime != null">
+                and work_report_time                 
+            </if>
+        </where>
+        order by id desc
+    </select>
+    
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="MesWmsStockinoutlistMap">
+        select
+          id, stock_in_out_id, material_id, material_code, material_short_name, material_spec, units_id, units_name, stock_id, stock_code, stock_name, import_qty, f_pallet, f_finished, f_count, stock_qty, invoice_qty, sup_statement_list_id, sup_statement_id, verification_state, back_qty, price, amount, tax_rate, tax_amount, tax_price, all_amount, k_f_period, k_f_date, period_date, contract_id, contract_code, contract_list_id, source_type, source_id, source_code, source_list_id, order_id, order_code, order_list_id, task_id, task_code, task_list_id, sale_apply_invoice_id, sale_apply_invoice_list_id, e_r_p_spe_stock, e_r_p_of_object, checker_id, checker_name, checker_time, line_numbe, organization_id, organization_code, organization_name, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid, company_id, company_code, company_name, in_batch_no, batch_no, stock_place_id, stock_place_code, stock_place_name, bar_code, status, buy_accept_list_id, suppliar_id, suppliar_code, suppliar_name, work_report_code, work_report_id, work_report_time
+        from mes_wms_stockinoutlist
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="MesWmsStockinoutlistMap">
+        select
+          id, stock_in_out_id, material_id, material_code, material_short_name, material_spec, units_id, units_name, stock_id, stock_code, stock_name, import_qty, f_pallet, f_finished, f_count, stock_qty, invoice_qty, sup_statement_list_id, sup_statement_id, verification_state, back_qty, price, amount, tax_rate, tax_amount, tax_price, all_amount, k_f_period, k_f_date, period_date, contract_id, contract_code, contract_list_id, source_type, source_id, source_code, source_list_id, order_id, order_code, order_list_id, task_id, task_code, task_list_id, sale_apply_invoice_id, sale_apply_invoice_list_id, e_r_p_spe_stock, e_r_p_of_object, checker_id, checker_name, checker_time, line_numbe, organization_id, organization_code, organization_name, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid, company_id, company_code, company_name, in_batch_no, batch_no, stock_place_id, stock_place_code, stock_place_name, bar_code, status, buy_accept_list_id, suppliar_id, suppliar_code, suppliar_name, work_report_code, work_report_id, work_report_time
+        from mes_wms_stockinoutlist
+        <where>
+        is_valid = '1'
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="stockInOutId != null">
+                and stock_in_out_id = #{stockInOutId}
+            </if>
+            <if test="materialId != null">
+                and material_id = #{materialId}
+            </if>
+            <if test="materialCode != null and materialCode != ''">
+                and material_code = #{materialCode}
+            </if>
+            <if test="materialShortName != null and materialShortName != ''">
+                and material_short_name = #{materialShortName}
+            </if>
+            <if test="materialSpec != null and materialSpec != ''">
+                and material_spec = #{materialSpec}
+            </if>
+            <if test="unitsId != null">
+                and units_id = #{unitsId}
+            </if>
+            <if test="unitsName != null and unitsName != ''">
+                and units_name = #{unitsName}
+            </if>
+            <if test="stockId != null">
+                and stock_id = #{stockId}
+            </if>
+            <if test="stockCode != null and stockCode != ''">
+                and stock_code = #{stockCode}
+            </if>
+            <if test="stockName != null and stockName != ''">
+                and stock_name = #{stockName}
+            </if>
+            <if test="importQty != null">
+                and import_qty = #{importQty}
+            </if>
+            <if test="fPallet != null">
+                and f_pallet = #{fPallet}
+            </if>
+            <if test="fFinished != null">
+                and f_finished = #{fFinished}
+            </if>
+            <if test="fCount != null">
+                and f_count = #{fCount}
+            </if>
+            <if test="stockQty != null">
+                and stock_qty = #{stockQty}
+            </if>
+            <if test="invoiceQty != null">
+                and invoice_qty = #{invoiceQty}
+            </if>
+            <if test="supStatementListId != null">
+                and sup_statement_list_id = #{supStatementListId}
+            </if>
+            <if test="supStatementId != null">
+                and sup_statement_id = #{supStatementId}
+            </if>
+            <if test="verificationState != null and verificationState != ''">
+                and verification_state = #{verificationState}
+            </if>
+            <if test="backQty != null">
+                and back_qty = #{backQty}
+            </if>
+            <if test="price != null">
+                and price = #{price}
+            </if>
+            <if test="amount != null">
+                and amount = #{amount}
+            </if>
+            <if test="taxRate != null">
+                and tax_rate = #{taxRate}
+            </if>
+            <if test="taxAmount != null">
+                and tax_amount = #{taxAmount}
+            </if>
+            <if test="taxPrice != null">
+                and tax_price = #{taxPrice}
+            </if>
+            <if test="allAmount != null">
+                and all_amount = #{allAmount}
+            </if>
+            <if test="kFPeriod != null">
+                and k_f_period = #{kFPeriod}
+            </if>
+            <if test="kFDate != null and kFDate != ''">
+                and k_f_date = #{kFDate}
+            </if>
+            <if test="periodDate != null and periodDate != ''">
+                and period_date = #{periodDate}
+            </if>
+            <if test="contractId != null">
+                and contract_id = #{contractId}
+            </if>
+            <if test="contractCode != null and contractCode != ''">
+                and contract_code = #{contractCode}
+            </if>
+            <if test="contractListId != null">
+                and contract_list_id = #{contractListId}
+            </if>
+            <if test="sourceType != null and sourceType != ''">
+                and source_type = #{sourceType}
+            </if>
+            <if test="sourceId != null">
+                and source_id = #{sourceId}
+            </if>
+            <if test="sourceCode != null and sourceCode != ''">
+                and source_code = #{sourceCode}
+            </if>
+            <if test="sourceListId != null">
+                and source_list_id = #{sourceListId}
+            </if>
+            <if test="orderId != null">
+                and order_id = #{orderId}
+            </if>
+            <if test="orderCode != null and orderCode != ''">
+                and order_code = #{orderCode}
+            </if>
+            <if test="orderListId != null">
+                and order_list_id = #{orderListId}
+            </if>
+            <if test="taskId != null">
+                and task_id = #{taskId}
+            </if>
+            <if test="taskCode != null and taskCode != ''">
+                and task_code = #{taskCode}
+            </if>
+            <if test="taskListId != null">
+                and task_list_id = #{taskListId}
+            </if>
+            <if test="saleApplyInvoiceId != null">
+                and sale_apply_invoice_id = #{saleApplyInvoiceId}
+            </if>
+            <if test="saleApplyInvoiceListId != null">
+                and sale_apply_invoice_list_id = #{saleApplyInvoiceListId}
+            </if>
+            <if test="eRPSpeStock != null and eRPSpeStock != ''">
+                and e_r_p_spe_stock = #{eRPSpeStock}
+            </if>
+            <if test="eRPOfObject != null and eRPOfObject != ''">
+                and e_r_p_of_object = #{eRPOfObject}
+            </if>
+            <if test="checkerId != null">
+                and checker_id = #{checkerId}
+            </if>
+            <if test="checkerName != null and checkerName != ''">
+                and checker_name = #{checkerName}
+            </if>
+            <if test="checkerTime != null">
+                and checker_time = #{checkerTime}
+            </if>
+            <if test="lineNumbe != null and lineNumbe != ''">
+                and line_numbe = #{lineNumbe}
+            </if>
+            <if test="organizationId != null">
+                and organization_id = #{organizationId}
+            </if>
+            <if test="organizationCode != null and organizationCode != ''">
+                and organization_code = #{organizationCode}
+            </if>
+            <if test="organizationName != null and organizationName != ''">
+                and organization_name = #{organizationName}
+            </if>
+            <if test="createId != null">
+                and create_id = #{createId}
+            </if>
+            <if test="createName != null and createName != ''">
+                and create_name = #{createName}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateId != null">
+                and update_id = #{updateId}
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and update_name = #{updateName}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="isValid != null and isValid != ''">
+                and is_valid = #{isValid}
+            </if>
+            <if test="companyId != null">
+                and company_id = #{companyId}
+            </if>
+            <if test="companyCode != null and companyCode != ''">
+                and company_code = #{companyCode}
+            </if>
+            <if test="companyName != null and companyName != ''">
+                and company_name = #{companyName}
+            </if>
+            <if test="inBatchNo != null and inBatchNo != ''">
+                and in_batch_no = #{inBatchNo}
+            </if>
+            <if test="batchNo != null and batchNo != ''">
+                and batch_no = #{batchNo}
+            </if>
+            <if test="stockPlaceId != null">
+                and stock_place_id = #{stockPlaceId}
+            </if>
+            <if test="stockPlaceCode != null and stockPlaceCode != ''">
+                and stock_place_code = #{stockPlaceCode}
+            </if>
+            <if test="stockPlaceName != null and stockPlaceName != ''">
+                and stock_place_name = #{stockPlaceName}
+            </if>
+            <if test="barCode != null and barCode != ''">
+                and bar_code = #{barCode}
+            </if>
+            <if test="status != null and status != ''">
+                and status = #{status}
+            </if>
+            <if test="buyAcceptListId != null">
+                and buy_accept_list_id = #{buyAcceptListId}
+            </if>
+            <if test="suppliarId != null">
+                and suppliar_id = #{suppliarId}
+            </if>
+            <if test="suppliarCode != null and suppliarCode != ''">
+                and suppliar_code = #{suppliarCode}
+            </if>
+            <if test="suppliarName != null and suppliarName != ''">
+                and suppliar_name = #{suppliarName}
+            </if>
+            <if test="workReportCode != null and workReportCode != ''">
+                and work_report_code = #{workReportCode}
+            </if>
+            <if test="workReportId != null">
+                and work_report_id = #{workReportId}
+            </if>
+            <if test="workReportTime != null">
+                and work_report_time = #{workReportTime}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+    
+    
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from mes_wms_stockinoutlist
+        <where>
+        is_valid = '1'
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="stockInOutId != null">
+                and stock_in_out_id = #{stockInOutId}
+            </if>
+            <if test="materialId != null">
+                and material_id = #{materialId}
+            </if>
+            <if test="materialCode != null and materialCode != ''">
+                and material_code = #{materialCode}
+            </if>
+            <if test="materialShortName != null and materialShortName != ''">
+                and material_short_name = #{materialShortName}
+            </if>
+            <if test="materialSpec != null and materialSpec != ''">
+                and material_spec = #{materialSpec}
+            </if>
+            <if test="unitsId != null">
+                and units_id = #{unitsId}
+            </if>
+            <if test="unitsName != null and unitsName != ''">
+                and units_name = #{unitsName}
+            </if>
+            <if test="stockId != null">
+                and stock_id = #{stockId}
+            </if>
+            <if test="stockCode != null and stockCode != ''">
+                and stock_code = #{stockCode}
+            </if>
+            <if test="stockName != null and stockName != ''">
+                and stock_name = #{stockName}
+            </if>
+            <if test="importQty != null">
+                and import_qty = #{importQty}
+            </if>
+            <if test="fPallet != null">
+                and f_pallet = #{fPallet}
+            </if>
+            <if test="fFinished != null">
+                and f_finished = #{fFinished}
+            </if>
+            <if test="fCount != null">
+                and f_count = #{fCount}
+            </if>
+            <if test="stockQty != null">
+                and stock_qty = #{stockQty}
+            </if>
+            <if test="invoiceQty != null">
+                and invoice_qty = #{invoiceQty}
+            </if>
+            <if test="supStatementListId != null">
+                and sup_statement_list_id = #{supStatementListId}
+            </if>
+            <if test="supStatementId != null">
+                and sup_statement_id = #{supStatementId}
+            </if>
+            <if test="verificationState != null and verificationState != ''">
+                and verification_state = #{verificationState}
+            </if>
+            <if test="backQty != null">
+                and back_qty = #{backQty}
+            </if>
+            <if test="price != null">
+                and price = #{price}
+            </if>
+            <if test="amount != null">
+                and amount = #{amount}
+            </if>
+            <if test="taxRate != null">
+                and tax_rate = #{taxRate}
+            </if>
+            <if test="taxAmount != null">
+                and tax_amount = #{taxAmount}
+            </if>
+            <if test="taxPrice != null">
+                and tax_price = #{taxPrice}
+            </if>
+            <if test="allAmount != null">
+                and all_amount = #{allAmount}
+            </if>
+            <if test="kFPeriod != null">
+                and k_f_period = #{kFPeriod}
+            </if>
+            <if test="kFDate != null and kFDate != ''">
+                and k_f_date = #{kFDate}
+            </if>
+            <if test="periodDate != null and periodDate != ''">
+                and period_date = #{periodDate}
+            </if>
+            <if test="contractId != null">
+                and contract_id = #{contractId}
+            </if>
+            <if test="contractCode != null and contractCode != ''">
+                and contract_code = #{contractCode}
+            </if>
+            <if test="contractListId != null">
+                and contract_list_id = #{contractListId}
+            </if>
+            <if test="sourceType != null and sourceType != ''">
+                and source_type = #{sourceType}
+            </if>
+            <if test="sourceId != null">
+                and source_id = #{sourceId}
+            </if>
+            <if test="sourceCode != null and sourceCode != ''">
+                and source_code = #{sourceCode}
+            </if>
+            <if test="sourceListId != null">
+                and source_list_id = #{sourceListId}
+            </if>
+            <if test="orderId != null">
+                and order_id = #{orderId}
+            </if>
+            <if test="orderCode != null and orderCode != ''">
+                and order_code = #{orderCode}
+            </if>
+            <if test="orderListId != null">
+                and order_list_id = #{orderListId}
+            </if>
+            <if test="taskId != null">
+                and task_id = #{taskId}
+            </if>
+            <if test="taskCode != null and taskCode != ''">
+                and task_code = #{taskCode}
+            </if>
+            <if test="taskListId != null">
+                and task_list_id = #{taskListId}
+            </if>
+            <if test="saleApplyInvoiceId != null">
+                and sale_apply_invoice_id = #{saleApplyInvoiceId}
+            </if>
+            <if test="saleApplyInvoiceListId != null">
+                and sale_apply_invoice_list_id = #{saleApplyInvoiceListId}
+            </if>
+            <if test="eRPSpeStock != null and eRPSpeStock != ''">
+                and e_r_p_spe_stock = #{eRPSpeStock}
+            </if>
+            <if test="eRPOfObject != null and eRPOfObject != ''">
+                and e_r_p_of_object = #{eRPOfObject}
+            </if>
+            <if test="checkerId != null">
+                and checker_id = #{checkerId}
+            </if>
+            <if test="checkerName != null and checkerName != ''">
+                and checker_name = #{checkerName}
+            </if>
+            <if test="checkerTime != null">
+                and checker_time = #{checkerTime}
+            </if>
+            <if test="lineNumbe != null and lineNumbe != ''">
+                and line_numbe = #{lineNumbe}
+            </if>
+            <if test="organizationId != null">
+                and organization_id = #{organizationId}
+            </if>
+            <if test="organizationCode != null and organizationCode != ''">
+                and organization_code = #{organizationCode}
+            </if>
+            <if test="organizationName != null and organizationName != ''">
+                and organization_name = #{organizationName}
+            </if>
+            <if test="createId != null">
+                and create_id = #{createId}
+            </if>
+            <if test="createName != null and createName != ''">
+                and create_name = #{createName}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateId != null">
+                and update_id = #{updateId}
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and update_name = #{updateName}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="isValid != null and isValid != ''">
+                and is_valid = #{isValid}
+            </if>
+            <if test="companyId != null">
+                and company_id = #{companyId}
+            </if>
+            <if test="companyCode != null and companyCode != ''">
+                and company_code = #{companyCode}
+            </if>
+            <if test="companyName != null and companyName != ''">
+                and company_name = #{companyName}
+            </if>
+            <if test="inBatchNo != null and inBatchNo != ''">
+                and in_batch_no = #{inBatchNo}
+            </if>
+            <if test="batchNo != null and batchNo != ''">
+                and batch_no = #{batchNo}
+            </if>
+            <if test="stockPlaceId != null">
+                and stock_place_id = #{stockPlaceId}
+            </if>
+            <if test="stockPlaceCode != null and stockPlaceCode != ''">
+                and stock_place_code = #{stockPlaceCode}
+            </if>
+            <if test="stockPlaceName != null and stockPlaceName != ''">
+                and stock_place_name = #{stockPlaceName}
+            </if>
+            <if test="barCode != null and barCode != ''">
+                and bar_code = #{barCode}
+            </if>
+            <if test="status != null and status != ''">
+                and status = #{status}
+            </if>
+            <if test="buyAcceptListId != null">
+                and buy_accept_list_id = #{buyAcceptListId}
+            </if>
+            <if test="suppliarId != null">
+                and suppliar_id = #{suppliarId}
+            </if>
+            <if test="suppliarCode != null and suppliarCode != ''">
+                and suppliar_code = #{suppliarCode}
+            </if>
+            <if test="suppliarName != null and suppliarName != ''">
+                and suppliar_name = #{suppliarName}
+            </if>
+            <if test="workReportCode != null and workReportCode != ''">
+                and work_report_code = #{workReportCode}
+            </if>
+            <if test="workReportId != null">
+                and work_report_id = #{workReportId}
+            </if>
+            <if test="workReportTime != null">
+                and work_report_time = #{workReportTime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_wms_stockinoutlist(stock_in_out_id, material_id, material_code, material_short_name, material_spec, units_id, units_name, stock_id, stock_code, stock_name, import_qty, f_pallet, f_finished, f_count, stock_qty, invoice_qty, sup_statement_list_id, sup_statement_id, verification_state, back_qty, price, amount, tax_rate, tax_amount, tax_price, all_amount, k_f_period, k_f_date, period_date, contract_id, contract_code, contract_list_id, source_type, source_id, source_code, source_list_id, order_id, order_code, order_list_id, task_id, task_code, task_list_id, sale_apply_invoice_id, sale_apply_invoice_list_id, e_r_p_spe_stock, e_r_p_of_object, checker_id, checker_name, checker_time, line_numbe, organization_id, organization_code, organization_name, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid, company_id, company_code, company_name, in_batch_no, batch_no, stock_place_id, stock_place_code, stock_place_name, bar_code, status, buy_accept_list_id, suppliar_id, suppliar_code, suppliar_name, work_report_code, work_report_id, work_report_time)
+        values (#{stockInOutId}, #{materialId}, #{materialCode}, #{materialShortName}, #{materialSpec}, #{unitsId}, #{unitsName}, #{stockId}, #{stockCode}, #{stockName}, #{importQty}, #{fPallet}, #{fFinished}, #{fCount}, #{stockQty}, #{invoiceQty}, #{supStatementListId}, #{supStatementId}, #{verificationState}, #{backQty}, #{price}, #{amount}, #{taxRate}, #{taxAmount}, #{taxPrice}, #{allAmount}, #{kFPeriod}, #{kFDate}, #{periodDate}, #{contractId}, #{contractCode}, #{contractListId}, #{sourceType}, #{sourceId}, #{sourceCode}, #{sourceListId}, #{orderId}, #{orderCode}, #{orderListId}, #{taskId}, #{taskCode}, #{taskListId}, #{saleApplyInvoiceId}, #{saleApplyInvoiceListId}, #{eRPSpeStock}, #{eRPOfObject}, #{checkerId}, #{checkerName}, #{checkerTime}, #{lineNumbe}, #{organizationId}, #{organizationCode}, #{organizationName}, #{createId}, #{createName}, #{createTime}, #{updateId}, #{updateName}, #{updateTime}, #{remark}, #{isValid}, #{companyId}, #{companyCode}, #{companyName}, #{inBatchNo}, #{batchNo}, #{stockPlaceId}, #{stockPlaceCode}, #{stockPlaceName}, #{barCode}, #{status}, #{buyAcceptListId}, #{suppliarId}, #{suppliarCode}, #{suppliarName}, #{workReportCode}, #{workReportId}, #{workReportTime})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_wms_stockinoutlist(stock_in_out_id, material_id, material_code, material_short_name, material_spec, units_id, units_name, stock_id, stock_code, stock_name, import_qty, f_pallet, f_finished, f_count, stock_qty, invoice_qty, sup_statement_list_id, sup_statement_id, verification_state, back_qty, price, amount, tax_rate, tax_amount, tax_price, all_amount, k_f_period, k_f_date, period_date, contract_id, contract_code, contract_list_id, source_type, source_id, source_code, source_list_id, order_id, order_code, order_list_id, task_id, task_code, task_list_id, sale_apply_invoice_id, sale_apply_invoice_list_id, e_r_p_spe_stock, e_r_p_of_object, checker_id, checker_name, checker_time, line_numbe, organization_id, organization_code, organization_name, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid, company_id, company_code, company_name, in_batch_no, batch_no, stock_place_id, stock_place_code, stock_place_name, bar_code, status, buy_accept_list_id, suppliar_id, suppliar_code, suppliar_name, work_report_code, work_report_id, work_report_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.stockInOutId}, #{entity.materialId}, #{entity.materialCode}, #{entity.materialShortName}, #{entity.materialSpec}, #{entity.unitsId}, #{entity.unitsName}, #{entity.stockId}, #{entity.stockCode}, #{entity.stockName}, #{entity.importQty}, #{entity.fPallet}, #{entity.fFinished}, #{entity.fCount}, #{entity.stockQty}, #{entity.invoiceQty}, #{entity.supStatementListId}, #{entity.supStatementId}, #{entity.verificationState}, #{entity.backQty}, #{entity.price}, #{entity.amount}, #{entity.taxRate}, #{entity.taxAmount}, #{entity.taxPrice}, #{entity.allAmount}, #{entity.kFPeriod}, #{entity.kFDate}, #{entity.periodDate}, #{entity.contractId}, #{entity.contractCode}, #{entity.contractListId}, #{entity.sourceType}, #{entity.sourceId}, #{entity.sourceCode}, #{entity.sourceListId}, #{entity.orderId}, #{entity.orderCode}, #{entity.orderListId}, #{entity.taskId}, #{entity.taskCode}, #{entity.taskListId}, #{entity.saleApplyInvoiceId}, #{entity.saleApplyInvoiceListId}, #{entity.eRPSpeStock}, #{entity.eRPOfObject}, #{entity.checkerId}, #{entity.checkerName}, #{entity.checkerTime}, #{entity.lineNumbe}, #{entity.organizationId}, #{entity.organizationCode}, #{entity.organizationName}, #{entity.createId}, #{entity.createName}, #{entity.createTime}, #{entity.updateId}, #{entity.updateName}, #{entity.updateTime}, #{entity.remark}, #{entity.isValid}, #{entity.companyId}, #{entity.companyCode}, #{entity.companyName}, #{entity.inBatchNo}, #{entity.batchNo}, #{entity.stockPlaceId}, #{entity.stockPlaceCode}, #{entity.stockPlaceName}, #{entity.barCode}, #{entity.status}, #{entity.buyAcceptListId}, #{entity.suppliarId}, #{entity.suppliarCode}, #{entity.suppliarName}, #{entity.workReportCode}, #{entity.workReportId}, #{entity.workReportTime})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_wms_stockinoutlist(stock_in_out_id, material_id, material_code, material_short_name, material_spec, units_id, units_name, stock_id, stock_code, stock_name, import_qty, f_pallet, f_finished, f_count, stock_qty, invoice_qty, sup_statement_list_id, sup_statement_id, verification_state, back_qty, price, amount, tax_rate, tax_amount, tax_price, all_amount, k_f_period, k_f_date, period_date, contract_id, contract_code, contract_list_id, source_type, source_id, source_code, source_list_id, order_id, order_code, order_list_id, task_id, task_code, task_list_id, sale_apply_invoice_id, sale_apply_invoice_list_id, e_r_p_spe_stock, e_r_p_of_object, checker_id, checker_name, checker_time, line_numbe, organization_id, organization_code, organization_name, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid, company_id, company_code, company_name, in_batch_no, batch_no, stock_place_id, stock_place_code, stock_place_name, bar_code, status, buy_accept_list_id, suppliar_id, suppliar_code, suppliar_name, work_report_code, work_report_id, work_report_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.stockInOutId}, #{entity.materialId}, #{entity.materialCode}, #{entity.materialShortName}, #{entity.materialSpec}, #{entity.unitsId}, #{entity.unitsName}, #{entity.stockId}, #{entity.stockCode}, #{entity.stockName}, #{entity.importQty}, #{entity.fPallet}, #{entity.fFinished}, #{entity.fCount}, #{entity.stockQty}, #{entity.invoiceQty}, #{entity.supStatementListId}, #{entity.supStatementId}, #{entity.verificationState}, #{entity.backQty}, #{entity.price}, #{entity.amount}, #{entity.taxRate}, #{entity.taxAmount}, #{entity.taxPrice}, #{entity.allAmount}, #{entity.kFPeriod}, #{entity.kFDate}, #{entity.periodDate}, #{entity.contractId}, #{entity.contractCode}, #{entity.contractListId}, #{entity.sourceType}, #{entity.sourceId}, #{entity.sourceCode}, #{entity.sourceListId}, #{entity.orderId}, #{entity.orderCode}, #{entity.orderListId}, #{entity.taskId}, #{entity.taskCode}, #{entity.taskListId}, #{entity.saleApplyInvoiceId}, #{entity.saleApplyInvoiceListId}, #{entity.eRPSpeStock}, #{entity.eRPOfObject}, #{entity.checkerId}, #{entity.checkerName}, #{entity.checkerTime}, #{entity.lineNumbe}, #{entity.organizationId}, #{entity.organizationCode}, #{entity.organizationName}, #{entity.createId}, #{entity.createName}, #{entity.createTime}, #{entity.updateId}, #{entity.updateName}, #{entity.updateTime}, #{entity.remark}, #{entity.isValid}, #{entity.companyId}, #{entity.companyCode}, #{entity.companyName}, #{entity.inBatchNo}, #{entity.batchNo}, #{entity.stockPlaceId}, #{entity.stockPlaceCode}, #{entity.stockPlaceName}, #{entity.barCode}, #{entity.status}, #{entity.buyAcceptListId}, #{entity.suppliarId}, #{entity.suppliarCode}, #{entity.suppliarName}, #{entity.workReportCode}, #{entity.workReportId}, #{entity.workReportTime})
+        </foreach>
+        on duplicate key update
+        stock_in_out_id = values(stock_in_out_id),
+        material_id = values(material_id),
+        material_code = values(material_code),
+        material_short_name = values(material_short_name),
+        material_spec = values(material_spec),
+        units_id = values(units_id),
+        units_name = values(units_name),
+        stock_id = values(stock_id),
+        stock_code = values(stock_code),
+        stock_name = values(stock_name),
+        import_qty = values(import_qty),
+        f_pallet = values(f_pallet),
+        f_finished = values(f_finished),
+        f_count = values(f_count),
+        stock_qty = values(stock_qty),
+        invoice_qty = values(invoice_qty),
+        sup_statement_list_id = values(sup_statement_list_id),
+        sup_statement_id = values(sup_statement_id),
+        verification_state = values(verification_state),
+        back_qty = values(back_qty),
+        price = values(price),
+        amount = values(amount),
+        tax_rate = values(tax_rate),
+        tax_amount = values(tax_amount),
+        tax_price = values(tax_price),
+        all_amount = values(all_amount),
+        k_f_period = values(k_f_period),
+        k_f_date = values(k_f_date),
+        period_date = values(period_date),
+        contract_id = values(contract_id),
+        contract_code = values(contract_code),
+        contract_list_id = values(contract_list_id),
+        source_type = values(source_type),
+        source_id = values(source_id),
+        source_code = values(source_code),
+        source_list_id = values(source_list_id),
+        order_id = values(order_id),
+        order_code = values(order_code),
+        order_list_id = values(order_list_id),
+        task_id = values(task_id),
+        task_code = values(task_code),
+        task_list_id = values(task_list_id),
+        sale_apply_invoice_id = values(sale_apply_invoice_id),
+        sale_apply_invoice_list_id = values(sale_apply_invoice_list_id),
+        e_r_p_spe_stock = values(e_r_p_spe_stock),
+        e_r_p_of_object = values(e_r_p_of_object),
+        checker_id = values(checker_id),
+        checker_name = values(checker_name),
+        checker_time = values(checker_time),
+        line_numbe = values(line_numbe),
+        organization_id = values(organization_id),
+        organization_code = values(organization_code),
+        organization_name = values(organization_name),
+        create_id = values(create_id),
+        create_name = values(create_name),
+        create_time = values(create_time),
+        update_id = values(update_id),
+        update_name = values(update_name),
+        update_time = values(update_time),
+        remark = values(remark),
+        is_valid = values(is_valid),
+        company_id = values(company_id),
+        company_code = values(company_code),
+        company_name = values(company_name),
+        in_batch_no = values(in_batch_no),
+        batch_no = values(batch_no),
+        stock_place_id = values(stock_place_id),
+        stock_place_code = values(stock_place_code),
+        stock_place_name = values(stock_place_name),
+        bar_code = values(bar_code),
+        status = values(status),
+        buy_accept_list_id = values(buy_accept_list_id),
+        suppliar_id = values(suppliar_id),
+        suppliar_code = values(suppliar_code),
+        suppliar_name = values(suppliar_name),
+        work_report_code = values(work_report_code),
+        work_report_id = values(work_report_id),
+        work_report_time = values(work_report_time)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update mes_wms_stockinoutlist
+        <set>
+            <if test="stockInOutId != null">
+                stock_in_out_id = #{stockInOutId},
+            </if>
+            <if test="materialId != null">
+                material_id = #{materialId},
+            </if>
+            <if test="materialCode != null and materialCode != ''">
+                material_code = #{materialCode},
+            </if>
+            <if test="materialShortName != null and materialShortName != ''">
+                material_short_name = #{materialShortName},
+            </if>
+            <if test="materialSpec != null and materialSpec != ''">
+                material_spec = #{materialSpec},
+            </if>
+            <if test="unitsId != null">
+                units_id = #{unitsId},
+            </if>
+            <if test="unitsName != null and unitsName != ''">
+                units_name = #{unitsName},
+            </if>
+            <if test="stockId != null">
+                stock_id = #{stockId},
+            </if>
+            <if test="stockCode != null and stockCode != ''">
+                stock_code = #{stockCode},
+            </if>
+            <if test="stockName != null and stockName != ''">
+                stock_name = #{stockName},
+            </if>
+            <if test="importQty != null">
+                import_qty = #{importQty},
+            </if>
+            <if test="fPallet != null">
+                f_pallet = #{fPallet},
+            </if>
+            <if test="fFinished != null">
+                f_finished = #{fFinished},
+            </if>
+            <if test="fCount != null">
+                f_count = #{fCount},
+            </if>
+            <if test="stockQty != null">
+                stock_qty = #{stockQty},
+            </if>
+            <if test="invoiceQty != null">
+                invoice_qty = #{invoiceQty},
+            </if>
+            <if test="supStatementListId != null">
+                sup_statement_list_id = #{supStatementListId},
+            </if>
+            <if test="supStatementId != null">
+                sup_statement_id = #{supStatementId},
+            </if>
+            <if test="verificationState != null and verificationState != ''">
+                verification_state = #{verificationState},
+            </if>
+            <if test="backQty != null">
+                back_qty = #{backQty},
+            </if>
+            <if test="price != null">
+                price = #{price},
+            </if>
+            <if test="amount != null">
+                amount = #{amount},
+            </if>
+            <if test="taxRate != null">
+                tax_rate = #{taxRate},
+            </if>
+            <if test="taxAmount != null">
+                tax_amount = #{taxAmount},
+            </if>
+            <if test="taxPrice != null">
+                tax_price = #{taxPrice},
+            </if>
+            <if test="allAmount != null">
+                all_amount = #{allAmount},
+            </if>
+            <if test="kFPeriod != null">
+                k_f_period = #{kFPeriod},
+            </if>
+            <if test="kFDate != null and kFDate != ''">
+                k_f_date = #{kFDate},
+            </if>
+            <if test="periodDate != null and periodDate != ''">
+                period_date = #{periodDate},
+            </if>
+            <if test="contractId != null">
+                contract_id = #{contractId},
+            </if>
+            <if test="contractCode != null and contractCode != ''">
+                contract_code = #{contractCode},
+            </if>
+            <if test="contractListId != null">
+                contract_list_id = #{contractListId},
+            </if>
+            <if test="sourceType != null and sourceType != ''">
+                source_type = #{sourceType},
+            </if>
+            <if test="sourceId != null">
+                source_id = #{sourceId},
+            </if>
+            <if test="sourceCode != null and sourceCode != ''">
+                source_code = #{sourceCode},
+            </if>
+            <if test="sourceListId != null">
+                source_list_id = #{sourceListId},
+            </if>
+            <if test="orderId != null">
+                order_id = #{orderId},
+            </if>
+            <if test="orderCode != null and orderCode != ''">
+                order_code = #{orderCode},
+            </if>
+            <if test="orderListId != null">
+                order_list_id = #{orderListId},
+            </if>
+            <if test="taskId != null">
+                task_id = #{taskId},
+            </if>
+            <if test="taskCode != null and taskCode != ''">
+                task_code = #{taskCode},
+            </if>
+            <if test="taskListId != null">
+                task_list_id = #{taskListId},
+            </if>
+            <if test="saleApplyInvoiceId != null">
+                sale_apply_invoice_id = #{saleApplyInvoiceId},
+            </if>
+            <if test="saleApplyInvoiceListId != null">
+                sale_apply_invoice_list_id = #{saleApplyInvoiceListId},
+            </if>
+            <if test="eRPSpeStock != null and eRPSpeStock != ''">
+                e_r_p_spe_stock = #{eRPSpeStock},
+            </if>
+            <if test="eRPOfObject != null and eRPOfObject != ''">
+                e_r_p_of_object = #{eRPOfObject},
+            </if>
+            <if test="checkerId != null">
+                checker_id = #{checkerId},
+            </if>
+            <if test="checkerName != null and checkerName != ''">
+                checker_name = #{checkerName},
+            </if>
+            <if test="checkerTime != null">
+                checker_time = #{checkerTime},
+            </if>
+            <if test="lineNumbe != null and lineNumbe != ''">
+                line_numbe = #{lineNumbe},
+            </if>
+            <if test="organizationId != null">
+                organization_id = #{organizationId},
+            </if>
+            <if test="organizationCode != null and organizationCode != ''">
+                organization_code = #{organizationCode},
+            </if>
+            <if test="organizationName != null and organizationName != ''">
+                organization_name = #{organizationName},
+            </if>
+            <if test="createId != null">
+                create_id = #{createId},
+            </if>
+            <if test="createName != null and createName != ''">
+                create_name = #{createName},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateId != null">
+                update_id = #{updateId},
+            </if>
+            <if test="updateName != null and updateName != ''">
+                update_name = #{updateName},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="isValid != null and isValid != ''">
+                is_valid = #{isValid},
+            </if>
+            <if test="companyId != null">
+                company_id = #{companyId},
+            </if>
+            <if test="companyCode != null and companyCode != ''">
+                company_code = #{companyCode},
+            </if>
+            <if test="companyName != null and companyName != ''">
+                company_name = #{companyName},
+            </if>
+            <if test="inBatchNo != null and inBatchNo != ''">
+                in_batch_no = #{inBatchNo},
+            </if>
+            <if test="batchNo != null and batchNo != ''">
+                batch_no = #{batchNo},
+            </if>
+            <if test="stockPlaceId != null">
+                stock_place_id = #{stockPlaceId},
+            </if>
+            <if test="stockPlaceCode != null and stockPlaceCode != ''">
+                stock_place_code = #{stockPlaceCode},
+            </if>
+            <if test="stockPlaceName != null and stockPlaceName != ''">
+                stock_place_name = #{stockPlaceName},
+            </if>
+            <if test="barCode != null and barCode != ''">
+                bar_code = #{barCode},
+            </if>
+            <if test="status != null and status != ''">
+                status = #{status},
+            </if>
+            <if test="buyAcceptListId != null">
+                buy_accept_list_id = #{buyAcceptListId},
+            </if>
+            <if test="suppliarId != null">
+                suppliar_id = #{suppliarId},
+            </if>
+            <if test="suppliarCode != null and suppliarCode != ''">
+                suppliar_code = #{suppliarCode},
+            </if>
+            <if test="suppliarName != null and suppliarName != ''">
+                suppliar_name = #{suppliarName},
+            </if>
+            <if test="workReportCode != null and workReportCode != ''">
+                work_report_code = #{workReportCode},
+            </if>
+            <if test="workReportId != null">
+                work_report_id = #{workReportId},
+            </if>
+            <if test="workReportTime != null">
+                work_report_time = #{workReportTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from mes_wms_stockinoutlist where id = #{id}
+    </delete>
+    
+    <!--通过主键逻辑删除-->
+    <delete id="updateById">
+        update mes_wms_stockinoutlist set is_valid = '0' where id = #{id}
+    </delete>
+
+</mapper>
+

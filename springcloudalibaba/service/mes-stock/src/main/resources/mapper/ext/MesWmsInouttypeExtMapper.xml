@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bpm.mes.stock.server.mapper.ext.MesWmsInouttypeExtMapper">
+    <select id="queryTypeCode" resultType="java.lang.String">
+        SELECT in_out_type_code AS inOutTypeCode
+        FROM mes_wms_inouttype
+        WHERE erp_bill_code = #{erpBillCode} AND is_valid = '1' AND date_format(create_time,'%Y-%m-%d') = date_format(now(),'%Y-%m-%d')
+        ORDER BY "id" DESC LIMIT 1
+    </select>
+    <select id="queryAll" resultType="com.bpm.mes.stock.server.domain.MesWmsInouttype">
+        SELECT
+            it."id",
+            it.in_out_type_code AS inOutTypeCode,
+            it.in_out_type_name AS inOutTypeName,
+            it.bill_flag AS billFlag,
+            it.in_out_propert,
+            sdd.dict_value AS inOutPropert,
+            it.default_flag AS defaultFlag,
+            it.erp_id AS erpId,
+            it.erp_code AS erpCode,
+            it.erp_name AS erpName,
+            it.erp_bill_code AS erpBillCode,
+            it.is_upload AS isUpload,
+            it.organization_id AS organizationId,
+            it.organization_code AS organizationCode,
+            it.organization_name AS organizationName,
+            it.f_company_id AS fCompanyId,
+            it.f_en_code AS fEnCode,
+            it.f_short_name AS fShortName,
+            it.create_id AS createId,
+            it.create_name AS createName,
+            it.create_time AS createTime,
+            it.update_id AS updateId,
+            it.update_name AS updateName,
+            it.update_time AS updateTime,
+            it.remark AS remark,
+            it.is_valid AS isValid
+        FROM
+            mes_wms_inouttype it
+                LEFT JOIN sys_dict_data sdd ON sdd.dict_label = it.in_out_propert
+                AND sdd.status = '1'
+                AND sdd.dict_type = 'in_out_propert'
+        WHERE it.is_valid = '1'
+        <if test="inOutTypeCode != null and inOutTypeCode != ''">
+            and it.in_out_type_code  like concat('%',#{inOutTypeCode},'%')
+        </if>
+        <if test="inOutTypeName != null and inOutTypeName != ''">
+            and it.in_out_type_name  like concat('%',#{inOutTypeName},'%')
+        </if>
+        order by it.id desc
+    </select>
+</mapper>

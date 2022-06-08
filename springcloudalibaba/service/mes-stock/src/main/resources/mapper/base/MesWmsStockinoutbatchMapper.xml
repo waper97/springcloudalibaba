@@ -1,0 +1,936 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bpm.mes.stock.server.mapper.base.MesWmsStockinoutbatchMapper">
+
+      <sql id="Base_Column_List">
+         id, stock_in_out_id, stock_in_out_code, stock_in_out_detail_id, stock_id, stock_code, stock_name, allot_id, stock_place_id, stock_place_code, stock_place_name, tray_id, tray_code, material_id, material_code, material_short_name, material_spec, units_id, units_name, bar_code, in_batch_no, batch_no, qty, k_f_period, k_f_date, period_date, suppliar_id, suppliar_code, suppliar_name, source_code, stock_in_id, stock_in_code, stock_in_list_id, state, picking_state, car_num, client_id, is_car, buy_apply_invoice_id, buy_apply_invoice_list_id, organization_id, organization_code, organization_name, f_company_id, f_en_code, f_short_name, client_code, client_name, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid     
+      </sql>
+      
+      <sql id="query_List">
+                  xxx.id AS id,
+         xxx.stock_in_out_id AS stockInOutId,
+         xxx.stock_in_out_code AS stockInOutCode,
+         xxx.stock_in_out_detail_id AS stockInOutDetailId,
+         xxx.stock_id AS stockId,
+         xxx.stock_code AS stockCode,
+         xxx.stock_name AS stockName,
+         xxx.allot_id AS allotId,
+         xxx.stock_place_id AS stockPlaceId,
+         xxx.stock_place_code AS stockPlaceCode,
+         xxx.stock_place_name AS stockPlaceName,
+         xxx.tray_id AS trayId,
+         xxx.tray_code AS trayCode,
+         xxx.material_id AS materialId,
+         xxx.material_code AS materialCode,
+         xxx.material_short_name AS materialShortName,
+         xxx.material_spec AS materialSpec,
+         xxx.units_id AS unitsId,
+         xxx.units_name AS unitsName,
+         xxx.bar_code AS barCode,
+         xxx.in_batch_no AS inBatchNo,
+         xxx.batch_no AS batchNo,
+         xxx.qty AS qty,
+         xxx.k_f_period AS kFPeriod,
+         xxx.k_f_date AS kFDate,
+         xxx.period_date AS periodDate,
+         xxx.suppliar_id AS suppliarId,
+         xxx.suppliar_code AS suppliarCode,
+         xxx.suppliar_name AS suppliarName,
+         xxx.source_code AS sourceCode,
+         xxx.stock_in_id AS stockInId,
+         xxx.stock_in_code AS stockInCode,
+         xxx.stock_in_list_id AS stockInListId,
+         xxx.state AS state,
+         xxx.picking_state AS pickingState,
+         xxx.car_num AS carNum,
+         xxx.client_id AS clientId,
+         xxx.is_car AS isCar,
+         xxx.buy_apply_invoice_id AS buyApplyInvoiceId,
+         xxx.buy_apply_invoice_list_id AS buyApplyInvoiceListId,
+         xxx.organization_id AS organizationId,
+         xxx.organization_code AS organizationCode,
+         xxx.organization_name AS organizationName,
+         xxx.f_company_id AS fCompanyId,
+         xxx.f_en_code AS fEnCode,
+         xxx.f_short_name AS fShortName,
+         xxx.client_code AS clientCode,
+         xxx.client_name AS clientName,
+         xxx.create_id AS createId,
+         xxx.create_name AS createName,
+         xxx.create_time AS createTime,
+         xxx.update_id AS updateId,
+         xxx.update_name AS updateName,
+         xxx.update_time AS updateTime,
+         xxx.remark AS remark,
+         xxx.is_valid AS isValid,
+      </sql>
+
+    <resultMap type="com.bpm.mes.stock.server.domain.MesWmsStockinoutbatch" id="MesWmsStockinoutbatchMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="stockInOutId" column="stock_in_out_id" jdbcType="INTEGER"/>
+        <result property="stockInOutCode" column="stock_in_out_code" jdbcType="VARCHAR"/>
+        <result property="stockInOutDetailId" column="stock_in_out_detail_id" jdbcType="INTEGER"/>
+        <result property="stockId" column="stock_id" jdbcType="INTEGER"/>
+        <result property="stockCode" column="stock_code" jdbcType="VARCHAR"/>
+        <result property="stockName" column="stock_name" jdbcType="VARCHAR"/>
+        <result property="allotId" column="allot_id" jdbcType="INTEGER"/>
+        <result property="stockPlaceId" column="stock_place_id" jdbcType="INTEGER"/>
+        <result property="stockPlaceCode" column="stock_place_code" jdbcType="VARCHAR"/>
+        <result property="stockPlaceName" column="stock_place_name" jdbcType="VARCHAR"/>
+        <result property="trayId" column="tray_id" jdbcType="INTEGER"/>
+        <result property="trayCode" column="tray_code" jdbcType="VARCHAR"/>
+        <result property="materialId" column="material_id" jdbcType="INTEGER"/>
+        <result property="materialCode" column="material_code" jdbcType="VARCHAR"/>
+        <result property="materialShortName" column="material_short_name" jdbcType="VARCHAR"/>
+        <result property="materialSpec" column="material_spec" jdbcType="VARCHAR"/>
+        <result property="unitsId" column="units_id" jdbcType="INTEGER"/>
+        <result property="unitsName" column="units_name" jdbcType="VARCHAR"/>
+        <result property="barCode" column="bar_code" jdbcType="VARCHAR"/>
+        <result property="inBatchNo" column="in_batch_no" jdbcType="VARCHAR"/>
+        <result property="batchNo" column="batch_no" jdbcType="VARCHAR"/>
+        <result property="qty" column="qty" jdbcType="VARCHAR"/>
+        <result property="kFPeriod" column="k_f_period" jdbcType="INTEGER"/>
+        <result property="kFDate" column="k_f_date" jdbcType="TIMESTAMP"/>
+        <result property="periodDate" column="period_date" jdbcType="TIMESTAMP"/>
+        <result property="suppliarId" column="suppliar_id" jdbcType="INTEGER"/>
+        <result property="suppliarCode" column="suppliar_code" jdbcType="VARCHAR"/>
+        <result property="suppliarName" column="suppliar_name" jdbcType="VARCHAR"/>
+        <result property="sourceCode" column="source_code" jdbcType="VARCHAR"/>
+        <result property="stockInId" column="stock_in_id" jdbcType="INTEGER"/>
+        <result property="stockInCode" column="stock_in_code" jdbcType="VARCHAR"/>
+        <result property="stockInListId" column="stock_in_list_id" jdbcType="INTEGER"/>
+        <result property="state" column="state" jdbcType="VARCHAR"/>
+        <result property="pickingState" column="picking_state" jdbcType="VARCHAR"/>
+        <result property="carNum" column="car_num" jdbcType="VARCHAR"/>
+        <result property="clientId" column="client_id" jdbcType="INTEGER"/>
+        <result property="isCar" column="is_car" jdbcType="VARCHAR"/>
+        <result property="buyApplyInvoiceId" column="buy_apply_invoice_id" jdbcType="INTEGER"/>
+        <result property="buyApplyInvoiceListId" column="buy_apply_invoice_list_id" jdbcType="INTEGER"/>
+        <result property="organizationId" column="organization_id" jdbcType="INTEGER"/>
+        <result property="organizationCode" column="organization_code" jdbcType="VARCHAR"/>
+        <result property="organizationName" column="organization_name" jdbcType="VARCHAR"/>
+        <result property="fCompanyId" column="f_company_id" jdbcType="INTEGER"/>
+        <result property="fEnCode" column="f_en_code" jdbcType="VARCHAR"/>
+        <result property="fShortName" column="f_short_name" jdbcType="VARCHAR"/>
+        <result property="clientCode" column="client_code" jdbcType="VARCHAR"/>
+        <result property="clientName" column="client_name" jdbcType="VARCHAR"/>
+        <result property="createId" column="create_id" jdbcType="INTEGER"/>
+        <result property="createName" column="create_name" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateId" column="update_id" jdbcType="INTEGER"/>
+        <result property="updateName" column="update_name" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="isValid" column="is_valid" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+    
+        <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="MesWmsStockinoutbatchMap">
+        select
+          <include refid="Base_Column_List" />
+        from mes_wms_stockinoutbatch
+        <where>
+        is_valid = '1'
+            <if test="id != null">
+                and id = #{id}                
+            </if>
+            <if test="stockInOutId != null">
+                and stock_in_out_id = #{stockInOutId}                
+            </if>
+            <if test="stockInOutCode != null and stockInOutCode != ''">
+                and stock_in_out_code  like concat('%',#{stockInOutCode},'%')                
+            </if>
+            <if test="stockInOutDetailId != null">
+                and stock_in_out_detail_id = #{stockInOutDetailId}                
+            </if>
+            <if test="stockId != null">
+                and stock_id = #{stockId}                
+            </if>
+            <if test="stockCode != null and stockCode != ''">
+                and stock_code  like concat('%',#{stockCode},'%')                
+            </if>
+            <if test="stockName != null and stockName != ''">
+                and stock_name  like concat('%',#{stockName},'%')                
+            </if>
+            <if test="allotId != null">
+                and allot_id = #{allotId}                
+            </if>
+            <if test="stockPlaceId != null">
+                and stock_place_id = #{stockPlaceId}                
+            </if>
+            <if test="stockPlaceCode != null and stockPlaceCode != ''">
+                and stock_place_code  like concat('%',#{stockPlaceCode},'%')                
+            </if>
+            <if test="stockPlaceName != null and stockPlaceName != ''">
+                and stock_place_name  like concat('%',#{stockPlaceName},'%')                
+            </if>
+            <if test="trayId != null">
+                and tray_id = #{trayId}                
+            </if>
+            <if test="trayCode != null and trayCode != ''">
+                and tray_code  like concat('%',#{trayCode},'%')                
+            </if>
+            <if test="materialId != null">
+                and material_id = #{materialId}                
+            </if>
+            <if test="materialCode != null and materialCode != ''">
+                and material_code  like concat('%',#{materialCode},'%')                
+            </if>
+            <if test="materialShortName != null and materialShortName != ''">
+                and material_short_name  like concat('%',#{materialShortName},'%')                
+            </if>
+            <if test="materialSpec != null and materialSpec != ''">
+                and material_spec  like concat('%',#{materialSpec},'%')                
+            </if>
+            <if test="unitsId != null">
+                and units_id = #{unitsId}                
+            </if>
+            <if test="unitsName != null and unitsName != ''">
+                and units_name  like concat('%',#{unitsName},'%')                
+            </if>
+            <if test="barCode != null and barCode != ''">
+                and bar_code  like concat('%',#{barCode},'%')                
+            </if>
+            <if test="inBatchNo != null and inBatchNo != ''">
+                and in_batch_no  like concat('%',#{inBatchNo},'%')                
+            </if>
+            <if test="batchNo != null and batchNo != ''">
+                and batch_no  like concat('%',#{batchNo},'%')                
+            </if>
+            <if test="qty != null">
+                and qty                 
+            </if>
+            <if test="kFPeriod != null">
+                and k_f_period = #{kFPeriod}                
+            </if>
+            <if test="kFDate != null">
+                and k_f_date                 
+            </if>
+            <if test="periodDate != null">
+                and period_date                 
+            </if>
+            <if test="suppliarId != null">
+                and suppliar_id = #{suppliarId}                
+            </if>
+            <if test="suppliarCode != null and suppliarCode != ''">
+                and suppliar_code  like concat('%',#{suppliarCode},'%')                
+            </if>
+            <if test="suppliarName != null and suppliarName != ''">
+                and suppliar_name  like concat('%',#{suppliarName},'%')                
+            </if>
+            <if test="sourceCode != null and sourceCode != ''">
+                and source_code  like concat('%',#{sourceCode},'%')                
+            </if>
+            <if test="stockInId != null">
+                and stock_in_id = #{stockInId}                
+            </if>
+            <if test="stockInCode != null and stockInCode != ''">
+                and stock_in_code  like concat('%',#{stockInCode},'%')                
+            </if>
+            <if test="stockInListId != null">
+                and stock_in_list_id = #{stockInListId}                
+            </if>
+            <if test="state != null and state != ''">
+                and state  like concat('%',#{state},'%')                
+            </if>
+            <if test="pickingState != null and pickingState != ''">
+                and picking_state  like concat('%',#{pickingState},'%')                
+            </if>
+            <if test="carNum != null and carNum != ''">
+                and car_num  like concat('%',#{carNum},'%')                
+            </if>
+            <if test="clientId != null">
+                and client_id = #{clientId}                
+            </if>
+            <if test="isCar != null and isCar != ''">
+                and is_car  like concat('%',#{isCar},'%')                
+            </if>
+            <if test="buyApplyInvoiceId != null">
+                and buy_apply_invoice_id = #{buyApplyInvoiceId}                
+            </if>
+            <if test="buyApplyInvoiceListId != null">
+                and buy_apply_invoice_list_id = #{buyApplyInvoiceListId}                
+            </if>
+            <if test="organizationId != null">
+                and organization_id = #{organizationId}                
+            </if>
+            <if test="organizationCode != null and organizationCode != ''">
+                and organization_code  like concat('%',#{organizationCode},'%')                
+            </if>
+            <if test="organizationName != null and organizationName != ''">
+                and organization_name  like concat('%',#{organizationName},'%')                
+            </if>
+            <if test="fCompanyId != null">
+                and f_company_id = #{fCompanyId}                
+            </if>
+            <if test="fEnCode != null and fEnCode != ''">
+                and f_en_code  like concat('%',#{fEnCode},'%')                
+            </if>
+            <if test="fShortName != null and fShortName != ''">
+                and f_short_name  like concat('%',#{fShortName},'%')                
+            </if>
+            <if test="clientCode != null and clientCode != ''">
+                and client_code  like concat('%',#{clientCode},'%')                
+            </if>
+            <if test="clientName != null and clientName != ''">
+                and client_name  like concat('%',#{clientName},'%')                
+            </if>
+            <if test="createId != null">
+                and create_id = #{createId}                
+            </if>
+            <if test="createName != null and createName != ''">
+                and create_name  like concat('%',#{createName},'%')                
+            </if>
+            <if test="createTime != null">
+                and create_time                 
+            </if>
+            <if test="updateId != null">
+                and update_id = #{updateId}                
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and update_name  like concat('%',#{updateName},'%')                
+            </if>
+            <if test="updateTime != null">
+                and update_time                 
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark  like concat('%',#{remark},'%')                
+            </if>
+            <if test="isValid != null and isValid != ''">
+                and is_valid  like concat('%',#{isValid},'%')                
+            </if>
+        </where>
+        order by id desc
+    </select>
+    
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="MesWmsStockinoutbatchMap">
+        select
+          id, stock_in_out_id, stock_in_out_code, stock_in_out_detail_id, stock_id, stock_code, stock_name, allot_id, stock_place_id, stock_place_code, stock_place_name, tray_id, tray_code, material_id, material_code, material_short_name, material_spec, units_id, units_name, bar_code, in_batch_no, batch_no, qty, k_f_period, k_f_date, period_date, suppliar_id, suppliar_code, suppliar_name, source_code, stock_in_id, stock_in_code, stock_in_list_id, state, picking_state, car_num, client_id, is_car, buy_apply_invoice_id, buy_apply_invoice_list_id, organization_id, organization_code, organization_name, f_company_id, f_en_code, f_short_name, client_code, client_name, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid
+        from mes_wms_stockinoutbatch
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="MesWmsStockinoutbatchMap">
+        select
+          id, stock_in_out_id, stock_in_out_code, stock_in_out_detail_id, stock_id, stock_code, stock_name, allot_id, stock_place_id, stock_place_code, stock_place_name, tray_id, tray_code, material_id, material_code, material_short_name, material_spec, units_id, units_name, bar_code, in_batch_no, batch_no, qty, k_f_period, k_f_date, period_date, suppliar_id, suppliar_code, suppliar_name, source_code, stock_in_id, stock_in_code, stock_in_list_id, state, picking_state, car_num, client_id, is_car, buy_apply_invoice_id, buy_apply_invoice_list_id, organization_id, organization_code, organization_name, f_company_id, f_en_code, f_short_name, client_code, client_name, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid
+        from mes_wms_stockinoutbatch
+        <where>
+        is_valid = '1'
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="stockInOutId != null">
+                and stock_in_out_id = #{stockInOutId}
+            </if>
+            <if test="stockInOutCode != null and stockInOutCode != ''">
+                and stock_in_out_code = #{stockInOutCode}
+            </if>
+            <if test="stockInOutDetailId != null">
+                and stock_in_out_detail_id = #{stockInOutDetailId}
+            </if>
+            <if test="stockId != null">
+                and stock_id = #{stockId}
+            </if>
+            <if test="stockCode != null and stockCode != ''">
+                and stock_code = #{stockCode}
+            </if>
+            <if test="stockName != null and stockName != ''">
+                and stock_name = #{stockName}
+            </if>
+            <if test="allotId != null">
+                and allot_id = #{allotId}
+            </if>
+            <if test="stockPlaceId != null">
+                and stock_place_id = #{stockPlaceId}
+            </if>
+            <if test="stockPlaceCode != null and stockPlaceCode != ''">
+                and stock_place_code = #{stockPlaceCode}
+            </if>
+            <if test="stockPlaceName != null and stockPlaceName != ''">
+                and stock_place_name = #{stockPlaceName}
+            </if>
+            <if test="trayId != null">
+                and tray_id = #{trayId}
+            </if>
+            <if test="trayCode != null and trayCode != ''">
+                and tray_code = #{trayCode}
+            </if>
+            <if test="materialId != null">
+                and material_id = #{materialId}
+            </if>
+            <if test="materialCode != null and materialCode != ''">
+                and material_code = #{materialCode}
+            </if>
+            <if test="materialShortName != null and materialShortName != ''">
+                and material_short_name = #{materialShortName}
+            </if>
+            <if test="materialSpec != null and materialSpec != ''">
+                and material_spec = #{materialSpec}
+            </if>
+            <if test="unitsId != null">
+                and units_id = #{unitsId}
+            </if>
+            <if test="unitsName != null and unitsName != ''">
+                and units_name = #{unitsName}
+            </if>
+            <if test="barCode != null and barCode != ''">
+                and bar_code = #{barCode}
+            </if>
+            <if test="inBatchNo != null and inBatchNo != ''">
+                and in_batch_no = #{inBatchNo}
+            </if>
+            <if test="batchNo != null and batchNo != ''">
+                and batch_no = #{batchNo}
+            </if>
+            <if test="qty != null">
+                and qty = #{qty}
+            </if>
+            <if test="kFPeriod != null">
+                and k_f_period = #{kFPeriod}
+            </if>
+            <if test="kFDate != null">
+                and k_f_date = #{kFDate}
+            </if>
+            <if test="periodDate != null">
+                and period_date = #{periodDate}
+            </if>
+            <if test="suppliarId != null">
+                and suppliar_id = #{suppliarId}
+            </if>
+            <if test="suppliarCode != null and suppliarCode != ''">
+                and suppliar_code = #{suppliarCode}
+            </if>
+            <if test="suppliarName != null and suppliarName != ''">
+                and suppliar_name = #{suppliarName}
+            </if>
+            <if test="sourceCode != null and sourceCode != ''">
+                and source_code = #{sourceCode}
+            </if>
+            <if test="stockInId != null">
+                and stock_in_id = #{stockInId}
+            </if>
+            <if test="stockInCode != null and stockInCode != ''">
+                and stock_in_code = #{stockInCode}
+            </if>
+            <if test="stockInListId != null">
+                and stock_in_list_id = #{stockInListId}
+            </if>
+            <if test="state != null and state != ''">
+                and state = #{state}
+            </if>
+            <if test="pickingState != null and pickingState != ''">
+                and picking_state = #{pickingState}
+            </if>
+            <if test="carNum != null and carNum != ''">
+                and car_num = #{carNum}
+            </if>
+            <if test="clientId != null">
+                and client_id = #{clientId}
+            </if>
+            <if test="isCar != null and isCar != ''">
+                and is_car = #{isCar}
+            </if>
+            <if test="buyApplyInvoiceId != null">
+                and buy_apply_invoice_id = #{buyApplyInvoiceId}
+            </if>
+            <if test="buyApplyInvoiceListId != null">
+                and buy_apply_invoice_list_id = #{buyApplyInvoiceListId}
+            </if>
+            <if test="organizationId != null">
+                and organization_id = #{organizationId}
+            </if>
+            <if test="organizationCode != null and organizationCode != ''">
+                and organization_code = #{organizationCode}
+            </if>
+            <if test="organizationName != null and organizationName != ''">
+                and organization_name = #{organizationName}
+            </if>
+            <if test="fCompanyId != null">
+                and f_company_id = #{fCompanyId}
+            </if>
+            <if test="fEnCode != null and fEnCode != ''">
+                and f_en_code = #{fEnCode}
+            </if>
+            <if test="fShortName != null and fShortName != ''">
+                and f_short_name = #{fShortName}
+            </if>
+            <if test="clientCode != null and clientCode != ''">
+                and client_code = #{clientCode}
+            </if>
+            <if test="clientName != null and clientName != ''">
+                and client_name = #{clientName}
+            </if>
+            <if test="createId != null">
+                and create_id = #{createId}
+            </if>
+            <if test="createName != null and createName != ''">
+                and create_name = #{createName}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateId != null">
+                and update_id = #{updateId}
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and update_name = #{updateName}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="isValid != null and isValid != ''">
+                and is_valid = #{isValid}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+    
+    
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from mes_wms_stockinoutbatch
+        <where>
+        is_valid = '1'
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="stockInOutId != null">
+                and stock_in_out_id = #{stockInOutId}
+            </if>
+            <if test="stockInOutCode != null and stockInOutCode != ''">
+                and stock_in_out_code = #{stockInOutCode}
+            </if>
+            <if test="stockInOutDetailId != null">
+                and stock_in_out_detail_id = #{stockInOutDetailId}
+            </if>
+            <if test="stockId != null">
+                and stock_id = #{stockId}
+            </if>
+            <if test="stockCode != null and stockCode != ''">
+                and stock_code = #{stockCode}
+            </if>
+            <if test="stockName != null and stockName != ''">
+                and stock_name = #{stockName}
+            </if>
+            <if test="allotId != null">
+                and allot_id = #{allotId}
+            </if>
+            <if test="stockPlaceId != null">
+                and stock_place_id = #{stockPlaceId}
+            </if>
+            <if test="stockPlaceCode != null and stockPlaceCode != ''">
+                and stock_place_code = #{stockPlaceCode}
+            </if>
+            <if test="stockPlaceName != null and stockPlaceName != ''">
+                and stock_place_name = #{stockPlaceName}
+            </if>
+            <if test="trayId != null">
+                and tray_id = #{trayId}
+            </if>
+            <if test="trayCode != null and trayCode != ''">
+                and tray_code = #{trayCode}
+            </if>
+            <if test="materialId != null">
+                and material_id = #{materialId}
+            </if>
+            <if test="materialCode != null and materialCode != ''">
+                and material_code = #{materialCode}
+            </if>
+            <if test="materialShortName != null and materialShortName != ''">
+                and material_short_name = #{materialShortName}
+            </if>
+            <if test="materialSpec != null and materialSpec != ''">
+                and material_spec = #{materialSpec}
+            </if>
+            <if test="unitsId != null">
+                and units_id = #{unitsId}
+            </if>
+            <if test="unitsName != null and unitsName != ''">
+                and units_name = #{unitsName}
+            </if>
+            <if test="barCode != null and barCode != ''">
+                and bar_code = #{barCode}
+            </if>
+            <if test="inBatchNo != null and inBatchNo != ''">
+                and in_batch_no = #{inBatchNo}
+            </if>
+            <if test="batchNo != null and batchNo != ''">
+                and batch_no = #{batchNo}
+            </if>
+            <if test="qty != null">
+                and qty = #{qty}
+            </if>
+            <if test="kFPeriod != null">
+                and k_f_period = #{kFPeriod}
+            </if>
+            <if test="kFDate != null">
+                and k_f_date = #{kFDate}
+            </if>
+            <if test="periodDate != null">
+                and period_date = #{periodDate}
+            </if>
+            <if test="suppliarId != null">
+                and suppliar_id = #{suppliarId}
+            </if>
+            <if test="suppliarCode != null and suppliarCode != ''">
+                and suppliar_code = #{suppliarCode}
+            </if>
+            <if test="suppliarName != null and suppliarName != ''">
+                and suppliar_name = #{suppliarName}
+            </if>
+            <if test="sourceCode != null and sourceCode != ''">
+                and source_code = #{sourceCode}
+            </if>
+            <if test="stockInId != null">
+                and stock_in_id = #{stockInId}
+            </if>
+            <if test="stockInCode != null and stockInCode != ''">
+                and stock_in_code = #{stockInCode}
+            </if>
+            <if test="stockInListId != null">
+                and stock_in_list_id = #{stockInListId}
+            </if>
+            <if test="state != null and state != ''">
+                and state = #{state}
+            </if>
+            <if test="pickingState != null and pickingState != ''">
+                and picking_state = #{pickingState}
+            </if>
+            <if test="carNum != null and carNum != ''">
+                and car_num = #{carNum}
+            </if>
+            <if test="clientId != null">
+                and client_id = #{clientId}
+            </if>
+            <if test="isCar != null and isCar != ''">
+                and is_car = #{isCar}
+            </if>
+            <if test="buyApplyInvoiceId != null">
+                and buy_apply_invoice_id = #{buyApplyInvoiceId}
+            </if>
+            <if test="buyApplyInvoiceListId != null">
+                and buy_apply_invoice_list_id = #{buyApplyInvoiceListId}
+            </if>
+            <if test="organizationId != null">
+                and organization_id = #{organizationId}
+            </if>
+            <if test="organizationCode != null and organizationCode != ''">
+                and organization_code = #{organizationCode}
+            </if>
+            <if test="organizationName != null and organizationName != ''">
+                and organization_name = #{organizationName}
+            </if>
+            <if test="fCompanyId != null">
+                and f_company_id = #{fCompanyId}
+            </if>
+            <if test="fEnCode != null and fEnCode != ''">
+                and f_en_code = #{fEnCode}
+            </if>
+            <if test="fShortName != null and fShortName != ''">
+                and f_short_name = #{fShortName}
+            </if>
+            <if test="clientCode != null and clientCode != ''">
+                and client_code = #{clientCode}
+            </if>
+            <if test="clientName != null and clientName != ''">
+                and client_name = #{clientName}
+            </if>
+            <if test="createId != null">
+                and create_id = #{createId}
+            </if>
+            <if test="createName != null and createName != ''">
+                and create_name = #{createName}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateId != null">
+                and update_id = #{updateId}
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and update_name = #{updateName}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="isValid != null and isValid != ''">
+                and is_valid = #{isValid}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_wms_stockinoutbatch(stock_in_out_id, stock_in_out_code, stock_in_out_detail_id, stock_id, stock_code, stock_name, allot_id, stock_place_id, stock_place_code, stock_place_name, tray_id, tray_code, material_id, material_code, material_short_name, material_spec, units_id, units_name, bar_code, in_batch_no, batch_no, qty, k_f_period, k_f_date, period_date, suppliar_id, suppliar_code, suppliar_name, source_code, stock_in_id, stock_in_code, stock_in_list_id, state, picking_state, car_num, client_id, is_car, buy_apply_invoice_id, buy_apply_invoice_list_id, organization_id, organization_code, organization_name, f_company_id, f_en_code, f_short_name, client_code, client_name, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid)
+        values (#{stockInOutId}, #{stockInOutCode}, #{stockInOutDetailId}, #{stockId}, #{stockCode}, #{stockName}, #{allotId}, #{stockPlaceId}, #{stockPlaceCode}, #{stockPlaceName}, #{trayId}, #{trayCode}, #{materialId}, #{materialCode}, #{materialShortName}, #{materialSpec}, #{unitsId}, #{unitsName}, #{barCode}, #{inBatchNo}, #{batchNo}, #{qty}, #{kFPeriod}, #{kFDate}, #{periodDate}, #{suppliarId}, #{suppliarCode}, #{suppliarName}, #{sourceCode}, #{stockInId}, #{stockInCode}, #{stockInListId}, #{state}, #{pickingState}, #{carNum}, #{clientId}, #{isCar}, #{buyApplyInvoiceId}, #{buyApplyInvoiceListId}, #{organizationId}, #{organizationCode}, #{organizationName}, #{fCompanyId}, #{fEnCode}, #{fShortName}, #{clientCode}, #{clientName}, #{createId}, #{createName}, #{createTime}, #{updateId}, #{updateName}, #{updateTime}, #{remark}, #{isValid})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_wms_stockinoutbatch(stock_in_out_id, stock_in_out_code, stock_in_out_detail_id, stock_id, stock_code, stock_name, allot_id, stock_place_id, stock_place_code, stock_place_name, tray_id, tray_code, material_id, material_code, material_short_name, material_spec, units_id, units_name, bar_code, in_batch_no, batch_no, qty, k_f_period, k_f_date, period_date, suppliar_id, suppliar_code, suppliar_name, source_code, stock_in_id, stock_in_code, stock_in_list_id, state, picking_state, car_num, client_id, is_car, buy_apply_invoice_id, buy_apply_invoice_list_id, organization_id, organization_code, organization_name, f_company_id, f_en_code, f_short_name, client_code, client_name, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.stockInOutId}, #{entity.stockInOutCode}, #{entity.stockInOutDetailId}, #{entity.stockId}, #{entity.stockCode}, #{entity.stockName}, #{entity.allotId}, #{entity.stockPlaceId}, #{entity.stockPlaceCode}, #{entity.stockPlaceName}, #{entity.trayId}, #{entity.trayCode}, #{entity.materialId}, #{entity.materialCode}, #{entity.materialShortName}, #{entity.materialSpec}, #{entity.unitsId}, #{entity.unitsName}, #{entity.barCode}, #{entity.inBatchNo}, #{entity.batchNo}, #{entity.qty}, #{entity.kFPeriod}, #{entity.kFDate}, #{entity.periodDate}, #{entity.suppliarId}, #{entity.suppliarCode}, #{entity.suppliarName}, #{entity.sourceCode}, #{entity.stockInId}, #{entity.stockInCode}, #{entity.stockInListId}, #{entity.state}, #{entity.pickingState}, #{entity.carNum}, #{entity.clientId}, #{entity.isCar}, #{entity.buyApplyInvoiceId}, #{entity.buyApplyInvoiceListId}, #{entity.organizationId}, #{entity.organizationCode}, #{entity.organizationName}, #{entity.fCompanyId}, #{entity.fEnCode}, #{entity.fShortName}, #{entity.clientCode}, #{entity.clientName}, #{entity.createId}, #{entity.createName}, #{entity.createTime}, #{entity.updateId}, #{entity.updateName}, #{entity.updateTime}, #{entity.remark}, #{entity.isValid})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_wms_stockinoutbatch(stock_in_out_id, stock_in_out_code, stock_in_out_detail_id, stock_id, stock_code, stock_name, allot_id, stock_place_id, stock_place_code, stock_place_name, tray_id, tray_code, material_id, material_code, material_short_name, material_spec, units_id, units_name, bar_code, in_batch_no, batch_no, qty, k_f_period, k_f_date, period_date, suppliar_id, suppliar_code, suppliar_name, source_code, stock_in_id, stock_in_code, stock_in_list_id, state, picking_state, car_num, client_id, is_car, buy_apply_invoice_id, buy_apply_invoice_list_id, organization_id, organization_code, organization_name, f_company_id, f_en_code, f_short_name, client_code, client_name, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.stockInOutId}, #{entity.stockInOutCode}, #{entity.stockInOutDetailId}, #{entity.stockId}, #{entity.stockCode}, #{entity.stockName}, #{entity.allotId}, #{entity.stockPlaceId}, #{entity.stockPlaceCode}, #{entity.stockPlaceName}, #{entity.trayId}, #{entity.trayCode}, #{entity.materialId}, #{entity.materialCode}, #{entity.materialShortName}, #{entity.materialSpec}, #{entity.unitsId}, #{entity.unitsName}, #{entity.barCode}, #{entity.inBatchNo}, #{entity.batchNo}, #{entity.qty}, #{entity.kFPeriod}, #{entity.kFDate}, #{entity.periodDate}, #{entity.suppliarId}, #{entity.suppliarCode}, #{entity.suppliarName}, #{entity.sourceCode}, #{entity.stockInId}, #{entity.stockInCode}, #{entity.stockInListId}, #{entity.state}, #{entity.pickingState}, #{entity.carNum}, #{entity.clientId}, #{entity.isCar}, #{entity.buyApplyInvoiceId}, #{entity.buyApplyInvoiceListId}, #{entity.organizationId}, #{entity.organizationCode}, #{entity.organizationName}, #{entity.fCompanyId}, #{entity.fEnCode}, #{entity.fShortName}, #{entity.clientCode}, #{entity.clientName}, #{entity.createId}, #{entity.createName}, #{entity.createTime}, #{entity.updateId}, #{entity.updateName}, #{entity.updateTime}, #{entity.remark}, #{entity.isValid})
+        </foreach>
+        on duplicate key update
+        stock_in_out_id = values(stock_in_out_id),
+        stock_in_out_code = values(stock_in_out_code),
+        stock_in_out_detail_id = values(stock_in_out_detail_id),
+        stock_id = values(stock_id),
+        stock_code = values(stock_code),
+        stock_name = values(stock_name),
+        allot_id = values(allot_id),
+        stock_place_id = values(stock_place_id),
+        stock_place_code = values(stock_place_code),
+        stock_place_name = values(stock_place_name),
+        tray_id = values(tray_id),
+        tray_code = values(tray_code),
+        material_id = values(material_id),
+        material_code = values(material_code),
+        material_short_name = values(material_short_name),
+        material_spec = values(material_spec),
+        units_id = values(units_id),
+        units_name = values(units_name),
+        bar_code = values(bar_code),
+        in_batch_no = values(in_batch_no),
+        batch_no = values(batch_no),
+        qty = values(qty),
+        k_f_period = values(k_f_period),
+        k_f_date = values(k_f_date),
+        period_date = values(period_date),
+        suppliar_id = values(suppliar_id),
+        suppliar_code = values(suppliar_code),
+        suppliar_name = values(suppliar_name),
+        source_code = values(source_code),
+        stock_in_id = values(stock_in_id),
+        stock_in_code = values(stock_in_code),
+        stock_in_list_id = values(stock_in_list_id),
+        state = values(state),
+        picking_state = values(picking_state),
+        car_num = values(car_num),
+        client_id = values(client_id),
+        is_car = values(is_car),
+        buy_apply_invoice_id = values(buy_apply_invoice_id),
+        buy_apply_invoice_list_id = values(buy_apply_invoice_list_id),
+        organization_id = values(organization_id),
+        organization_code = values(organization_code),
+        organization_name = values(organization_name),
+        f_company_id = values(f_company_id),
+        f_en_code = values(f_en_code),
+        f_short_name = values(f_short_name),
+        client_code = values(client_code),
+        client_name = values(client_name),
+        create_id = values(create_id),
+        create_name = values(create_name),
+        create_time = values(create_time),
+        update_id = values(update_id),
+        update_name = values(update_name),
+        update_time = values(update_time),
+        remark = values(remark),
+        is_valid = values(is_valid)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update mes_wms_stockinoutbatch
+        <set>
+            <if test="stockInOutId != null">
+                stock_in_out_id = #{stockInOutId},
+            </if>
+            <if test="stockInOutCode != null and stockInOutCode != ''">
+                stock_in_out_code = #{stockInOutCode},
+            </if>
+            <if test="stockInOutDetailId != null">
+                stock_in_out_detail_id = #{stockInOutDetailId},
+            </if>
+            <if test="stockId != null">
+                stock_id = #{stockId},
+            </if>
+            <if test="stockCode != null and stockCode != ''">
+                stock_code = #{stockCode},
+            </if>
+            <if test="stockName != null and stockName != ''">
+                stock_name = #{stockName},
+            </if>
+            <if test="allotId != null">
+                allot_id = #{allotId},
+            </if>
+            <if test="stockPlaceId != null">
+                stock_place_id = #{stockPlaceId},
+            </if>
+            <if test="stockPlaceCode != null and stockPlaceCode != ''">
+                stock_place_code = #{stockPlaceCode},
+            </if>
+            <if test="stockPlaceName != null and stockPlaceName != ''">
+                stock_place_name = #{stockPlaceName},
+            </if>
+            <if test="trayId != null">
+                tray_id = #{trayId},
+            </if>
+            <if test="trayCode != null and trayCode != ''">
+                tray_code = #{trayCode},
+            </if>
+            <if test="materialId != null">
+                material_id = #{materialId},
+            </if>
+            <if test="materialCode != null and materialCode != ''">
+                material_code = #{materialCode},
+            </if>
+            <if test="materialShortName != null and materialShortName != ''">
+                material_short_name = #{materialShortName},
+            </if>
+            <if test="materialSpec != null and materialSpec != ''">
+                material_spec = #{materialSpec},
+            </if>
+            <if test="unitsId != null">
+                units_id = #{unitsId},
+            </if>
+            <if test="unitsName != null and unitsName != ''">
+                units_name = #{unitsName},
+            </if>
+            <if test="barCode != null and barCode != ''">
+                bar_code = #{barCode},
+            </if>
+            <if test="inBatchNo != null and inBatchNo != ''">
+                in_batch_no = #{inBatchNo},
+            </if>
+            <if test="batchNo != null and batchNo != ''">
+                batch_no = #{batchNo},
+            </if>
+            <if test="qty != null">
+                qty = #{qty},
+            </if>
+            <if test="kFPeriod != null">
+                k_f_period = #{kFPeriod},
+            </if>
+            <if test="kFDate != null">
+                k_f_date = #{kFDate},
+            </if>
+            <if test="periodDate != null">
+                period_date = #{periodDate},
+            </if>
+            <if test="suppliarId != null">
+                suppliar_id = #{suppliarId},
+            </if>
+            <if test="suppliarCode != null and suppliarCode != ''">
+                suppliar_code = #{suppliarCode},
+            </if>
+            <if test="suppliarName != null and suppliarName != ''">
+                suppliar_name = #{suppliarName},
+            </if>
+            <if test="sourceCode != null and sourceCode != ''">
+                source_code = #{sourceCode},
+            </if>
+            <if test="stockInId != null">
+                stock_in_id = #{stockInId},
+            </if>
+            <if test="stockInCode != null and stockInCode != ''">
+                stock_in_code = #{stockInCode},
+            </if>
+            <if test="stockInListId != null">
+                stock_in_list_id = #{stockInListId},
+            </if>
+            <if test="state != null and state != ''">
+                state = #{state},
+            </if>
+            <if test="pickingState != null and pickingState != ''">
+                picking_state = #{pickingState},
+            </if>
+            <if test="carNum != null and carNum != ''">
+                car_num = #{carNum},
+            </if>
+            <if test="clientId != null">
+                client_id = #{clientId},
+            </if>
+            <if test="isCar != null and isCar != ''">
+                is_car = #{isCar},
+            </if>
+            <if test="buyApplyInvoiceId != null">
+                buy_apply_invoice_id = #{buyApplyInvoiceId},
+            </if>
+            <if test="buyApplyInvoiceListId != null">
+                buy_apply_invoice_list_id = #{buyApplyInvoiceListId},
+            </if>
+            <if test="organizationId != null">
+                organization_id = #{organizationId},
+            </if>
+            <if test="organizationCode != null and organizationCode != ''">
+                organization_code = #{organizationCode},
+            </if>
+            <if test="organizationName != null and organizationName != ''">
+                organization_name = #{organizationName},
+            </if>
+            <if test="fCompanyId != null">
+                f_company_id = #{fCompanyId},
+            </if>
+            <if test="fEnCode != null and fEnCode != ''">
+                f_en_code = #{fEnCode},
+            </if>
+            <if test="fShortName != null and fShortName != ''">
+                f_short_name = #{fShortName},
+            </if>
+            <if test="clientCode != null and clientCode != ''">
+                client_code = #{clientCode},
+            </if>
+            <if test="clientName != null and clientName != ''">
+                client_name = #{clientName},
+            </if>
+            <if test="createId != null">
+                create_id = #{createId},
+            </if>
+            <if test="createName != null and createName != ''">
+                create_name = #{createName},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateId != null">
+                update_id = #{updateId},
+            </if>
+            <if test="updateName != null and updateName != ''">
+                update_name = #{updateName},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="isValid != null and isValid != ''">
+                is_valid = #{isValid},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from mes_wms_stockinoutbatch where id = #{id}
+    </delete>
+    
+    <!--通过主键逻辑删除-->
+    <delete id="updateById">
+        update mes_wms_stockinoutbatch set is_valid = '0' where id = #{id}
+    </delete>
+
+</mapper>
+

@@ -9,8 +9,7 @@ import com.bpm.common.vo.DayPlanningVO;
 import com.bpm.common.vo.PageInfoVO;
 import com.bpm.common.vo.ResultVO;
 import com.bpm.mes.purchase.dto.MesPurchaseBuyRequestInsertDTO;
-import com.bpm.mes.stock.client.StockInClient;
-import com.bpm.purchase.client.PurchaseClient;
+
 import com.bpm.server.service.DayPlanningDetailService;
 import com.bpm.server.service.DayPlanningService;
 import io.swagger.annotations.Api;
@@ -38,10 +37,7 @@ public class DayPlanningController {
     private DayPlanningService dayPlanningService;
     @Resource
     private DayPlanningDetailService dayPlanningDetailService;
-    @Resource
-    private StockInClient stockInClient;
-    @Resource
-    private PurchaseClient purchaseClient;
+
 
    
      /**

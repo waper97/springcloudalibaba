@@ -24,6 +24,18 @@
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.bpm</groupId>
+            <artifactId>mes-purchase-api</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.waper</groupId>
+            <artifactId>mes-stock-api</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
 
         <!--        Failed to start bean 'documentationPluginsBootstrapper';-->
         <!--        SpringBoot2.x整合Knife4j编译通过，项目启动时报错-->

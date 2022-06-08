@@ -1,0 +1,73 @@
+spring:
+  application:
+    name: mes-stock
+#    name: mes-stock-LGJ
+  profiles:
+    active: dev
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  redis:
+    host: 192.168.31.220
+    port: 6680
+pagehelper:
+  #  helperDialect: oracle
+#  helperDialect: mysql
+  helperDialect: postgresql
+#  helperDialect: sqlserver
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+  page-size-zero: true
+mybatis:
+  typeAliasesPackage: com.bpm.mes.stock.server.mapper
+  mapperLocations: classpath:mapper/*/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+# feign熔断开启
+feign:
+  hystrix:
+    enabled: true
+# 设置hystrix超时时间，默认1000ms
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
+#ribbon的超时时间
+ribbon:
+  ReadTimeout: 3000
+  ConnectTimeout: 3000
+rule:
+  log:
+    enable: false
+  service-name: mes设备管理服务
+# 个推配置
+apush:
+  config:
+    gexin:
+      appId: eKAkWqWBuY7bVKqnjXgYH6
+      appKey: GDRiTkHYnqAxQVJV9iQpJA
+      masterSecret: 6XmuN68E0x7Jz0pKhqv357
+# 邮件推送配置
+exchange:
+  mail:
+    server: https://mail.cqgdcy.com/ews/exchange.asmx
+    user: mesadmin
+    password: Gdcymes
+# 服务版本管理配置
+info:
+  build:
+    artifact: '@project.artifactId@'
+    version: '@project.version@'
+    server-name: ${rule.service-name}
+#日志输出mybatis里面的sql
+logging:
+  level:
+    com.bpm.mes.stock.server.mapper: debug
+
+

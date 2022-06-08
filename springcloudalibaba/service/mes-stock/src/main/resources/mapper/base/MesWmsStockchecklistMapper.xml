@@ -1,0 +1,621 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bpm.mes.stock.server.mapper.base.MesWmsStockchecklistMapper">
+
+      <sql id="Base_Column_List">
+         id, stock_check_id, material_id, material_code, material_short_name, material_spec, stock_place_id, stock_place_code, stock_place_name, in_batch_no, batch_no, bar_code, units_id, units_name, account_num, check_num, checker_id, checker_name, checker_time, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid, company_id, company_code, company_name, different_num, stock_current_sum_id, stock_current_id, suppliar_id, suppliar_name     
+      </sql>
+      
+      <sql id="query_List">
+                  xxx.id AS id,
+         xxx.stock_check_id AS stockCheckId,
+         xxx.material_id AS materialId,
+         xxx.material_code AS materialCode,
+         xxx.material_short_name AS materialShortName,
+         xxx.material_spec AS materialSpec,
+         xxx.stock_place_id AS stockPlaceId,
+         xxx.stock_place_code AS stockPlaceCode,
+         xxx.stock_place_name AS stockPlaceName,
+         xxx.in_batch_no AS inBatchNo,
+         xxx.batch_no AS batchNo,
+         xxx.bar_code AS barCode,
+         xxx.units_id AS unitsId,
+         xxx.units_name AS unitsName,
+         xxx.account_num AS accountNum,
+         xxx.check_num AS checkNum,
+         xxx.checker_id AS checkerId,
+         xxx.checker_name AS checkerName,
+         xxx.checker_time AS checkerTime,
+         xxx.create_id AS createId,
+         xxx.create_name AS createName,
+         xxx.create_time AS createTime,
+         xxx.update_id AS updateId,
+         xxx.update_name AS updateName,
+         xxx.update_time AS updateTime,
+         xxx.remark AS remark,
+         xxx.is_valid AS isValid,
+         xxx.company_id AS companyId,
+         xxx.company_code AS companyCode,
+         xxx.company_name AS companyName,
+         xxx.different_num AS differentNum,
+         xxx.stock_current_sum_id AS stockCurrentSumId,
+         xxx.stock_current_id AS stockCurrentId,
+         xxx.suppliar_id AS suppliarId,
+         xxx.suppliar_name AS suppliarName,
+      </sql>
+
+    <resultMap type="com.bpm.mes.stock.server.domain.MesWmsStockchecklist" id="MesWmsStockchecklistMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="stockCheckId" column="stock_check_id" jdbcType="INTEGER"/>
+        <result property="materialId" column="material_id" jdbcType="INTEGER"/>
+        <result property="materialCode" column="material_code" jdbcType="VARCHAR"/>
+        <result property="materialShortName" column="material_short_name" jdbcType="VARCHAR"/>
+        <result property="materialSpec" column="material_spec" jdbcType="VARCHAR"/>
+        <result property="stockPlaceId" column="stock_place_id" jdbcType="INTEGER"/>
+        <result property="stockPlaceCode" column="stock_place_code" jdbcType="VARCHAR"/>
+        <result property="stockPlaceName" column="stock_place_name" jdbcType="VARCHAR"/>
+        <result property="inBatchNo" column="in_batch_no" jdbcType="VARCHAR"/>
+        <result property="batchNo" column="batch_no" jdbcType="VARCHAR"/>
+        <result property="barCode" column="bar_code" jdbcType="VARCHAR"/>
+        <result property="unitsId" column="units_id" jdbcType="INTEGER"/>
+        <result property="unitsName" column="units_name" jdbcType="VARCHAR"/>
+        <result property="accountNum" column="account_num" jdbcType="VARCHAR"/>
+        <result property="checkNum" column="check_num" jdbcType="VARCHAR"/>
+        <result property="checkerId" column="checker_id" jdbcType="INTEGER"/>
+        <result property="checkerName" column="checker_name" jdbcType="VARCHAR"/>
+        <result property="checkerTime" column="checker_time" jdbcType="TIMESTAMP"/>
+        <result property="createId" column="create_id" jdbcType="INTEGER"/>
+        <result property="createName" column="create_name" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateId" column="update_id" jdbcType="INTEGER"/>
+        <result property="updateName" column="update_name" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="isValid" column="is_valid" jdbcType="VARCHAR"/>
+        <result property="companyId" column="company_id" jdbcType="INTEGER"/>
+        <result property="companyCode" column="company_code" jdbcType="VARCHAR"/>
+        <result property="companyName" column="company_name" jdbcType="VARCHAR"/>
+        <result property="differentNum" column="different_num" jdbcType="VARCHAR"/>
+        <result property="stockCurrentSumId" column="stock_current_sum_id" jdbcType="INTEGER"/>
+        <result property="stockCurrentId" column="stock_current_id" jdbcType="INTEGER"/>
+        <result property="suppliarId" column="suppliar_id" jdbcType="INTEGER"/>
+        <result property="suppliarName" column="suppliar_name" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+    
+        <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="MesWmsStockchecklistMap">
+        select
+          <include refid="Base_Column_List" />
+        from mes_wms_stockchecklist
+        <where>
+        is_valid = '1'
+            <if test="id != null">
+                and id = #{id}                
+            </if>
+            <if test="stockCheckId != null">
+                and stock_check_id = #{stockCheckId}                
+            </if>
+            <if test="materialId != null">
+                and material_id = #{materialId}                
+            </if>
+            <if test="materialCode != null and materialCode != ''">
+                and material_code  like concat('%',#{materialCode},'%')                
+            </if>
+            <if test="materialShortName != null and materialShortName != ''">
+                and material_short_name  like concat('%',#{materialShortName},'%')                
+            </if>
+            <if test="materialSpec != null and materialSpec != ''">
+                and material_spec  like concat('%',#{materialSpec},'%')                
+            </if>
+            <if test="stockPlaceId != null">
+                and stock_place_id = #{stockPlaceId}                
+            </if>
+            <if test="stockPlaceCode != null and stockPlaceCode != ''">
+                and stock_place_code  like concat('%',#{stockPlaceCode},'%')                
+            </if>
+            <if test="stockPlaceName != null and stockPlaceName != ''">
+                and stock_place_name  like concat('%',#{stockPlaceName},'%')                
+            </if>
+            <if test="inBatchNo != null and inBatchNo != ''">
+                and in_batch_no  like concat('%',#{inBatchNo},'%')                
+            </if>
+            <if test="batchNo != null and batchNo != ''">
+                and batch_no  like concat('%',#{batchNo},'%')                
+            </if>
+            <if test="barCode != null and barCode != ''">
+                and bar_code  like concat('%',#{barCode},'%')                
+            </if>
+            <if test="unitsId != null">
+                and units_id = #{unitsId}                
+            </if>
+            <if test="unitsName != null and unitsName != ''">
+                and units_name  like concat('%',#{unitsName},'%')                
+            </if>
+            <if test="accountNum != null">
+                and account_num                 
+            </if>
+            <if test="checkNum != null">
+                and check_num                 
+            </if>
+            <if test="checkerId != null">
+                and checker_id = #{checkerId}                
+            </if>
+            <if test="checkerName != null and checkerName != ''">
+                and checker_name  like concat('%',#{checkerName},'%')                
+            </if>
+            <if test="checkerTime != null">
+                and checker_time                 
+            </if>
+            <if test="createId != null">
+                and create_id = #{createId}                
+            </if>
+            <if test="createName != null and createName != ''">
+                and create_name  like concat('%',#{createName},'%')                
+            </if>
+            <if test="createTime != null">
+                and create_time                 
+            </if>
+            <if test="updateId != null">
+                and update_id = #{updateId}                
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and update_name  like concat('%',#{updateName},'%')                
+            </if>
+            <if test="updateTime != null">
+                and update_time                 
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark  like concat('%',#{remark},'%')                
+            </if>
+            <if test="isValid != null and isValid != ''">
+                and is_valid  like concat('%',#{isValid},'%')                
+            </if>
+            <if test="companyId != null">
+                and company_id = #{companyId}                
+            </if>
+            <if test="companyCode != null and companyCode != ''">
+                and company_code  like concat('%',#{companyCode},'%')                
+            </if>
+            <if test="companyName != null and companyName != ''">
+                and company_name  like concat('%',#{companyName},'%')                
+            </if>
+            <if test="differentNum != null">
+                and different_num                 
+            </if>
+            <if test="stockCurrentSumId != null">
+                and stock_current_sum_id = #{stockCurrentSumId}                
+            </if>
+            <if test="stockCurrentId != null">
+                and stock_current_id = #{stockCurrentId}                
+            </if>
+            <if test="suppliarId != null">
+                and suppliar_id = #{suppliarId}                
+            </if>
+            <if test="suppliarName != null and suppliarName != ''">
+                and suppliar_name  like concat('%',#{suppliarName},'%')                
+            </if>
+        </where>
+        order by id desc
+    </select>
+    
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="MesWmsStockchecklistMap">
+        select
+          id, stock_check_id, material_id, material_code, material_short_name, material_spec, stock_place_id, stock_place_code, stock_place_name, in_batch_no, batch_no, bar_code, units_id, units_name, account_num, check_num, checker_id, checker_name, checker_time, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid, company_id, company_code, company_name, different_num, stock_current_sum_id, stock_current_id, suppliar_id, suppliar_name
+        from mes_wms_stockchecklist
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="MesWmsStockchecklistMap">
+        select
+          id, stock_check_id, material_id, material_code, material_short_name, material_spec, stock_place_id, stock_place_code, stock_place_name, in_batch_no, batch_no, bar_code, units_id, units_name, account_num, check_num, checker_id, checker_name, checker_time, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid, company_id, company_code, company_name, different_num, stock_current_sum_id, stock_current_id, suppliar_id, suppliar_name
+        from mes_wms_stockchecklist
+        <where>
+        is_valid = '1'
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="stockCheckId != null">
+                and stock_check_id = #{stockCheckId}
+            </if>
+            <if test="materialId != null">
+                and material_id = #{materialId}
+            </if>
+            <if test="materialCode != null and materialCode != ''">
+                and material_code = #{materialCode}
+            </if>
+            <if test="materialShortName != null and materialShortName != ''">
+                and material_short_name = #{materialShortName}
+            </if>
+            <if test="materialSpec != null and materialSpec != ''">
+                and material_spec = #{materialSpec}
+            </if>
+            <if test="stockPlaceId != null">
+                and stock_place_id = #{stockPlaceId}
+            </if>
+            <if test="stockPlaceCode != null and stockPlaceCode != ''">
+                and stock_place_code = #{stockPlaceCode}
+            </if>
+            <if test="stockPlaceName != null and stockPlaceName != ''">
+                and stock_place_name = #{stockPlaceName}
+            </if>
+            <if test="inBatchNo != null and inBatchNo != ''">
+                and in_batch_no = #{inBatchNo}
+            </if>
+            <if test="batchNo != null and batchNo != ''">
+                and batch_no = #{batchNo}
+            </if>
+            <if test="barCode != null and barCode != ''">
+                and bar_code = #{barCode}
+            </if>
+            <if test="unitsId != null">
+                and units_id = #{unitsId}
+            </if>
+            <if test="unitsName != null and unitsName != ''">
+                and units_name = #{unitsName}
+            </if>
+            <if test="accountNum != null">
+                and account_num = #{accountNum}
+            </if>
+            <if test="checkNum != null">
+                and check_num = #{checkNum}
+            </if>
+            <if test="checkerId != null">
+                and checker_id = #{checkerId}
+            </if>
+            <if test="checkerName != null and checkerName != ''">
+                and checker_name = #{checkerName}
+            </if>
+            <if test="checkerTime != null">
+                and checker_time = #{checkerTime}
+            </if>
+            <if test="createId != null">
+                and create_id = #{createId}
+            </if>
+            <if test="createName != null and createName != ''">
+                and create_name = #{createName}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateId != null">
+                and update_id = #{updateId}
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and update_name = #{updateName}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="isValid != null and isValid != ''">
+                and is_valid = #{isValid}
+            </if>
+            <if test="companyId != null">
+                and company_id = #{companyId}
+            </if>
+            <if test="companyCode != null and companyCode != ''">
+                and company_code = #{companyCode}
+            </if>
+            <if test="companyName != null and companyName != ''">
+                and company_name = #{companyName}
+            </if>
+            <if test="differentNum != null">
+                and different_num = #{differentNum}
+            </if>
+            <if test="stockCurrentSumId != null">
+                and stock_current_sum_id = #{stockCurrentSumId}
+            </if>
+            <if test="stockCurrentId != null">
+                and stock_current_id = #{stockCurrentId}
+            </if>
+            <if test="suppliarId != null">
+                and suppliar_id = #{suppliarId}
+            </if>
+            <if test="suppliarName != null and suppliarName != ''">
+                and suppliar_name = #{suppliarName}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+    
+    
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from mes_wms_stockchecklist
+        <where>
+        is_valid = '1'
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="stockCheckId != null">
+                and stock_check_id = #{stockCheckId}
+            </if>
+            <if test="materialId != null">
+                and material_id = #{materialId}
+            </if>
+            <if test="materialCode != null and materialCode != ''">
+                and material_code = #{materialCode}
+            </if>
+            <if test="materialShortName != null and materialShortName != ''">
+                and material_short_name = #{materialShortName}
+            </if>
+            <if test="materialSpec != null and materialSpec != ''">
+                and material_spec = #{materialSpec}
+            </if>
+            <if test="stockPlaceId != null">
+                and stock_place_id = #{stockPlaceId}
+            </if>
+            <if test="stockPlaceCode != null and stockPlaceCode != ''">
+                and stock_place_code = #{stockPlaceCode}
+            </if>
+            <if test="stockPlaceName != null and stockPlaceName != ''">
+                and stock_place_name = #{stockPlaceName}
+            </if>
+            <if test="inBatchNo != null and inBatchNo != ''">
+                and in_batch_no = #{inBatchNo}
+            </if>
+            <if test="batchNo != null and batchNo != ''">
+                and batch_no = #{batchNo}
+            </if>
+            <if test="barCode != null and barCode != ''">
+                and bar_code = #{barCode}
+            </if>
+            <if test="unitsId != null">
+                and units_id = #{unitsId}
+            </if>
+            <if test="unitsName != null and unitsName != ''">
+                and units_name = #{unitsName}
+            </if>
+            <if test="accountNum != null">
+                and account_num = #{accountNum}
+            </if>
+            <if test="checkNum != null">
+                and check_num = #{checkNum}
+            </if>
+            <if test="checkerId != null">
+                and checker_id = #{checkerId}
+            </if>
+            <if test="checkerName != null and checkerName != ''">
+                and checker_name = #{checkerName}
+            </if>
+            <if test="checkerTime != null">
+                and checker_time = #{checkerTime}
+            </if>
+            <if test="createId != null">
+                and create_id = #{createId}
+            </if>
+            <if test="createName != null and createName != ''">
+                and create_name = #{createName}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateId != null">
+                and update_id = #{updateId}
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and update_name = #{updateName}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="isValid != null and isValid != ''">
+                and is_valid = #{isValid}
+            </if>
+            <if test="companyId != null">
+                and company_id = #{companyId}
+            </if>
+            <if test="companyCode != null and companyCode != ''">
+                and company_code = #{companyCode}
+            </if>
+            <if test="companyName != null and companyName != ''">
+                and company_name = #{companyName}
+            </if>
+            <if test="differentNum != null">
+                and different_num = #{differentNum}
+            </if>
+            <if test="stockCurrentSumId != null">
+                and stock_current_sum_id = #{stockCurrentSumId}
+            </if>
+            <if test="stockCurrentId != null">
+                and stock_current_id = #{stockCurrentId}
+            </if>
+            <if test="suppliarId != null">
+                and suppliar_id = #{suppliarId}
+            </if>
+            <if test="suppliarName != null and suppliarName != ''">
+                and suppliar_name = #{suppliarName}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_wms_stockchecklist(stock_check_id, material_id, material_code, material_short_name, material_spec, stock_place_id, stock_place_code, stock_place_name, in_batch_no, batch_no, bar_code, units_id, units_name, account_num, check_num, checker_id, checker_name, checker_time, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid, company_id, company_code, company_name, different_num, stock_current_sum_id, stock_current_id, suppliar_id, suppliar_name)
+        values (#{stockCheckId}, #{materialId}, #{materialCode}, #{materialShortName}, #{materialSpec}, #{stockPlaceId}, #{stockPlaceCode}, #{stockPlaceName}, #{inBatchNo}, #{batchNo}, #{barCode}, #{unitsId}, #{unitsName}, #{accountNum}, #{checkNum}, #{checkerId}, #{checkerName}, #{checkerTime}, #{createId}, #{createName}, #{createTime}, #{updateId}, #{updateName}, #{updateTime}, #{remark}, #{isValid}, #{companyId}, #{companyCode}, #{companyName}, #{differentNum}, #{stockCurrentSumId}, #{stockCurrentId}, #{suppliarId}, #{suppliarName})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_wms_stockchecklist(stock_check_id, material_id, material_code, material_short_name, material_spec, stock_place_id, stock_place_code, stock_place_name, in_batch_no, batch_no, bar_code, units_id, units_name, account_num, check_num, checker_id, checker_name, checker_time, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid, company_id, company_code, company_name, different_num, stock_current_sum_id, stock_current_id, suppliar_id, suppliar_name)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.stockCheckId}, #{entity.materialId}, #{entity.materialCode}, #{entity.materialShortName}, #{entity.materialSpec}, #{entity.stockPlaceId}, #{entity.stockPlaceCode}, #{entity.stockPlaceName}, #{entity.inBatchNo}, #{entity.batchNo}, #{entity.barCode}, #{entity.unitsId}, #{entity.unitsName}, #{entity.accountNum}, #{entity.checkNum}, #{entity.checkerId}, #{entity.checkerName}, #{entity.checkerTime}, #{entity.createId}, #{entity.createName}, #{entity.createTime}, #{entity.updateId}, #{entity.updateName}, #{entity.updateTime}, #{entity.remark}, #{entity.isValid}, #{entity.companyId}, #{entity.companyCode}, #{entity.companyName}, #{entity.differentNum}, #{entity.stockCurrentSumId}, #{entity.stockCurrentId}, #{entity.suppliarId}, #{entity.suppliarName})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_wms_stockchecklist(stock_check_id, material_id, material_code, material_short_name, material_spec, stock_place_id, stock_place_code, stock_place_name, in_batch_no, batch_no, bar_code, units_id, units_name, account_num, check_num, checker_id, checker_name, checker_time, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid, company_id, company_code, company_name, different_num, stock_current_sum_id, stock_current_id, suppliar_id, suppliar_name)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.stockCheckId}, #{entity.materialId}, #{entity.materialCode}, #{entity.materialShortName}, #{entity.materialSpec}, #{entity.stockPlaceId}, #{entity.stockPlaceCode}, #{entity.stockPlaceName}, #{entity.inBatchNo}, #{entity.batchNo}, #{entity.barCode}, #{entity.unitsId}, #{entity.unitsName}, #{entity.accountNum}, #{entity.checkNum}, #{entity.checkerId}, #{entity.checkerName}, #{entity.checkerTime}, #{entity.createId}, #{entity.createName}, #{entity.createTime}, #{entity.updateId}, #{entity.updateName}, #{entity.updateTime}, #{entity.remark}, #{entity.isValid}, #{entity.companyId}, #{entity.companyCode}, #{entity.companyName}, #{entity.differentNum}, #{entity.stockCurrentSumId}, #{entity.stockCurrentId}, #{entity.suppliarId}, #{entity.suppliarName})
+        </foreach>
+        on duplicate key update
+        stock_check_id = values(stock_check_id),
+        material_id = values(material_id),
+        material_code = values(material_code),
+        material_short_name = values(material_short_name),
+        material_spec = values(material_spec),
+        stock_place_id = values(stock_place_id),
+        stock_place_code = values(stock_place_code),
+        stock_place_name = values(stock_place_name),
+        in_batch_no = values(in_batch_no),
+        batch_no = values(batch_no),
+        bar_code = values(bar_code),
+        units_id = values(units_id),
+        units_name = values(units_name),
+        account_num = values(account_num),
+        check_num = values(check_num),
+        checker_id = values(checker_id),
+        checker_name = values(checker_name),
+        checker_time = values(checker_time),
+        create_id = values(create_id),
+        create_name = values(create_name),
+        create_time = values(create_time),
+        update_id = values(update_id),
+        update_name = values(update_name),
+        update_time = values(update_time),
+        remark = values(remark),
+        is_valid = values(is_valid),
+        company_id = values(company_id),
+        company_code = values(company_code),
+        company_name = values(company_name),
+        different_num = values(different_num),
+        stock_current_sum_id = values(stock_current_sum_id),
+        stock_current_id = values(stock_current_id),
+        suppliar_id = values(suppliar_id),
+        suppliar_name = values(suppliar_name)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update mes_wms_stockchecklist
+        <set>
+            <if test="stockCheckId != null">
+                stock_check_id = #{stockCheckId},
+            </if>
+            <if test="materialId != null">
+                material_id = #{materialId},
+            </if>
+            <if test="materialCode != null and materialCode != ''">
+                material_code = #{materialCode},
+            </if>
+            <if test="materialShortName != null and materialShortName != ''">
+                material_short_name = #{materialShortName},
+            </if>
+            <if test="materialSpec != null and materialSpec != ''">
+                material_spec = #{materialSpec},
+            </if>
+            <if test="stockPlaceId != null">
+                stock_place_id = #{stockPlaceId},
+            </if>
+            <if test="stockPlaceCode != null and stockPlaceCode != ''">
+                stock_place_code = #{stockPlaceCode},
+            </if>
+            <if test="stockPlaceName != null and stockPlaceName != ''">
+                stock_place_name = #{stockPlaceName},
+            </if>
+            <if test="inBatchNo != null and inBatchNo != ''">
+                in_batch_no = #{inBatchNo},
+            </if>
+            <if test="batchNo != null and batchNo != ''">
+                batch_no = #{batchNo},
+            </if>
+            <if test="barCode != null and barCode != ''">
+                bar_code = #{barCode},
+            </if>
+            <if test="unitsId != null">
+                units_id = #{unitsId},
+            </if>
+            <if test="unitsName != null and unitsName != ''">
+                units_name = #{unitsName},
+            </if>
+            <if test="accountNum != null">
+                account_num = #{accountNum},
+            </if>
+            <if test="checkNum != null">
+                check_num = #{checkNum},
+            </if>
+            <if test="checkerId != null">
+                checker_id = #{checkerId},
+            </if>
+            <if test="checkerName != null and checkerName != ''">
+                checker_name = #{checkerName},
+            </if>
+            <if test="checkerTime != null">
+                checker_time = #{checkerTime},
+            </if>
+            <if test="createId != null">
+                create_id = #{createId},
+            </if>
+            <if test="createName != null and createName != ''">
+                create_name = #{createName},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateId != null">
+                update_id = #{updateId},
+            </if>
+            <if test="updateName != null and updateName != ''">
+                update_name = #{updateName},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="isValid != null and isValid != ''">
+                is_valid = #{isValid},
+            </if>
+            <if test="companyId != null">
+                company_id = #{companyId},
+            </if>
+            <if test="companyCode != null and companyCode != ''">
+                company_code = #{companyCode},
+            </if>
+            <if test="companyName != null and companyName != ''">
+                company_name = #{companyName},
+            </if>
+            <if test="differentNum != null">
+                different_num = #{differentNum},
+            </if>
+            <if test="stockCurrentSumId != null">
+                stock_current_sum_id = #{stockCurrentSumId},
+            </if>
+            <if test="stockCurrentId != null">
+                stock_current_id = #{stockCurrentId},
+            </if>
+            <if test="suppliarId != null">
+                suppliar_id = #{suppliarId},
+            </if>
+            <if test="suppliarName != null and suppliarName != ''">
+                suppliar_name = #{suppliarName},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from mes_wms_stockchecklist where id = #{id}
+    </delete>
+    
+    <!--通过主键逻辑删除-->
+    <delete id="updateById">
+        update mes_wms_stockchecklist set is_valid = '0' where id = #{id}
+    </delete>
+
+</mapper>
+

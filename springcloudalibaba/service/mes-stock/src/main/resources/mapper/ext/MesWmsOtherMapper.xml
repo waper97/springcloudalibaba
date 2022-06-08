@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bpm.mes.stock.server.mapper.ext.MesWmsOtherMapper">
+    <select id="queryDepartment" resultType="com.bpm.mes.stock.server.vo.StockOtherVo">
+        SELECT
+            "id",
+            "name",
+            code
+        FROM
+            sys_department
+        where 1=1
+        <if test="code != null and code != ''">
+            and code = #{code}
+        </if>
+        <if test="id != null">
+            and id = #{id}
+        </if>
+    </select>
+    <select id="querydataDict" resultType="com.bpm.mes.stock.server.vo.DictDataVo">
+        SELECT
+            d."id",
+            d.dict_label AS dictLabel,
+            d.dict_value AS dictValue
+        FROM
+            sys_dict_data d
+                LEFT JOIN sys_dict_type T ON d.dict_type = T.dict_type
+        WHERE
+            d.status = 1
+          AND T.status = 1
+          AND d.dict_type = #{dictType}
+        order by d.dict_sort
+    </select>
+    <select id="queryUser" resultType="com.bpm.mes.stock.server.vo.StockOtherVo">
+        SELECT
+            "id",
+            account AS code,
+            "name"
+        FROM
+            sys_user
+        WHERE
+            1 = 1
+          AND status = 0
+        <if test="code != null and code != ''">
+            and account = #{code}
+        </if>
+        <if test="id != null">
+            and id = #{id}
+        </if>
+    </select>
+    <select id="queryCompany" resultType="com.bpm.mes.stock.server.vo.UserVo">
+        SELECT
+            su."id" AS userId,
+            su.account AS userCode,
+            su."name" AS userName,
+            sc."id" AS companyId,
+            sc."name" AS companyName,
+            sc.company_code AS companyCode,
+            sc."id" AS fCompanyId,
+            sc."name" AS fCompanyName,
+            sc.company_code AS fCompanyCode,
+            sc."name" AS fEnCode,
+            sc.company_code AS fShortName
+        FROM
+            sys_user su
+                LEFT JOIN sys_company sc ON su.company_id = sc."id"
+                AND sc.status = 0
+        WHERE
+            1 = 1
+        <if test="currentloginId != null">
+            and su.id = #{currentloginId}
+        </if>
+    </select>
+    <select id="querySuppliar" resultType="com.bpm.mes.stock.server.vo.StockOtherVo">
+        SELECT
+        "id",
+        supplier_name AS "name",
+        supplier_code AS code
+        FROM
+        mes_supplier
+        WHERE
+        1 = 1
+        AND is_valid = '1'
+        <if test="code != null and code != ''">
+            and supplier_code = #{code}
+        </if>
+        <if test="id != null">
+            and id = #{id}
+        </if>
+    </select>
+    <select id="queryMaterial" resultType="com.bpm.mes.stock.server.vo.MaterialVo">
+        SELECT
+        mi.ID AS materialId,
+        mi.material_code AS materialCode,
+        mi.material_name AS materialShortName,
+        mi.material_specification AS materialSpec,
+        u.ID AS unitsId,
+        u.material_unit_name AS unitsName,
+        mi.material_tr_id AS materialTrId,
+        ms."id" AS suppliarId,
+        ms.supplier_name AS suppliarName,
+        ms.supplier_short_name AS suppliarShortName,
+        ms.supplier_code AS suppliarCode
+        FROM
+        basic_data_material_info mi
+        LEFT JOIN basic_data_material_unit u ON mi.material_unit_id = u."id"
+        LEFT JOIN mes_supplier ms ON mi.default_supplier_id = ms."id"
+        AND ms.is_valid = 1
+        WHERE
+        1 = 1
+        <if test="materialId != null">
+            and mi.id = #{materialId}
+        </if>
+        <if test="materialCode != null">
+            and mi.material_code like concat('%',#{materialCode},'%')
+        </if>
+        <if test="materialShortName != null">
+            and mi.material_name like concat('%',#{materialShortName},'%')
+        </if>
+    </select>
+    <select id="queryCustomer" resultType="com.bpm.mes.stock.server.vo.StockOtherVo">
+        SELECT
+            "id",
+            customer_name AS "name",
+            customer_code AS code
+        FROM
+            basic_data_customer_management
+        WHERE
+            1 = 1
+          AND is_deleted = 0
+          AND status = 0
+        <if test="code != null and code != ''">
+            and customer_code = #{code}
+        </if>
+        <if test="id != null">
+            and "id" = #{id}
+        </if>
+    </select>
+    <select id="queryStock" resultType="com.bpm.mes.stock.server.vo.StockVo">
+        SELECT
+            "id" as stockId,
+            stock_code AS stockCode,
+            stock_name AS stockName,
+            stock_type AS stockType,
+            1 AS layersNumber
+        FROM
+            mes_wms_stock
+        WHERE
+            is_valid = '1'
+        <if test="stockId != null">
+            and id = #{stockId}
+        </if>
+        <if test="stockCode != null and stockCode != ''">
+            and stock_code  like concat('%',#{stockCode},'%')
+        </if>
+        <if test="stockName != null and stockName != ''">
+            and stock_name  like concat('%',#{stockName},'%')
+        </if>
+        <if test="stockType != null and stockType != ''">
+            and stock_type  like concat('%',#{stockType},'%')
+        </if>
+        <if test="state != null and state != ''">
+            and state  like concat('%',#{state},'%')
+        </if>
+    </select>
+    <select id="queryStockPlace" resultType="com.bpm.mes.stock.server.vo.StockPlaceVo">
+        SELECT
+            "id" as  stockPlaceId,
+            stock_place_code AS stockPlaceCode,
+            stock_place_name AS stockPlaceName,
+            stock_id AS stockId,
+            stock_code AS stockCode,
+            stock_name AS stockName,
+            2 AS layersNumber
+        FROM
+            mes_wms_stockplace
+        WHERE
+            is_valid = '1' and stock_id = #{stockId}
+    </select>
+    <select id="queryDataDictionary" resultType="com.bpm.mes.stock.server.vo.DataDictionaryVo">
+        SELECT
+            d."id" as dictId,
+            d.dict_label AS dictLabel,
+            d.dict_value AS dictValue,
+            0 as layersNumber
+        FROM
+            sys_dict_data d
+                LEFT JOIN sys_dict_type T ON d.dict_type = T.dict_type
+        WHERE
+            d.status = 1
+          AND T.status = 1
+          AND d.dict_type = 'stock_type'
+        <if test="dictLabel != null and dictLabel != ''">
+            and d.dict_label  = #{dictLabel}
+        </if>
+        order by d.dict_sort
+    </select>
+</mapper>

@@ -12,7 +12,7 @@ import com.bpm.common.vo.MaterialRequirementsPlanningVO;
 import com.bpm.common.vo.PageInfoVO;
 import com.bpm.mes.purchase.dto.MesPurchaseBuyRequestInsertDTO;
 import com.bpm.mes.purchase.dto.MesPurchaseBuyRequestListInsertDTO;
-import com.bpm.purchase.client.PurchaseClient;
+import com.bpm.mes.purchase.feign.PurchaseClient;
 import com.bpm.server.mapper.*;
 import com.bpm.server.service.MaterialRequirementsPlanningService;
 import com.bpm.server.util.NumberUtil;

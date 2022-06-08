@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bpm.mes.stock.server.mapper.ext.MesWmsStockplaceExtMapper">
+    <select id="queryTree" resultType="com.bpm.mes.stock.server.tree.MesWmsStockplaceTree">
+        SELECT
+            ROW_NUMBER ( ) OVER ( ORDER BY sp."id" ) AS rowNumber,
+                sp."id",
+            sp.stockPlaceCode,
+            sp.stockPlaceName,
+            sp.stockType,
+            sp1.parent_id AS parentId,
+            sp1.parent_stock_placen_code AS parentStockPlacenCode,
+            sp1.parent_stock_placen_name AS parentStockPlacenName,
+            sp1.layer_num AS layerNum,
+            sp.isLeaf
+        FROM
+            mes_wms_stockplace sp1
+                RIGHT JOIN (
+                SELECT
+                    mws."id",
+                    mws.stock_place_code AS stockPlaceCode,
+                    mws.stock_place_name AS stockPlaceName,
+                    mws.is_leaf AS isLeaf,
+                    st.stock_type AS stockType
+                FROM
+                    mes_wms_stockplace mws
+                        INNER JOIN mes_wms_stock st ON st."id" = mws.stock_id
+                WHERE
+                    mws.is_valid = '1'
+                UNION ALL
+                SELECT
+                    "id",
+                    stock_code AS stockPlaceCode,
+                    stock_name AS stockPlaceName,
+                    is_leaf AS isLeaf,
+                    stock_type AS stockType
+                FROM
+                    mes_wms_stock
+                WHERE
+                    is_valid = '1'
+            ) sp ON sp."id" = sp1."id"
+                AND sp.stockPlaceCode = sp1.stock_place_code
+                AND sp.isLeaf = '1'
+        WHERE
+            1 = 1
+        <if test="stockType != null and stockType != ''">
+            AND sp.stockType = #{stockType}
+        </if>
+    </select>
+    <select id="selectMaterial" resultType="com.bpm.mes.stock.server.vo.MesWmsStockplacebindMaterialVo">
+        SELECT M
+        .ID AS materialId,
+        M.material_code AS materialCode,
+        M.material_name AS materialShortName,
+        M.material_name AS materialName,
+        M.material_specification AS materialSpec,
+        u.ID AS unitsId,
+        u.material_unit_name AS unitsName,
+        M.material_tr_id AS materialTrId
+        FROM
+        basic_data_material_info
+        M LEFT JOIN basic_data_material_unit u ON M.material_unit_id = u."id"
+        WHERE
+        1 =1
+        <if test="materialId != null">
+            and m.id = #{materialId}
+        </if>
+    </select>
+    <select id="queryAll" resultType="com.bpm.mes.stock.server.domain.MesWmsStockplace">
+        SELECT
+            "id",
+            stock_place_code AS stockPlaceCode,
+            stock_place_name AS stockPlaceName,
+            parent_id AS parentId,
+            parent_stock_placen_code AS parentStockPlacenCode,
+            parent_stock_placen_name AS parentStockPlacenName,
+            layer_num AS layerNum,
+            is_leaf AS isLeaf,
+            material_id AS materialId,
+            material_no AS materialNo,
+            material_short_name AS materialShortName,
+            weight,
+            stock_id AS stockId,
+            stock_code AS stockCode,
+            stock_name AS stockName,
+            "state",
+            organization_id AS organizationId,
+            organization_code AS organizationCode,
+            organization_name AS organizationName,
+            f_company_id AS fCompanyId,
+            f_en_code AS fEnCode,
+            f_short_name AS fShortCame,
+            min_stock AS minStock,
+            max_stock AS maxStock,
+            capacity,
+            silo_code AS siloCode,
+            silo_name AS siloName,
+            zk_system_id AS zksystemId ,
+            zk_system_code AS zkSystemCode,
+            zk_system_name AS zkSystemName,
+            create_id AS createId,
+            create_name AS createName,
+            create_time AS createTime,
+            update_id AS updateId,
+            update_name AS updateName,
+            update_time AS updateTime,
+            remark,
+            is_valid  AS isValid
+        FROM
+            mes_wms_stockplace
+        WHERE
+            is_valid = '1'
+    </select>
+</mapper>

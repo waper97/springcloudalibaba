@@ -1,0 +1,727 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bpm.mes.stock.server.mapper.base.MesWmsStockplaceMapper">
+
+      <sql id="Base_Column_List">
+         id, stock_place_code, stock_place_name, parent_id, parent_stock_placen_code, parent_stock_placen_name, layer_num, is_leaf, material_id, material_short_name, weight, stock_id, stock_code, stock_name, state, organization_id, organization_code, organization_name, f_company_id, f_en_code, f_short_name, min_stock, max_stock, capacity, silo_code, silo_name, zk_system_id, zk_system_code, zk_system_name, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid, stock_place_type, material_code     
+      </sql>
+      
+      <sql id="query_List">
+                  xxx.id AS id,
+         xxx.stock_place_code AS stockPlaceCode,
+         xxx.stock_place_name AS stockPlaceName,
+         xxx.parent_id AS parentId,
+         xxx.parent_stock_placen_code AS parentStockPlacenCode,
+         xxx.parent_stock_placen_name AS parentStockPlacenName,
+         xxx.layer_num AS layerNum,
+         xxx.is_leaf AS isLeaf,
+         xxx.material_id AS materialId,
+         xxx.material_short_name AS materialShortName,
+         xxx.weight AS weight,
+         xxx.stock_id AS stockId,
+         xxx.stock_code AS stockCode,
+         xxx.stock_name AS stockName,
+         xxx.state AS state,
+         xxx.organization_id AS organizationId,
+         xxx.organization_code AS organizationCode,
+         xxx.organization_name AS organizationName,
+         xxx.f_company_id AS fCompanyId,
+         xxx.f_en_code AS fEnCode,
+         xxx.f_short_name AS fShortName,
+         xxx.min_stock AS minStock,
+         xxx.max_stock AS maxStock,
+         xxx.capacity AS capacity,
+         xxx.silo_code AS siloCode,
+         xxx.silo_name AS siloName,
+         xxx.zk_system_id AS zkSystemId,
+         xxx.zk_system_code AS zkSystemCode,
+         xxx.zk_system_name AS zkSystemName,
+         xxx.create_id AS createId,
+         xxx.create_name AS createName,
+         xxx.create_time AS createTime,
+         xxx.update_id AS updateId,
+         xxx.update_name AS updateName,
+         xxx.update_time AS updateTime,
+         xxx.remark AS remark,
+         xxx.is_valid AS isValid,
+         xxx.stock_place_type AS stockPlaceType,
+         xxx.material_code AS materialCode,
+      </sql>
+
+    <resultMap type="com.bpm.mes.stock.server.domain.MesWmsStockplace" id="MesWmsStockplaceMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="stockPlaceCode" column="stock_place_code" jdbcType="VARCHAR"/>
+        <result property="stockPlaceName" column="stock_place_name" jdbcType="VARCHAR"/>
+        <result property="parentId" column="parent_id" jdbcType="INTEGER"/>
+        <result property="parentStockPlacenCode" column="parent_stock_placen_code" jdbcType="VARCHAR"/>
+        <result property="parentStockPlacenName" column="parent_stock_placen_name" jdbcType="VARCHAR"/>
+        <result property="layerNum" column="layer_num" jdbcType="INTEGER"/>
+        <result property="isLeaf" column="is_leaf" jdbcType="VARCHAR"/>
+        <result property="materialId" column="material_id" jdbcType="INTEGER"/>
+        <result property="materialShortName" column="material_short_name" jdbcType="VARCHAR"/>
+        <result property="weight" column="weight" jdbcType="VARCHAR"/>
+        <result property="stockId" column="stock_id" jdbcType="INTEGER"/>
+        <result property="stockCode" column="stock_code" jdbcType="VARCHAR"/>
+        <result property="stockName" column="stock_name" jdbcType="VARCHAR"/>
+        <result property="state" column="state" jdbcType="VARCHAR"/>
+        <result property="organizationId" column="organization_id" jdbcType="INTEGER"/>
+        <result property="organizationCode" column="organization_code" jdbcType="VARCHAR"/>
+        <result property="organizationName" column="organization_name" jdbcType="VARCHAR"/>
+        <result property="fCompanyId" column="f_company_id" jdbcType="INTEGER"/>
+        <result property="fEnCode" column="f_en_code" jdbcType="VARCHAR"/>
+        <result property="fShortName" column="f_short_name" jdbcType="VARCHAR"/>
+        <result property="minStock" column="min_stock" jdbcType="VARCHAR"/>
+        <result property="maxStock" column="max_stock" jdbcType="VARCHAR"/>
+        <result property="capacity" column="capacity" jdbcType="VARCHAR"/>
+        <result property="siloCode" column="silo_code" jdbcType="VARCHAR"/>
+        <result property="siloName" column="silo_name" jdbcType="VARCHAR"/>
+        <result property="zkSystemId" column="zk_system_id" jdbcType="INTEGER"/>
+        <result property="zkSystemCode" column="zk_system_code" jdbcType="VARCHAR"/>
+        <result property="zkSystemName" column="zk_system_name" jdbcType="VARCHAR"/>
+        <result property="createId" column="create_id" jdbcType="INTEGER"/>
+        <result property="createName" column="create_name" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateId" column="update_id" jdbcType="INTEGER"/>
+        <result property="updateName" column="update_name" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="isValid" column="is_valid" jdbcType="VARCHAR"/>
+        <result property="stockPlaceType" column="stock_place_type" jdbcType="VARCHAR"/>
+        <result property="materialCode" column="material_code" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+    
+        <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="MesWmsStockplaceMap">
+        select
+          <include refid="Base_Column_List" />
+        from mes_wms_stockplace
+        <where>
+        is_valid = '1'
+            <if test="id != null">
+                and id = #{id}                
+            </if>
+            <if test="stockPlaceCode != null and stockPlaceCode != ''">
+                and stock_place_code  like concat('%',#{stockPlaceCode},'%')                
+            </if>
+            <if test="stockPlaceName != null and stockPlaceName != ''">
+                and stock_place_name  like concat('%',#{stockPlaceName},'%')                
+            </if>
+            <if test="parentId != null">
+                and parent_id = #{parentId}                
+            </if>
+            <if test="parentStockPlacenCode != null and parentStockPlacenCode != ''">
+                and parent_stock_placen_code  like concat('%',#{parentStockPlacenCode},'%')                
+            </if>
+            <if test="parentStockPlacenName != null and parentStockPlacenName != ''">
+                and parent_stock_placen_name  like concat('%',#{parentStockPlacenName},'%')                
+            </if>
+            <if test="layerNum != null">
+                and layer_num = #{layerNum}                
+            </if>
+            <if test="isLeaf != null and isLeaf != ''">
+                and is_leaf  like concat('%',#{isLeaf},'%')                
+            </if>
+            <if test="materialId != null">
+                and material_id = #{materialId}                
+            </if>
+            <if test="materialShortName != null and materialShortName != ''">
+                and material_short_name  like concat('%',#{materialShortName},'%')                
+            </if>
+            <if test="weight != null">
+                and weight                 
+            </if>
+            <if test="stockId != null">
+                and stock_id = #{stockId}                
+            </if>
+            <if test="stockCode != null and stockCode != ''">
+                and stock_code  like concat('%',#{stockCode},'%')                
+            </if>
+            <if test="stockName != null and stockName != ''">
+                and stock_name  like concat('%',#{stockName},'%')                
+            </if>
+            <if test="state != null and state != ''">
+                and state  like concat('%',#{state},'%')                
+            </if>
+            <if test="organizationId != null">
+                and organization_id = #{organizationId}                
+            </if>
+            <if test="organizationCode != null and organizationCode != ''">
+                and organization_code  like concat('%',#{organizationCode},'%')                
+            </if>
+            <if test="organizationName != null and organizationName != ''">
+                and organization_name  like concat('%',#{organizationName},'%')                
+            </if>
+            <if test="fCompanyId != null">
+                and f_company_id = #{fCompanyId}                
+            </if>
+            <if test="fEnCode != null and fEnCode != ''">
+                and f_en_code  like concat('%',#{fEnCode},'%')                
+            </if>
+            <if test="fShortName != null and fShortName != ''">
+                and f_short_name  like concat('%',#{fShortName},'%')                
+            </if>
+            <if test="minStock != null">
+                and min_stock                 
+            </if>
+            <if test="maxStock != null">
+                and max_stock                 
+            </if>
+            <if test="capacity != null">
+                and capacity                 
+            </if>
+            <if test="siloCode != null and siloCode != ''">
+                and silo_code  like concat('%',#{siloCode},'%')                
+            </if>
+            <if test="siloName != null and siloName != ''">
+                and silo_name  like concat('%',#{siloName},'%')                
+            </if>
+            <if test="zkSystemId != null">
+                and zk_system_id = #{zkSystemId}                
+            </if>
+            <if test="zkSystemCode != null and zkSystemCode != ''">
+                and zk_system_code  like concat('%',#{zkSystemCode},'%')                
+            </if>
+            <if test="zkSystemName != null and zkSystemName != ''">
+                and zk_system_name  like concat('%',#{zkSystemName},'%')                
+            </if>
+            <if test="createId != null">
+                and create_id = #{createId}                
+            </if>
+            <if test="createName != null and createName != ''">
+                and create_name  like concat('%',#{createName},'%')                
+            </if>
+            <if test="createTime != null">
+                and create_time                 
+            </if>
+            <if test="updateId != null">
+                and update_id = #{updateId}                
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and update_name  like concat('%',#{updateName},'%')                
+            </if>
+            <if test="updateTime != null">
+                and update_time                 
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark  like concat('%',#{remark},'%')                
+            </if>
+            <if test="isValid != null and isValid != ''">
+                and is_valid  like concat('%',#{isValid},'%')                
+            </if>
+            <if test="stockPlaceType != null and stockPlaceType != ''">
+                and stock_place_type  like concat('%',#{stockPlaceType},'%')                
+            </if>
+            <if test="materialCode != null and materialCode != ''">
+                and material_code  like concat('%',#{materialCode},'%')                
+            </if>
+        </where>
+        order by id desc
+    </select>
+    
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="MesWmsStockplaceMap">
+        select
+          id, stock_place_code, stock_place_name, parent_id, parent_stock_placen_code, parent_stock_placen_name, layer_num, is_leaf, material_id, material_short_name, weight, stock_id, stock_code, stock_name, state, organization_id, organization_code, organization_name, f_company_id, f_en_code, f_short_name, min_stock, max_stock, capacity, silo_code, silo_name, zk_system_id, zk_system_code, zk_system_name, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid, stock_place_type, material_code
+        from mes_wms_stockplace
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="MesWmsStockplaceMap">
+        select
+          id, stock_place_code, stock_place_name, parent_id, parent_stock_placen_code, parent_stock_placen_name, layer_num, is_leaf, material_id, material_short_name, weight, stock_id, stock_code, stock_name, state, organization_id, organization_code, organization_name, f_company_id, f_en_code, f_short_name, min_stock, max_stock, capacity, silo_code, silo_name, zk_system_id, zk_system_code, zk_system_name, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid, stock_place_type, material_code
+        from mes_wms_stockplace
+        <where>
+        is_valid = '1'
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="stockPlaceCode != null and stockPlaceCode != ''">
+                and stock_place_code = #{stockPlaceCode}
+            </if>
+            <if test="stockPlaceName != null and stockPlaceName != ''">
+                and stock_place_name = #{stockPlaceName}
+            </if>
+            <if test="parentId != null">
+                and parent_id = #{parentId}
+            </if>
+            <if test="parentStockPlacenCode != null and parentStockPlacenCode != ''">
+                and parent_stock_placen_code = #{parentStockPlacenCode}
+            </if>
+            <if test="parentStockPlacenName != null and parentStockPlacenName != ''">
+                and parent_stock_placen_name = #{parentStockPlacenName}
+            </if>
+            <if test="layerNum != null">
+                and layer_num = #{layerNum}
+            </if>
+            <if test="isLeaf != null and isLeaf != ''">
+                and is_leaf = #{isLeaf}
+            </if>
+            <if test="materialId != null">
+                and material_id = #{materialId}
+            </if>
+            <if test="materialShortName != null and materialShortName != ''">
+                and material_short_name = #{materialShortName}
+            </if>
+            <if test="weight != null">
+                and weight = #{weight}
+            </if>
+            <if test="stockId != null">
+                and stock_id = #{stockId}
+            </if>
+            <if test="stockCode != null and stockCode != ''">
+                and stock_code = #{stockCode}
+            </if>
+            <if test="stockName != null and stockName != ''">
+                and stock_name = #{stockName}
+            </if>
+            <if test="state != null and state != ''">
+                and state = #{state}
+            </if>
+            <if test="organizationId != null">
+                and organization_id = #{organizationId}
+            </if>
+            <if test="organizationCode != null and organizationCode != ''">
+                and organization_code = #{organizationCode}
+            </if>
+            <if test="organizationName != null and organizationName != ''">
+                and organization_name = #{organizationName}
+            </if>
+            <if test="fCompanyId != null">
+                and f_company_id = #{fCompanyId}
+            </if>
+            <if test="fEnCode != null and fEnCode != ''">
+                and f_en_code = #{fEnCode}
+            </if>
+            <if test="fShortName != null and fShortName != ''">
+                and f_short_name = #{fShortName}
+            </if>
+            <if test="minStock != null">
+                and min_stock = #{minStock}
+            </if>
+            <if test="maxStock != null">
+                and max_stock = #{maxStock}
+            </if>
+            <if test="capacity != null">
+                and capacity = #{capacity}
+            </if>
+            <if test="siloCode != null and siloCode != ''">
+                and silo_code = #{siloCode}
+            </if>
+            <if test="siloName != null and siloName != ''">
+                and silo_name = #{siloName}
+            </if>
+            <if test="zkSystemId != null">
+                and zk_system_id = #{zkSystemId}
+            </if>
+            <if test="zkSystemCode != null and zkSystemCode != ''">
+                and zk_system_code = #{zkSystemCode}
+            </if>
+            <if test="zkSystemName != null and zkSystemName != ''">
+                and zk_system_name = #{zkSystemName}
+            </if>
+            <if test="createId != null">
+                and create_id = #{createId}
+            </if>
+            <if test="createName != null and createName != ''">
+                and create_name = #{createName}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateId != null">
+                and update_id = #{updateId}
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and update_name = #{updateName}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="isValid != null and isValid != ''">
+                and is_valid = #{isValid}
+            </if>
+            <if test="stockPlaceType != null and stockPlaceType != ''">
+                and stock_place_type = #{stockPlaceType}
+            </if>
+            <if test="materialCode != null and materialCode != ''">
+                and material_code = #{materialCode}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+    
+    
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from mes_wms_stockplace
+        <where>
+        is_valid = '1'
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="stockPlaceCode != null and stockPlaceCode != ''">
+                and stock_place_code = #{stockPlaceCode}
+            </if>
+            <if test="stockPlaceName != null and stockPlaceName != ''">
+                and stock_place_name = #{stockPlaceName}
+            </if>
+            <if test="parentId != null">
+                and parent_id = #{parentId}
+            </if>
+            <if test="parentStockPlacenCode != null and parentStockPlacenCode != ''">
+                and parent_stock_placen_code = #{parentStockPlacenCode}
+            </if>
+            <if test="parentStockPlacenName != null and parentStockPlacenName != ''">
+                and parent_stock_placen_name = #{parentStockPlacenName}
+            </if>
+            <if test="layerNum != null">
+                and layer_num = #{layerNum}
+            </if>
+            <if test="isLeaf != null and isLeaf != ''">
+                and is_leaf = #{isLeaf}
+            </if>
+            <if test="materialId != null">
+                and material_id = #{materialId}
+            </if>
+            <if test="materialShortName != null and materialShortName != ''">
+                and material_short_name = #{materialShortName}
+            </if>
+            <if test="weight != null">
+                and weight = #{weight}
+            </if>
+            <if test="stockId != null">
+                and stock_id = #{stockId}
+            </if>
+            <if test="stockCode != null and stockCode != ''">
+                and stock_code = #{stockCode}
+            </if>
+            <if test="stockName != null and stockName != ''">
+                and stock_name = #{stockName}
+            </if>
+            <if test="state != null and state != ''">
+                and state = #{state}
+            </if>
+            <if test="organizationId != null">
+                and organization_id = #{organizationId}
+            </if>
+            <if test="organizationCode != null and organizationCode != ''">
+                and organization_code = #{organizationCode}
+            </if>
+            <if test="organizationName != null and organizationName != ''">
+                and organization_name = #{organizationName}
+            </if>
+            <if test="fCompanyId != null">
+                and f_company_id = #{fCompanyId}
+            </if>
+            <if test="fEnCode != null and fEnCode != ''">
+                and f_en_code = #{fEnCode}
+            </if>
+            <if test="fShortName != null and fShortName != ''">
+                and f_short_name = #{fShortName}
+            </if>
+            <if test="minStock != null">
+                and min_stock = #{minStock}
+            </if>
+            <if test="maxStock != null">
+                and max_stock = #{maxStock}
+            </if>
+            <if test="capacity != null">
+                and capacity = #{capacity}
+            </if>
+            <if test="siloCode != null and siloCode != ''">
+                and silo_code = #{siloCode}
+            </if>
+            <if test="siloName != null and siloName != ''">
+                and silo_name = #{siloName}
+            </if>
+            <if test="zkSystemId != null">
+                and zk_system_id = #{zkSystemId}
+            </if>
+            <if test="zkSystemCode != null and zkSystemCode != ''">
+                and zk_system_code = #{zkSystemCode}
+            </if>
+            <if test="zkSystemName != null and zkSystemName != ''">
+                and zk_system_name = #{zkSystemName}
+            </if>
+            <if test="createId != null">
+                and create_id = #{createId}
+            </if>
+            <if test="createName != null and createName != ''">
+                and create_name = #{createName}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateId != null">
+                and update_id = #{updateId}
+            </if>
+            <if test="updateName != null and updateName != ''">
+                and update_name = #{updateName}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="isValid != null and isValid != ''">
+                and is_valid = #{isValid}
+            </if>
+            <if test="stockPlaceType != null and stockPlaceType != ''">
+                and stock_place_type = #{stockPlaceType}
+            </if>
+            <if test="materialCode != null and materialCode != ''">
+                and material_code = #{materialCode}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_wms_stockplace(stock_place_code, stock_place_name, parent_id, parent_stock_placen_code, parent_stock_placen_name, layer_num, is_leaf, material_id, material_short_name, weight, stock_id, stock_code, stock_name, state, organization_id, organization_code, organization_name, f_company_id, f_en_code, f_short_name, min_stock, max_stock, capacity, silo_code, silo_name, zk_system_id, zk_system_code, zk_system_name, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid, stock_place_type, material_code)
+        values (#{stockPlaceCode}, #{stockPlaceName}, #{parentId}, #{parentStockPlacenCode}, #{parentStockPlacenName}, #{layerNum}, #{isLeaf}, #{materialId}, #{materialShortName}, #{weight}, #{stockId}, #{stockCode}, #{stockName}, #{state}, #{organizationId}, #{organizationCode}, #{organizationName}, #{fCompanyId}, #{fEnCode}, #{fShortName}, #{minStock}, #{maxStock}, #{capacity}, #{siloCode}, #{siloName}, #{zkSystemId}, #{zkSystemCode}, #{zkSystemName}, #{createId}, #{createName}, #{createTime}, #{updateId}, #{updateName}, #{updateTime}, #{remark}, #{isValid}, #{stockPlaceType}, #{materialCode})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_wms_stockplace(stock_place_code, stock_place_name, parent_id, parent_stock_placen_code, parent_stock_placen_name, layer_num, is_leaf, material_id, material_short_name, weight, stock_id, stock_code, stock_name, state, organization_id, organization_code, organization_name, f_company_id, f_en_code, f_short_name, min_stock, max_stock, capacity, silo_code, silo_name, zk_system_id, zk_system_code, zk_system_name, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid, stock_place_type, material_code)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.stockPlaceCode}, #{entity.stockPlaceName}, #{entity.parentId}, #{entity.parentStockPlacenCode}, #{entity.parentStockPlacenName}, #{entity.layerNum}, #{entity.isLeaf}, #{entity.materialId}, #{entity.materialShortName}, #{entity.weight}, #{entity.stockId}, #{entity.stockCode}, #{entity.stockName}, #{entity.state}, #{entity.organizationId}, #{entity.organizationCode}, #{entity.organizationName}, #{entity.fCompanyId}, #{entity.fEnCode}, #{entity.fShortName}, #{entity.minStock}, #{entity.maxStock}, #{entity.capacity}, #{entity.siloCode}, #{entity.siloName}, #{entity.zkSystemId}, #{entity.zkSystemCode}, #{entity.zkSystemName}, #{entity.createId}, #{entity.createName}, #{entity.createTime}, #{entity.updateId}, #{entity.updateName}, #{entity.updateTime}, #{entity.remark}, #{entity.isValid}, #{entity.stockPlaceType}, #{entity.materialCode})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_wms_stockplace(stock_place_code, stock_place_name, parent_id, parent_stock_placen_code, parent_stock_placen_name, layer_num, is_leaf, material_id, material_short_name, weight, stock_id, stock_code, stock_name, state, organization_id, organization_code, organization_name, f_company_id, f_en_code, f_short_name, min_stock, max_stock, capacity, silo_code, silo_name, zk_system_id, zk_system_code, zk_system_name, create_id, create_name, create_time, update_id, update_name, update_time, remark, is_valid, stock_place_type, material_code)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.stockPlaceCode}, #{entity.stockPlaceName}, #{entity.parentId}, #{entity.parentStockPlacenCode}, #{entity.parentStockPlacenName}, #{entity.layerNum}, #{entity.isLeaf}, #{entity.materialId}, #{entity.materialShortName}, #{entity.weight}, #{entity.stockId}, #{entity.stockCode}, #{entity.stockName}, #{entity.state}, #{entity.organizationId}, #{entity.organizationCode}, #{entity.organizationName}, #{entity.fCompanyId}, #{entity.fEnCode}, #{entity.fShortName}, #{entity.minStock}, #{entity.maxStock}, #{entity.capacity}, #{entity.siloCode}, #{entity.siloName}, #{entity.zkSystemId}, #{entity.zkSystemCode}, #{entity.zkSystemName}, #{entity.createId}, #{entity.createName}, #{entity.createTime}, #{entity.updateId}, #{entity.updateName}, #{entity.updateTime}, #{entity.remark}, #{entity.isValid}, #{entity.stockPlaceType}, #{entity.materialCode})
+        </foreach>
+        on duplicate key update
+        stock_place_code = values(stock_place_code),
+        stock_place_name = values(stock_place_name),
+        parent_id = values(parent_id),
+        parent_stock_placen_code = values(parent_stock_placen_code),
+        parent_stock_placen_name = values(parent_stock_placen_name),
+        layer_num = values(layer_num),
+        is_leaf = values(is_leaf),
+        material_id = values(material_id),
+        material_short_name = values(material_short_name),
+        weight = values(weight),
+        stock_id = values(stock_id),
+        stock_code = values(stock_code),
+        stock_name = values(stock_name),
+        state = values(state),
+        organization_id = values(organization_id),
+        organization_code = values(organization_code),
+        organization_name = values(organization_name),
+        f_company_id = values(f_company_id),
+        f_en_code = values(f_en_code),
+        f_short_name = values(f_short_name),
+        min_stock = values(min_stock),
+        max_stock = values(max_stock),
+        capacity = values(capacity),
+        silo_code = values(silo_code),
+        silo_name = values(silo_name),
+        zk_system_id = values(zk_system_id),
+        zk_system_code = values(zk_system_code),
+        zk_system_name = values(zk_system_name),
+        create_id = values(create_id),
+        create_name = values(create_name),
+        create_time = values(create_time),
+        update_id = values(update_id),
+        update_name = values(update_name),
+        update_time = values(update_time),
+        remark = values(remark),
+        is_valid = values(is_valid),
+        stock_place_type = values(stock_place_type),
+        material_code = values(material_code)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update mes_wms_stockplace
+        <set>
+            <if test="stockPlaceCode != null and stockPlaceCode != ''">
+                stock_place_code = #{stockPlaceCode},
+            </if>
+            <if test="stockPlaceName != null and stockPlaceName != ''">
+                stock_place_name = #{stockPlaceName},
+            </if>
+            <if test="parentId != null">
+                parent_id = #{parentId},
+            </if>
+            <if test="parentStockPlacenCode != null and parentStockPlacenCode != ''">
+                parent_stock_placen_code = #{parentStockPlacenCode},
+            </if>
+            <if test="parentStockPlacenName != null and parentStockPlacenName != ''">
+                parent_stock_placen_name = #{parentStockPlacenName},
+            </if>
+            <if test="layerNum != null">
+                layer_num = #{layerNum},
+            </if>
+            <if test="isLeaf != null and isLeaf != ''">
+                is_leaf = #{isLeaf},
+            </if>
+            <if test="materialId != null">
+                material_id = #{materialId},
+            </if>
+            <if test="materialShortName != null and materialShortName != ''">
+                material_short_name = #{materialShortName},
+            </if>
+            <if test="weight != null">
+                weight = #{weight},
+            </if>
+            <if test="stockId != null">
+                stock_id = #{stockId},
+            </if>
+            <if test="stockCode != null and stockCode != ''">
+                stock_code = #{stockCode},
+            </if>
+            <if test="stockName != null and stockName != ''">
+                stock_name = #{stockName},
+            </if>
+            <if test="state != null and state != ''">
+                state = #{state},
+            </if>
+            <if test="organizationId != null">
+                organization_id = #{organizationId},
+            </if>
+            <if test="organizationCode != null and organizationCode != ''">
+                organization_code = #{organizationCode},
+            </if>
+            <if test="organizationName != null and organizationName != ''">
+                organization_name = #{organizationName},
+            </if>
+            <if test="fCompanyId != null">
+                f_company_id = #{fCompanyId},
+            </if>
+            <if test="fEnCode != null and fEnCode != ''">
+                f_en_code = #{fEnCode},
+            </if>
+            <if test="fShortName != null and fShortName != ''">
+                f_short_name = #{fShortName},
+            </if>
+            <if test="minStock != null">
+                min_stock = #{minStock},
+            </if>
+            <if test="maxStock != null">
+                max_stock = #{maxStock},
+            </if>
+            <if test="capacity != null">
+                capacity = #{capacity},
+            </if>
+            <if test="siloCode != null and siloCode != ''">
+                silo_code = #{siloCode},
+            </if>
+            <if test="siloName != null and siloName != ''">
+                silo_name = #{siloName},
+            </if>
+            <if test="zkSystemId != null">
+                zk_system_id = #{zkSystemId},
+            </if>
+            <if test="zkSystemCode != null and zkSystemCode != ''">
+                zk_system_code = #{zkSystemCode},
+            </if>
+            <if test="zkSystemName != null and zkSystemName != ''">
+                zk_system_name = #{zkSystemName},
+            </if>
+            <if test="createId != null">
+                create_id = #{createId},
+            </if>
+            <if test="createName != null and createName != ''">
+                create_name = #{createName},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateId != null">
+                update_id = #{updateId},
+            </if>
+            <if test="updateName != null and updateName != ''">
+                update_name = #{updateName},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="isValid != null and isValid != ''">
+                is_valid = #{isValid},
+            </if>
+            <if test="stockPlaceType != null and stockPlaceType != ''">
+                stock_place_type = #{stockPlaceType},
+            </if>
+            <if test="materialCode != null and materialCode != ''">
+                material_code = #{materialCode},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    
+    <!--通过主键修改数据-->
+    <update id="edit">
+        update mes_wms_stockplace
+        <set>
+           stock_place_code = #{stockPlaceCode},
+           stock_place_name = #{stockPlaceName},
+           parent_id = #{parentId},
+           parent_stock_placen_code = #{parentStockPlacenCode},
+           parent_stock_placen_name = #{parentStockPlacenName},
+           layer_num = #{layerNum},
+           is_leaf = #{isLeaf},
+           material_id = #{materialId},
+           material_short_name = #{materialShortName},
+           weight = #{weight},
+           stock_id = #{stockId},
+           stock_code = #{stockCode},
+           stock_name = #{stockName},
+           state = #{state},
+           organization_id = #{organizationId},
+           organization_code = #{organizationCode},
+           organization_name = #{organizationName},
+           f_company_id = #{fCompanyId},
+           f_en_code = #{fEnCode},
+           f_short_name = #{fShortName},
+           min_stock = #{minStock},
+           max_stock = #{maxStock},
+           capacity = #{capacity},
+           silo_code = #{siloCode},
+           silo_name = #{siloName},
+           zk_system_id = #{zkSystemId},
+           zk_system_code = #{zkSystemCode},
+           zk_system_name = #{zkSystemName},
+           create_id = #{createId},
+           create_name = #{createName},
+           create_time = #{createTime},
+           update_id = #{updateId},
+           update_name = #{updateName},
+           update_time = #{updateTime},
+           remark = #{remark},
+           is_valid = #{isValid},
+           stock_place_type = #{stockPlaceType},
+           material_code = #{materialCode},
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from mes_wms_stockplace where id = #{id}
+    </delete>
+    
+    <!--通过主键逻辑删除-->
+    <delete id="updateById">
+        update mes_wms_stockplace set is_valid = '0' where id = #{id}
+    </delete>
+
+</mapper>
+

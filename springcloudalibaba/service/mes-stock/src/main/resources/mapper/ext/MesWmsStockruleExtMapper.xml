@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bpm.mes.stock.server.mapper.ext.MesWmsStockruleExtMapper">
+    <select id="queryTypeCode" resultType="java.lang.String">
+        SELECT rule_code AS ruleCode
+        FROM mes_wms_stockrule
+        WHERE in_out_propert = #{inOutPropert}
+          AND is_valid = '1'
+          AND date_format(create_time,'%Y-%m-%d') = date_format(now(),'%Y-%m-%d')
+        ORDER BY "id" DESC LIMIT 1
+    </select>
+    <select id="queryAll" resultType="com.bpm.mes.stock.server.domain.MesWmsStockrule">
+        SELECT
+            sr."id",
+            sr.rule_code AS ruleCode,
+            sr.rule_name AS ruleName,
+            sr.rule_conclusion AS ruleConclusion,
+            sr.f_company_id AS fCompanyId,
+            sr.f_en_code AS fEnCode,
+            sr.f_short_name AS fShortName,
+            sr.create_id AS createId,
+            sr.create_name AS createName,
+            sr.create_time AS createTime,
+            sr.update_id AS updateId,
+            sr.update_name AS updateName,
+            sr.update_time AS updateTime,
+            sr.remark AS remark,
+            sr.is_valid AS isValid,
+            sr.rule_value AS ruleValue,
+            sr.in_out_propert,
+            sdd.dict_value AS inOutPropert
+        FROM
+            mes_wms_stockrule sr
+                LEFT JOIN sys_dict_data sdd ON sdd.dict_label = sr.in_out_propert
+                AND sdd.status = '1'
+                AND sdd.dict_type = 'in_out_propert'
+        WHERE
+            sr.is_valid = '1'
+        <if test="ruleCode != null and ruleCode != ''">
+            and sr.rule_code  like concat('%',#{ruleCode},'%')
+        </if>
+        <if test="ruleName != null and ruleName != ''">
+            and sr.rule_name  like concat('%',#{ruleName},'%')
+        </if>
+        <if test="inOutPropert != null and inOutPropert != ''">
+            and sr.in_out_propert  like concat('%',#{inOutPropert},'%')
+        </if>
+        order by sr.id desc
+    </select>
+</mapper>

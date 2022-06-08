@@ -1,0 +1,553 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bpm.mes.stock.server.mapper.ext.MesWmsStockinoutExtMapper">
+    <update id="editINOutList">
+        update mes_wms_stockinoutlist
+        <set>
+            <if test="materialId != null">
+                material_id = #{materialId},
+            </if>
+            <if test="materialCode != null and materialCode != ''">
+                material_code = #{materialCode},
+            </if>
+            <if test="materialShortName != null and materialShortName != ''">
+                material_short_name = #{materialShortName},
+            </if>
+            <if test="materialSpec != null and materialSpec != ''">
+                material_spec = #{materialSpec},
+            </if>
+            <if test="unitsId != null">
+                units_id = #{unitsId},
+            </if>
+            <if test="unitsName != null and unitsName != ''">
+                units_name = #{unitsName},
+            </if>
+            <if test="stockId != null">
+                stock_id = #{stockId},
+            </if>
+            <if test="stockCode != null and stockCode != ''">
+                stock_code = #{stockCode},
+            </if>
+            <if test="stockName != null and stockName != ''">
+                stock_name = #{stockName},
+            </if>
+            <if test="importQty != null">
+                import_qty = #{importQty},
+            </if>
+            <if test="fPallet != null">
+                f_pallet = #{fPallet},
+            </if>
+            <if test="fFinished != null">
+                f_finished = #{fFinished},
+            </if>
+            <if test="fCount != null">
+                f_count = #{fCount},
+            </if>
+            <if test="stockQty != null">
+                stock_qty = #{stockQty},
+            </if>
+            <if test="invoiceQty != null">
+                invoice_qty = #{invoiceQty},
+            </if>
+            <if test="supStatementListId != null">
+                sup_statement_list_id = #{supStatementListId},
+            </if>
+            <if test="supStatementId != null">
+                sup_statement_id = #{supStatementId},
+            </if>
+            <if test="verificationState != null and verificationState != ''">
+                verification_state = #{verificationState},
+            </if>
+            <if test="backQty != null">
+                back_qty = #{backQty},
+            </if>
+            <if test="price != null">
+                price = #{price},
+            </if>
+            <if test="amount != null">
+                amount = #{amount},
+            </if>
+            <if test="taxRate != null">
+                tax_rate = #{taxRate},
+            </if>
+            <if test="taxAmount != null">
+                tax_amount = #{taxAmount},
+            </if>
+            <if test="taxPrice != null">
+                tax_price = #{taxPrice},
+            </if>
+            <if test="allAmount != null">
+                all_amount = #{allAmount},
+            </if>
+            <if test="kFPeriod != null">
+                k_f_period = #{kFPeriod},
+            </if>
+            <if test="kFDate != null and kFDate != ''">
+                k_f_date = #{kFDate},
+            </if>
+            <if test="periodDate != null and periodDate != ''">
+                period_date = #{periodDate},
+            </if>
+            <if test="contractId != null">
+                contract_id = #{contractId},
+            </if>
+            <if test="contractCode != null and contractCode != ''">
+                contract_code = #{contractCode},
+            </if>
+            <if test="contractListId != null">
+                contract_list_id = #{contractListId},
+            </if>
+            <if test="sourceType != null and sourceType != ''">
+                source_type = #{sourceType},
+            </if>
+            <if test="sourceId != null">
+                source_id = #{sourceId},
+            </if>
+            <if test="sourceCode != null and sourceCode != ''">
+                source_code = #{sourceCode},
+            </if>
+            <if test="sourceListId != null">
+                source_list_id = #{sourceListId},
+            </if>
+            <if test="orderId != null">
+                order_id = #{orderId},
+            </if>
+            <if test="orderCode != null and orderCode != ''">
+                order_code = #{orderCode},
+            </if>
+            <if test="orderListId != null">
+                order_list_id = #{orderListId},
+            </if>
+            <if test="taskId != null">
+                task_id = #{taskId},
+            </if>
+            <if test="taskCode != null and taskCode != ''">
+                task_code = #{taskCode},
+            </if>
+            <if test="taskListId != null">
+                task_list_id = #{taskListId},
+            </if>
+            <if test="saleApplyInvoiceId != null">
+                sale_apply_invoice_id = #{saleApplyInvoiceId},
+            </if>
+            <if test="saleApplyInvoiceListId != null">
+                sale_apply_invoice_list_id = #{saleApplyInvoiceListId},
+            </if>
+            <if test="eRPSpeStock != null and eRPSpeStock != ''">
+                e_r_p_spe_stock = #{eRPSpeStock},
+            </if>
+            <if test="eRPOfObject != null and eRPOfObject != ''">
+                e_r_p_of_object = #{eRPOfObject},
+            </if>
+            <if test="checkerId != null">
+                checker_id = #{checkerId},
+            </if>
+            <if test="checkerName != null and checkerName != ''">
+                checker_name = #{checkerName},
+            </if>
+            <if test="checkerTime != null">
+                checker_time = #{checkerTime},
+            </if>
+            <if test="lineNumbe != null and lineNumbe != ''">
+                line_numbe = #{lineNumbe},
+            </if>
+            <if test="organizationId != null">
+                organization_id = #{organizationId},
+            </if>
+            <if test="organizationCode != null and organizationCode != ''">
+                organization_code = #{organizationCode},
+            </if>
+            <if test="organizationName != null and organizationName != ''">
+                organization_name = #{organizationName},
+            </if>
+            <if test="createId != null">
+                create_id = #{createId},
+            </if>
+            <if test="createName != null and createName != ''">
+                create_name = #{createName},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateId != null">
+                update_id = #{updateId},
+            </if>
+            <if test="updateName != null and updateName != ''">
+                update_name = #{updateName},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="isValid != null and isValid != ''">
+                is_valid = #{isValid},
+            </if>
+            <if test="companyId != null">
+                company_id = #{companyId},
+            </if>
+            <if test="companyCode != null and companyCode != ''">
+                company_code = #{companyCode},
+            </if>
+            <if test="companyName != null and companyName != ''">
+                company_name = #{companyName},
+            </if>
+            <if test="inBatchNo != null and inBatchNo != ''">
+                in_batch_no = #{inBatchNo},
+            </if>
+            <if test="batchNo != null and batchNo != ''">
+                batch_no = #{batchNo},
+            </if>
+            <if test="stockPlaceId != null">
+                stock_place_id = #{stockPlaceId},
+            </if>
+            <if test="stockPlaceCode != null and stockPlaceCode != ''">
+                stock_place_code = #{stockPlaceCode},
+            </if>
+            <if test="stockPlaceName != null and stockPlaceName != ''">
+                stock_place_name = #{stockPlaceName},
+            </if>
+            <if test="barCode != null and barCode != ''">
+                bar_code = #{barCode},
+            </if>
+            <if test="status != null and status != ''">
+                status = #{status},
+            </if>
+            <if test="buyAcceptListId != null">
+                buy_accept_list_id = #{buyAcceptListId},
+            </if>
+        </set>
+        where 1 = 1
+        <if test="stockInOutId != null">
+            and stock_in_out_id = #{stockInOutId}
+        </if>
+    </update>
+    <delete id="deletePoList">
+        delete from mes_wms_stockpolist where stock_po_id = #{stockId}
+    </delete>
+    <delete id="deleteInOutList">
+        delete from mes_wms_stockinoutlist where stock_in_out_id = #{stcokInOutId}
+    </delete>
+    <select id="queryAll" resultType="com.bpm.mes.stock.server.vo.MesWmsStockinoutQueryVo">
+        SELECT
+        io."id",
+        io.stock_in_out_code AS stockInOutCode,
+        io.frob AS frob,
+        io.in_out_type_propert AS inOutTypePropert,
+        io.in_out_type_id AS inOutTypeId,
+        it.in_out_type_name AS inOutTypeName,
+        io.in_out_type_code AS inOutTypeCode,
+        io.bill_code AS billCode,
+        io.inout_date AS inoutDate,
+        io.inout_posting_date AS inoutPostingDate,
+        io.suppliar_id AS suppliarId,
+        io.suppliar_code AS suppliarCode,
+        io.suppliar_name AS suppliarName,
+        io.client_id AS clientId,
+        io.client_code AS clientCode,
+        io.client_name AS clientName,
+        io.stock_manager_id AS stockManagerId,
+        io.stock_manager_code AS stockManagerCode,
+        io.stock_manager_name AS stockManagerName,
+        io.inspect_id AS inspectId,
+        io.inspect_code AS inspectCode,
+        io.inspect_name AS inspectName,
+        io.settle_date AS settleDate,
+        io."year",
+        io.period AS period,
+        io.currency_id AS currencyId,
+        io.currency_code AS currencyCode,
+        io.exchange_rate AS exchangeRate,
+        io.stock_id AS stockId,
+        io.stock_code AS stockCode,
+        io.stock_name AS stockName,
+        io.back_flushed AS backFlushed,
+        io.client_id_receive AS clientIdReceive,
+        io.client_code_receive AS clientCodeReceive,
+        io.client_name_receive AS clientNameReceive,
+        io.consigner AS consigner,
+        io.receive_address AS receiveAddress,
+        io.phone AS phone,
+        io.f_manager_id AS fManagerId,
+        io.f_manager_code AS fManagerCode,
+        io.f_manager_name AS fManagerName,
+        io.sale_type AS saleType,
+        io.postyle AS postyle,
+        io.source_type AS sourceType,
+        io.source_id AS sourceId,
+        io.source_code AS sourceCode,
+        io.department_id AS departmentId,
+        io.department_code AS departmentCode,
+        io.department_name AS departmentName,
+        io.emp_id AS empId,
+        io.emp_code AS empCode,
+        io.emp_name AS empName,
+        io.manager_id AS managerId,
+        io.manager_code AS managerCode,
+        io.manager_name AS managerName,
+        io.status AS status1,
+        d1.dict_value AS status,
+        io.upt_state AS uptState,
+        io.up_stock_when_save AS upStockWhenSave,
+        io.checker_id AS checkerId,
+        io.checker_name AS checkerName,
+        io.checker_time AS checkerTime,
+        io.order_id AS orderId,
+        io.order_code AS orderCode,
+        io.task_id AS taskId,
+        io.task_code AS taskCode,
+        io.organization_id AS organizationId,
+        io.organization_code AS organizationCode,
+        io.organization_name AS organizationName,
+        io.company_id AS companyId,
+        io.company_code AS companyCode,
+        io.company_name AS companyName,
+        io.create_id AS createId,
+        io.create_name AS createName,
+        io.create_time AS createTime,
+        io.update_id AS updateId,
+        io.update_name AS updateName,
+        io.update_time AS updateTime,
+        io.remark AS remark,
+        io.is_valid AS isValid,
+        (CASE WHEN io.bill_code = 'QIN' THEN io.suppliar_name WHEN io.bill_code = 'CIN' THEN io.suppliar_name ELSE io.department_name END) AS deliveryName
+        FROM
+        mes_wms_stockinout io
+        LEFT JOIN mes_wms_inouttype it ON it."id" = io.in_out_type_id
+        AND io.is_valid = '1'
+        LEFT JOIN sys_dict_data d1 ON d1.dict_type = 'stockinout_status'
+        AND d1.status = '1'
+        AND d1.dict_label = io.status
+        LEFT JOIN mes_wms_stockinoutlist sil ON sil.stock_in_out_id = io."id"
+        AND sil.is_valid = '1'
+        WHERE
+        io.is_valid = '1'
+        AND in_out_type_propert = '1'
+        <if test="status != null and status != ''">
+            and io.status  like concat('%',#{status},'%')
+        </if>
+        <if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+            and io.inout_date &lt;= #{endTime} and io.inout_date >= #{startTime}
+        </if>
+        <if test="materialCode != null and materialCode != ''">
+            and sil.material_code  like concat('%',#{materialCode},'%')
+        </if>
+        <if test="materialShortName != null and materialShortName != ''">
+            and sil.material_short_name  like concat('%',#{materialShortName},'%')
+        </if>
+        GROUP BY
+        io."id",it.in_out_type_name,d1.dict_value
+        ORDER BY
+        io."id" DESC
+    </select>
+    <select id="queryInOutCode" resultType="java.lang.String">
+        SELECT
+            stock_in_out_code AS stockInOutCode
+        FROM
+            mes_wms_stockinout
+        WHERE
+            is_valid = '1'
+          AND in_out_type_propert = #{inOutPropert}
+          AND date_format ( create_time, '%Y-%m-%d' ) = date_format ( now( ), '%Y-%m-%d' )
+        ORDER BY
+            "id" DESC
+            LIMIT 1
+    </select>
+    <select id="queryPurchase" resultType="com.bpm.mes.stock.server.vo.MesWmsStockinoutVo">
+        SELECT
+        pb."id" AS buyAcceptId,
+        pb.buy_accept_no AS buyAcceptCode,
+        pb.supplier_id AS suppliarId,
+        pb.supplier_full_name AS suppliarName,
+        pb.settle_date AS settleDate,
+        pb.currency_id AS currencyId,
+        pb.currency_code AS currencyCode,
+        pb.exchange_rate AS exchangerate,
+        pb.stock_id AS stockId,
+        pb.stock_code AS stcokCode,
+        pb.stock_name AS stockName,
+        pb.client_id_receive AS clientIdReceive,
+        pb.client_name_receive AS clientNameReceive,
+        pb.consigner,
+        pb.receive_address AS receiveAddress,
+        pb.phone,
+        pb.postyle,
+        1 AS sourceType,
+        '来料收货单' AS sourceTypeName,
+        pb."id" AS sourceId,
+        pb.buy_accept_no AS sourceCode,
+        pb.department_id AS departmentId,
+        pb.department_no AS departmentCode,
+        pb.emp_id AS empId,
+        pb.emp_no AS empCode,
+        pb.manager_id AS managerId,
+        pb.manager_no AS managerCode
+        FROM
+        mes_purchase_buy_accept pb
+        WHERE
+        pb.is_valid = '1'
+        AND pb."state" = '4'
+        <if test="sourceId != null">
+            and pb.source_id  = #{sourceId}
+        </if>
+        <if test="buyAcceptId != null">
+            and pb."id"  = #{buyAcceptId}
+        </if>
+        <if test="stockId != null">
+            and pb.stock_id  = #{stockId}
+        </if>
+        <if test="sourceCode != null and sourceCode != ''">
+            and pb.source_code  like concat('%',#{sourceCode},'%')
+        </if>
+        <if test="suppliarId != null">
+            and pb.supplier_id = #{suppliarId}
+        </if>
+    </select>
+    <select id="queryPurchaseList" resultType="com.bpm.mes.stock.server.vo.MesWmsStockinoutListVo">
+        SELECT
+        bal."id" AS buyAcceptListId,
+        bal.material_code AS materialCode,
+        bal.materiel_id AS materialId,
+        bal.material_short_name AS materialShortName,
+        bal.material_spec AS materialSpec,
+        bal.units_id AS unitsId,
+        mu.material_unit_name AS unitsName,
+        bal.stock_id AS stockId,
+        bal.stock_code AS stcokCode,
+        bal.stock_name AS stockName,
+        bal.return_commit_qty AS backQty,
+        bal.price,
+        bal.amount,
+        bal.kf_period AS kFPeriod,
+        bal.kf_date AS kFDate,
+        bal.period_date AS periodDate,
+        1 AS sourceType,
+        '来料收货单' AS sourceTypeName,
+        ba."id" AS sourceId,
+        ba.buy_accept_no AS sourceCode,
+        bal."id" AS sourceListId,
+        bal.buy_order_id AS orderId,
+        bal.buy_order_code AS orderCode,
+        bal.buy_order_list_id AS orderListId,
+        bal.bar_code AS barCode,
+        bal.in_batch_no AS inBatchNo,
+        bal.batch_no AS batchNo,
+        bal.stock_place_id AS stockPlaceId,
+        bal.stock_place_no AS stcokPlaceCode,
+        bal.qty AS fPallet,
+        bal.commit_qty AS fFinished
+        FROM
+        mes_purchase_buy_accept_list bal
+        JOIN mes_purchase_buy_accept ba ON bal.buy_accept_id = ba."id"
+        LEFT JOIN basic_data_material_unit mu ON mu."id" = bal.materiel_id
+        WHERE
+        bal.is_valid = 1
+        AND bal.materiel_id IS NOT NULL
+        <if test="sourceId != null">
+            and ba."id"  = #{sourceId}
+        </if>
+        <if test="sourceListId != null">
+            and bal."id"  = #{sourceListId}
+        </if>
+        <if test="buyAcceptId != null">
+            and ba."id"  = #{buyAcceptId}
+        </if>
+        <if test="buyAcceptListId != null">
+            and bal."id"  = #{buyAcceptListId}
+        </if>
+    </select>
+    <select id="queryInBatchNo" resultType="java.lang.String">
+        SELECT
+            sil.in_batch_no AS inBatchNo
+        FROM
+            mes_wms_stockinoutlist sil
+                JOIN mes_wms_stockinout si ON si."id" = sil.stock_in_out_id
+        WHERE
+            si.is_valid = '1'
+          AND si.in_out_type_propert = #{inOutPropert}
+          AND date_format ( si.create_time, '%Y-%m-%d' ) = date_format ( now( ), '%Y-%m-%d' )
+          AND sil.is_valid = '1'
+          AND date_format ( sil.create_time, '%Y-%m-%d' ) = date_format ( now( ), '%Y-%m-%d' )
+        GROUP BY
+            sil.in_batch_no
+        ORDER BY
+            sil.in_batch_no DESC
+            LIMIT 1
+    </select>
+    <select id="queryQualityTasks" resultType="java.lang.Integer">
+        SELECT
+            "id"
+        FROM
+            hv_qm_inspection_standards_bill
+        WHERE
+            is_val_id = 1
+          AND status = 1
+          AND occasions_code = #{occasionsCode}
+          AND material_code = #{materialCode}
+        ORDER BY
+            "id" DESC
+            LIMIT 1
+    </select>
+    <select id="queryProduction" resultType="com.bpm.mes.stock.server.vo.MesWmsStockinoutVo">
+        SELECT DISTINCT
+            dp."id" AS sourceId,
+            dp.plan_code AS sourceCode,
+            2 AS sourceType,
+            '生产工单' AS sourceTypeName,
+            sp.stock_id AS stockId,
+            sp.stock_code AS stockCode,
+            sp.stock_name AS stockName
+        FROM
+            mes_product_day_planning dp
+                INNER JOIN mes_product_day_planning_detail dpd ON dpd.day_planning_id = dp."id"
+                INNER JOIN mes_wms_stockplace sp ON sp."id" = dpd.be_put_in_storage_warehouse_id
+        WHERE
+            dp.product_type != '5'
+            <if test="stockId != null">
+                and sp.stock_id  = #{stockId}
+            </if>
+        ORDER BY
+            dp."id" DESC
+    </select>
+    <select id="queryProductionList" resultType="com.bpm.mes.stock.server.vo.MesWmsStockinoutListVo">
+        SELECT DISTINCT
+            dp."id" AS sourceId,
+            dp.plan_code AS sourceCode,
+            2 AS sourceType,
+            '生产工单' AS sourceTypeName,
+            dpd."id" AS sourceListId,
+            dpd.planned_quantity AS fPallet,
+            dpd.planned_quantity AS fFinished,
+            sp.stock_id AS stockId,
+            sp.stock_code AS siloCode,
+            sp.stock_name AS stockName,
+            sp."id" AS stockPlaceId,
+            sp.stock_place_code AS stockPlaceCode,
+            sp.stock_place_name AS stockPlaceName,
+            mi."id" AS materialId,
+            mi.material_code AS materialCode,
+            mi.material_name AS materialShortName,
+            mi.material_name AS materialName,
+            mi.material_specification AS materialSpec,
+            u.ID AS unitsId,
+            u.material_unit_name AS unitsName,
+            mi.material_tr_id AS materialTrId
+        FROM
+            mes_product_day_planning dp
+                INNER JOIN mes_product_day_planning_detail dpd ON dpd.day_planning_id = dp."id"
+                INNER JOIN mes_wms_stockplace sp ON sp."id" = dpd.be_put_in_storage_warehouse_id
+                LEFT JOIN basic_data_material_info mi ON mi."id" = dpd.production_id
+                LEFT JOIN basic_data_material_unit u ON mi.material_unit_id = u."id"
+        WHERE
+        dp.product_type != '5'
+        <if test="stockId != null">
+            and sp.stock_id  = #{stockId}
+        </if>
+        <if test="sourceId != null">
+            and dp."id"  = #{sourceId}
+        </if>
+        ORDER BY
+            dp."id" DESC
+    </select>
+</mapper>
