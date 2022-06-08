@@ -10,6 +10,7 @@ import com.bpm.common.vo.ResultVO;
 import com.bpm.server.service.MesProductDayBrokenForkliftFeedingPlanningService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -113,5 +114,17 @@ public class MesProductDayBrokenForkliftFeedingPlanningController {
     @ApiOperation(value = "分页查")
     public ResultVO<PageInfoVO<List<MesProductDayBrokenForkliftFeedingPlanningVo>>> queryByPage(@RequestBody MesProductDayBrokenForkliftFeedingPlanningQueryDto queryDto) {
         return this.planService.queryByPage(queryDto);
+    }
+
+    @PostMapping(value = "/integrated")
+    @ApiOperation(value = "集成")
+    public ResultVO integrated (@RequestBody MesProductDayBrokenForkliftFeedingPlanningIntegrate integrate) {
+        if (integrate == null) {
+            return ResultUtil.error("参数不能为空!");
+        }
+        if (CollectionUtils.isEmpty(integrate.getDayPlanningList())) {
+            return ResultUtil.error("日破碎生产计划不能为空!");
+        }
+        return planService.integrated(integrate);
     }
 }

@@ -113,4 +113,8 @@ public class MesProductDayBrokenForkliftFeedingPlanningDetail implements Seriali
      */
     @ApiModelProperty(value = "堆场库位id")
     private Integer storageYardLocationId;
+    /**
+     * 矿石id
+     */
+    private Integer mineralsId;
 }

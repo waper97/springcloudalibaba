@@ -1,14 +1,11 @@
 package com.bpm.common.vo;
 
 import com.bpm.common.domain.BillOfMaterialDetail;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 /**
  * bom(物料清单)明细表(BillOfMaterialDetail)实体类

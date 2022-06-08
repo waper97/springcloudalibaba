@@ -1,13 +1,9 @@
 package com.bpm.common.vo;
 
 import com.bpm.common.domain.MesProductWorkCenter;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-
-import java.io.Serializable;
-import java.util.Date;
 
 /**
  * 工作中心视图类
@@ -33,5 +29,19 @@ public class MesProductWorkCenterVo extends MesProductWorkCenter {
      */
     @ApiModelProperty(value = "资源类别")
     private String resourceAtegorieName;
+
+
+    @ApiModelProperty(value = "接收仓库名称")
+    private String receiveWarehouseName;
+    /**
+     * 存放仓库
+     */
+    @ApiModelProperty(value = "存放仓库名称")
+    private String storageWarehouseName;
+    /**
+     * 备用库位
+     */
+    @ApiModelProperty(value = "备用库位名称")
+    private String substoreName;
 }
 

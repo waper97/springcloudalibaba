@@ -2,15 +2,14 @@ package com.bpm.common.vo;
 // 设置后缀名称
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiImplicitParams;
-import org.springframework.format.annotation.DateTimeFormat;
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.Date;
-import java.io.Serializable;
-import lombok.Data;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 /**
  * 日主生产计划(DayMasterProductionPlaning)实体类
  *

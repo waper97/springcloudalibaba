@@ -9,7 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Date;
+
 /**
  * 主生产计划(MasterProductionPlan)实体类
  *

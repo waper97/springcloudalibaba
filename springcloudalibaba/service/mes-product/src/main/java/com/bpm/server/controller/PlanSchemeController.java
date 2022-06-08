@@ -10,6 +10,7 @@ import com.bpm.server.service.PlanSchemeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -123,7 +124,20 @@ public class PlanSchemeController {
         return result ? ResultUtil.success() : ResultUtil.error();
     }
 
-
+    /**
+     * 根据计划类型获取 计划方案信息
+     * @param schemeType
+     * @return
+     */
+    @GetMapping("getSchemeTypeByType")
+    @ApiOperation(value = "根据计划类型 获取计划方案信息" )
+    @ApiImplicitParam(name = "schemeType", value = "计划类型", required = true)
+    public ResultVO<PlanSchemeVO> getSchemeTypeByType (String schemeType) {
+        if (StringUtils.isEmpty(schemeType)) {
+            return ResultUtil.error("计划类型不能为空!");
+        }
+        return ResultUtil.success(planSchemeService.getSchemeTypeByType(schemeType));
+    }
 
 }
 

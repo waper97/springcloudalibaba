@@ -196,4 +196,25 @@ public class MesProductDayBrokenForkliftFeedingPlanningServiceImpl implements Me
         return this.planMapper.removeById(id);
     }
 
+    @Override
+    public ResultVO integrated(MesProductDayBrokenForkliftFeedingPlanningIntegrate integrate) {
+        MesProductDayBrokenForkliftFeedingPlanningAddUpdateDto planningDto = new MesProductDayBrokenForkliftFeedingPlanningAddUpdateDto();
+        integrate.getDayPlanningList().stream().forEach(dayPlanning ->{
+
+            dayPlanning.getDetailList().stream().forEach(detail ->{
+                //设置投料单号
+                MesProductDayBrokenForkliftFeedingPlanning plan = new MesProductDayBrokenForkliftFeedingPlanning();
+                String todayStr = new SimpleDateFormat("yyyyMMdd").format(new Date());
+                plan.setFeedingNumber("DR" + todayStr);
+                //设置计划号
+                plan.setPlanCode(todayStr);
+                plan.setMineralsId(detail.getProductionId());
+
+                //新增投料计划
+                boolean result = this.planMapper.insert(plan) > 0;
+            });
+        });
+        return ResultUtil.success();
+    }
+
 }

@@ -1,11 +1,12 @@
 package com.bpm.server.service;
 
 import com.bpm.common.domain.ProcessRoute;
-import com.bpm.common.domain.ProcessRouteDetail;
 import com.bpm.common.dto.ProcessRouteDTO;
 import com.bpm.common.dto.ProcessRouteDetailDTO;
-import com.bpm.common.vo.ProcessRouteVO;
 import com.bpm.common.vo.PageInfoVO;
+import com.bpm.common.vo.ProcessRouteDetailVO;
+import com.bpm.common.vo.ProcessRouteProcceTypeVO;
+import com.bpm.common.vo.ProcessRouteVO;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
@@ -88,7 +89,7 @@ public interface ProcessRouteService {
      * @param mesProductProcessRouteDetail
      * @return
      */
-    PageInfo<ProcessRouteDetail> listProcessRouteDetailByProcessRouteId(ProcessRouteDetailDTO mesProductProcessRouteDetail);
+    PageInfo<ProcessRouteDetailVO> listProcessRouteDetailByProcessRouteId(ProcessRouteDetailDTO mesProductProcessRouteDetail);
     /**
      * 根据工艺路线id获取工艺路线详情
      * @param productProcessRouteId
@@ -101,6 +102,12 @@ public interface ProcessRouteService {
      * @param processRouteDetailList
      * @return
      */
-    boolean batchSaveProceessRouteDetail(List<ProcessRouteDetail> processRouteDetailList);
+    boolean batchSaveProceessRouteDetail(List<ProcessRouteDetailVO> processRouteDetailList);
+
+    /**
+     * 获取工艺路线分类列表
+     * @return
+     */
+    List<ProcessRouteProcceTypeVO> listProceessRouteType();
 
 }

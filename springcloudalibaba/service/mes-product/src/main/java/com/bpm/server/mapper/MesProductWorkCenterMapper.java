@@ -4,7 +4,6 @@ import com.bpm.common.domain.MesProductWorkCenter;
 import com.bpm.common.dto.MesProductWorkCenterDto;
 import com.bpm.common.vo.MesProductWorkCenterVo;
 import com.bpm.common.vo.ResourceCategoryVo;
-import com.bpm.common.vo.ResultVO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Pageable;
 
@@ -25,6 +24,12 @@ public interface MesProductWorkCenterMapper {
      * @return 查询结果
      */
     List<MesProductWorkCenter> queryAll();
+
+    /**
+     *
+     * @return
+     */
+    List<MesProductWorkCenter> queryByParam(MesProductWorkCenter mesProductWorkCenter);
 
     /**
      * 通过ID查询单条数据

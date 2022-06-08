@@ -2,15 +2,13 @@ package com.bpm.common.dto;
 
 
 import com.bpm.common.domain.DayMineralPowderRequirementsPlanning;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.Date;
+
 /**
  * 日矿粉需求计划(DayMineralPowderRequirementsPlanning)传输类
  *

@@ -73,4 +73,11 @@ public interface MesProductDayBrokenForkliftFeedingPlanningService {
      */
     boolean removeById(Integer id);
 
+    /**
+     * 集成
+     * @param integrate
+     * @return
+     */
+    ResultVO integrated(MesProductDayBrokenForkliftFeedingPlanningIntegrate integrate);
+
 }

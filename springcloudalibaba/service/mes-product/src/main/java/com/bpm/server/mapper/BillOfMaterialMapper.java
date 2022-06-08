@@ -5,7 +5,6 @@ import com.bpm.common.dto.BillOfMaterialDTO;
 import com.bpm.common.dto.BillOfMaterialInsertOrUpdateDTO;
 import com.bpm.common.vo.BillOfMaterialVO;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -67,6 +66,13 @@ public interface BillOfMaterialMapper {
      * @return 影响行数
      */
     int update(BillOfMaterialInsertOrUpdateDTO billOfMaterial);
+
+    /**
+     * 动态修改
+     * @param billOfMaterial
+     * @return
+     */
+    int updateSelective(BillOfMaterial billOfMaterial);
 
     /**
      * 通过主键删除数据

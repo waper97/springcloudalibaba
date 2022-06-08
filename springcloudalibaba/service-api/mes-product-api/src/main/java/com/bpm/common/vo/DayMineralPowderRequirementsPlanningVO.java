@@ -4,15 +4,14 @@ package com.bpm.common.vo;
 import com.bpm.common.domain.DayMineralPowderRequirementsPlanning;
 import com.bpm.common.domain.DayMineralPowderRequirementsPlanningDetail;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.format.annotation.DateTimeFormat;
-import java.time.LocalDateTime;
-import java.util.Date;
-import java.io.Serializable;
-import java.util.List;
-
-import lombok.Data;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.List;
 /**
  * 日矿粉需求计划(DayMineralPowderRequirementsPlanning)实体类
  *

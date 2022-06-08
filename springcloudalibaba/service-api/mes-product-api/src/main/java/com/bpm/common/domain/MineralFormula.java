@@ -1,11 +1,11 @@
 package com.bpm.common.domain;
 
-import java.util.Date;
-import java.io.Serializable;
-
-import lombok.Data;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 矿石配方实体类

@@ -3,10 +3,10 @@ import com.bpm.common.domain.MaterialRequirementsPlanning;
 import com.bpm.common.dto.MaterialRequirementsPlanningDTO;
 import com.bpm.common.vo.MaterialRequirementsPlanningVO;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.data.domain.Pageable;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -56,14 +56,6 @@ public interface MaterialRequirementsPlanningMapper {
      */
     int insertBatch(@Param("entities") List<MaterialRequirementsPlanning> entities);
 
-    /**
-     * 批量新增或按主键更新数据（MyBatis原生foreach方法）
-     *
-     * @param entities List<MaterialRequirementsPlanning> 实例对象列表
-     * @return 影响行数
-     * @throws org.springframework.jdbc.BadSqlGrammarException 入参是空List的时候会抛SQL语句错误的异常，请自行校验入参
-     */
-    int insertOrUpdateBatch(@Param("entities") List<MaterialRequirementsPlanning> entities);
 
     /**
      * 修改数据
@@ -108,7 +100,21 @@ public interface MaterialRequirementsPlanningMapper {
      * @param productId
      * @return
      */
-  BigDecimal sumSafeStockBymaterialId(Integer productId);
+  BigDecimal sumSafeStockByMaterialId(Integer productId);
+
+    /**
+     * 根据物料id获取预计入库量
+     * @param productId
+     * @return
+     */
+  BigDecimal sumExpectedReceiptMaterialId(Integer productId);
+
+    /**
+     * 根据物料id获取物料的供应商
+     * @param productId
+     * @return
+     */
+  Map<String,Object> getSupplierInfoByProductId(Integer productId);
 
 }
 

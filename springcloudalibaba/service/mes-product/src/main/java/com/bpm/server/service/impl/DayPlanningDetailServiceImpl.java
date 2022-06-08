@@ -63,7 +63,12 @@ public class DayPlanningDetailServiceImpl implements DayPlanningDetailService {
         return this.dayPlanningDetailMapper.update(dayPlanningDetail) > 0 ;
     }
 
- 
+    @Override
+    public boolean updateSelective(DayPlanningDetail dayPlanningDetail) {
+        return dayPlanningDetailMapper.updateSelective(dayPlanningDetail) > 0;
+    }
+
+
     @Override
     public boolean deleteById(Integer id) {
         return this.dayPlanningDetailMapper.deleteById(id) > 0;

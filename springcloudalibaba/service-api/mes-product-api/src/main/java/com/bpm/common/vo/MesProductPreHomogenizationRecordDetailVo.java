@@ -1,6 +1,5 @@
 package com.bpm.common.vo;
 
-import com.bpm.common.domain.MesProductHomogenizationRecordDetail;
 import com.bpm.common.domain.MesProductPrehomogenizationRecordDetail;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

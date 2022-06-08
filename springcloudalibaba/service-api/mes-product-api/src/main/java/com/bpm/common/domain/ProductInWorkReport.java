@@ -1,11 +1,12 @@
 package com.bpm.common.domain;
 
-import java.io.Serializable;
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.format.annotation.DateTimeFormat;
+import lombok.Data;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 /**
  * 生成入库报工(ProductInWorkReport)实体类
  *
@@ -90,10 +91,16 @@ public class ProductInWorkReport implements Serializable {
     private String postingDate;
 
     /**
-    * 仓库类型：1 原辅料仓、2线边仓、3半成品现场仓、4成品原辅料仓、5碎石仓、6磨前仓、7实体仓
-    */    
-    @ApiModelProperty(value = "仓库类型：1 原辅料仓、2线边仓、3半成品现场仓、4成品原辅料仓、5碎石仓、6磨前仓、7实体仓")
+     * 入库类型：1 成品入库
+     */
+    @ApiModelProperty(value = "入库类型：1 成品入库")
     private Integer stockType;
+
+    /**
+     * 源单类型：1 生产订单
+     */
+    @ApiModelProperty(value = "源单类型：1 生产订单")
+    private Integer sourceType;
 
     /**
     * 源单号ID（月生产订单）
@@ -108,16 +115,21 @@ public class ProductInWorkReport implements Serializable {
     private String sourceCode;
 
     /**
-    * 入库单据日期
+    * 入库开始日期
     */    
-    @ApiModelProperty(value = "入库单据日期")
-    private String inDate;
+    @ApiModelProperty(value = "入库开始日期")
+    private String inStartDate;
+    /**
+    * 入库结束日期
+    */
+    @ApiModelProperty(value = "入库结束日期")
+    private String inEndDate;
 
     /**
     * 入库单据号
     */    
     @ApiModelProperty(value = "入库单据号")
-    private String inCode;
+    private String inId;
 
     /**
     * 部门id
@@ -159,7 +171,8 @@ public class ProductInWorkReport implements Serializable {
     * 创建时间
     */    
     @ApiModelProperty(value = "创建时间")
-    private String createTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime createTime;
 
     /**
     * 修改人人ID
@@ -177,7 +190,8 @@ public class ProductInWorkReport implements Serializable {
     * 修改时间
     */    
     @ApiModelProperty(value = "修改时间")
-    private String updateTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime updateTime;
 
     /**
     * 备注
@@ -191,6 +205,16 @@ public class ProductInWorkReport implements Serializable {
     @ApiModelProperty(value = "0无效，1有效，默认1")
     private String isValid;
 
+    /**
+     * 回写SapId
+     */
+    @ApiModelProperty(value = "回写SapId")
+    private Integer sapId;
 
+    /**
+     * 回写Sap编码
+     */
+    @ApiModelProperty(value = "回写Sap编码")
+    private String sapCode;
 }
 

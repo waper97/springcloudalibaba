@@ -114,6 +114,7 @@ public class BillOfMaterialServiceImpl implements BillOfMaterialService {
     @Transactional(rollbackFor = Exception.class)
     public boolean insert(BillOfMaterialInsertOrUpdateDTO mesProductBillOfMaterial) {
         mesProductBillOfMaterial.setCode(numberUtil.contextLoads(PRE_FIX));
+        mesProductBillOfMaterial.setIsDeleted(0);
         boolean result = this.billOfMaterialMapper.insert(mesProductBillOfMaterial) > 0;
         List<BillOfMaterialDetail> detailList = mesProductBillOfMaterial.getBillOfMaterialDetailList();
 
@@ -172,6 +173,11 @@ public class BillOfMaterialServiceImpl implements BillOfMaterialService {
         }
 
         return true;
+    }
+
+    @Override
+    public boolean updateSelective(BillOfMaterial billOfMaterial) {
+        return  billOfMaterialMapper.updateSelective(billOfMaterial) > 0;
     }
 
     /**

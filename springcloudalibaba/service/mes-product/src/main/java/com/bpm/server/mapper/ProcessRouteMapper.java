@@ -1,11 +1,10 @@
 package com.bpm.server.mapper;
 
 import com.bpm.common.domain.ProcessRoute;
-import com.bpm.common.domain.ProcessRouteDetail;
 import com.bpm.common.dto.ProcessRouteDTO;
+import com.bpm.common.vo.ProcessRouteDetailVO;
 import com.bpm.common.vo.ProcessRouteVO;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -61,14 +60,6 @@ public interface ProcessRouteMapper {
      */
     int insertBatch(@Param("entities") List<ProcessRoute> entities);
 
-    /**
-     * 批量新增或按主键更新数据（MyBatis原生foreach方法）
-     *
-     * @param entities List<ProcessRouteDTO> 实例对象列表
-     * @return 影响行数
-     * @throws org.springframework.jdbc.BadSqlGrammarException 入参是空List的时候会抛SQL语句错误的异常，请自行校验入参
-     */
-    int insertOrUpdateBatch(@Param("entities") List<ProcessRoute> entities);
 
     /**
      * 修改数据
@@ -77,6 +68,13 @@ public interface ProcessRouteMapper {
      * @return 影响行数
      */
     int update(ProcessRoute processRoute);
+
+    /**
+     * 修改数据
+     * @param processRoute
+     * @return
+     */
+    int updateSelective(ProcessRoute processRoute);
 
     /**
      * 通过主键删除数据
@@ -100,7 +98,14 @@ public interface ProcessRouteMapper {
      * @param processRouteId
      * @return
      */
-    List<ProcessRouteDetail> listProcessRouteDetailByProcessRouteId(Integer processRouteId);
+    List<ProcessRouteDetailVO> listProcessRouteDetailByProcessRouteId(Integer processRouteId);
+
+    /**
+     * 根据产品id（物料id） 获取工艺路线信息
+     * @param processRouteId
+     * @return
+     */
+    ProcessRouteVO getByProductId(Integer processRouteId);
 
 }
 

@@ -2,13 +2,12 @@ package com.bpm.common.vo;
 // 设置后缀名称
 
 import com.bpm.common.domain.MaterialRequirementsPlanning;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.format.annotation.DateTimeFormat;
-import java.time.LocalDateTime;
-import java.io.Serializable;
-import lombok.Data;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+import java.io.Serializable;
+
 /**
  * 物料需求计划(MaterialRequirementsPlanning)实体类
  *
@@ -54,6 +53,9 @@ public class MaterialRequirementsPlanningVO extends MaterialRequirementsPlanning
      */
     @ApiModelProperty(value = "状态名称 ")
     private String statusName;
+
+    @ApiModelProperty(value="主生产计划编号")
+    private String masterProductPlanCode;
 
 }
 

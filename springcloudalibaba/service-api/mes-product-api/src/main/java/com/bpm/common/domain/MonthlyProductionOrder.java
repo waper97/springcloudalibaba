@@ -1,12 +1,13 @@
 package com.bpm.common.domain;
 
-import java.time.LocalDateTime;
-import java.io.Serializable;
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 /**
  * 月生产订单(MonthlyProductionOrder)实体类
  *
@@ -58,13 +59,13 @@ public class MonthlyProductionOrder implements Serializable {
     * 物料编号
     */    
     @ApiModelProperty(value = "物料编号")
-    private Integer materialCode;
+    private String materialCode;
 
     /**
     * 集团号
     */    
     @ApiModelProperty(value = "集团号")
-    private Integer groupNumber;
+    private String groupNumber;
 
     /**
     * 单据日 格式年月 
@@ -88,7 +89,7 @@ public class MonthlyProductionOrder implements Serializable {
     * 创建人id
     */    
     @ApiModelProperty(value = "创建人id")
-    private String createId;
+    private Integer createId;
 
     /**
     * 创建人名称
@@ -108,7 +109,7 @@ public class MonthlyProductionOrder implements Serializable {
     * 修改人id
     */    
     @ApiModelProperty(value = "修改人id")
-    private String updateId;
+    private Integer updateId;
 
     /**
     * 修改人名称

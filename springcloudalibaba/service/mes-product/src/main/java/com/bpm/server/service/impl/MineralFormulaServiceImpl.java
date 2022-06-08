@@ -116,6 +116,7 @@ public class MineralFormulaServiceImpl implements MineralFormulaService {
 
         //新增矿石配方，获取自增后的id
         MineralFormula mineralFormula = mineralFormulaAddUpdateDto.getMineralFormula();
+        mineralFormula.setStatus(0);
         boolean insertMineralFormulaResult = this.mineralFormulaMapper.insert(mineralFormula) > 0;
         if (!insertMineralFormulaResult) {
             return ResultUtil.error("新增矿石配方失败");
@@ -125,6 +126,7 @@ public class MineralFormulaServiceImpl implements MineralFormulaService {
         Integer mineralFormulaId = mineralFormula.getId();
         for (MineralFormulaDetail mineralFormulaDetail : mineralFormulaDetailList) {
             mineralFormulaDetail.setMineralFormulaId(mineralFormulaId);
+            mineralFormulaDetail.setStatus(0);
             boolean insertMineralFormulaDetailResult = mineralFormulaDetailMapper.insert(mineralFormulaDetail) > 0;
             if (!insertMineralFormulaDetailResult) {
                 return ResultUtil.error("新增矿石配方详情失败");

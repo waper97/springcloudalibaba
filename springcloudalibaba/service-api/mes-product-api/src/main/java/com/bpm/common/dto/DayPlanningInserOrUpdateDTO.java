@@ -4,15 +4,11 @@ package com.bpm.common.dto;
 
 import com.bpm.common.domain.DayPlanning;
 import com.bpm.common.domain.DayPlanningDetail;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**

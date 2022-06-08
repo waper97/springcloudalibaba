@@ -1,9 +1,12 @@
 package com.bpm.server.service;
 
 import com.bpm.common.domain.MonthlyProductionOrder;
-import com.bpm.common.dto.MonthlyProductionOrderDTO;
-import java.util.List;
+import com.bpm.common.dto.MonthlyProductionOrderQueryDTO;
+import com.bpm.common.dto.MonthlyProductionOrderTwoDto;
+import com.bpm.common.vo.MonthlyProductionOrderVO;
 import com.bpm.common.vo.PageInfoVO;
+
+import java.util.List;
 /**
  * 月生产订单 表服务接口
  * @author wangpeng
@@ -13,18 +16,18 @@ public interface MonthlyProductionOrderService {
        
      /**
      * 条件查询 月生产订单
-     * @param monthlyProductionOrder
+     * @param dto
      * @param 
      * @return 
      */     
-    List<MonthlyProductionOrder> queryAll(MonthlyProductionOrderDTO monthlyProductionOrder);
+    List<MonthlyProductionOrderVO> queryAll(MonthlyProductionOrderQueryDTO dto);
        
      /**
      * 分页查询 月生产订单
-     * @param monthlyProductionOrder
+     * @param dto
      * @return 
      */ 
-    PageInfoVO<MonthlyProductionOrder> queryByPage(MonthlyProductionOrderDTO monthlyProductionOrder);
+    PageInfoVO<MonthlyProductionOrderVO> queryByPage(MonthlyProductionOrderQueryDTO dto);
  
     /**
      * 通过ID查询单条数据
@@ -36,17 +39,17 @@ public interface MonthlyProductionOrderService {
     
     /**
      * 新增数据
-     * @param monthlyProductionOrder 实例对象
+     * @param dto 实例对象
      * @return 实例对象
      */
-    boolean insert(MonthlyProductionOrder monthlyProductionOrder);
+    boolean insert(MonthlyProductionOrderTwoDto dto);
 
     /**
      * 修改数据
-     * @param monthlyProductionOrder 实例对象
+     * @param dto 实例对象
      * @return 实例对象
      */
-    boolean update(MonthlyProductionOrder monthlyProductionOrder);
+    boolean update(MonthlyProductionOrderTwoDto dto);
 
     /**
      * 通过主键删除数据

@@ -1,10 +1,8 @@
 package com.bpm.server.mapper;
 
 import com.bpm.common.domain.DayPlanningDetail;
-import com.bpm.common.dto.DayPlanningDTO;
 import com.bpm.common.dto.DayPlanningDetailDTO;
 import com.bpm.common.vo.DayPlanningDetailVO;
-import com.bpm.common.vo.DayPlanningVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

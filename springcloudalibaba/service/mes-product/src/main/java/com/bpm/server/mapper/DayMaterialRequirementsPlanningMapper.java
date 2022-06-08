@@ -3,7 +3,7 @@ import com.bpm.common.domain.DayMaterialRequirementsPlanning;
 import com.bpm.common.dto.DayMaterialRequirementsPlanningDTO;
 import com.bpm.common.vo.DayMaterialRequirementsPlanningVO;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.data.domain.Pageable;
+
 import java.util.List;
 
 
@@ -56,6 +56,8 @@ public interface DayMaterialRequirementsPlanningMapper {
      * @return 影响行数
      */
     int update(DayMaterialRequirementsPlanning dayMaterialRequirementsPlanning);
+
+    int updateAll(DayMaterialRequirementsPlanning dayMaterialRequirementsPlanning);
 
     /**
      * 通过主键删除数据

@@ -1,13 +1,11 @@
 package com.bpm.common.dto;
 
-import java.util.Date;
-import java.io.Serializable;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Data;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.springframework.format.annotation.DateTimeFormat;
+import lombok.Data;
+
+import java.util.Date;
 
 /**
  * 生产线表(MesProductProductionLine)传输类

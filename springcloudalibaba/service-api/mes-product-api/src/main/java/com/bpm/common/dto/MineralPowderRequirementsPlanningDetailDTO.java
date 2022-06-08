@@ -3,18 +3,16 @@ package com.bpm.common.dto;
 // 设置后缀名称
 
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.Date;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
-
-import lombok.Data;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * 矿粉需求计划详情(MineralPowderRequirementsPlanningDetail)传输类

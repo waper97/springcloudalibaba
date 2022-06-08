@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -78,6 +79,7 @@ public class DayMaterialRequirementsPlanningServiceImpl implements DayMaterialRe
     public boolean insert(DayMaterialRequirementsPlanning dayMaterialRequirementsPlanning) {
         String code = numberUtil.contextLoads("DRP");
         dayMaterialRequirementsPlanning.setCode(code);
+        dayMaterialRequirementsPlanning.setStatus(1);
         return this.dayMaterialRequirementsPlanningMapper.insert(dayMaterialRequirementsPlanning) > 0;
     }
 
@@ -89,7 +91,8 @@ public class DayMaterialRequirementsPlanningServiceImpl implements DayMaterialRe
      */
     @Override
     public boolean update(DayMaterialRequirementsPlanning dayMaterialRequirementsPlanning) {
-        return this.dayMaterialRequirementsPlanningMapper.update(dayMaterialRequirementsPlanning) > 0 ;
+        dayMaterialRequirementsPlanning.setUpdateTime(LocalDateTime.now());
+        return this.dayMaterialRequirementsPlanningMapper.updateAll(dayMaterialRequirementsPlanning) > 0 ;
     }
 
     /**

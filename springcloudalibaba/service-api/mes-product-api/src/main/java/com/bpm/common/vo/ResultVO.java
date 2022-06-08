@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 @Data
 @ApiModel(description = "返回数据底层对象")
-public class ResultVO<T> implements Serializable {
+public class ResultVO<T>  implements Serializable {
 
     @ApiModelProperty("请求成功返回的值")
     public static final Integer SUCCESS = 200;

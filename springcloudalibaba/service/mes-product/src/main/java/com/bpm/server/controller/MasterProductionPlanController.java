@@ -4,15 +4,19 @@ import com.bpm.common.domain.MasterProductionPlan;
 import com.bpm.common.dto.MasterProductionPlanDTO;
 import com.bpm.common.dto.MasterProductionPlanSaveOrUpdateDTO;
 import com.bpm.common.dto.PlanSchemeCalculateDTO;
+import com.bpm.common.util.BusinessException;
 import com.bpm.common.util.ResultUtil;
 import com.bpm.common.vo.MasterProductionPlanVO;
 import com.bpm.common.vo.PageInfoVO;
 import com.bpm.common.vo.ResultVO;
+import com.bpm.purchase.client.PurchaseClient;
 import com.bpm.server.service.MasterProductionPlanService;
 import com.github.xiaoymin.knife4j.annotations.ApiSupport;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -34,8 +38,8 @@ public class MasterProductionPlanController {
     @Resource
     private MasterProductionPlanService masterProductionPlanService;
 
-//    @Autowired
-//    private PurchaseClient purchaseClient;
+    @Autowired
+    private PurchaseClient purchaseClient;
    
      /**
      * 条件查询 主生产计划
@@ -138,6 +142,14 @@ public class MasterProductionPlanController {
     @ApiImplicitParam(name = "ids",value = "id集合",required = true)
     public ResultVO audit (@RequestBody List<Integer> ids) {
         Integer status = 2;
+        for (int id : ids) {
+            MasterProductionPlanVO productionPlanVO = masterProductionPlanService.queryById(id);
+            if (productionPlanVO != null) {
+                if ( productionPlanVO.getStatus() == 3) {
+                    return ResultUtil.error("当前数据已下发,不能审核!");
+                }
+            }
+        }
         return ResultUtil.success( masterProductionPlanService.updateStatusById(ids, status)) ;
     }
 
@@ -147,10 +159,13 @@ public class MasterProductionPlanController {
      */
     @PostMapping("issue")
     @ApiOperation(value = "下发" )
-    @ApiImplicitParam(name = "ids",value = "id集合",required = true)
-    public ResultVO issue(@RequestBody List<Integer> ids) {
-        Integer status = 3;
-        return ResultUtil.success( masterProductionPlanService.updateStatusById(ids, status)) ;
+    @ExceptionHandler(BusinessException.class)
+//    @ApiImplicitParam(name = "ids",value = "id集合",required = true)
+    public ResultVO issue(@RequestBody MasterProductionPlanDTO masterProductionPlan) {
+        if (masterProductionPlan != null && CollectionUtils.isEmpty(masterProductionPlan.getMasterProductionPlanList())) {
+            return ResultUtil.error("主生产计划集合不能为空");
+        }
+        return masterProductionPlanService.issued(masterProductionPlan.getMasterProductionPlanList());
     }
 
 
@@ -168,15 +183,15 @@ public class MasterProductionPlanController {
             return ResultUtil.error("矿粉产计划集合不能为空!");
         }
 
-        boolean result = masterProductionPlanService.mps(planSchemeCalculate);
-        return result ? ResultUtil.success(): ResultUtil.error();
+        return masterProductionPlanService.mps(planSchemeCalculate);
+//        return result ? ResultUtil.success(): ResultUtil.error();
     }
 
-//    /**
-//     * feign测试用例
-//     *
-//     * @return
-//     */
+    /**
+     * feign测试用例
+     *
+     * @return
+     */
 //    @GetMapping("hello")
 //    public String hello() {
 //        MesPurchaseBuyRequestInsertDTO insert = new MesPurchaseBuyRequestInsertDTO();

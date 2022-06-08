@@ -3,17 +3,19 @@ package com.bpm.server.service.impl;
 import cn.hutool.core.bean.BeanUtil;
 import com.bpm.common.domain.ProcessRoute;
 import com.bpm.common.domain.ProcessRouteDetail;
+import com.bpm.common.domain.ProcessRouteTypeEnum;
 import com.bpm.common.dto.ProcessRouteDTO;
 import com.bpm.common.dto.ProcessRouteDetailDTO;
-import com.bpm.common.vo.ProcessRouteVO;
 import com.bpm.common.vo.PageInfoVO;
+import com.bpm.common.vo.ProcessRouteDetailVO;
+import com.bpm.common.vo.ProcessRouteProcceTypeVO;
+import com.bpm.common.vo.ProcessRouteVO;
 import com.bpm.server.mapper.ProcessRouteDetailMapper;
 import com.bpm.server.mapper.ProcessRouteMapper;
 import com.bpm.server.service.ProcessRouteService;
 import com.bpm.server.util.NumberUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,8 +24,8 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * 工艺路线主表
@@ -71,8 +73,9 @@ public class ProcessRouteServiceImpl implements ProcessRouteService {
     public PageInfoVO<ProcessRouteVO> queryByPage(ProcessRouteDTO mesProductProcessRoute) {
         PageHelper.startPage(mesProductProcessRoute.getPageNum(), mesProductProcessRoute.getPageSize());
         List<ProcessRouteVO> processRouteList = this.processRouteMapper.queryAll(mesProductProcessRoute);
-
-
+        processRouteList.forEach( f -> {
+           f.setProductProcessRouteDetailList( processRouteDetailMapper.listByProcessRouteId(f.getId()));
+        });
         PageInfo<ProcessRouteVO> pageInfo = new PageInfo<>(processRouteList);
         PageInfoVO pageInfoVO = new PageInfoVO();
         BeanUtils.copyProperties(pageInfo,pageInfoVO);
@@ -95,11 +98,12 @@ public class ProcessRouteServiceImpl implements ProcessRouteService {
         String code =  numberUtil.contextLoads(tileText)+ "_"+processRoute.getVersionNumber();
         processRoute.setProcessCode(code);
         boolean result = this.processRouteMapper.insert(processRoute) > 0;
-        List<ProcessRouteDetail> detailList = processRoute.getProductProcessRouteDetailList();
+        List<ProcessRouteDetailVO> detailList = processRoute.getProductProcessRouteDetailList();
         boolean  isEmpty = processRoute.getProductProcessRouteDetailList() != null && processRoute.getProductProcessRouteDetailList().size() > 0;
         if (result) {
             if (isEmpty) {
-                detailList.forEach(f -> {f.setMesProductProcessRouteId(processRoute.getId());});
+                detailList.forEach(f -> {
+                    f.setMesProductProcessRouteId(processRoute.getId());});
                 return processRouteDetailMapper.insertBatch(detailList) > 0;
             }
             return true;
@@ -119,7 +123,7 @@ public class ProcessRouteServiceImpl implements ProcessRouteService {
         boolean result = this.processRouteMapper.update(processRoute) > 0;
 
 
-        List<ProcessRouteDetail> newDetailList = processRoute.getProductProcessRouteDetailList();
+        List<ProcessRouteDetailVO> newDetailList = processRoute.getProductProcessRouteDetailList();
         List<ProcessRouteDetail> deleteList = new ArrayList<>();
 
         // 获取工艺路线详情 子集
@@ -198,10 +202,10 @@ public class ProcessRouteServiceImpl implements ProcessRouteService {
      * @return
      */
     @Override
-    public PageInfo<ProcessRouteDetail> listProcessRouteDetailByProcessRouteId(ProcessRouteDetailDTO mesProductProcessRouteDetail) {
+    public PageInfo<ProcessRouteDetailVO> listProcessRouteDetailByProcessRouteId(ProcessRouteDetailDTO mesProductProcessRouteDetail) {
         PageHelper.startPage(mesProductProcessRouteDetail.getPageNum(), mesProductProcessRouteDetail.getPageSize());
-        List<ProcessRouteDetail> list = processRouteMapper.listProcessRouteDetailByProcessRouteId(mesProductProcessRouteDetail.getMesProductProcessRouteId());
-        PageInfo<ProcessRouteDetail> pageInfo = new PageInfo<>(list);
+        List<ProcessRouteDetailVO> list = processRouteMapper.listProcessRouteDetailByProcessRouteId(mesProductProcessRouteDetail.getMesProductProcessRouteId());
+        PageInfo<ProcessRouteDetailVO> pageInfo = new PageInfo<>(list);
         return pageInfo;
     }
 
@@ -220,7 +224,7 @@ public class ProcessRouteServiceImpl implements ProcessRouteService {
         if (productProcessRoute != null) {
             BeanUtil.copyProperties(productProcessRoute, productProcessRouteVO);
             // 工艺路线从表信息
-            List<ProcessRouteDetail> processRouteDetailList = processRouteMapper.listProcessRouteDetailByProcessRouteId(productProcessRouteId);
+            List<ProcessRouteDetailVO> processRouteDetailList = processRouteMapper.listProcessRouteDetailByProcessRouteId(productProcessRouteId);
             if (processRouteDetailList != null && !processRouteDetailList.isEmpty()) {
                 productProcessRouteVO.setProductProcessRouteDetailList(new ArrayList<>());
                  productProcessRouteVO.getProductProcessRouteDetailList().addAll(processRouteDetailList);
@@ -239,9 +243,24 @@ public class ProcessRouteServiceImpl implements ProcessRouteService {
      * @return
      */
     @Override
-    public boolean batchSaveProceessRouteDetail(List<ProcessRouteDetail> processRouteDetailList) {
+    public boolean batchSaveProceessRouteDetail(List<ProcessRouteDetailVO> processRouteDetailList) {
         return processRouteDetailMapper.insertBatch(processRouteDetailList) > 0;
 
+    }
+
+    @Override
+    public List<ProcessRouteProcceTypeVO> listProceessRouteType() {
+        List<ProcessRouteProcceTypeVO> collect = Stream.of(
+            new ProcessRouteProcceTypeVO().setName(ProcessRouteTypeEnum.BROKEN.getName()).setValue(ProcessRouteTypeEnum.BROKEN.getValue()),
+            new ProcessRouteProcceTypeVO().setName(ProcessRouteTypeEnum.DOSING_TRANSPORT.getName()).setValue(ProcessRouteTypeEnum.DOSING_TRANSPORT.getValue()),
+            new ProcessRouteProcceTypeVO().setName(ProcessRouteTypeEnum.VERTICAL_MILL_PRODUCT.getName()).setValue(ProcessRouteTypeEnum.VERTICAL_MILL_PRODUCT.getValue()),
+            new ProcessRouteProcceTypeVO().setName(ProcessRouteTypeEnum.PRE_HOMOGENIZE_RECORD_TYPE.getName()).setValue(ProcessRouteTypeEnum.PRE_HOMOGENIZE_RECORD_TYPE.getValue()),
+            new ProcessRouteProcceTypeVO().setName(ProcessRouteTypeEnum.POWDER_DOSING.getName()).setValue(ProcessRouteTypeEnum.POWDER_DOSING.getValue()),
+            new ProcessRouteProcceTypeVO().setName(ProcessRouteTypeEnum.HOMOGENIZATION_BIN_HOMOGENIZATION.getName()).setValue(ProcessRouteTypeEnum.HOMOGENIZATION_BIN_HOMOGENIZATION.getValue()),
+            new ProcessRouteProcceTypeVO().setName(ProcessRouteTypeEnum.PNEUMATIC_TRANSPORT.getName()).setValue(ProcessRouteTypeEnum.PNEUMATIC_TRANSPORT.getValue()),
+            new ProcessRouteProcceTypeVO().setName(ProcessRouteTypeEnum.LOADING_AND_DELIVERY.getName()).setValue(ProcessRouteTypeEnum.LOADING_AND_DELIVERY.getValue())
+        ).collect(Collectors.toList());
+        return collect;
     }
 
 }

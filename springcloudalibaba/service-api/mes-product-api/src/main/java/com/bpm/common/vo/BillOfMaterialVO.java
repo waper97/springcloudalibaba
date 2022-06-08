@@ -3,8 +3,6 @@ package com.bpm.common.vo;
 
 
 import com.bpm.common.domain.BillOfMaterial;
-import com.bpm.common.domain.BillOfMaterialDetail;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 

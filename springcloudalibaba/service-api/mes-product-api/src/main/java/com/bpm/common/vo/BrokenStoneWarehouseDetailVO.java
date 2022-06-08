@@ -2,13 +2,14 @@ package com.bpm.common.vo;
 // 设置后缀名称
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.format.annotation.DateTimeFormat;
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.io.Serializable;
-import lombok.Data;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 /**
  * 碎石仓详情(BrokenStoneWarehouseDetail)实体类
  *

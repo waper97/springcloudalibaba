@@ -1,13 +1,12 @@
 package com.bpm.server.service;
 
 import com.bpm.common.domain.MesProductWorkCenter;
-
-import java.util.List;
-
 import com.bpm.common.dto.MesProductWorkCenterDto;
 import com.bpm.common.vo.MesProductWorkCenterVo;
 import com.bpm.common.vo.PageInfoVO;
 import com.bpm.common.vo.ResultVO;
+
+import java.util.List;
 
 /**
  * 工作中心表(MesProductWorkCenter)表服务接口
@@ -23,6 +22,13 @@ public interface MesProductWorkCenterService {
      * @return 查询结果
      */
     ResultVO queryAll();
+
+    /**
+     * 查全部
+     *mesProductWorkCenter
+     * @return 查询结果
+     */
+    ResultVO<List<MesProductWorkCenter>> queryByParam(MesProductWorkCenter mesProductWorkCenter);
 
     /**
      * 分页查询

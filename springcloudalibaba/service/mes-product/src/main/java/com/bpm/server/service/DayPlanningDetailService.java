@@ -50,6 +50,13 @@ public interface DayPlanningDetailService {
     boolean update(DayPlanningDetail dayPlanningDetail);
 
     /**
+     * 动态修改
+     * @param dayPlanningDetail
+     * @return
+     */
+    boolean updateSelective(DayPlanningDetail dayPlanningDetail);
+
+    /**
      * 通过主键删除数据
      * @param id 主键
      * @return 是否成功

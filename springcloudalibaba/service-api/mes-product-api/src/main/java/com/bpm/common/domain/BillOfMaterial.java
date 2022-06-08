@@ -139,5 +139,8 @@ public class BillOfMaterial implements Serializable {
 
     @ApiModelProperty(value = "成本金额")
     private BigDecimal costAmount;
+
+    @ApiModelProperty(value = "状态名称")
+    private String  statusName;
 }
 

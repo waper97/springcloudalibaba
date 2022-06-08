@@ -1,17 +1,14 @@
 package com.bpm.common.dto;
 
 
-
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-
 import com.bpm.common.domain.DayPlanning;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.format.annotation.DateTimeFormat;
-import java.io.Serializable;
-import lombok.Data;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 /**
  * 日生产计划(DayPlanning)传输类
  *
@@ -41,14 +38,14 @@ public class DayPlanningDTO extends DayPlanning implements Serializable {
      * 修改时间
      */
     @ApiModelProperty(value = "开始时间")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+//    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime beginTime;
     /**
      * 修改时间
      */
     @ApiModelProperty(value = "结束时间")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+//    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime endTime;
 

@@ -1,9 +1,16 @@
 package com.bpm.server.service;
 
 import com.bpm.common.domain.ProductInWorkReport;
+import com.bpm.common.dto.InStockDTO;
 import com.bpm.common.dto.ProductInWorkReportDTO;
-import java.util.List;
+import com.bpm.common.dto.ProductInWorkReportQueryDTO;
+import com.bpm.common.vo.InStockVo;
 import com.bpm.common.vo.PageInfoVO;
+import com.bpm.common.vo.ProductInWorkReportVO;
+import com.bpm.common.vo.ResultVO;
+
+import java.math.BigDecimal;
+import java.util.List;
 /**
  * 生成入库报工 表服务接口
  * @author wangpeng
@@ -17,14 +24,14 @@ public interface ProductInWorkReportService {
      * @param 
      * @return 
      */     
-    List<ProductInWorkReport> queryAll(ProductInWorkReportDTO productInWorkReport);
+    List<ProductInWorkReportVO> queryAll(ProductInWorkReportQueryDTO productInWorkReport);
        
      /**
      * 分页查询 生成入库报工
-     * @param productInWorkReport
+     * @param queryDTO
      * @return 
      */ 
-    PageInfoVO<ProductInWorkReport> queryByPage(ProductInWorkReportDTO productInWorkReport);
+    PageInfoVO<ProductInWorkReportVO> queryByPage(ProductInWorkReportQueryDTO queryDTO);
  
     /**
      * 通过ID查询单条数据
@@ -36,17 +43,17 @@ public interface ProductInWorkReportService {
     
     /**
      * 新增数据
-     * @param productInWorkReport 实例对象
+     * @param dto 实例对象
      * @return 实例对象
      */
-    boolean insert(ProductInWorkReport productInWorkReport);
+    ResultVO insert(ProductInWorkReportDTO dto);
 
     /**
      * 修改数据
-     * @param productInWorkReport 实例对象
+     * @param dto 实例对象
      * @return 实例对象
      */
-    boolean update(ProductInWorkReport productInWorkReport);
+    ResultVO update(ProductInWorkReportDTO dto);
 
     /**
      * 通过主键删除数据
@@ -62,4 +69,18 @@ public interface ProductInWorkReportService {
      */
     boolean removeById(Integer id);
 
+    //查询最新批次数据
+    String queryBatchNo(String workReportDate);
+
+    //查询仓库物料入库信息
+    List<InStockVo> queryInStock(InStockDTO dto);
+
+    //数量
+    BigDecimal queryAty(InStockDTO dto);
+
+    //上传Sap
+    ResultVO uploadSap(List<Integer> ids);
+
+    //取消上传Sap
+    ResultVO cancelUploadSap(List<Integer> ids);
 }

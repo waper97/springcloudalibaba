@@ -164,5 +164,10 @@ public class MesProductDayMineralArrivalOfTheDemandPlanning implements Serializa
      */
     @ApiModelProperty(value = "是否删除 0否 1是")
     private Integer isDeleted;
+    /**
+     * 日主生产计划id
+     */
+    @ApiModelProperty(value = "日主生产计划id")
+    private Integer dayMasterProductPlaningId;
 }
 

@@ -6,12 +6,14 @@ import com.bpm.common.vo.DayMasterProductionPlaningVO;
 import com.bpm.common.vo.PageInfoVO;
 import com.bpm.server.mapper.DayMasterProductionPlaningMapper;
 import com.bpm.server.service.DayMasterProductionPlaningService;
+import com.bpm.server.util.NumberUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -24,7 +26,9 @@ import java.util.List;
 public class DayMasterProductionPlaningServiceImpl implements DayMasterProductionPlaningService {
     @Resource
     private DayMasterProductionPlaningMapper dayMasterProductionPlaningMapper;
-        
+    @Resource
+    private NumberUtil numberUtil;
+
     @Override
     public List<DayMasterProductionPlaningVO> queryAll(DayMasterProductionPlaningDTO dayMasterProductionPlaningDTO) {
         return this.dayMasterProductionPlaningMapper.queryAll(dayMasterProductionPlaningDTO);
@@ -71,6 +75,9 @@ public class DayMasterProductionPlaningServiceImpl implements DayMasterProductio
      */
     @Override
     public boolean insert(DayMasterProductionPlaning dayMasterProductionPlaning) {
+        dayMasterProductionPlaning.setCode(numberUtil.contextLoads("ms"));
+        dayMasterProductionPlaning.setCreateTime(LocalDateTime.now());
+        dayMasterProductionPlaning.setStatus(1);
         return this.dayMasterProductionPlaningMapper.insert(dayMasterProductionPlaning) > 0;
     }
 
@@ -82,6 +89,7 @@ public class DayMasterProductionPlaningServiceImpl implements DayMasterProductio
      */
     @Override
     public boolean update(DayMasterProductionPlaning dayMasterProductionPlaning) {
+        dayMasterProductionPlaning.setUpdateTime(LocalDateTime.now());
         return this.dayMasterProductionPlaningMapper.update(dayMasterProductionPlaning) > 0 ;
     }
 

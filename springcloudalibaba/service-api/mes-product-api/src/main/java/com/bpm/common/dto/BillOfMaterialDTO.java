@@ -3,17 +3,14 @@ package com.bpm.common.dto;
 // 设置后缀名称
 
 
-import com.bpm.common.domain.BillOfMaterialDetail;
 import com.bpm.common.entity.MesProductBillOfMaterial;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * bom(物料清单)主表(BillOfMaterial)传输类
@@ -22,7 +19,7 @@ import java.util.List;
  * @since 2022-04-19 11:44:34
  */
 @Data
-@ApiModel(value = "bom(物料清单)主表",description = "bom(物料清单)主表")
+//@ApiModel(value = "bom(物料清单)主表",description = "bom(物料清单)主表")
 public class BillOfMaterialDTO extends MesProductBillOfMaterial implements Serializable {
 
     private static final long serialVersionUID = 437394434197599279L;

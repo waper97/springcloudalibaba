@@ -33,4 +33,6 @@ public class MesProductDayMineralArrivalOfTheDemandPlanningVo extends MesProduct
      */
     @ApiModelProperty(value = "物料名称")
     private String materialName;
+    @ApiModelProperty
+    private String planCycleName;
 }

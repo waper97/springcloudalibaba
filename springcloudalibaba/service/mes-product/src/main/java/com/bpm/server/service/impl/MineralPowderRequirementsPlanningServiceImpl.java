@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -117,6 +118,7 @@ public class MineralPowderRequirementsPlanningServiceImpl implements MineralPowd
     public boolean insert(MineralPowderRequirementsPlanningToInsertOrUpdateDTO mineralPowderRequirementsPlanning) {
         String code = numberUtil.contextLoads("QRP");
         mineralPowderRequirementsPlanning.setPlanCode(code);
+        mineralPowderRequirementsPlanning.setStatus(1);
         boolean result = this.mineralPowderRequirementsPlanningMapper.insert(mineralPowderRequirementsPlanning) > 0;
         if (result) {
             List<MineralPowderRequirementsPlanningDetail> planningDetailList = mineralPowderRequirementsPlanning.getPlanningDetailList();
@@ -127,8 +129,9 @@ public class MineralPowderRequirementsPlanningServiceImpl implements MineralPowd
                 });
                 return  mineralPowderRequirementsPlanningDetailMapper.insertBatch(planningDetailList) > 0;
             }
+            return true;
         }
-        return false;
+        return true;
     }
 
     /**
@@ -140,6 +143,7 @@ public class MineralPowderRequirementsPlanningServiceImpl implements MineralPowd
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean update(MineralPowderRequirementsPlanningToInsertOrUpdateDTO mineralPowderRequirementsPlanning) {
+       mineralPowderRequirementsPlanning.setUpdateTime(LocalDateTime.now());
        boolean result = this.mineralPowderRequirementsPlanningMapper.update(mineralPowderRequirementsPlanning) > 0;
        if (result) {
            List<MineralPowderRequirementsPlanningDetail> planningDetailList = mineralPowderRequirementsPlanning.getPlanningDetailList();

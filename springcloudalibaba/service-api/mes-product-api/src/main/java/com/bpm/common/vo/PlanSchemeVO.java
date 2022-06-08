@@ -2,7 +2,6 @@ package com.bpm.common.vo;
 // 设置后缀名称
 
 import com.bpm.common.domain.PlanScheme;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -30,6 +29,9 @@ public class PlanSchemeVO extends PlanScheme implements Serializable {
 
     @ApiModelProperty(value = "计划类型名称")
     private String schemeTypeName;
+
+    @ApiModelProperty(value = "状态名称")
+    private String statusName;
 
 }
 

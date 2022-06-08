@@ -5,7 +5,6 @@ import com.bpm.common.dto.BillOfMaterialDTO;
 import com.bpm.common.dto.BillOfMaterialInsertOrUpdateDTO;
 import com.bpm.common.vo.BillOfMaterialVO;
 import com.bpm.common.vo.PageInfoVO;
-import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -65,6 +64,13 @@ public interface BillOfMaterialService {
      * @return 实例对象
      */
     boolean update(BillOfMaterialInsertOrUpdateDTO billOfMaterial);
+
+    /**
+     * 动态修改
+     * @param billOfMaterial
+     * @return
+     */
+    boolean updateSelective(BillOfMaterial billOfMaterial);
 
     /**
      * 通过主键删除数据

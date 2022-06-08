@@ -1,13 +1,13 @@
 package com.bpm.common.domain;
 
-import java.time.LocalDateTime;
-import java.util.Date;
-import java.io.Serializable;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Data;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * 工作中心表(MesProductWorkCenter)实体类
@@ -58,7 +58,7 @@ public class MesProductWorkCenter implements Serializable {
      * 接收仓库
      */
     @ApiModelProperty(value = "接收仓库")
-    private String receiveWarehouse;
+    private Integer receiveWarehouse;
     /**
      * 接收位置
      */
@@ -68,12 +68,12 @@ public class MesProductWorkCenter implements Serializable {
      * 存放仓库
      */
     @ApiModelProperty(value = "存放仓库")
-    private String storageWarehouse;
+    private Integer storageWarehouse;
     /**
      * 备用库位
      */
     @ApiModelProperty(value = "备用库位")
-    private String substore;
+    private Integer substore;
     /**
      * 资源类别 数据字典
      */

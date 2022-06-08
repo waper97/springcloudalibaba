@@ -63,5 +63,11 @@ public interface PlanSchemeService {
      * @return
      */
     boolean removeById(Integer id);
+    /**
+     * 根据计划类型获取 计划方案信息
+     * @param schemeType
+     * @return
+     */
+    PlanSchemeVO getSchemeTypeByType (String schemeType);
 
 }

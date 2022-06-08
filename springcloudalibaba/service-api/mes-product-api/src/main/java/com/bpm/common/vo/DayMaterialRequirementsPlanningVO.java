@@ -2,14 +2,14 @@ package com.bpm.common.vo;
 // 设置后缀名称
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.format.annotation.DateTimeFormat;
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.Date;
-import java.io.Serializable;
-import lombok.Data;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 /**
  * 日物料需求计划 视图类
  *
@@ -100,6 +100,12 @@ public class DayMaterialRequirementsPlanningVO implements Serializable {
     */
     @ApiModelProperty(value = "生产车间")
     private String productionWorkshop;
+    /**
+     * 生产车间名称
+     */
+    @ApiModelProperty(value = "生产车间名称")
+    private String productionWorkshopName;
+
 
     /**
     * 采购/开工时间 yyyy-MM-dd hh:mm:ss

@@ -2,7 +2,6 @@ package com.bpm.common.dto;
 
 import com.bpm.common.domain.PlanScheme;
 import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 
 /**
  * @ClassName MineralPowderRequirementsPlanningMpr

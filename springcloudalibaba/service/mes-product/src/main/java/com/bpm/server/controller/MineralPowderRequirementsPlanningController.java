@@ -1,7 +1,5 @@
 package com.bpm.server.controller;
 
-import com.bpm.common.domain.MaterialRequirementsPlanning;
-import com.bpm.common.domain.MineralPowderRequirementsPlanning;
 import com.bpm.common.dto.MineralPowderRequirementsPlanningDTO;
 import com.bpm.common.dto.MineralPowderRequirementsPlanningToInsertOrUpdateDTO;
 import com.bpm.common.util.ResultUtil;
@@ -14,11 +12,9 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.validation.Valid;
 import java.util.List;
 
 /**

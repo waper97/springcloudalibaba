@@ -1,7 +1,6 @@
 package com.bpm.common.vo;
 
 import com.bpm.common.domain.ProcessRoute;
-import com.bpm.common.domain.ProcessRouteDetail;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -22,8 +21,10 @@ public class ProcessRouteVO extends ProcessRoute implements Serializable {
 
     @ApiModelProperty(value = "属性名称")
     private String processTypeName;
+    @ApiModelProperty(value = "状态名称")
+    private String statusName;
 
     @ApiModelProperty(value = "工艺路线子集")
-    List<ProcessRouteDetail> productProcessRouteDetailList;
+    List<ProcessRouteDetailVO> productProcessRouteDetailList;
 }
 

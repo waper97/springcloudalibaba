@@ -6,6 +6,7 @@ import com.bpm.common.dto.MasterProductionPlanSaveOrUpdateDTO;
 import com.bpm.common.dto.PlanSchemeCalculateDTO;
 import com.bpm.common.vo.MasterProductionPlanVO;
 import com.bpm.common.vo.PageInfoVO;
+import com.bpm.common.vo.ResultVO;
 
 import java.util.List;
 /**
@@ -65,6 +66,13 @@ public interface MasterProductionPlanService {
     boolean updateStatusById(List<Integer> ids, Integer status);
 
     /**
+     * 下发
+     * @param masterProductionPlanList
+     * @return
+     */
+    ResultVO issued( List<MasterProductionPlan> masterProductionPlanList);
+
+    /**
      * 通过主键删除数据
      *
      * @param id 主键
@@ -84,6 +92,6 @@ public interface MasterProductionPlanService {
      * @param planSchemeCalculate
      * @return
      */
-    boolean mps(PlanSchemeCalculateDTO planSchemeCalculate);
+    ResultVO mps(PlanSchemeCalculateDTO planSchemeCalculate);
 
 }

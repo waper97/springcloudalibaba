@@ -1,11 +1,14 @@
 package com.bpm.server.controller;
 
 import com.bpm.common.domain.MonthlyProductionOrder;
-import com.bpm.common.dto.MonthlyProductionOrderDTO;
+import com.bpm.common.dto.MonthlyProductionOrderQueryDTO;
+import com.bpm.common.dto.MonthlyProductionOrderTwoDto;
 import com.bpm.common.util.ResultUtil;
+import com.bpm.common.vo.MonthlyProductionOrderVO;
 import com.bpm.common.vo.PageInfoVO;
 import com.bpm.common.vo.ResultVO;
 import com.bpm.server.service.MonthlyProductionOrderService;
+import com.bpm.server.util.CommonConstantUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -32,53 +35,42 @@ public class MonthlyProductionOrderController {
    
      /**
      * 条件查询 月生产订单
-     * @param monthlyProductionOrder 筛选条件
+     * @param dto 筛选条件
      * @return 查询结果
      */
     @PostMapping("queryAll")
     @ApiOperation(value="条件查询")
-    public ResultVO<List<MonthlyProductionOrder>> queryAll(@RequestBody MonthlyProductionOrderDTO monthlyProductionOrder) {
-        return ResultUtil.success(this.monthlyProductionOrderService.queryAll(monthlyProductionOrder));
+    public ResultVO<List<MonthlyProductionOrderVO>> queryAll(@RequestBody MonthlyProductionOrderQueryDTO dto) {
+        return ResultUtil.success(this.monthlyProductionOrderService.queryAll(dto));
     }
       /**
      * 分页查询 月生产订单
-     * @param monthlyProductionOrder 筛选条件
+     * @param dto 筛选条件
      * @return 查询结果
      */
     @PostMapping("queryByPage")
     @ApiOperation(value="分页查询")
-    public ResultVO<PageInfoVO<MonthlyProductionOrder>> Page(@RequestBody MonthlyProductionOrderDTO monthlyProductionOrder){
-        return ResultUtil.success(this.monthlyProductionOrderService.queryByPage(monthlyProductionOrder));
+    public ResultVO<PageInfoVO<MonthlyProductionOrderVO>> Page(@RequestBody MonthlyProductionOrderQueryDTO dto){
+        return ResultUtil.success(this.monthlyProductionOrderService.queryByPage(dto));
     }
   /**
      * 新增或修改
-     * @param monthlyProductionOrder 实体
+     * @param dto 实体
      * @return 新增或修改结果
      */
     @PostMapping("saveOrUpdate")
     @ApiOperation(value = "新增或修改")
-    public ResultVO saveOrUpdate(@RequestBody MonthlyProductionOrder monthlyProductionOrder) {
+    public ResultVO saveOrUpdate(@RequestBody MonthlyProductionOrderTwoDto dto) {
         boolean result;
-        if (monthlyProductionOrder.getId() == null) {
-             result = this.monthlyProductionOrderService.insert(monthlyProductionOrder);
+        if (dto.getId() == null) {
+             result = this.monthlyProductionOrderService.insert(dto);
         }else{
-             result = this.monthlyProductionOrderService.update(monthlyProductionOrder);
+             result = this.monthlyProductionOrderService.update(dto);
         }
         return result ? ResultUtil.success() : ResultUtil.error();
     }
 
-    /**
-     * 新增数据
-     * @param monthlyProductionOrder 实体
-     * @return 新增结果
-     */
-    @PostMapping("add")
-    @ApiOperation(value ="新增")
-    public ResultVO add(@RequestBody MonthlyProductionOrder monthlyProductionOrder) {
-        boolean result = this.monthlyProductionOrderService.insert(monthlyProductionOrder);
-        return result ? ResultUtil.success() : ResultUtil.error();
-    }
-    
+
      /**
      * 详情
      * @param id 主键id
@@ -95,18 +87,6 @@ public class MonthlyProductionOrderController {
     }
 
     /**
-     * 编辑数据
-     * @param monthlyProductionOrder 实体
-     * @return 编辑结果
-     */
-    @PostMapping("update")
-    @ApiOperation(value= "修改" )
-    public ResultVO edit(@RequestBody MonthlyProductionOrder monthlyProductionOrder) {
-       boolean result = this.monthlyProductionOrderService.update(monthlyProductionOrder);
-       return  result ? ResultUtil.success() : ResultUtil.error();
-    }
-
-    /**
      * 删除数据
      * @param id 主键
      * @return 删除是否成功
@@ -115,7 +95,11 @@ public class MonthlyProductionOrderController {
     @ApiOperation(value = "删除" )
     @ApiImplicitParam(name = "id", value = "主键id", required = true)
     public ResultVO removeById(Integer id) {
-        boolean result = this.monthlyProductionOrderService.deleteById(id);
+        MonthlyProductionOrder monthlyProductionOrder = monthlyProductionOrderService.queryById(id);
+        if (!(CommonConstantUtils.MONTHLY_STATUS_ONE == monthlyProductionOrder.getStatus())){
+            return ResultUtil.error("只有新建状态才能删除！");
+        }
+        boolean result = this.monthlyProductionOrderService.removeById(id);
         return result ? ResultUtil.success() : ResultUtil.error();
     }
 

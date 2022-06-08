@@ -65,7 +65,7 @@ public class PlanSchemeServiceImpl implements PlanSchemeService {
     @Override
     public boolean update(PlanScheme planScheme) {
         planScheme.setUpdateTime(LocalDateTime.now());
-        return this.planSchemeMapper.update(planScheme) > 0 ;
+        return this.planSchemeMapper.updateSelective(planScheme) > 0 ;
     }
 
  
@@ -79,5 +79,10 @@ public class PlanSchemeServiceImpl implements PlanSchemeService {
     public boolean removeById(Integer id) {
         return this.planSchemeMapper.removeById(id) > 0;
     }
-    
+
+    @Override
+    public PlanSchemeVO getSchemeTypeByType(String schemeType) {
+        return planSchemeMapper.getSchemeTypeByType(schemeType);
+    }
+
 }

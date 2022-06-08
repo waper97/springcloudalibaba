@@ -7,14 +7,13 @@ import com.bpm.common.vo.MesProductHomogenizationRecordDetailVo;
 import com.bpm.common.vo.ResultVO;
 import com.bpm.server.mapper.MesProductHomogenizationRecordDetailMapper;
 import com.bpm.server.service.MesProductHomogenizationRecordDetailService;
-
-import java.util.List;
-
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
-import com.github.pagehelper.PageHelper;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 均化记录详情表(MesProductHomogenizationRecordDetail)表服务实现类
@@ -151,7 +150,8 @@ public class MesProductHomogenizationRecordDetailServiceImpl implements MesProdu
         }
         List<MesProductHomogenizationRecordDetailVo> detailVoList = this.mesProductHomogenizationRecordDetailMapper.queryByHomogenizationRecordId(homogenizationRecordId);
         if (detailVoList == null || detailVoList.isEmpty()) {
-            return ResultUtil.error("查询失败或无数据");
+            detailVoList = new ArrayList<>();
+//            return ResultUtil.error("查询失败或无数据");
         }
         return ResultUtil.success(detailVoList);
     }

@@ -99,6 +99,17 @@ public class MesProductWorkCenterController {
     }
 
     /**
+     * 查全部
+     *
+     * @return 查询结果
+     */
+    @PostMapping("queryByParam")
+    @ApiOperation(value = "通过参数查询")
+    public ResultVO<List<MesProductWorkCenter>> queryByParam(@RequestBody MesProductWorkCenter mesProductWorkCenter) {
+        return this.mesProductWorkCenterService.queryByParam(mesProductWorkCenter);
+    }
+
+    /**
      * 分页查询
      *
      * @param mesProductWorkCenterDto 查询条件

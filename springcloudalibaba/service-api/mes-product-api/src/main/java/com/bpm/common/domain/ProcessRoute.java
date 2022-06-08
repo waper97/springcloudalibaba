@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
@@ -122,6 +121,12 @@ public class ProcessRoute implements Serializable {
      */
     @ApiModelProperty(value = "是否删除:1是，0否")
     private Integer isDeleted;
+
+    /**
+     * 是否删除:1是，0否
+     */
+    @ApiModelProperty(value = "产品id(外键关联物料表)")
+    private Integer productId;
 
 
 }

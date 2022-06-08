@@ -2,6 +2,7 @@ package com.bpm.server.mapper;
 
 import com.bpm.common.domain.ProcessRouteDetail;
 import com.bpm.common.dto.ProcessRouteDetailDTO;
+import com.bpm.common.vo.ProcessRouteDetailVO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Pageable;
 
@@ -63,16 +64,8 @@ public interface ProcessRouteDetailMapper {
      * @param entities List<ProcessRouteDetail> 实例对象列表
      * @return 影响行数
      */
-    int insertBatch(@Param("entities") List<ProcessRouteDetail> entities);
+    int insertBatch(@Param("entities") List<ProcessRouteDetailVO> entities);
 
-    /**
-     * 批量新增或按主键更新数据（MyBatis原生foreach方法）
-     *
-     * @param entities List<ProcessRouteDetail> 实例对象列表
-     * @return 影响行数
-     * @throws org.springframework.jdbc.BadSqlGrammarException 入参是空List的时候会抛SQL语句错误的异常，请自行校验入参
-     */
-    int insertOrUpdateBatch(@Param("entities") List<ProcessRouteDetail> entities);
 
     /**
      * 修改数据
@@ -98,6 +91,20 @@ public interface ProcessRouteDetailMapper {
      * @return
      */
     int removeById(Integer id);
+
+    /**
+     *
+     * @param productProcessRouteId 工艺路线id
+     * @return
+     */
+    List<ProcessRouteDetail> listByproductProcessRouteId(Integer productProcessRouteId);
+
+    /**
+     * 根据工艺路线主表id 获取详情
+     * @param productProcessRouteId
+     * @return
+     */
+    List<ProcessRouteDetailVO> listByProcessRouteId(Integer productProcessRouteId);
 
 }
 

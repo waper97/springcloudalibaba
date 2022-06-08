@@ -1,12 +1,17 @@
 package com.bpm.server.controller;
 
-import com.bpm.common.domain.DayPlanning;
+import com.bpm.common.domain.DayPlanningDetail;
 import com.bpm.common.dto.DayPlanningDTO;
 import com.bpm.common.dto.DayPlanningInserOrUpdateDTO;
+import com.bpm.common.dto.DayPlanningProductionReport;
 import com.bpm.common.util.ResultUtil;
 import com.bpm.common.vo.DayPlanningVO;
 import com.bpm.common.vo.PageInfoVO;
 import com.bpm.common.vo.ResultVO;
+import com.bpm.mes.purchase.dto.MesPurchaseBuyRequestInsertDTO;
+import com.bpm.mes.stock.client.StockInClient;
+import com.bpm.purchase.client.PurchaseClient;
+import com.bpm.server.service.DayPlanningDetailService;
 import com.bpm.server.service.DayPlanningService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -14,6 +19,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -30,7 +36,13 @@ public class DayPlanningController {
      */
     @Resource
     private DayPlanningService dayPlanningService;
-    
+    @Resource
+    private DayPlanningDetailService dayPlanningDetailService;
+    @Resource
+    private StockInClient stockInClient;
+    @Resource
+    private PurchaseClient purchaseClient;
+
    
      /**
      * 条件查询 日生产计划
@@ -131,5 +143,118 @@ public class DayPlanningController {
         return result ? ResultUtil.success() : ResultUtil.error();
     }
 
+    @PostMapping(value = "dayBrokenPlanningProductionReport")
+    @ApiOperation(value = "日破碎计划报工")
+    public ResultVO dayBrokenPlanning(@RequestBody DayPlanningProductionReport dayPlanningProductionReport) {
+        if (dayPlanningProductionReport == null || dayPlanningProductionReport.getDayPlanningDetail() == null) {
+            return ResultUtil.error("报工参数不能为空!");
+        }
+        BigDecimal actualQuantity = dayPlanningProductionReport.getDayPlanningDetail().getActualQuantity();
+        BigDecimal plannedQuantity = dayPlanningProductionReport.getDayPlanningDetail().getPlannedQuantity();
+        if (actualQuantity == null || actualQuantity.compareTo(plannedQuantity) == 1) {
+            return ResultUtil.error("实际数量不能为空或者实际数量不能大于计划数量!");
+        }
+        return  dayPlanningService.brokenOutStock(dayPlanningProductionReport);
+    }
+
+
+
+    /**
+     *  修改状态为已报工
+     * @param dayPlanningId 日生产计划id
+     * @return
+     */
+    public boolean productionReport (Integer dayPlanningId, BigDecimal actualQuantity) {
+        DayPlanningDetail dayPlanningDetail = new DayPlanningDetail();
+        dayPlanningDetail.setId(dayPlanningId);
+        dayPlanningDetail.setStatus(1);
+        dayPlanningDetail.setActualQuantity(actualQuantity);
+       return  dayPlanningDetailService.updateSelective(dayPlanningDetail);
+    }
+
+    @PostMapping(value = "dosingTransportProductionReport")
+    @ApiOperation(value = "日配料计划报工")
+    public ResultVO dosingTransportProductionReport(@RequestBody DayPlanningProductionReport dayPlanningProductionReport) {
+        if (dayPlanningProductionReport == null || dayPlanningProductionReport.getDayPlanningDetail() == null) {
+            return ResultUtil.error("报工参数不能为空!");
+        }
+        BigDecimal actualQuantity = dayPlanningProductionReport.getDayPlanningDetail().getActualQuantity();
+        BigDecimal plannedQuantity = dayPlanningProductionReport.getDayPlanningDetail().getPlannedQuantity();
+        if (actualQuantity == null || actualQuantity.compareTo(plannedQuantity) == 1) {
+            return ResultUtil.error("实际数量不能为空或者实际数量不能大于计划数量!");
+        }
+       ResultVO resultVO  = dayPlanningService.dosingTransportOutStock(dayPlanningProductionReport);
+       if (resultVO.getCode().equals(200)) {
+           ResultVO inStockResult = dayPlanningService.dosingTransportInStock(dayPlanningProductionReport);
+           if (inStockResult.getCode().equals(200)) {
+              boolean result = productionReport(dayPlanningProductionReport.getDayPlanningDetail().getDayPlanningId(), dayPlanningProductionReport.getDayPlanningDetail().getActualQuantity());
+              return result ? inStockResult : ResultUtil.error(resultVO.getMsg());
+           }
+       }
+       return ResultUtil.error(resultVO.getMsg());
+    }
+
+    @PostMapping(value = "dayVerticalMillProductPlanningProductionReport")
+    @ApiOperation(value = "日立磨生产计划报工")
+    public ResultVO dayVerticalMillProductPlanningProductionReport(@RequestBody DayPlanningProductionReport dayPlanningProductionReport) {
+        if (dayPlanningProductionReport == null || dayPlanningProductionReport.getDayPlanningDetail() == null) {
+            return ResultUtil.error("报工参数不能为空!");
+        }
+        BigDecimal actualQuantity = dayPlanningProductionReport.getDayPlanningDetail().getActualQuantity();
+        BigDecimal plannedQuantity = dayPlanningProductionReport.getDayPlanningDetail().getPlannedQuantity();
+        if (actualQuantity == null || actualQuantity.compareTo(plannedQuantity) == 1) {
+            return ResultUtil.error("实际数量不能为空或者实际数量不能大于计划数量!");
+        }
+        ResultVO resultVO  = dayPlanningService.dayVerticalMillProductPlanningOutStock(dayPlanningProductionReport);
+        if (resultVO.getCode().equals(200)) {
+            ResultVO inStockResult = dayPlanningService.dayVerticalMillProductPlanningIntStock(dayPlanningProductionReport);
+            if (inStockResult.getCode().equals(200)) {
+                boolean result = productionReport(dayPlanningProductionReport.getDayPlanningDetail().getDayPlanningId(),actualQuantity);
+                return result ? ResultUtil.success() : ResultUtil.error(resultVO.getMsg());
+            }
+        }
+        return resultVO;
+    }
+
+
+    @PostMapping(value = "powderDosingProductionReport")
+    @ApiOperation(value = "粉料配料计划报工")
+    public ResultVO powderDosingProductionReport(@RequestBody DayPlanningProductionReport dayPlanningProductionReport) {
+        ResultVO resultVO  = dayPlanningService.powderDosingProductionOutStock(dayPlanningProductionReport);
+        if (resultVO.getCode().equals(200)) {
+            ResultVO inStockResult = dayPlanningService.powderDosingProductionInStock(dayPlanningProductionReport);
+            BigDecimal actualQuantity = dayPlanningProductionReport.getDayPlanningDetail().getActualQuantity();
+            BigDecimal plannedQuantity = dayPlanningProductionReport.getDayPlanningDetail().getPlannedQuantity();
+            if (actualQuantity == null || actualQuantity.compareTo(plannedQuantity) == 1) {
+                return ResultUtil.error("实际数量不能为空或者实际数量不能大于计划数量!");
+            }
+            if (inStockResult.getCode().equals(200)) {
+                boolean result = productionReport(dayPlanningProductionReport.getDayPlanningDetail().getDayPlanningId(), actualQuantity);
+                return result ? inStockResult : ResultUtil.error(inStockResult.getMsg());
+            }
+        }
+        return resultVO;
+    }
+
+
+    @PostMapping(value = "pneumaticTransportProductionReport")
+    @ApiOperation(value = "气力计划报工")
+    public ResultVO pneumaticTransportProductionReport(@RequestBody DayPlanningProductionReport productionReport) {
+        ResultVO resultVO  = dayPlanningService.pneumaticTransportOutStock(productionReport);
+        if (resultVO.getCode().equals(200)) {
+            return dayPlanningService.pneumaticTransportInStock(productionReport);
+        }
+        return resultVO;
+    }
+
+
+
+    @PostMapping(value = "test")
+    @ApiOperation(value = "test")
+    public void test() {
+        MesPurchaseBuyRequestInsertDTO dto = new MesPurchaseBuyRequestInsertDTO();
+//         purchaseClient.add(dto);
+        System.out.println("fuck");
+    }
 }
 

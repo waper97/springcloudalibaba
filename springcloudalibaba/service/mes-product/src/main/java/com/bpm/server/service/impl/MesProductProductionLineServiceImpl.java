@@ -6,15 +6,14 @@ import com.bpm.common.util.ResultUtil;
 import com.bpm.common.vo.*;
 import com.bpm.server.mapper.MesProductProductionLineMapper;
 import com.bpm.server.service.MesProductProductionLineService;
-
-import java.util.List;
-
+import com.bpm.server.util.NumberUtil;
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-import com.github.pagehelper.PageHelper;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 生产线表(MesProductProductionLine)表服务实现类
@@ -27,6 +26,8 @@ public class MesProductProductionLineServiceImpl implements MesProductProduction
     @Resource
     private MesProductProductionLineMapper mesProductProductionLineMapper;
 
+    @Resource
+    private NumberUtil numberUtil;
     /**
      * 查全部
      *
@@ -67,6 +68,7 @@ public class MesProductProductionLineServiceImpl implements MesProductProduction
      */
     @Override
     public ResultVO insert(MesProductProductionLine mesProductProductionLine) {
+        mesProductProductionLine.setCode(numberUtil.contextLoads("Line"));
         boolean result = this.mesProductProductionLineMapper.insert(mesProductProductionLine) > 0;
         if (result) {
             return ResultVO.create().success("新增成功");

@@ -2,15 +2,10 @@ package com.bpm.common.vo;
 // 设置后缀名称
 
 import com.bpm.common.domain.DayPlanningDetail;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.format.annotation.DateTimeFormat;
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.Date;
-import java.io.Serializable;
-import lombok.Data;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+import java.io.Serializable;
 /**
  * 日生产计划详情(DayPlanningDetail)实体类
  *

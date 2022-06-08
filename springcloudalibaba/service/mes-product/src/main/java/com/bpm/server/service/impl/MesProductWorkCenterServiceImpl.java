@@ -9,6 +9,7 @@ import com.bpm.common.vo.ResourceCategoryVo;
 import com.bpm.common.vo.ResultVO;
 import com.bpm.server.mapper.MesProductWorkCenterMapper;
 import com.bpm.server.service.MesProductWorkCenterService;
+import com.bpm.server.util.NumberUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.BeanUtils;
@@ -28,6 +29,8 @@ import java.util.List;
 public class MesProductWorkCenterServiceImpl implements MesProductWorkCenterService {
     @Resource
     private MesProductWorkCenterMapper mesProductWorkCenterMapper;
+    @Resource
+    private NumberUtil numberUtil;
 
     /**
      * 查全部
@@ -41,6 +44,11 @@ public class MesProductWorkCenterServiceImpl implements MesProductWorkCenterServ
             return ResultUtil.error("查询失败或无数据");
         }
         return ResultUtil.success(mesProductWorkCenterList);
+    }
+
+    @Override
+    public ResultVO<List<MesProductWorkCenter>> queryByParam(MesProductWorkCenter mesProductWorkCenter) {
+        return ResultUtil.success(mesProductWorkCenterMapper.queryByParam(mesProductWorkCenter));
     }
 
 
@@ -87,7 +95,8 @@ public class MesProductWorkCenterServiceImpl implements MesProductWorkCenterServ
      */
     @Override
     public ResultVO insert(MesProductWorkCenter mesProductWorkCenter) {
-//        mesProductWorkCenter.setCreateTime(LocalDateTime.now());
+        mesProductWorkCenter.setCode(numberUtil.contextLoads("WC"));
+        mesProductWorkCenter.setCreateTime(LocalDateTime.now());
         boolean result = this.mesProductWorkCenterMapper.insert(mesProductWorkCenter) > 0;
         if (result) {
             return ResultUtil.success("新增成功");

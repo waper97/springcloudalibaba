@@ -1,20 +1,15 @@
 package com.bpm.server.controller;
 
-import com.bpm.common.domain.ProcessRoute;
-import com.bpm.common.domain.ProcessRouteDetail;
 import com.bpm.common.dto.ProcessRouteDTO;
 import com.bpm.common.util.ResultUtil;
 import com.bpm.common.vo.PageInfoVO;
 import com.bpm.common.vo.ProcessRouteVO;
 import com.bpm.common.vo.ResultVO;
-
 import com.bpm.server.service.ProcessRouteService;
-import com.bpm.server.util.NumberUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -28,7 +23,6 @@ import java.util.List;
 @RestController
 @RequestMapping("mesProductProcessRoute")
 @Api(tags = "工艺路线 ")
-//@CrossOrigin
 public class ProcessRouteController {
         /**
          * 服务对象
@@ -125,12 +119,12 @@ public class ProcessRouteController {
             if (StringUtils.isEmpty(processRoute.getProcessType())) {
                 return ResultUtil.error("流程类型不能为空!");
             }
-            if (StringUtils.isEmpty(processRoute.getMineralPowderCode())) {
-                return ResultUtil.error("矿粉编号不能为空!");
-            }
-            if (StringUtils.isEmpty(processRoute.getMineralPowderName())) {
-                return ResultUtil.error("矿粉名称不能为空!");
-            }
+//            if (StringUtils.isEmpty(processRoute.getMineralPowderCode())) {
+//                return ResultUtil.error("矿粉编号不能为空!");
+//            }
+//            if (StringUtils.isEmpty(processRoute.getMineralPowderName())) {
+//                return ResultUtil.error("矿粉名称不能为空!");
+//            }
             boolean result;
             if (processRoute.getId() == null) {
                  result = this.processRouteService.insert(processRoute);
@@ -185,7 +179,14 @@ public class ProcessRouteController {
             return ResultUtil.success(processRouteService.listProcessRouteDetailByProcessRouteId(productProcessRouteId));
         }
 
-
-
+    /**
+     * 工艺路线分类 列表
+     * @return
+     */
+    @GetMapping(value = "/listProcessRouteType")
+    @ApiOperation(value = "工艺路线分类")
+    public  ResultVO listProcessRouteType () {
+        return ResultUtil.success(processRouteService.listProceessRouteType());
+    }
 }
 

@@ -74,7 +74,7 @@ public class MesProductDayBrokenForkliftFeedingPlanning implements Serializable 
      * 矿石id
      */
     @ApiModelProperty(value = "矿石id")
-    private Integer mineralsCode;
+    private String mineralsCode;
     /**
      * 矿石名称
      */
@@ -127,4 +127,8 @@ public class MesProductDayBrokenForkliftFeedingPlanning implements Serializable 
      */
     @ApiModelProperty(value = "是否删除 0否，1是")
     private Integer isDeleted;
+
+
+    @ApiModelProperty(value = "矿石id")
+    private Integer mineralsId;
 }

@@ -12,6 +12,7 @@ import com.github.xiaoymin.knife4j.annotations.ApiSupport;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -169,31 +170,30 @@ public class MaterialRequirementsPlanningController {
      */
     @PostMapping("issue")
     @ApiOperation(value = "下发" )
-    @ApiImplicitParam(name = "ids",value = "id集合",required = true)
-    public ResultVO issue(@RequestBody List<Integer> ids) {
-        if (ids != null && ids.isEmpty()) {
-            return ResultUtil.error("ids集合不能为空");
+//    @ApiImplicitParam(name = "ids",value = "id集合",required = true)
+    public ResultVO issue(@RequestBody MaterialRequirementsPlanningDTO materialRequirementsPlanningDTO) {
+        if (materialRequirementsPlanningDTO != null && CollectionUtils.isEmpty(materialRequirementsPlanningDTO.getMaterialRequirementsPlanningList())) {
+            return ResultUtil.error("物料需求计划集合不能为空");
         }
         final Integer status = 3;
-        boolean result = materialRequirementsPlanningService.updateStatusById(ids ,status);
+        boolean result = materialRequirementsPlanningService.issued(materialRequirementsPlanningDTO);
         return result ? ResultUtil.success() : ResultUtil.error() ;
     }
 
 
 
-    @GetMapping(value = "/mrp")
     @PostMapping(value = "mrp")
     @ApiOperation(value = "mrp计算")
-    public ResultVO mrp (MrpDTO mrpDTO) {
-        if (mrpDTO != null) {
+    public ResultVO mrp (@RequestBody MrpDTO mrpDTO) {
+        if (mrpDTO == null) {
             return ResultUtil.error("参数不能为空!");
         }
         if (mrpDTO.getMasterProductionPlanList() == null  ) {
             return ResultUtil.error("主生产计划不能为空!");
         }
 
-        materialRequirementsPlanningService.mrp(mrpDTO);
-        return null;
+        boolean result = materialRequirementsPlanningService.mrp(mrpDTO);
+        return result ? ResultUtil.success() :  ResultUtil.error();
     }
 
 

@@ -1,22 +1,20 @@
 package com.bpm.server.controller;
 
-import java.util.List;
-
+import com.bpm.common.domain.BrokenStoneWarehouse;
+import com.bpm.common.dto.BrokenStoneWarehouseDTO;
 import com.bpm.common.dto.BrokenStoneWarehouseInsertOrUpdateDTO;
+import com.bpm.common.util.ResultUtil;
 import com.bpm.common.vo.BrokenStoneWarehouseVO;
 import com.bpm.common.vo.PageInfoVO;
-import com.bpm.common.util.ResultUtil;
-import com.bpm.common.dto.BrokenStoneWarehouseDTO;
-import com.bpm.common.domain.BrokenStoneWarehouse;
 import com.bpm.common.vo.ResultVO;
 import com.bpm.server.service.BrokenStoneWarehouseService;
-
-import io.swagger.annotations.ApiImplicitParam;
-import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 碎石仓 控制层
@@ -27,15 +25,6 @@ import javax.annotation.Resource;
 @Api(tags = "碎石仓")
 @RestController
 @RequestMapping("brokenStoneWarehouse")
-
-////todo 测试代码
-//@CrossOrigin(
-//        allowCredentials = "true",
-//        allowedHeaders = {"*"},
-//        methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.OPTIONS, RequestMethod.HEAD, RequestMethod.PUT, RequestMethod.PATCH},
-//        originPatterns = {"*"}
-//)
-
 public class BrokenStoneWarehouseController {
     /**
      * 服务对象

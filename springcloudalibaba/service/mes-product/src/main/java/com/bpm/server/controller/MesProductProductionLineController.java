@@ -1,15 +1,14 @@
 package com.bpm.server.controller;
 
+import com.bpm.common.domain.MesProductProductionLine;
 import com.bpm.common.dto.MesProductProductionLineDto;
 import com.bpm.common.vo.MesProductProductionLineVo;
 import com.bpm.common.vo.PageInfoVO;
 import com.bpm.common.vo.ResultVO;
-
-import com.bpm.common.domain.MesProductProductionLine;
 import com.bpm.server.service.MesProductProductionLineService;
-import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -23,16 +22,6 @@ import java.util.List;
 @RestController
 @RequestMapping("mesProductProductionLine")
 @Api(tags = "生产线")
-
-////todo 测试代码
-//@CrossOrigin(
-//        allowCredentials = "true",
-//        allowedHeaders = {"*"},
-//        methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.OPTIONS, RequestMethod.HEAD, RequestMethod.PUT, RequestMethod.PATCH},
-//        originPatterns = {"*"}
-//)
-
-
 public class MesProductProductionLineController {
     /**
      * 服务对象

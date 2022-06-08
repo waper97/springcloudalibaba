@@ -2,17 +2,11 @@ package com.bpm.common.vo;
 // 设置后缀名称
 
 import com.bpm.common.domain.MineralPowderRequirementsPlanningDetail;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.Date;
-import java.io.Serializable;
-
-import lombok.Data;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+import java.io.Serializable;
 
 /**
  * 矿粉需求计划详情(MineralPowderRequirementsPlanningDetail)实体类

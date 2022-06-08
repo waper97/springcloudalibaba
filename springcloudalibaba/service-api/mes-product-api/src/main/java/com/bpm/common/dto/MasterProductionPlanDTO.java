@@ -3,17 +3,14 @@ package com.bpm.common.dto;
 
 import com.bpm.common.domain.MasterProductionPlan;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.Value;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.Valid;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.List;
+
 /**
  * 主生产计划(MasterProductionPlan)传输类
  *
@@ -21,7 +18,7 @@ import java.util.Date;
  * @since 2022-04-24 16:45:58
  */
 @Data
-@ApiModel(value = "主生产计划")
+//@ApiModel(value = "主生产计划")
 public class MasterProductionPlanDTO extends MasterProductionPlan implements Serializable {
     private static final long serialVersionUID = -55509876354692844L;
     @ApiModelProperty("当前页")
@@ -40,6 +37,13 @@ public class MasterProductionPlanDTO extends MasterProductionPlan implements Ser
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(shape =JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private LocalDateTime endTime;
+
+
+    /**
+     * 主生产计划集合
+     */
+    @ApiModelProperty(value = "主生产计划集合")
+    List<MasterProductionPlan> masterProductionPlanList;
 
 }
 

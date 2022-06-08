@@ -1,10 +1,11 @@
 package com.bpm.server.service;
 
-import com.bpm.common.domain.DayPlanning;
 import com.bpm.common.dto.DayPlanningDTO;
 import com.bpm.common.dto.DayPlanningInserOrUpdateDTO;
+import com.bpm.common.dto.DayPlanningProductionReport;
 import com.bpm.common.vo.DayPlanningVO;
 import com.bpm.common.vo.PageInfoVO;
+import com.bpm.common.vo.ResultVO;
 
 import java.util.List;
 /**
@@ -64,5 +65,57 @@ public interface DayPlanningService {
      * @return
      */
     boolean removeById(Integer id);
+
+    /**
+     * 通用报工接口 日破碎生产计划
+     * @return
+     */
+    ResultVO commonProductionReport(DayPlanningInserOrUpdateDTO dayPlanning);
+    // 日破碎 出库
+    ResultVO brokenOutStock(DayPlanningProductionReport productionReport);
+    //
+    ResultVO brokenInStock(DayPlanningProductionReport productionReport);
+
+    /**
+     * 日配料工接口
+     * @param productionReport
+     * @return
+     */
+    ResultVO dosingTransportOutStock(DayPlanningProductionReport productionReport);
+
+
+    ResultVO dosingTransportInStock(DayPlanningProductionReport productionReport);
+
+    ResultVO dayVerticalMillProductPlanningOutStock(DayPlanningProductionReport dayPlanningProductionReport);
+
+    ResultVO dayVerticalMillProductPlanningIntStock(DayPlanningProductionReport dayPlanningProductionReport);
+
+    /**
+     * 粉料配料
+     * @param dayPlanning
+     * @return
+     */
+    ResultVO powderDosingProductionInStock(DayPlanningProductionReport productionReport);
+
+    /**
+     * 分了了配料
+     * @param dayPlanning
+     * @return
+     */
+    ResultVO powderDosingProductionOutStock(DayPlanningProductionReport productionReport);
+
+    /**
+     * 气力运输计划入库
+     * @param productionReport
+     * @return
+     */
+    ResultVO pneumaticTransportInStock(DayPlanningProductionReport productionReport);
+    /**
+     * 气力运输计划出库
+     * @param productionReport
+     * @return
+     */
+    ResultVO pneumaticTransportOutStock(DayPlanningProductionReport productionReport);
+
 
 }

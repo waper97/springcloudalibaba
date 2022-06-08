@@ -1,12 +1,12 @@
 package com.bpm.server.controller;
 
+import com.bpm.common.domain.BillOfMaterial;
 import com.bpm.common.dto.BillOfMaterialDTO;
 import com.bpm.common.dto.BillOfMaterialInsertOrUpdateDTO;
 import com.bpm.common.util.ResultUtil;
 import com.bpm.common.vo.BillOfMaterialVO;
 import com.bpm.common.vo.PageInfoVO;
 import com.bpm.common.vo.ResultVO;
-import com.bpm.common.vo.BillOfMaterialVO;
 import com.bpm.server.service.BillOfMaterialService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -120,7 +120,7 @@ public class BillOfMaterialController {
         if (id == null) {
             return  ResultUtil.error("id不能为空！");
         }
-        boolean result = this.billOfMaterialService.deleteById(id);
+        boolean result = this.billOfMaterialService.removeById(id);
         return result  ? ResultUtil.success(): ResultUtil.error();
     }
 
@@ -138,5 +138,24 @@ public class BillOfMaterialController {
         }
         return ResultUtil.success(billOfMaterialService.getById(bomId));
     }
+
+    @ApiOperation(value = "生效")
+    @ApiImplicitParam(name = "id",value = "id",required = true)
+    @GetMapping(value = "/takeEffect")
+    public ResultVO takeEffect (Integer id) {
+        BillOfMaterial bill = billOfMaterialService.queryById(id);
+        if (bill == null) {
+            return ResultUtil.error("数据不存在!");
+        }
+        if (bill.getStatus() == 2) {
+            return ResultUtil.error("当前产品在bom中已生效！");
+        }
+        BillOfMaterial billOfMaterial = new BillOfMaterial();
+        billOfMaterial.setId(id);
+        billOfMaterial.setStatus(2);
+        boolean result =  billOfMaterialService.updateSelective(billOfMaterial) ;
+        return result  ? ResultUtil.success(): ResultUtil.error();
+    }
+
 }
 

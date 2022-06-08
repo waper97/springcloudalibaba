@@ -1,16 +1,16 @@
 package com.bpm.common.dto;
 
 
-
-import java.time.LocalDateTime;
-
 import com.bpm.common.domain.MaterialRequirementsPlanning;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.format.annotation.DateTimeFormat;
-import java.io.Serializable;
-import lombok.Data;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.List;
 /**
  * 物料需求计划(MaterialRequirementsPlanning)传输类
  *
@@ -43,5 +43,10 @@ public class MaterialRequirementsPlanningDTO extends MaterialRequirementsPlannin
     @ApiModelProperty(value = "矿粉名称 ")
     private String materialName;
 
+    /**
+     * 物料需求计划集合
+    */
+    @ApiModelProperty(value = "物料需求计划集合")
+    List<MaterialRequirementsPlanning> materialRequirementsPlanningList;
 }
 

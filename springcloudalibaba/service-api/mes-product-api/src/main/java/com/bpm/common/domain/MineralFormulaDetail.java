@@ -83,7 +83,11 @@ public class MineralFormulaDetail implements Serializable {
      */
     @ApiModelProperty(value = "是否删除 0否 1是")
     private Integer isDeleted;
-
+    /**
+     * 成本金额
+     */
+    @ApiModelProperty(value = "成本金额")
+    private BigDecimal costAmount;
 
 }
 

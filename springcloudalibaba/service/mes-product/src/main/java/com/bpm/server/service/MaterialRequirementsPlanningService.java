@@ -3,7 +3,6 @@ package com.bpm.server.service;
 import com.bpm.common.domain.MaterialRequirementsPlanning;
 import com.bpm.common.dto.MaterialRequirementsPlanningDTO;
 import com.bpm.common.dto.MrpDTO;
-import com.bpm.common.dto.PlanSchemeCalculateDTO;
 import com.bpm.common.vo.MaterialRequirementsPlanningVO;
 import com.bpm.common.vo.PageInfoVO;
 
@@ -80,6 +79,14 @@ public interface MaterialRequirementsPlanningService {
      * @return
      */
     boolean updateStatusById(List<Integer> ids, Integer status);
+
+
+    /**
+     * 下发
+     * @param masterProductionPlan
+     * @return
+     */
+    boolean issued(MaterialRequirementsPlanningDTO masterProductionPlan);
 
     /**
      * Mps

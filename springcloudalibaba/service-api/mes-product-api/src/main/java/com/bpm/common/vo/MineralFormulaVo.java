@@ -29,4 +29,6 @@ public class MineralFormulaVo extends MineralFormula {
      */
     @ApiModelProperty(value = "产品名称")
     private String materialName;
+    @ApiModelProperty(value = "状态名称")
+    private String statusName;
 }

@@ -1,15 +1,9 @@
 package com.bpm.common.vo;
 
 import com.bpm.common.domain.BrokenStoneWarehouse;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import java.time.LocalDateTime;
-import java.io.Serializable;
-
-import lombok.Data;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 /**
  * 碎石仓视图类
@@ -25,6 +19,9 @@ public class BrokenStoneWarehouseVO extends BrokenStoneWarehouse {
      */
     @ApiModelProperty(value = "碎石仓编号")
     private String stockCode;
+
+    @ApiModelProperty(value = "碎石仓名称")
+    private String stockName;
     /**
      * 生产品种
      */
