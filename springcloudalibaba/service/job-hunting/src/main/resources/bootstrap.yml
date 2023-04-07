@@ -1,0 +1,50 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: job-hunting
+  cloud:
+    nacos:
+      config:
+        server-addr: 192.168.170.130:8848
+        enabled: true
+        file-extension: yml
+      discovery:
+        server-addr: 192.168.170.130:8848
+    sentinel:
+      transport:
+        dashboard: localhost:8080
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  mail:
+    host: smtp.qq.com
+    username: 563667426@qq.com
+    # 邮件授权码
+    password: mdnqjwpukinkbdcd
+    properties:
+      mail:
+        smtp:
+          auth: true
+
+  rabbitmq:
+    host: 192.168.170.130
+    port: 15672
+    virtual-host: /
+    username: guest
+    password: guest
+  sleuth:
+    sampler:
+      # 采样率的概率，100%采样
+      probability: 1.0
+      # 每秒采样数字最高为1000
+      rate: 1000
+  zipkin:
+    base-url: http://192.168.170.130:9411
+logging:
+  level:
+    #日志开启debug级别
+    org.springframework: debug
+json:
+  hero: herolist.json
+  item: item.json

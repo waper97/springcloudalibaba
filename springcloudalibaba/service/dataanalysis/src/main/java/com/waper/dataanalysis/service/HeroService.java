@@ -1,6 +1,6 @@
 package com.waper.dataanalysis.service;
 
-import com.waper.dataanalysis.entity.Hero;
+import com.waper.dataanalysisapi.entity.Hero;
 import com.waper.dataanalysis.repository.HeroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;

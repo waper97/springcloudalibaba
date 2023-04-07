@@ -2,23 +2,24 @@ package com.waper.dataanalysis.controller;
 
 import com.alibaba.druid.util.StringUtils;
 import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import com.waper.dataanalysis.entity.Hero;
-import com.waper.dataanalysis.entity.Props;
+import com.waper.common.entity.R;
+import com.waper.dataanalysisapi.entity.Hero;
+import com.waper.dataanalysisapi.entity.Props;
 import com.waper.dataanalysis.service.HeroService;
 import com.waper.dataanalysis.service.ItemService;
 import com.waper.dataanalysis.util.AnalysisJsonUtil;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.poi.util.StringUtil;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Example;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.util.List;
@@ -152,6 +153,24 @@ public class HeroController extends BaseController {
     public Object listItems(Props props){
         Example<Props> propsExample = Example.of(props);
         return  successData(itemService.findAll(propsExample));
+    }
+
+
+    /**
+     * 上传英雄
+     * @return
+     */
+    @ApiOperation(value = "上传英雄")
+    @PostMapping(value = "uploadHero")
+    public R uploadHero(MultipartFile multipartFile){
+        return R.success();
+    }
+
+    @GetMapping(value = "sendMessageToRabbitMq")
+    public void sendMessageToRabbitMq(){
+        String exchange = "amqp.Exchange";
+        String message ="{\"1\":\"倔强青铜III\",\"2\":\"倔强青铜II\",\"3\":\"倔强青铜I\",\"4\":\"秩序白银III\",\"5\":\"秩序白银II\",\"6\":\"秩序白银I\",\"17\":\"荣耀黄金IV\",\"7\":\"荣耀黄金III\",\"8\":\"荣耀黄金II\",\"9\":\"荣耀黄金I\",\"18\":\"尊贵铂金V\",\"19\":\"尊贵铂金IV\",\"10\":\"尊贵铂金III\",\"11\":\"尊贵铂金II\",\"12\":\"尊贵铂金I\",\"20\":\"永恒钻石V\",\"21\":\"永恒钻石IV\",\"13\":\"永恒钻石III\",\"14\":\"永恒钻石II\",\"15\":\"永恒钻石I\",\"22\":\"至尊星耀V\",\"23\":\"至尊星耀IV\",\"24\":\"至尊星耀III\",\"25\":\"至尊星耀II\",\"26\":\"至尊星耀I\"}";
+        rabbitTemplate.convertAndSend(exchange, message);
     }
 
 }

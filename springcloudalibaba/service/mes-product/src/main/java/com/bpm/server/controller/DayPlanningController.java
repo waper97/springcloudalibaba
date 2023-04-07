@@ -248,7 +248,7 @@ public class DayPlanningController {
     @PostMapping(value = "test")
     @ApiOperation(value = "test")
     public void test() {
-        MesPurchaseBuyRequestInsertDTO dto = new MesPurchaseBuyRequestInsertDTO();
+//        MesPurchaseBuyRequestInsertDTO dto = new MesPurchaseBuyRequestInsertDTO();
 //         purchaseClient.add(dto);
         System.out.println("fuck");
     }

@@ -1,12 +1,27 @@
+server:
+  port: 8881
 spring:
-  application:
-    name: gateway
   cloud:
     nacos:
-      config:
-        server-addr: http://192.168.170.129:8848
-        file-extension: yml
-
+      discovery:
+        server-addr: 192.168.170.130:8848
+  application:
+    name: dataanalysis
   mvc:
     pathmatch:
-      matching-strategy: ANT_PATH_MATCHER
+      matching-strategy: ant_path_matcher
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 123456
+    url: jdbc:mysql://192.168.170.130:3306/test
+  rabbitmq:
+    host: 192.168.170.130
+    port: 15672
+    virtual-host: /
+    username: guest
+    password: guest

@@ -1,7 +1,7 @@
 //package com.waper.dataanalysis.mapper;
 //
 //
-//import com.waper.common.entity.Log;
+//import com.waper.dataanalysis.model.Log;
 //import org.springframework.data.jpa.repository.JpaRepository;
 //
 //

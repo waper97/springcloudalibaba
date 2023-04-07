@@ -1,0 +1,48 @@
+spring:
+  application:
+    name: goods-service
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.170.130:8848
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://192.168.170.130/test
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  sleuth:
+    sampler:
+      # 采样率的概率，100%采样
+      probability: 1.0
+      # 每秒采样数字最高为1000
+      rate: 1000
+  zipkin:
+    base-url: http://192.168.170.130:9411
+    discovery-client-enabled: false
+mybatis-plus:
+  configuration:
+    # 这个配置会将执行的sql打印出来，在开发或测试的时候可以用
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    # 驼峰下划线转换
+    map-underscore-to-camel-case: true
+seata:
+  config:
+    type: nacos
+    nacos:
+      server-addr: 192.168.170.130:8848
+      group : SEATA_GROUP
+      namespace: ""
+      dataId: seataServer.properties
+      username: nacos
+      password: nacos
+  registry:
+    type: nacos
+    nacos:
+      application: seata-server
+      server-addr: 192.168.170.130:8848
+      group: SEATA_GROUP
+      username: nacos
+      password: nacos

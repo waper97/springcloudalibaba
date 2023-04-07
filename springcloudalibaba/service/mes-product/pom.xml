@@ -101,11 +101,10 @@
         </dependency>
 
 
-<!--        <dependency>-->
-<!--            <groupId>com.alibaba.cloud</groupId>-->
-<!--            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>-->
-
-<!--        </dependency>-->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        </dependency>
 
 
 
@@ -219,6 +218,14 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
+<!--解决No Feign Client for loadBalancing defined. Did you forget to include spring-cloud-starter-loadbalancer?-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-loadbalancer</artifactId>
+            <version>3.1.3</version>
+        </dependency>
+
 
         <dependency>
             <groupId>org.springframework.cloud</groupId>

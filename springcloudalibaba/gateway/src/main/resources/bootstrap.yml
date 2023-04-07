@@ -1,7 +1,43 @@
+server:
+  port: 7777
 spring:
   application:
     name: gateway
   cloud:
     nacos:
-      config:
-        server-addr: http://192.168.234.131:8848
+      discovery:
+        server-addr: http://192.168.170.130:8848
+    gateway:
+      discovery:
+        locator:
+          enabled: true #启用 DiscoveryClient 网关集成的标志  网上说：(让gateway可以发现nacos中的微服务) 利用微服务名进行路由
+          lower-case-service-id: true # 在谓词和过滤器中小写 serviceId 的选项
+      enabled: true
+      routes:
+        - id: job-hunting-route
+          uri: lb://job-hunting
+          predicates:
+            - Path=/jobHunting/**
+          filters:
+            - AddRequestHeader=key,Hello World!
+    sentinel:
+      transport:
+        dashboard: localhost:8080
+  rabbitmq:
+    host: 192.168.170.130
+    port: 5672
+    username: guest
+    password: guest
+  sleuth:
+    sampler:
+      # 采样率的概率，100%采样
+      probability: 1.0
+      # 每秒采样数字最高为1000
+      rate: 1000
+  zipkin:
+    base-url: http://192.168.170.130:9411
+    discovery-client-enabled: false
+  logging:
+    level:
+      #日志开启debug级别
+      org.springframework: debug

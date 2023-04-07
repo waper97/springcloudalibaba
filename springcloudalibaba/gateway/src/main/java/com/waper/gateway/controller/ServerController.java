@@ -19,13 +19,5 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/server")
 public class ServerController {
-    @Value("${json}")
-    String json;
-    @GetMapping("/test/{id}")
-    public Object test (@PathVariable String id ) {
-        Map<String,Object> map = new HashMap<>(16);
-        map.put("server",id);
-        map.put("json",json);
-        return map;
-    }
+     public void test (){}
 }

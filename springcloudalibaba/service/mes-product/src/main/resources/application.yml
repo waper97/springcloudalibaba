@@ -1,28 +1,17 @@
-spring:
-  application:
-    name: mes-product-server
-  profiles:
-    active: dev
-  datasource:
-#    # 连接池配置
-#    druid:
-#      stat-view-servlet:
-#        login-username: root         #账号
-#        login-password: 123456       #密码
-#        url-pattern: /druid/*        # 登录页面后缀  http://ip:port/druid
-#        enabled: true                #开启监控
-  redis:
-    host: 192.168.170.129
-    port: 6379
-    password: 123456
-mybatis:
-  ## 指定mapper.xml的路径
-  mapper-locations: classpath:mapper/*.xml
-  configuration:
-    ##打印日志
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-knife4j:
-  enable: true
-  setting:
-    # 是否开启请求缓存
-    enableRequestCache: true
+#spring:
+#  application:
+#    name: mes-product
+#  profiles:
+#    active: dev
+#  datasource:
+#mybatis:
+#  ## 指定mapper.xml的路径
+#  mapper-locations: classpath:mapper/*.xml
+#  configuration:
+#    ##打印日志
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#knife4j:
+#  enable: true
+#  setting:
+#    # 是否开启请求缓存
+#    enableRequestCache: true

@@ -11,10 +11,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @MapperScan({"com.bpm.server.mapper,com.bpm.purchase.client"})
 @EnableFeignClients(
 
-//        basePackages = {"com.bpm.purchase.client"}
+        basePackages = {"com.bpm.mes.purchase.feign","com.bpm.mes.stock.common.feign"}
 )
-//@EnableHystrix
-//@EnableWebMvc
 public class MesProductApplication {
 
     public static void main(String[] args) {

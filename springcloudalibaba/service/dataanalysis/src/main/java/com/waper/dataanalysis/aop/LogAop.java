@@ -1,6 +1,6 @@
 package com.waper.dataanalysis.aop;
 
-import com.waper.common.entity.Log;
+import com.waper.dataanalysis.model.Log;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;

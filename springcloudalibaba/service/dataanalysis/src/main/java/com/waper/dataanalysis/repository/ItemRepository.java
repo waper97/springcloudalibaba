@@ -1,6 +1,6 @@
 package com.waper.dataanalysis.repository;
 
-import com.waper.dataanalysis.entity.Props;
+import com.waper.dataanalysisapi.entity.Props;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

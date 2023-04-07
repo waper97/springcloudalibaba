@@ -24,6 +24,9 @@
         <module>mes-product-api</module>
         <module>mes-stock-api</module>
         <module>mes-purchase-api</module>
+        <module>dataanalysis-api</module>
+        <module>job-hunting-api</module>
+        <module>goods-service-api</module>
     </modules>
 <!--    <dependencies>-->
 <!--        <dependency>-->
@@ -32,13 +35,30 @@
 <!--        </dependency>-->
 
 <!--    </dependencies>-->
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.24</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-spring-boot-starter</artifactId>
+            <version>3.0.3</version>
+            <scope>provided</scope>
+        </dependency>
+
+    </dependencies>
 
     <build>
         <plugins>
-<!--            <plugin>-->
-<!--                <groupId>org.springframework.boot</groupId>-->
-<!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
-<!--            </plugin>-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+
         </plugins>
     </build>
 

@@ -1,6 +1,6 @@
 package com.waper.dataanalysis.service;
 
-import com.waper.dataanalysis.entity.Props;
+import com.waper.dataanalysisapi.entity.Props;
 import com.waper.dataanalysis.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
