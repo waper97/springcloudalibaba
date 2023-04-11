@@ -4,9 +4,9 @@ spring:
   cloud:
     nacos:
       discovery:
-       server-addr: 192.168.170.130:8848
+       server-addr: 192.168.80.128:8848
       config:
-        server-addr: 192.168.170.130:8848
+        server-addr: 192.168.80.128:8848
         file-extension: yml
         enabled: true
     sentinel:
@@ -18,10 +18,10 @@ spring:
   datasource:
     username: root
     password: 123456
-    url: jdbc:mysql://192.168.170.130/test
+    url: jdbc:mysql://192.168.80.128/test
     driver-class-name: com.mysql.cj.jdbc.Driver
   rabbitmq:
-    host: 192.168.170.130
+    host: 192.168.80.128
     port: 5672
     virtual-host: / #主机名
     username: guest
@@ -33,7 +33,7 @@ spring:
       # 每秒采样数字最高为1000
       rate: 1000
 #  zipkin:
-#    base-url: http://192.168.170.130:9411
+#    base-url: http://192.168.80.128:9411
 #    discovery-client-enabled: false
 mybatis-plus:
   configuration:
@@ -46,7 +46,7 @@ seata:
   config:
     type: nacos
     nacos:
-      server-addr: 192.168.170.130:8848
+      server-addr: 192.168.80.128:8848
       group : SEATA_GROUP
       namespace: ""
       dataId: seataServer.properties
@@ -56,7 +56,7 @@ seata:
     type: nacos
     nacos:
       application: seata-server
-      server-addr: 192.168.170.130:8848
+      server-addr: 192.168.80.128:8848
       group: SEATA_GROUP
 #      namespace: ""
       username: nacos

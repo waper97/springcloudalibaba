@@ -4,7 +4,7 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 192.168.170.130:8848
+        server-addr: 192.168.80.128:8848
   application:
     name: dataanalysis
   mvc:
@@ -18,9 +18,9 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: 123456
-    url: jdbc:mysql://192.168.170.130:3306/test
+    url: jdbc:mysql://192.168.80.128:3306/test
   rabbitmq:
-    host: 192.168.170.130
+    host: 192.168.80.128
     port: 15672
     virtual-host: /
     username: guest

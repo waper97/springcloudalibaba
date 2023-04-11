@@ -20,4 +20,8 @@ import java.util.Map;
 @RequestMapping(value = "/server")
 public class ServerController {
      public void test (){}
+
+     public static void main(String[] args) {
+          System.out.println(                sun.net.spi.nameservice.dns.DNSNameService.class.getClassLoader());
+     }
 }

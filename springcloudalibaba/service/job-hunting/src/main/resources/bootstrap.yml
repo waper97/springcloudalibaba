@@ -6,11 +6,11 @@ spring:
   cloud:
     nacos:
       config:
-        server-addr: 192.168.170.130:8848
+        server-addr: 192.168.80.128:8848
         enabled: true
         file-extension: yml
       discovery:
-        server-addr: 192.168.170.130:8848
+        server-addr: 192.168.80.128:8848
     sentinel:
       transport:
         dashboard: localhost:8080
@@ -28,7 +28,7 @@ spring:
           auth: true
 
   rabbitmq:
-    host: 192.168.170.130
+    host: 192.168.80.128
     port: 15672
     virtual-host: /
     username: guest
@@ -40,7 +40,7 @@ spring:
       # 每秒采样数字最高为1000
       rate: 1000
   zipkin:
-    base-url: http://192.168.170.130:9411
+    base-url: http://192.168.80.128:9411
 logging:
   level:
     #日志开启debug级别

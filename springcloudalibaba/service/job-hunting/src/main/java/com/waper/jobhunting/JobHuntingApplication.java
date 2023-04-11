@@ -24,8 +24,8 @@ public class JobHuntingApplication {
 
         ExecutorService singleThreadExecutor = Executors.newSingleThreadExecutor();
         ExecutorService fixedThreadPool = Executors.newFixedThreadPool(1);
-        ThreadLocal
-        ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
+//        ThreadLocal
+//        ExecutorServince cachedThreadPool = Executors.newCachedThreadPool();
         ExecutorService scheduledThreadPool = Executors.newScheduledThreadPool(1);
         Executor executor;
 

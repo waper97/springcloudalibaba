@@ -19,7 +19,7 @@
 #  cloud:
 #    nacos:
 #      discovery:
-#        server-addr: 192.168.170.130:8848
+#        server-addr: 192.168.80.128:8848
 #      config:
-#        server-addr: 192.168.170.130:8848
+#        server-addr: 192.168.80.128:8848
 #        file-extension: yml

@@ -78,7 +78,7 @@ public class JobHuntingController {
 
     public  static  void connection () {
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("192.168.170.130");
+        factory.setHost("192.168.80.128");
         try {
             // 连接
             Connection connection = factory.newConnection();
@@ -106,7 +106,7 @@ public class JobHuntingController {
     @GetMapping(value = "comsumer")
     public static void comsumer () {
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("192.168.170.130");
+        factory.setHost("192.168.80.128");
         try {
             // 连接
             Connection connection = factory.newConnection();
