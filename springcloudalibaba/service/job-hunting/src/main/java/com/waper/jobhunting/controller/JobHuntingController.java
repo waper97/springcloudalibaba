@@ -74,11 +74,14 @@ public class JobHuntingController {
     @Value("${json.hero}")
     String hero ;
 
+    @Value("${spring.rabbitmq:host}")
+    String rabbitmqHost ;
+
     private  final static  String  QUEUE_NAME = "hello";
 
-    public  static  void connection () {
+    public    void connection () {
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("192.168.80.128");
+        factory.setHost(rabbitmqHost);
         try {
             // 连接
             Connection connection = factory.newConnection();
