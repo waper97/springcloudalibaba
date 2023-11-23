@@ -82,12 +82,7 @@
             <version>1.2</version>
         </dependency>
 
-<!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>1.2.73</version>
-        </dependency>
+
 
         <!-- Jasper是tomcat中使用的JSP引擎，运用tomcat-embed-jasper可以将项目与tomcat分开 -->
         <dependency>
@@ -115,12 +110,7 @@
         </dependency>
 
 
-        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.11.2</version>
-        </dependency>
+
 
         <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
         <dependency>
@@ -187,7 +177,6 @@
             <version>4.5.13</version>
         </dependency>
 <!--        增强版本的swagger-->
-        <!-- https://mvnrepository.com/artifact/com.github.xiaoymin/knife4j-spring-boot-starter -->
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>knife4j-spring-boot-starter</artifactId>
@@ -200,7 +189,7 @@
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
+        <!-- jsoup -->
         <dependency>
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>

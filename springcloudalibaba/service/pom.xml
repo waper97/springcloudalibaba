@@ -47,23 +47,17 @@
             <artifactId>spring-cloud-starter-loadbalancer</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>${fastjson.version}</version>
-        </dependency>
+
 
         <!--链路追踪-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-sleuth</artifactId>
-            <version>${spring.cloud.starter.sleuth.version}</version>
         </dependency>
 <!--链路追踪  -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-zipkin</artifactId>
-            <version>${spring.cloud.starter.zipkin.version}</version>
         </dependency>
 
         <dependency>

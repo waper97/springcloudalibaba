@@ -68,6 +68,14 @@
 				<scope>import</scope>
 			</dependency>
 
+			<!-- jpa -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-data-jpa</artifactId>
+				<version>${spring.boot.version}</version>
+			</dependency>
+
+
 			<dependency>
 				<groupId>mysql</groupId>
 				<artifactId>mysql-connector-java</artifactId>
@@ -120,6 +128,27 @@
 				<artifactId>dynamic-datasource-spring-boot-starter</artifactId>
 				<version>${dynamic.datasource.spring.boot.starter.version}</version>
 			</dependency>
+
+
+			<!--链路追踪-->
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-starter-sleuth</artifactId>
+				<version>${spring.cloud.starter.sleuth.version}</version>
+			</dependency>
+			<!--zipkin-->
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-starter-zipkin</artifactId>
+				<version>${spring.cloud.starter.zipkin.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>fastjson</artifactId>
+				<version>${fastjson.version}</version>
+			</dependency>
+
 
 		</dependencies>
 

@@ -91,6 +91,7 @@
             <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>
 
+
 <!--        <dependency>-->
 <!--            <groupId>com.waper</groupId>-->
 <!--            <artifactId>common</artifactId>-->

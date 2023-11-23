@@ -1,27 +1,13 @@
-server:
-  port: 8881
 spring:
+  profiles:
+    active: dev
+  application:
+    name: dataanalysis
   cloud:
     nacos:
       discovery:
-        server-addr: 192.168.80.128:8848
-  application:
-    name: dataanalysis
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: 123456
-    url: jdbc:mysql://192.168.80.128:3306/test
-  rabbitmq:
-    host: 192.168.80.128
-    port: 15672
-    virtual-host: /
-    username: guest
-    password: guest
+        server-addr: 192.168.128.128:8848
+      config:
+        server-addr: 192.168.128.128:8848
+  zipkin:
+    base-url: http://192.168.128.128:9411

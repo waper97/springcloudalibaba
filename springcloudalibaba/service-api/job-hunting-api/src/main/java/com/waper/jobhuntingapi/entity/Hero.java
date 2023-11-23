@@ -5,6 +5,9 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
@@ -15,8 +18,12 @@ import java.io.Serializable;
  */
 @ApiModel(value = "英雄")
 @Data
-@NoArgsConstructor
+@Entity
+@Table(name = "hero")
 public class Hero implements Serializable {
+
+    @Id
+    private Integer id;
     /**
      * 英雄编号
      */
