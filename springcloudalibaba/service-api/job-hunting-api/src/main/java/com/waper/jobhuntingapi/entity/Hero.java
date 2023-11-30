@@ -1,5 +1,7 @@
 package com.waper.jobhuntingapi.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -48,16 +50,20 @@ public class Hero implements Serializable {
      * 英雄类型
      */
     @ApiModelProperty(value = "英雄类型")
+    @TableField("hero_type")
     private String heroType;
     /**
      * 皮肤
      */
     @ApiModelProperty(value = "皮肤")
+    @TableField("skin_name")
     private String skinName;
 
     @ApiModelProperty(value = "未知")
+    @TableField("moss_id")
     private String mossId;
 
     @ApiModelProperty(value = "照片路径")
+    @TableField("picture_url")
     private String pictureUrl;
 }

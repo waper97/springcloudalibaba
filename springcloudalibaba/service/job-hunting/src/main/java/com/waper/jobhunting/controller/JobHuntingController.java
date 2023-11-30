@@ -1,5 +1,6 @@
 package com.waper.jobhunting.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.rabbitmq.client.*;
@@ -17,6 +18,20 @@ import com.waper.jobhuntingapi.entity.Summoner;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.io.FileUtils;
+import org.elasticsearch.action.bulk.BulkRequest;
+import org.elasticsearch.action.bulk.BulkResponse;
+import org.elasticsearch.action.index.IndexRequest;
+import org.elasticsearch.action.search.SearchRequest;
+import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.client.RequestOptions;
+import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.common.xcontent.XContentType;
+import org.elasticsearch.core.TimeValue;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.query.TermQueryBuilder;
+import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.SearchHits;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,14 +40,12 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.util.ResourceUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.concurrent.locks.Lock;
@@ -44,13 +57,16 @@ import java.util.concurrent.locks.ReentrantLock;
  * @Author wangpeng
  * @Date 2022/11/7 16:06
  */
-@Api(value = "找工作")
+@Api(value = "找个勾八工作",tags = "找个勾八工作")
 @RestController
 @RequestMapping(value = "/jobHunting")
 public class JobHuntingController {
-    @Resource
-    private JobHuntingMapper jobHuntingMapper;
-    @Autowired()
+
+
+    @Autowired
+    private RestHighLevelClient restHighLevelClient;
+
+    @Autowired
     private JavaMailSender javaMailSender;
 
     @Autowired
@@ -142,8 +158,30 @@ public class JobHuntingController {
        return R.success(jobHuntingService.list()) ;
     }
 
+    @PostMapping(value = "/insertJobHunting")
+    @ApiOperation(value = "新增找工作")
+    public R insertJobHunting(@RequestBody JobHunting jobHunting){
+        jobHunting.setCreateTime(LocalDateTime.now());
+        return R.success(jobHuntingService.save(jobHunting)) ;
+    }
 
-    @GetMapping("/sendEmail")
+    @PostMapping(value = "/updateJobHunting")
+    @ApiOperation(value = "修改找工作")
+    public R updateJobHunting(@RequestBody JobHunting jobHunting) {
+        jobHunting.setUpdateTime(LocalDateTime.now());
+        return R.success(jobHuntingService.updateById(jobHunting));
+    }
+
+
+    @PostMapping(value = "/getJobHuntingById")
+    @ApiOperation(value = "根据id获取找到工作信息")
+    public R<JobHunting> getJobHuntingById(Integer id) {
+        return R.success(jobHuntingService.getById(id));
+    }
+
+
+
+        @GetMapping("/sendEmail")
     @ApiOperation(value = "发送邮件")
     public R sendEmail () {
         SimpleMailMessage message = new SimpleMailMessage();
@@ -298,6 +336,58 @@ public class JobHuntingController {
                 );
         return R.success(summonerService.list(queryWrapper));
     }
+
+
+    // 1、解析数据放入 es 索引中
+    public Boolean parseContent(String keyword) throws IOException {
+        BulkRequest bulkRequest = new BulkRequest();
+        bulkRequest.add(new IndexRequest("fuck").id("1").source(JSON.toJSONString("ffff"), XContentType.JSON));
+        BulkResponse bulk = restHighLevelClient.bulk(bulkRequest, RequestOptions.DEFAULT);
+        restHighLevelClient.close();
+        return !bulk.hasFailures();
+    }
+
+
+    // 2、根据keyword分页查询结果
+    public List<Map<String, Object>> search(String keyword, Integer pageIndex, Integer pageSize) throws IOException {
+        if (pageIndex < 0){
+            pageIndex = 0;
+        }
+        SearchRequest jd_goods = new SearchRequest("jd_goods");
+        // 创建搜索源建造者对象
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        // 条件采用：精确查询 通过keyword查字段name
+        TermQueryBuilder termQueryBuilder = QueryBuilders.termQuery("name", keyword);
+        searchSourceBuilder.query(termQueryBuilder);
+        searchSourceBuilder.timeout(new TimeValue(60, TimeUnit.SECONDS));// 60s
+        // 分页
+        searchSourceBuilder.from(pageIndex);
+        searchSourceBuilder.size(pageSize);
+        // 高亮
+        // ....
+        // 搜索源放入搜索请求中
+        jd_goods.source(searchSourceBuilder);
+        // 执行查询，返回结果
+        SearchResponse searchResponse = restHighLevelClient.search(jd_goods, RequestOptions.DEFAULT);
+        restHighLevelClient.close();
+        // 解析结果
+        SearchHits hits = searchResponse.getHits();
+        List<Map<String,Object>> results = new ArrayList<>();
+        for (SearchHit documentFields : hits.getHits()) {
+            Map<String, Object> sourceAsMap = documentFields.getSourceAsMap();
+            results.add(sourceAsMap);
+        }
+        // 返回查询的结果
+        return results;
+    }
+
+
+    public List<Map<String, Object>> parse(@PathVariable("keyword") String keyword,
+                                           @PathVariable("pageIndex") Integer pageIndex,
+                                           @PathVariable("pageSize") Integer pageSize) throws IOException {
+        return search(keyword,pageIndex,pageSize);
+    }
+
 
 
 }

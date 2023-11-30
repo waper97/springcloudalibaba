@@ -2,6 +2,7 @@ package com.waper.jobhunting.controller;
 
 import com.alibaba.nacos.api.naming.pojo.healthcheck.impl.Http;
 import lombok.extern.slf4j.Slf4j;
+import org.elasticsearch.client.RestHighLevelClient;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,10 @@ import java.util.concurrent.PriorityBlockingQueue;
 @RequestMapping("/test")
 @RestController
 public class BilibliController {
+
+    @Resource
+    private RestHighLevelClient restHighLevelClient;
+
     @Value("${name}")
     String name;
 

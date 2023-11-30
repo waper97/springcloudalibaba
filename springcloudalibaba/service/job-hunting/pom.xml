@@ -62,7 +62,6 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>3.5.2</version>
         </dependency>
 
         <dependency>
@@ -92,24 +91,23 @@
         </dependency>
 
 
-<!--        <dependency>-->
-<!--            <groupId>com.waper</groupId>-->
-<!--            <artifactId>common</artifactId>-->
-<!--            <version>0.0.1-SNAPSHOT</version>-->
+        <dependency>
+            <groupId>com.waper</groupId>
+            <artifactId>common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
 <!--            <exclusions>-->
 <!--                <exclusion>-->
 <!--                    <groupId>org.springframework.boot</groupId>-->
 <!--                    <artifactId>spring-boot-starter-data-jpa</artifactId>-->
 <!--                </exclusion>-->
 <!--            </exclusions>-->
-<!--        </dependency>-->
+        </dependency>
 
 
 
         <dependency>
             <groupId>io.seata</groupId>
             <artifactId>seata-spring-boot-starter</artifactId>
-            <version>1.6.1</version>
             <exclusions>
                 <exclusion>
                     <artifactId>asm</artifactId>

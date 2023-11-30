@@ -32,6 +32,9 @@
 		<mybatis.plus.boot.starter.version>3.5.1</mybatis.plus.boot.starter.version>
 		<spring.cloud.starter.openfeign.version>4.0.1</spring.cloud.starter.openfeign.version>
 		<seata.spring.boot.starter.version>1.6.1</seata.spring.boot.starter.version>
+		<spring.boot.starter.data.elasticsearch>3.2.0</spring.boot.starter.data.elasticsearch>
+		<mybatis.plus.boot.starter>3.5.4.1</mybatis.plus.boot.starter>
+		<seata.spring.boot.starter>1.6.1</seata.spring.boot.starter>
 	</properties>
 
 	<modules>
@@ -157,6 +160,24 @@
 				<version>${fastjson.version}</version>
 			</dependency>
 
+			<!-- elasticsearch -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+				<version>${spring.boot.starter.data.elasticsearch}</version>
+			</dependency>
+<!--mybatis plus-->
+			<dependency>
+				<groupId>com.baomidou</groupId>
+				<artifactId>mybatis-plus-boot-starter</artifactId>
+				<version>${mybatis.plus.boot.starter.version}</version>
+			</dependency>
+<!--seata-->
+			<dependency>
+				<groupId>io.seata</groupId>
+				<artifactId>seata-spring-boot-starter</artifactId>
+				<version>${seata.spring.boot.starter.version}</version>
+			</dependency>
 
 		</dependencies>
 
