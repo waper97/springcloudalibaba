@@ -100,7 +100,7 @@
 				<type>pom</type>
 <!--				<scope>import</scope>-->
 			</dependency>
-
+			<!--mysql-->
 			<dependency>
 				<groupId>mysql</groupId>
 				<artifactId>mysql-connector-java</artifactId>
@@ -113,7 +113,7 @@
 				<artifactId>druid</artifactId>
 				<version>${druid.version}</version>
 			</dependency>
-
+			<!--druid-->
 			<dependency>
 				<groupId>com.alibaba</groupId>
 				<artifactId>druid-spring-boot-starter</artifactId>
@@ -170,13 +170,13 @@
 				<artifactId>spring-boot-starter-data-elasticsearch</artifactId>
 				<version>${spring.boot.starter.data.elasticsearch}</version>
 			</dependency>
-<!--mybatis plus-->
+			<!--mybatis plus-->
 			<dependency>
 				<groupId>com.baomidou</groupId>
 				<artifactId>mybatis-plus-boot-starter</artifactId>
 				<version>${mybatis.plus.boot.starter.version}</version>
 			</dependency>
-<!--seata-->
+			<!--seata-->
 			<dependency>
 				<groupId>io.seata</groupId>
 				<artifactId>seata-spring-boot-starter</artifactId>
