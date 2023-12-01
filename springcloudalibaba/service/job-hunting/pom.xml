@@ -145,6 +145,35 @@
         </dependency>
 
 
+        <!-- minio -->
+        <dependency>
+            <groupId>io.minio</groupId>
+            <artifactId>minio</artifactId>
+<!--            解决报错
+Description:
+An attempt was made to call a method that does not exist. The attempt was made from the following location:
+io.minio.S3Base.<clinit>(S3Base.java:105)
+原因是minio的httpok和springboot中的不一样
+minio:      throw new RuntimeException("Unsupported OkHttp library found. Must use okhttp >= 4.11.0", ex);
+
+
+
+
+-->
+            <exclusions>
+                <exclusion>
+                    <groupId>com.squareup.okhttp3</groupId>
+                    <artifactId>okhttp</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>${okhttp3.version}</version>
+        </dependency>
+
 
     </dependencies>
 

@@ -31,7 +31,7 @@
               </el-dropdown-menu>
             </template>
           </el-dropdown>
-          <span>Tom</span>
+<!--          <span>Tom</span>-->
         </div>
       </el-header>
 
@@ -48,16 +48,10 @@
             <el-table-column prop="pictureUrl" label="图片路径" />
 
 
-            <el-table-column
-                label="test"
-              >
+            <el-table-column>
               <template slot-scope="scope">
-                <el-button
-
-                    >编辑</el-button>
-                <el-button
-
-                    >删除</el-button>
+                  <el-button>编辑</el-button>
+                  <el-button>删除</el-button>
               </template>
             </el-table-column>
 

@@ -1,4 +1,10 @@
 spring:
+  servlet:
+    multipart:
+      max-request-size: 200MB
+      max-file-size: 200MB
+  banner:
+    location: classpath:static/banner.txt
   profiles:
     active: dev
   application:
@@ -54,3 +60,9 @@ logging:
 json:
   hero: herolist.json
   item: item.json
+minio:
+  accessKey: admin
+  secretKey: minio123456
+  bucketName: hero
+  readPath: http://192.168.128.128:9000/minio
+  endpoint: http://192.168.128.128:9000

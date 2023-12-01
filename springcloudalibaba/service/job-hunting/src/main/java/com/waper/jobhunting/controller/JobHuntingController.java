@@ -1,5 +1,9 @@
 package com.waper.jobhunting.controller;
 
+import cn.hutool.core.date.DateTime;
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.NumberUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -7,16 +11,12 @@ import com.rabbitmq.client.*;
 import com.waper.common.entity.R;
 import com.waper.common.test.MyThread;
 import com.waper.jobhunting.mapper.JobHuntingMapper;
-import com.waper.jobhunting.service.HeroService;
-import com.waper.jobhunting.service.ItemService;
-import com.waper.jobhunting.service.JobHuntingService;
-import com.waper.jobhunting.service.SummonerService;
+import com.waper.jobhunting.service.*;
 import com.waper.jobhuntingapi.entity.Hero;
 import com.waper.jobhuntingapi.entity.Item;
 import com.waper.jobhuntingapi.entity.JobHunting;
 import com.waper.jobhuntingapi.entity.Summoner;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import org.apache.commons.io.FileUtils;
 import org.elasticsearch.action.bulk.BulkRequest;
 import org.elasticsearch.action.bulk.BulkResponse;
@@ -37,15 +37,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.constraints.NotNull;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.concurrent.locks.Lock;
@@ -86,6 +92,9 @@ public class JobHuntingController {
 
     @Autowired
     private RabbitTemplate rabbitTemplate;
+
+    @Autowired
+    private FileUploadService fileUploadService;
 
     @Value("${json.hero}")
     String hero ;
@@ -252,14 +261,13 @@ public class JobHuntingController {
         try {
             File file = ResourceUtils.getFile("classpath:herolist.json");
             jsonString = FileUtils.readFileToString(file, "utf-8");
-            System.out.println("jsonString = " + jsonString);
         }catch (Exception e){
             e.printStackTrace();
         }
 
         List<Hero> list = JSONObject.parseArray(jsonString, Hero.class);
         boolean b = heroService.saveBatch(list);
-        return b ? R.success(jsonString) :R.fail();
+        return b ? R.success(list) :R.fail();
 
     }
 
@@ -386,6 +394,61 @@ public class JobHuntingController {
                                            @PathVariable("pageIndex") Integer pageIndex,
                                            @PathVariable("pageSize") Integer pageSize) throws IOException {
         return search(keyword,pageIndex,pageSize);
+    }
+
+
+    @PostMapping("fileUpload")
+    @ApiOperation(value = "图片上传接口")
+    @ApiModelProperty(value = "图片",name = "file",required = true)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "file",value = "文件",required = true),
+            @ApiImplicitParam(name = "directory",value = "要上传的目录")
+    })
+    public R fileUpload(@NotNull MultipartFile file,String directory) {
+
+        try {
+            // 获取文件名称
+            String fileName = file.getOriginalFilename();
+            /*解决多次上传同名文件覆盖问题*/
+            // 在文件名称里面添加随机唯一的值
+            LocalDateTime.now();
+            LocalDateTime time = LocalDateTime.now();
+            String formatTime = time.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+            String fastSimpleUUID = IdUtil.fastSimpleUUID();
+//            String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+            fileName = fastSimpleUUID+formatTime+fileName;
+            // 获取文件输入流
+            InputStream is = file.getInputStream();
+            String imgUrl = fileUploadService.uploadImgFile("img", fileName, is);
+            return R.success(imgUrl);
+        } catch (IOException e) {
+            return R.fail("上传失败");
+        }
+    }
+
+
+    /**
+     * 下载文件
+     *
+     * @param pathUrl 文件全路径
+     * @return
+     */
+    @GetMapping("downLoadFile")
+    @ApiOperation("下载文件")
+    public byte[] downLoadFile(String pathUrl){
+        return fileUploadService.downLoadFile(pathUrl);
+    }
+
+
+    /**
+     * 下载文件
+     *
+     * @return
+     */
+    @GetMapping("downLoadFile2")
+    @ApiOperation("下载文件")
+    public void downLoadFile2(String fileName, HttpServletResponse response){
+         fileUploadService.downLoadFile2(fileName,response);
     }
 
 

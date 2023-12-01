@@ -20,15 +20,6 @@ import java.util.concurrent.Executors;
 public class JobHuntingApplication {
 
     public static void main(String[] args) {
-
-
-//        ExecutorService singleThreadExecutor = Executors.newSingleThreadExecutor();
-//        ExecutorService fixedThreadPool = Executors.newFixedThreadPool(1);
-////        ThreadLocal
-////        ExecutorServince cachedThreadPool = Executors.newCachedThreadPool();
-//        ExecutorService scheduledThreadPool = Executors.newScheduledThreadPool(1);
-//        Executor executor;
-
         SpringApplication.run(JobHuntingApplication.class, args);
     }
 }

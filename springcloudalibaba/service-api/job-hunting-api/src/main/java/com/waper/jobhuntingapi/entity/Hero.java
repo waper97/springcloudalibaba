@@ -20,11 +20,11 @@ import java.io.Serializable;
  */
 @ApiModel(value = "英雄")
 @Data
-@Entity
-@Table(name = "hero")
+//@Entity
+//@Table(name = "hero")
 public class Hero implements Serializable {
 
-    @Id
+    @TableId("id")
     private Integer id;
     /**
      * 英雄编号
@@ -41,6 +41,12 @@ public class Hero implements Serializable {
      */
     @ApiModelProperty(value = "英雄全称")
     private String title;
+
+    /**
+     * 上线时间
+     */
+    @ApiModelProperty("上线时间")
+    private String time;
     /**
      *类型
      */
