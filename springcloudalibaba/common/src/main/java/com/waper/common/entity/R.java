@@ -75,9 +75,7 @@ public class R<T> implements Serializable {
         return new R<>(SUCCESS_CODE,R.SUCCESS_MSG,true,data);
     }
 
-    public static<T> R<T> success (String message) {
-        return new R<>(SUCCESS_CODE,message,true,null);
-    }
+
 
 
 

@@ -174,6 +174,15 @@ minio:      throw new RuntimeException("Unsupported OkHttp library found. Must u
             <version>${okhttp3.version}</version>
         </dependency>
 
+        <!-- OCR 图片转文字  tess4j -->
+        <dependency>
+            <groupId>net.sourceforge.tess4j</groupId>
+            <artifactId>tess4j</artifactId>
+            <version>${tess4j.version}</version>
+        </dependency>
+
+
+
 
     </dependencies>
 

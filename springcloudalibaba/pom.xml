@@ -22,6 +22,7 @@
 		<fastjson.version>2.0.7</fastjson.version>
 		<dynamic.datasource.spring.boot.starter.version>4.2.0</dynamic.datasource.spring.boot.starter.version>
 		<knife4j.spring.boot.starter.version>3.0.3</knife4j.spring.boot.starter.version>
+		<knife4j.openapi3.spring.boot.starter.versioin>4.3.0</knife4j.openapi3.spring.boot.starter.versioin>
 		<spring.boot.starter.data.redis.version>2.7.5</spring.boot.starter.data.redis.version>
 		<druid.spring.boot.starter.version>1.2.9</druid.spring.boot.starter.version>
 		<druid.version>1.1.23</druid.version>
@@ -39,6 +40,7 @@
 		<!-- 覆盖SpringBoot中okhttp3的旧版本声明，解决MinIO 8.5.x的依赖冲突 -->
 		<okhttp3.version>4.8.1 </okhttp3.version>
 		<hutool.version>5.8.23</hutool.version>
+		<tess4j.version>5.8.0</tess4j.version>
 	</properties>
 
 	<modules>
@@ -197,6 +199,12 @@
 				<version>${hutool.version}</version>
 			</dependency>
 
+			<!-- OCR 图片转文字  tess4j -->
+			<dependency>
+				<groupId>net.sourceforge.tess4j</groupId>
+				<artifactId>tess4j</artifactId>
+				<version>${tess4j.version}</version>
+			</dependency>
 
 
 		</dependencies>
