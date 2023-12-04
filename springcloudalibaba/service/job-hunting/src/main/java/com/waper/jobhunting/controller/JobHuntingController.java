@@ -16,6 +16,10 @@ import com.waper.jobhuntingapi.entity.Hero;
 import com.waper.jobhuntingapi.entity.Item;
 import com.waper.jobhuntingapi.entity.JobHunting;
 import com.waper.jobhuntingapi.entity.Summoner;
+import io.minio.GetPresignedObjectUrlArgs;
+import io.minio.MinioClient;
+import io.minio.errors.*;
+import io.minio.http.Method;
 import io.swagger.annotations.*;
 import org.apache.commons.io.FileUtils;
 import org.elasticsearch.action.bulk.BulkRequest;
@@ -50,6 +54,8 @@ import javax.validation.constraints.NotNull;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -68,7 +74,14 @@ import java.util.concurrent.locks.ReentrantLock;
 @RequestMapping(value = "/jobHunting")
 public class JobHuntingController {
 
+    /**
+     * 默认存储桶
+     */
+    @Value("${minio.bucketName}")
+    private String bucketName;
 
+    @Resource
+    private MinioClient minioClient;
     @Autowired
     private RestHighLevelClient restHighLevelClient;
 
@@ -321,13 +334,13 @@ public class JobHuntingController {
     @GetMapping(value = "/listHero")
     public R listHero(Hero hero) {
         QueryWrapper<Hero> heroQueryWrapper = new QueryWrapper<>();
-        return R.success(heroService.list(heroQueryWrapper));
+        return R.success(heroService.listHero());
     }
     @ApiOperation(value = "装备列表")
     @GetMapping(value = "/listItem")
     public R listItem(Item item) {
         QueryWrapper<Item> itemQueryWrapper = new QueryWrapper<>();
-        return R.success(itemService.list(itemQueryWrapper));
+        return R.success(itemService.listItem());
     }
     @ApiOperation(value = "召唤师列表")
     @GetMapping(value = "/listSummoner")
@@ -405,25 +418,29 @@ public class JobHuntingController {
             @ApiImplicitParam(name = "directory",value = "要上传的目录")
     })
     public R fileUpload(@NotNull MultipartFile file,String directory) {
-
-        try {
-            // 获取文件名称
-            String fileName = file.getOriginalFilename();
-            /*解决多次上传同名文件覆盖问题*/
-            // 在文件名称里面添加随机唯一的值
-            LocalDateTime.now();
-            LocalDateTime time = LocalDateTime.now();
-            String formatTime = time.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-            String fastSimpleUUID = IdUtil.fastSimpleUUID();
-//            String uuid = UUID.randomUUID().toString().replaceAll("-", "");
-            fileName = fastSimpleUUID+formatTime+fileName;
             // 获取文件输入流
-            InputStream is = file.getInputStream();
-            String imgUrl = fileUploadService.uploadImgFile("img", fileName, is);
+            String imgUrl = fileUploadService.uploadImgFile(file);
             return R.success(imgUrl);
-        } catch (IOException e) {
-            return R.fail("上传失败");
-        }
+    }
+
+
+    @PostMapping("batchFileUpload")
+    @ApiOperation(value = "批量图片上传接口")
+    @ApiModelProperty(value = "图片",name = "files",required = true)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "file",value = "文件",required = true),
+            @ApiImplicitParam(name = "directory",value = "要上传的目录")
+    })
+    public R batchFileUpload(@RequestParam("files") MultipartFile files [],String bucketName) {
+
+        boolean result = fileUploadService.batchUploadImgFile(files);
+        return result ? R.success("上传成功") : R.fail("上传失败");
+    }
+    @GetMapping("getDownloadUrl")
+    @ApiOperation("获取文件下载连接")
+    public String getDownloadUrl (String fileName) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
+        String hero1 = minioClient.getPresignedObjectUrl(GetPresignedObjectUrlArgs.builder().method(Method.GET).bucket(bucketName).object(fileName).build());
+        return hero1;
     }
 
 

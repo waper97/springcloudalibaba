@@ -1,5 +1,7 @@
 package com.waper.jobhunting.service.impl;
 
+import cn.hutool.core.util.IdUtil;
+import com.waper.common.entity.R;
 import com.waper.jobhunting.service.FileUploadService;
 import io.minio.GetObjectArgs;
 import io.minio.MinioClient;
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +23,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.Date;
 
 import static java.io.File.separator;
@@ -78,7 +84,9 @@ public class FileUploadServiceImpl implements FileUploadService {
         if (!StringUtils.isEmpty(dirPath)) {
             stringBuilder.append(dirPath).append(separator);
         }
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        String fomart = "yyyy/MM/dd";
+        String fomart2 = "yyyyMMdd";
+        SimpleDateFormat sdf = new SimpleDateFormat(fomart2);
         String todayStr = sdf.format(new Date());
         stringBuilder.append(todayStr).append(separator);
         stringBuilder.append(filename);
@@ -87,16 +95,31 @@ public class FileUploadServiceImpl implements FileUploadService {
 
 
     @Override
-    public String uploadImgFile(String prefix, String filename, InputStream inputStream) {
-        String filePath = builderFilePath(prefix, filename);
+    public String uploadImgFile(MultipartFile file) {
+        // 获取文件名称
+        String fileName = file.getOriginalFilename();
+        String originalFilename = file.getOriginalFilename();
+        /*解决多次上传同名文件覆盖问题*/
+        // 在文件名称里面添加随机唯一的值
+        LocalDateTime.now();
+        LocalDateTime time = LocalDateTime.now();
+        String formatTime = time.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        String fastSimpleUUID = IdUtil.fastSimpleUUID();
+        fileName = fastSimpleUUID+formatTime+fileName;
+        // 获取文件输入流
+        InputStream is = null;
+
+        String filePath = builderFilePath("img", fileName);
         try {
+            is = file.getInputStream();
             PutObjectArgs putObjectArgs = PutObjectArgs.builder()
                     .object(filePath)
                     .contentType("image/jpg")
-                    .bucket(bucketName).stream(inputStream, inputStream.available(), -1)
+                    .bucket(bucketName).stream(is, is.available(), -1)
                     // 设置对象名称，后面下载用文件名称下载就ok了
-                    .object(filename)
+                    .object(originalFilename)
                     .build();
+            log.info("objectName:{}",originalFilename);
             minioClient.putObject(putObjectArgs);
             StringBuilder urlPath = new StringBuilder(readPath);
             urlPath.append(separator + bucketName);
@@ -108,6 +131,12 @@ public class FileUploadServiceImpl implements FileUploadService {
             throw new RuntimeException("上传文件失败");
         }
 
+    }
+
+    @Override
+    public boolean batchUploadImgFile(MultipartFile [] files) {
+          Arrays.stream(files).forEach(e -> { uploadImgFile(e); return  ;});
+          return true;
     }
 
     @Override

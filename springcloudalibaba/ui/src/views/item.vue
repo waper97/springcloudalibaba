@@ -41,11 +41,18 @@
           width="120">
       </el-table-column>
 
-      <el-table-column
-          prop="pictureUrl"
-          label="图片"
-          width="120">
-      </el-table-column>
+<!--      <el-table-column-->
+<!--          prop="pictureUrl"-->
+<!--          label="图片"-->
+<!--          width="120">-->
+<!--      </el-table-column>-->
+
+        <el-table-column  label="图片" >
+            <!--                vue3 不使用solt-score 而是使用v-slot -->
+            　　<template v-slot:="scope">
+            　　　　<img :src="scope.row.pictureUrl" width="40" height="40" class="head_pic"/>
+            　　</template>
+        </el-table-column>
       <el-table-column
           fixed="right"
           label="操作"

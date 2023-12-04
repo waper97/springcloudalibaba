@@ -63,6 +63,6 @@ json:
 minio:
   accessKey: admin
   secretKey: minio123456
-  bucketName: hero
+  bucketName: item
   readPath: http://192.168.128.128:9000/minio
   endpoint: http://192.168.128.128:9000

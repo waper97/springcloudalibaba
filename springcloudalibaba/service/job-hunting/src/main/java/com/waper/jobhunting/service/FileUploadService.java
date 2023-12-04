@@ -1,5 +1,7 @@
 package com.waper.jobhunting.service;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
 
@@ -20,7 +22,14 @@ public interface FileUploadService {
      * @param inputStream 文件流
      * @return 文件全路径
      */
-     String uploadImgFile(String prefix, String filename, InputStream inputStream);
+     String uploadImgFile(MultipartFile file);
+
+    /**
+     * 批量上传
+     * @param files
+     * @return
+     */
+    boolean batchUploadImgFile(MultipartFile files []);
 
     /**
      * 上传html文件

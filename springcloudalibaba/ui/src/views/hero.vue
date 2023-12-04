@@ -45,15 +45,14 @@
             <el-table-column prop="newType" label="类型" />
             <el-table-column prop="skinName" label="皮肤名称" />
             <el-table-column prop="title" label="标题" />
-            <el-table-column prop="pictureUrl" label="图片路径" />
-
-
-            <el-table-column>
-              <template slot-scope="scope">
-                  <el-button>编辑</el-button>
-                  <el-button>删除</el-button>
-              </template>
+              <el-table-column prop="time" label="上线时间" />
+            <el-table-column  label="图片路径" >
+<!--                vue3 不使用solt-score 而是使用v-slot -->
+                　　<template v-slot:="scope">
+                　　　　<img :src="scope.row.pictureUrl" width="40" height="40" class="head_pic"/>
+                　　</template>
             </el-table-column>
+
 
           </el-table>
 
@@ -94,7 +93,9 @@ export default {
   data() {
     return {
       tableData: [],
-      page:{
+        fits: ['fill', 'contain', 'cover', 'none', 'scale-down'],
+
+        page:{
         total:1000
       }
     }
@@ -109,6 +110,7 @@ export default {
           for (let typeMapKey in typeMap) {
             if (typeMapKey ==  data[i].heroType){
               data[i].heroType = typeMap[typeMapKey]
+                data[i].newType = typeMap[typeMapKey]
             }
           }
           this.tableData = data
@@ -136,8 +138,12 @@ export default {
     }
     ,mhandleRouterTureSummoner(){
       this.$router.push('/summoner')
-    }
+    },
 
+      // heroTypeFilter(value, row, column) {
+      //     const property = column["property"];
+      //     return row[property] === value;
+      // }
   },
   filters:{
 

@@ -43,7 +43,14 @@ public class R<T> implements Serializable {
         date = LocalDateTime.now();
     }
 
-    public R(Integer code, String msg, Boolean status,T data) {
+    public R(Integer code, Boolean status, String msg, LocalDateTime date) {
+        this.code = code;
+        this.status = status;
+        this.msg = msg;
+        this.date = date;
+    }
+
+    public R(Integer code, String msg, Boolean status, T data) {
         this.code = SUCCESS_CODE;
         this.msg = SUCCESS_MSG;
         this.data = data;
@@ -66,6 +73,10 @@ public class R<T> implements Serializable {
 
     public static<T> R<T> success (T data) {
         return new R<>(SUCCESS_CODE,R.SUCCESS_MSG,true,data);
+    }
+
+    public static<T> R<T> success (String message) {
+        return new R<>(SUCCESS_CODE,message,true,null);
     }
 
 
