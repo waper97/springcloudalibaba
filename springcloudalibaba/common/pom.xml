@@ -95,6 +95,12 @@
 			<artifactId>hutool-all</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>mybatis-plus-boot-starter</artifactId>
+			<scope>compile</scope>
+		</dependency>
+
 
 
 
