@@ -43,6 +43,7 @@ public class LogAspect {
 
     ThreadLocal<SystemLog> threadLocal = new ThreadLocal();
 
+
     @Around(value ="pointcut()")
     public void doAround(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         ServletRequestAttributes attributes = (ServletRequestAttributes)  RequestContextHolder.getRequestAttributes();
