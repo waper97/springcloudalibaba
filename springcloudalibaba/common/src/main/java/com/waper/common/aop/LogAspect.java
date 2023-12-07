@@ -53,7 +53,7 @@ public class LogAspect {
         Method method = methodSignature.getMethod();
         Log annotation = method.getAnnotation(Log.class);
         String value = annotation.value();
-        String name = annotation.name();
+        String name = annotation.businessType();
 
 
         log.info("name:{}",name);

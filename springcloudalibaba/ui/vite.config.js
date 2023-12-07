@@ -25,5 +25,21 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/api/, '')
       },
     }
+  },
+  build:{
+    // 解决打包报错问题
+    // - Using dynamic import() to code-split the application
+    // - Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/guide/en/#outputmanualchunks
+    // - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+    chunkSizeWarningLimit: 1500,
+    rollupOptions:{
+      output:{
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            return 'vendor';
+          }
+        }
+      }
+    }
   }
 })
