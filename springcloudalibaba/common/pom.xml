@@ -7,6 +7,7 @@
 		<groupId>com.waper</groupId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
+	<packaging>jar</packaging>
 
 	<groupId>com.waper</groupId>
 	<artifactId>common</artifactId>
