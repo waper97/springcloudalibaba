@@ -8,6 +8,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.rabbitmq.client.*;
+import com.waper.common.config.DelayedExchangeConfig;
 import com.waper.common.entity.R;
 import com.waper.common.test.MyThread;
 import com.waper.jobhunting.mapper.JobHuntingMapper;
@@ -36,6 +37,7 @@ import org.elasticsearch.index.query.TermQueryBuilder;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -108,6 +110,9 @@ public class JobHuntingController {
 
     @Autowired
     private FileUploadService fileUploadService;
+
+    @Autowired
+    private DelayedMessageProducer delayedMessageProducer;
 
     @Value("${json.hero}")
     String hero ;
@@ -468,6 +473,23 @@ public class JobHuntingController {
          fileUploadService.downLoadFile2(fileName,response);
     }
 
+    /**
+     * 发送延迟消息
+     * @param message
+     * @return
+     */
+    @GetMapping("/send")
+    @ApiOperation("发送延迟消息")
+    @ApiImplicitParam(name = "message",value = "消息")
+    public String sendDirectMessage(@RequestParam String message) {
+        delayedMessageProducer.sendDelayedMessage(message);
+        return "Delayed message sent to Exchange: " + message;
+    }
+
+    @RabbitListener(queues = DelayedExchangeConfig.QUEUE_NAME)
+    public void receiveDelayedMessage(String message) {
+        System.out.println("Received delayed message: " + message);
+    }
 
 
 }
