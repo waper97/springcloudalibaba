@@ -33,6 +33,7 @@ public class TokenFilter implements GlobalFilter {
             return chain.filter(exchange);
         }
 
+
         return null;
     }
 }

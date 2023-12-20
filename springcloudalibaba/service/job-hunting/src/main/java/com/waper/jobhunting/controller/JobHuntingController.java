@@ -1,17 +1,12 @@
 package com.waper.jobhunting.controller;
 
-import cn.hutool.core.date.DateTime;
-import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.util.IdUtil;
-import cn.hutool.core.util.NumberUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.rabbitmq.client.*;
-import com.waper.common.config.DelayedExchangeConfig;
+import com.waper.jobhunting.config.DelayedExchangeConfig;
 import com.waper.common.entity.R;
 import com.waper.common.test.MyThread;
-import com.waper.jobhunting.mapper.JobHuntingMapper;
 import com.waper.jobhunting.service.*;
 import com.waper.jobhuntingapi.entity.Hero;
 import com.waper.jobhuntingapi.entity.Item;
@@ -37,13 +32,13 @@ import org.elasticsearch.index.query.TermQueryBuilder;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
+import org.springframework.amqp.core.MessagePostProcessor;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.util.ResourceUtils;
@@ -55,11 +50,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.NotNull;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.concurrent.locks.Lock;
@@ -119,6 +112,9 @@ public class JobHuntingController {
 
     @Value("${spring.rabbitmq:host}")
     String rabbitmqHost ;
+
+
+
 
     private  final static  String  QUEUE_NAME = "hello";
 
@@ -486,10 +482,50 @@ public class JobHuntingController {
         return "Delayed message sent to Exchange: " + message;
     }
 
+    /**
+     * 监听延迟队列
+     * @param message
+     */
     @RabbitListener(queues = DelayedExchangeConfig.QUEUE_NAME)
     public void receiveDelayedMessage(String message) {
         System.out.println("Received delayed message: " + message);
     }
+
+    /***
+     * 发送延时消息2
+     * @param data 消息
+     * @param delay  时间
+     */
+    @GetMapping("/sendDelayedMessage")
+    @ApiOperation("发送延迟消息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "message",value = "消息"),
+            @ApiImplicitParam(name = "delay",value = "时间"),
+    })
+    public void syncSendDelayed(String data, Integer delay) {
+        MessagePostProcessor postProcessor = postProcessMessage -> {
+            // 设置过期时间
+            postProcessMessage.getMessageProperties().setHeader("x-delay", delay == null ? 0 : 3000);
+                return postProcessMessage;
+        };
+        // 发送延时消息
+        rabbitTemplate.convertAndSend(DelayedExchangeConfig.EXCHANGE_NAME, DelayedExchangeConfig.ROUTING_KEY, data, postProcessor);
+    }
+
+    @GetMapping("/send-message")
+    @ApiOperation("send-message")
+    public void sendMessage() {
+        String queueName = "myQueue";
+        Object message = "Hello, RabbitMQ!";
+        rabbitTemplate.convertAndSend(queueName,message);
+    }
+    @RabbitListener(queues = "myQueue")
+    public void receiveMessage(String message) {
+        // 处理接收到的消息
+        System.out.println("Received message: " + message);
+    }
+
+
 
 
 }
