@@ -255,10 +255,6 @@ public class JobHuntingController {
     }
 
 
-    public static void multiThread () throws Exception {
-
-    }
-
     public static void main(String[] args) throws Exception {
         Map<String,Object> map = new HashMap<>(16);
         MyThread myThread1 = new MyThread();

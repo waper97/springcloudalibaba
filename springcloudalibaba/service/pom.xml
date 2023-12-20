@@ -16,6 +16,7 @@
         <module>mes-stock</module>
         <module>job-hunting</module>
         <module>goods-service</module>
+        <module>user</module>
     </modules>
     <groupId>com.waper</groupId>
     <artifactId>service</artifactId>
