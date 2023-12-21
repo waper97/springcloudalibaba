@@ -77,9 +77,9 @@
 import { ref } from 'vue'
 import { Menu as IconMenu, Message, Setting } from '@element-plus/icons-vue'
 const typeMap = {
-  3: '坦克',
   1: '战士',
   2: '法师',
+  3: '坦克',
   4: '刺客',
   5: '射手',
   6: '辅助',

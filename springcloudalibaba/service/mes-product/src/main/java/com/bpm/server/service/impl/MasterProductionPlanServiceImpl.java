@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -342,14 +343,14 @@ public class MasterProductionPlanServiceImpl implements MasterProductionPlanServ
             LocalDate now = LocalDate.now();
             // 获取当月的总天数
             int currentMonthLength = LocalDate.now().lengthOfMonth();
-            List<LocalDateTime> monthAllDate = numberUtil.getMonthAllDate();
+            List<LocalDateTime> monthAllDate = NumberUtil.getMonthAllDate();
             monthAllDate.stream().forEach(everyDay ->{
                 now.with(TemporalAdjusters.firstDayOfMonth());
                 day.setCode(numberUtil.contextLoads("ms"));
                 day.setDocumentType("1");
                 day.setProductId(masterPlan.getProductId());
-                BigDecimal planIntoQuantity = masterPlan.getPlanIntoQuantity().divide(BigDecimal.valueOf(currentMonthLength),2,BigDecimal.ROUND_HALF_UP);
-                day.setPlanIntoQuantity(masterPlan.getPlanIntoQuantity().divide(BigDecimal.valueOf(currentMonthLength),2,BigDecimal.ROUND_HALF_UP));
+                BigDecimal planIntoQuantity = masterPlan.getPlanIntoQuantity().divide(BigDecimal.valueOf(currentMonthLength),2, RoundingMode.HALF_UP);
+                day.setPlanIntoQuantity(masterPlan.getPlanIntoQuantity().divide(BigDecimal.valueOf(currentMonthLength),2, RoundingMode.HALF_UP));
                 day.setNetDemand(planIntoQuantity);
                 day.setQuantityGross(planIntoQuantity);
                 day.setProductId(masterPlan.getProductId());
@@ -413,7 +414,7 @@ public class MasterProductionPlanServiceImpl implements MasterProductionPlanServ
                 //公式：  计划投入量/可制基数 x 比例
                 dayMaterialRequirementsPlanning.setPlanIntoQuantity(
                         dayMasterProductionPlaning.getPlanIntoQuantity()
-                                .divide(bomInfo.getCardinality(),BigDecimal.ROUND_HALF_UP)
+                                .divide(bomInfo.getCardinality(), RoundingMode.HALF_UP)
                                 .multiply(one.subtract(attritionRate))
                 );
                 dayMaterialRequirementsPlanning.setQuantityGross(dayMasterProductionPlaning.getQuantityGross());

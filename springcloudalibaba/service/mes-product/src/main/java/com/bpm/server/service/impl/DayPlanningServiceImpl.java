@@ -220,7 +220,7 @@ public class DayPlanningServiceImpl implements DayPlanningService {
                 detailList.stream().forEach(element -> {
                     element.setDayPlanningId(dayPlanning.getId());
                     element.setStatus(0);
-                ;});
+                });
                 return dayPlanningDetailMapper.insertBatch(detailList) > 0;
             }
             return true;

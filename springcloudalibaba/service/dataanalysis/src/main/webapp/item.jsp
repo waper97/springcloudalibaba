@@ -123,7 +123,7 @@
                case 'isAll':
                    layer.msg(checkStatus.isAll ? '全选': '未全选')
                    break;
-           };
+           }
        });
 
 

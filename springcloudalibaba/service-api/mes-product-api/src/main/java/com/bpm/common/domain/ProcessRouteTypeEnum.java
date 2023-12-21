@@ -24,8 +24,8 @@ public enum ProcessRouteTypeEnum {
     LOADING_AND_DELIVERY("装车出库","8");
 
 
-    private String name;
-    private String value;
+    private final String name;
+    private final String value;
 
     public String getName() {
         return name;

@@ -45,7 +45,7 @@ public class UserController {
     public R login(@RequestParam String userName, @RequestParam String password , HttpServletRequest request) {
         System.out.println("userName  = " + userName );
         System.out.println("password  = " + password );
-        LambdaQueryWrapper<User> userLambdaQueryWrapper = Wrappers.<User>lambdaQuery();
+        LambdaQueryWrapper<User> userLambdaQueryWrapper = Wrappers.lambdaQuery();
         User user = userService.getOne(userLambdaQueryWrapper.eq(User::getUserName, userName).eq(User::getPassword, password));
         if (user == null) {
             return R.fail();

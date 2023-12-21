@@ -17,7 +17,7 @@ public class CommonUtils {
      */
     public static String insertStringToTargetString(String oringinString,String temp,String wannaInsertString) {
         String first = oringinString.substring(0, oringinString.lastIndexOf(temp));
-        String renamedDocFileName = wannaInsertString+oringinString.substring(oringinString.lastIndexOf(temp),oringinString.length());
+        String renamedDocFileName = wannaInsertString+oringinString.substring(oringinString.lastIndexOf(temp));
         return first + renamedDocFileName;
     }
 }

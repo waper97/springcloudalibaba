@@ -1,6 +1,7 @@
 package com.waper.dataanalysis.util;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 /**
  * @ClassName AnalysisJsonUtil
@@ -21,7 +22,7 @@ public  class AnalysisJsonUtil {
             File file = new File(filePath);
             FileReader fileReader = new FileReader(file);
             // 读取文件
-            Reader reader = new InputStreamReader(new FileInputStream(file), "utf-8");
+            Reader reader = new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8);
             int ch = 0;
             StringBuffer sb = new StringBuffer();
             while ((ch = reader.read()) != -1) {

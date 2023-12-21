@@ -203,7 +203,7 @@ public class ProductInWorkReportServiceImpl implements ProductInWorkReportServic
         String queryBatchNo = extMapper.queryBatchNo(workReportDate);
         if (StringUtils.isEmpty(queryBatchNo)){
             workReportDate = workReportDate.replace("-","");
-            workReportDate = workReportDate.substring(2,workReportDate.length());
+            workReportDate = workReportDate.substring(2);
             queryBatchNo = "MD"+workReportDate+"01";
         } else {
             queryBatchNo = NumberUtil.addOrderNum(queryBatchNo,8);

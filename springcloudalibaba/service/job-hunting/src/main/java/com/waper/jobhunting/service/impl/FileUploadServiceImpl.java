@@ -121,11 +121,10 @@ public class FileUploadServiceImpl implements FileUploadService {
                     .build();
             log.info("objectName:{}",originalFilename);
             minioClient.putObject(putObjectArgs);
-            StringBuilder urlPath = new StringBuilder(readPath);
-            urlPath.append(separator + bucketName);
-            urlPath.append(separator);
-            urlPath.append(filePath);
-            return urlPath.toString();
+            String urlPath = readPath + separator + bucketName +
+                    separator +
+                    filePath;
+            return urlPath;
         } catch (Exception ex) {
             log.error("minio put file error.", ex);
             throw new RuntimeException("上传文件失败");
@@ -135,7 +134,8 @@ public class FileUploadServiceImpl implements FileUploadService {
 
     @Override
     public boolean batchUploadImgFile(MultipartFile [] files) {
-          Arrays.stream(files).forEach(e -> { uploadImgFile(e); return  ;});
+          Arrays.stream(files).forEach(e -> { uploadImgFile(e);
+          });
           return true;
     }
 

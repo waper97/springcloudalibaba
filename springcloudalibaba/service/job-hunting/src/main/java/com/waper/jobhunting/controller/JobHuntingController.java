@@ -333,6 +333,21 @@ public class JobHuntingController {
         QueryWrapper<Hero> heroQueryWrapper = new QueryWrapper<>();
         return R.success(heroService.listHero());
     }
+    @ApiOperation("导出英雄列表")
+    @PostMapping("/exportHeroList")
+    public void export(HttpServletResponse response){
+        heroService.exportHeroList(response);
+    }
+
+    @ApiOperation("导入")
+    @PostMapping("/importUser")
+    public R importUser(@RequestParam(value = "file") MultipartFile file){
+        heroService.importUser(file);
+        return R.success();
+    }
+
+
+
     @ApiOperation(value = "装备列表")
     @GetMapping(value = "/listItem")
     public R listItem(Item item) {
@@ -428,7 +443,7 @@ public class JobHuntingController {
             @ApiImplicitParam(name = "file",value = "文件",required = true),
             @ApiImplicitParam(name = "directory",value = "要上传的目录")
     })
-    public R batchFileUpload(@RequestParam("files") MultipartFile files [],String bucketName) {
+    public R batchFileUpload(@RequestParam("files") MultipartFile[] files, String bucketName) {
 
         boolean result = fileUploadService.batchUploadImgFile(files);
         return result ? R.success("上传成功") : R.fail("上传失败");

@@ -130,7 +130,7 @@ public class ProcessRouteServiceImpl implements ProcessRouteService {
         ProcessRouteDetailDTO detailDTO = new ProcessRouteDetailDTO();
         detailDTO.setMesProductProcessRouteId(processRoute.getId());
         //
-        List<ProcessRouteDetail> olderDetailList = processRouteDetailMapper.queryAll(detailDTO);;
+        List<ProcessRouteDetail> olderDetailList = processRouteDetailMapper.queryAll(detailDTO);
         List<Integer> newIdList = newDetailList.stream().map(ProcessRouteDetail::getId).collect(Collectors.toList());
 
 

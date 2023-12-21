@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 /**
@@ -67,7 +68,7 @@ public class HeroController extends BaseController {
             File file = new File(filePath);
             FileReader fileReader = new FileReader(file);
             // 读取文件
-            Reader reader = new InputStreamReader(new FileInputStream(file),"utf-8");
+            Reader reader = new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8);
             int ch = 0;
             StringBuffer sb = new StringBuffer();
             while((ch = reader.read()) != -1){

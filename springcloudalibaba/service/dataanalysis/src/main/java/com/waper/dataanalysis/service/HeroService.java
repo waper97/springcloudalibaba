@@ -34,7 +34,7 @@ public class HeroService {
     }
 
     public Hero save(Hero hero){
-        return (Hero) heroRepository.save(hero);
+        return heroRepository.save(hero);
     }
 
     public Object saveAll(List<Hero> heroList){

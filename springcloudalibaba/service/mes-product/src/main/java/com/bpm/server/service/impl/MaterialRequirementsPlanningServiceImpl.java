@@ -25,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -391,8 +392,8 @@ public class MaterialRequirementsPlanningServiceImpl implements MaterialRequirem
                 now.with(TemporalAdjusters.firstDayOfMonth());
                 day.setDocumentType("1");
                 day.setProductId(masterPlan.getProductId());
-                BigDecimal planIntoQuantity = masterPlan.getPlanIntoQuantity().divide(BigDecimal.valueOf(currentMonthLength),2,BigDecimal.ROUND_HALF_UP);
-                day.setPlanIntoQuantity(masterPlan.getPlanIntoQuantity().divide(BigDecimal.valueOf(currentMonthLength),2,BigDecimal.ROUND_HALF_UP));
+                BigDecimal planIntoQuantity = masterPlan.getPlanIntoQuantity().divide(BigDecimal.valueOf(currentMonthLength),2, RoundingMode.HALF_UP);
+                day.setPlanIntoQuantity(masterPlan.getPlanIntoQuantity().divide(BigDecimal.valueOf(currentMonthLength),2, RoundingMode.HALF_UP));
                 day.setNetDemand(planIntoQuantity);
                 day.setQuantityGross(planIntoQuantity);
                 day.setOperationDate(LocalDateTime.now());

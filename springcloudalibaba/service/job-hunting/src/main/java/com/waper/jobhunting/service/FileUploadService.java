@@ -29,7 +29,7 @@ public interface FileUploadService {
      * @param files
      * @return
      */
-    boolean batchUploadImgFile(MultipartFile files []);
+    boolean batchUploadImgFile(MultipartFile[] files);
 
     /**
      * 上传html文件

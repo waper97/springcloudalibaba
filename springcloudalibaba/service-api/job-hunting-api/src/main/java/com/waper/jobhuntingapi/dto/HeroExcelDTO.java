@@ -1,78 +1,74 @@
-package com.waper.jobhuntingapi.entity;
+package com.waper.jobhuntingapi.dto;
 
+import com.alibaba.excel.annotation.ExcelProperty;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import java.io.Serializable;
 
 /**
- * @ClassName Hero
- * @Description TODO
- * @Author wangpeng
- * @Date 2021/6/21 15:09
+ * 英雄excel实体传输类
+ * @author wangpeng
+ * @ClassName HeroExcelDTO
+ * @description TODO
+ * @date 2023/12/21 15:11
  */
-@ApiModel(value = "英雄")
 @Data
-@Accessors(chain = true)
-//@Entity
-//@Table(name = "hero")
-public class Hero implements Serializable {
+public class HeroExcelDTO {
+    private static final long serialVersionUID = 1L;
 
-    @TableId("id")
-    private Long id;
+
+    @ExcelProperty(value = "id",index = 0)
+    private Integer id;
     /**
      * 英雄编号
      */
     @ApiModelProperty(value = "英雄编号")
+    @ExcelProperty(value = "英雄编号",index = 1)
     private Long ename;
     /**
      * 英雄名称
      */
     @ApiModelProperty(value = "英雄名称")
+    @ExcelProperty(value = "英雄名称",index = 2)
     private String cname;
     /**
      * 英雄全称
      */
     @ApiModelProperty(value = "英雄全称")
+    @ExcelProperty(value = "英雄全称",index = 3)
     private String title;
 
     /**
      * 上线时间
      */
     @ApiModelProperty("上线时间")
+    @ExcelProperty(value = "上线时间",index = 4)
     private String time;
     /**
      *类型
      */
     @ApiModelProperty(value = "类型")
+    @ExcelProperty(value = "类型",index = 5)
     private String newType;
     /**
      * 英雄类型
      */
     @ApiModelProperty(value = "英雄类型")
-    @TableField("hero_type")
+    @ExcelProperty(value = "英雄类型",index = 6)
     private String heroType;
     /**
      * 皮肤
      */
     @ApiModelProperty(value = "皮肤")
-    @TableField("skin_name")
+    @ExcelProperty(value = "皮肤",index = 7)
     private String skinName;
 
     @ApiModelProperty(value = "未知")
-    @TableField("moss_id")
+    @ExcelProperty(value = "未知",index = 8)
     private String mossId;
 
     @ApiModelProperty(value = "照片路径")
-    @TableField("picture_url")
+    @ExcelProperty(value = "照片路径",index = 9)
     private String pictureUrl;
 }

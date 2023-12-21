@@ -22,7 +22,7 @@ public class LogAop {
     @Pointcut("execution(* com.waper.dataanalysis.controller..*(..))")
     private void pointCut () {
 
-    };
+    }
 //    @Autowired
 //    LogMapper logMapper;
 
