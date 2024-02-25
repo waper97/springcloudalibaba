@@ -269,7 +269,7 @@ public class JobHuntingController {
     public R readHeroJsonFileToDatabases () {
         String jsonString = null;
         try {
-            File file = ResourceUtils.getFile("classpath:herolist.json");
+            File file = ResourceUtils.getFile("classpath:hero.json");
             jsonString = FileUtils.readFileToString(file, "utf-8");
         }catch (Exception e){
             e.printStackTrace();

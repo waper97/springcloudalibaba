@@ -27,8 +27,10 @@ import java.io.Serializable;
 //@Table(name = "hero")
 public class Hero implements Serializable {
 
-    @TableId("id")
-    private Long id;
+//    @ApiModelProperty(value = "英雄id")
+//    @TableId("ename")
+//    private Long id;
+
     /**
      * 英雄编号
      */

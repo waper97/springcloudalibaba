@@ -75,7 +75,7 @@ public class HeroExcelListener implements ReadListener<HeroExcelDTO> {
         log.info("一共{}条数据，开始存储数据库！", cacheList.size());
         if (CollectionUtils.isNotEmpty(cacheList)) {
             List<Hero> userList = cacheList.stream().map(item -> new Hero()
-                            .setId(IdUtil.getSnowflakeNextId())
+//                            .setId(IdUtil.getSnowflakeNextId())
                             .setEname(item.getEname())
                             .setCname(item.getCname())
                             .setTitle(item.getTitle())

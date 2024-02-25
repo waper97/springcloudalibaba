@@ -1,4 +1,7 @@
 spring:
+  devtools:
+    restart:
+      enabled: true
   servlet:
     multipart:
       max-request-size: 200MB
